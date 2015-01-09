@@ -1,5 +1,51 @@
 angular.module('starter.controllers', [])
 
+.controller('MyCtrl', function($scope) {
+  $scope.items = [
+    {title: 'lol rofl lmao first'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao'},
+    {title: 'lol rofl lmao last'},
+  ];
+  $scope.gotScrolled = function() {
+    var y = angular.element('.scroll').offset().top;
+    if (y < -157) {
+      console.log('yes');
+      angular.element('#ac-tabs-outer').show();
+      angular.element('#ac-tabs-inner').hide();
+    } else {
+      angular.element('#ac-tabs-outer').hide();
+      angular.element('#ac-tabs-inner').show();
+    }
+  };
+})
+
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
   $scope.loginData = {};
