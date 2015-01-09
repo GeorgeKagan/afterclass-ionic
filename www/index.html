@@ -31,53 +31,59 @@
       <button class="button button-icon icon ion-android-more"></button>
     </div>
 
-    <div id="ac-tabs-outer" class="tabs-striped tabs-background-dark tabs-color-calm tabs-top">
-      <div class="tabs">
-        <a class="tab-item active">
-          <span style="color:white">Answered</span>
-        </a>
-        <a class="tab-item">
-          <span style="color:white">Unanswered</span>
-        </a>
-      </div>
-    </div>
+    <!--<div id="ac-tabs-outer" class="tabs-striped tabs-background-dark tabs-color-calm tabs-top">-->
+      <!--<div class="tabs">-->
+        <!--<a class="tab-item active">-->
+          <!--<span style="color:white">Answered</span>-->
+        <!--</a>-->
+        <!--<a class="tab-item">-->
+          <!--<span style="color:white">Unanswered</span>-->
+        <!--</a>-->
+      <!--</div>-->
+    <!--</div>-->
 
-    <ion-content overflow-scrolling="true" on-scroll="gotScrolled()">
-      <div class="calm-bg text-center" style="padding: 80px 0 20px 0;">
-        <button class="button button-balanced button-large icon-left ion-help-circled" style="width:50%;"> Ask</button>
-        <div class="light text-center padding">Touch to ask a question</div>
-      </div>
+    <!--<ion-content overflow-scrolling="true" on-scroll="gotScrolled()">-->
 
-      <div id="ac-tabs-inner" class="tabs-striped tabs-background-dark tabs-color-calm tabs-top">
-        <div class="tabs" style="position: static;">
-          <a class="tab-item active">
-            <span style="color:white">Answered</span>
-          </a>
-          <a class="tab-item">
-            <span style="color:white">Unanswered</span>
-          </a>
-        </div>
-      </div>
+      <ion-tabs id="ac-tabs-inner" class="tabs-striped tabs-background-dark tabs-color-calm" style="position:static;">
+        <ion-tab title="Answered">
+          <ion-content on-scroll="gotScrolled()">
+            <div class="calm-bg text-center" style="padding: 80px 0 20px 0;">
+              <button class="button button-balanced button-large icon-left ion-help-circled" style="width:70%;"> Ask a question</button>
+              <div class="light text-center padding">Touch to ask a question</div>
+            </div>
+            <ul class="list">
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+              <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
+            </ul>
+          </ion-content>
+        </ion-tab>
+        <ion-tab title="Unanswered">
+          <ion-content>
+            <div class="calm-bg text-center" style="padding: 80px 0 20px 0;">
+              <button class="button button-balanced button-large icon-left ion-help-circled" style="width:70%;"> Ask a question</button>
+              <div class="light text-center padding">Touch to ask a question</div>
+            </div>
+            aaaaaaaaaaaaaazzz<br>
+          </ion-content>
+        </ion-tab>
+      </ion-tabs>
 
-      <ul class="list">
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-        <li class="item"><h2>How much is 1+1??</h2>I'm not sure, but I think it's somewhere around 3</li>
-      </ul>
-    </ion-content>
+
+    <!--</ion-content>-->
 
     <!--<ion-nav-view></ion-nav-view>-->
   </body>

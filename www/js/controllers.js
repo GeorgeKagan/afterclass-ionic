@@ -37,11 +37,14 @@ angular.module('starter.controllers', [])
     var y = angular.element('.scroll').offset().top;
     if (y < -157) {
       console.log('yes');
-      angular.element('#ac-tabs-outer').show();
-      angular.element('#ac-tabs-inner').hide();
+      //angular.element('#ac-tabs-outer').show();
+      //angular.element('#ac-tabs-inner').hide();
     } else {
-      angular.element('#ac-tabs-outer').hide();
-      angular.element('#ac-tabs-inner').show();
+      //angular.element('#ac-tabs-outer').hide();
+      //angular.element('#ac-tabs-inner').show();
+      var curr_y = angular.element('#ac-tabs-inner .tabs').position().top;
+      angular.element('#ac-tabs-inner .tabs').css('top', 199 - Math.abs(y));
+      console.log('wat');
     }
   };
 })
