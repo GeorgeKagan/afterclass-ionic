@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('MyCtrl', function($scope) {
+.controller('MyCtrl', function($scope, $ionicScrollDelegate) {
   $scope.items = [
     {title: 'lol rofl lmao first'},
     {title: 'lol rofl lmao'},
@@ -35,10 +35,11 @@ angular.module('starter.controllers', [])
   ];
   $scope.gotScrolled = function() {
     var y = angular.element('.scroll').offset().top;
-    if (y < -157) {
+    if (y <= -155) {
       console.log('yes');
       //angular.element('#ac-tabs-outer').show();
       //angular.element('#ac-tabs-inner').hide();
+      angular.element('#ac-tabs-inner .tabs').css('top', 44);
     } else {
       //angular.element('#ac-tabs-outer').hide();
       //angular.element('#ac-tabs-inner').show();
@@ -46,6 +47,11 @@ angular.module('starter.controllers', [])
       angular.element('#ac-tabs-inner .tabs').css('top', 199 - Math.abs(y));
       console.log('wat');
     }
+  };
+  $scope.scrollToTop = function() {
+    $ionicScrollDelegate.scrollTop();
+    angular.element('#ac-tabs-inner .tabs').css('top', 199);
+    return true;
   };
 })
 
