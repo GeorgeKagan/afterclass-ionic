@@ -1,12 +1,97 @@
+// Colors
+@gray: #555;
+@lightblue: #59b3dd;
+@blue: #4d9abf;
+
+// Ionic overrides
+.calm-bg {
+  background-color: @lightblue;
+}
+//.button.button-positive {
+//  background-color: @blue;
+//  border-color: @blue;
+//}
+
+// General
+* {
+  font-family: "Open Sans", sans-serif !important;
+}
+
+// Questions tabs
 #ac-tabs-inner {
-  .tabs {
+  .tab-nav.tabs {
     top: 199px;
   }
   .calm-bg {
     margin: 0 0  48px 0;
   }
 }
-
 .tab-item {
   max-width: inherit;
+}
+
+// Ask a question area
+.ask-q-area {
+  padding: 80px 0 20px 0;
+  button {
+    margin: 0 0 10px 0;
+  }
+}
+
+// Cards/Posts
+.posts {
+  top: 16px;
+}
+.card {
+  &:first-child {
+    margin-top: 0;
+  }
+  &.list:last-child {
+    margin-bottom: 16px;
+  }
+  .post-header {
+    .ph-subject {
+      font-size: 24px;
+      display: inline-block;
+    }
+    .ph-date {
+      font-size: 20px;
+      font-weight: 100;
+      font-style: italic;
+      float: right;
+    }
+  }
+  .post-question {
+    color: @gray;
+    font-size: 22px;
+    line-height: 29px;
+  }
+  .post-comment {
+    p {
+      color: @gray;
+      font-size: 18px;
+      line-height: 24px;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    img {
+      margin: 15px 0 0 0;
+      border-radius: 3px;
+      border: 1px solid @gray;
+    }
+  }
+  //
+  .item {
+    border: 0;
+  }
+  .item-avatar + .item-body {
+    padding-top: 0;
+  }
+  .button-bar {
+    padding: 0 1px;
+  }
+  img {
+    max-width: 100%;
+  }
 }

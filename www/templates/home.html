@@ -1,0 +1,148 @@
+<ion-view view-title="Home">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title" style="text-align:left"><strong>AfterClass</strong></h1>
+        <button class="button button-icon icon ion-android-more"></button>
+    </div>
+    <ion-tabs id="ac-tabs-inner" class="tabs-striped tabs-background-dark tabs-color-calm">
+        <ion-tab title="Answered" on-select="scrollToTop()">
+            <ion-content on-scroll="gotScrolled()">
+                <div class="ask-q-area calm-bg text-center">
+                    <button ng-click="askQuestion()" class="button button-balanced button-large icon-left ion-help-circled" style="width:70%;"> Ask a question</button>
+                    <div class="light text-center padding">Touch to send your question to a private teacher</div>
+                </div>
+
+                <div class="posts content">
+                    <div class="list card">
+                        <div class="post-header item balanced-bg light">
+                            <div class="ph-subject">Algebra 1</div>
+                            <div class="ph-date">July 23rd</div>
+                        </div>
+                        <div class="post-question item item-stable item-body">
+                            Do you happen to know the outcome of the following calculation: 2 + 2. Any help is much appreciated, thanks!
+                        </div>
+                        <div class="item item-avatar">
+                            <img src="img/mcfly.jpg">
+                            <h2>McFly Macinotsh</h2>
+                            <p>3 hours ago</p>
+                        </div>
+                        <div class="post-comment item item-body">
+                            <p>
+                                I'm not sure, but I think the answer is 4.
+                                Let me get my scientific calculator real quick and compare the results.
+                            </p>
+                            <img src="img/homework.png">
+                        </div>
+                        <div class="button-bar">
+                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
+                            <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="post-header item balanced-bg light">
+                            <div class="ph-subject">History</div>
+                            <div class="ph-date">July 24rd</div>
+                        </div>
+                        <div class="post-question item item-stable item-body">
+                            When did the first World War break out?
+                        </div>
+                        <div class="item item-avatar">
+                            <img src="img/mcfly.jpg">
+                            <h2>McFly Macinotsh</h2>
+                            <p>4 hours ago</p>
+                        </div>
+                        <div class="post-comment item item-body">
+                            <p>
+                                The first World War began on 28 July 1914 and lasted until 11 November 1918.
+                            </p>
+                        </div>
+                        <div class="button-bar">
+                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
+                            <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="post-header item balanced-bg light">
+                            <div class="ph-subject">History</div>
+                            <div class="ph-date">July 24rd</div>
+                        </div>
+                        <div class="post-question item item-stable item-body">
+                            When did the first World War break out?
+                        </div>
+                        <div class="item item-avatar">
+                            <img src="img/mcfly.jpg">
+                            <h2>McFly Macinotsh</h2>
+                            <p>4 hours ago</p>
+                        </div>
+                        <div class="post-comment item item-body">
+                            <p>
+                                The first World War began on 28 July 1914 and lasted until 11 November 1918.
+                            </p>
+                        </div>
+                        <div class="button-bar">
+                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
+                            <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
+                        </div>
+                    </div>
+                </div>
+
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Unanswered" on-select="scrollToTop()">
+            <ion-content on-scroll="gotScrolled()">
+                <div class="ask-q-area calm-bg text-center">
+                    <button ng-click="askQuestion()" class="button button-balanced button-large icon-left ion-help-circled" style="width:70%;"> Ask a question</button>
+                    <div class="light text-center padding">Touch to send your question to a private teacher</div>
+                </div>
+                <div class="posts content">
+                    <div class="list card">
+                        <div class="post-header item balanced-bg light">
+                            <div class="ph-subject">History</div>
+                            <div class="ph-date">July 24rd</div>
+                        </div>
+                        <div class="post-question item item-stable item-body">
+                            When did the first World War break out?
+                        </div>
+                        <div class="item item-avatar">
+                            <img src="img/mcfly.jpg">
+                            <h2>McFly Macinotsh</h2>
+                            <p>4 hours ago</p>
+                        </div>
+                        <div class="post-comment item item-body">
+                            <p>
+                                The first World War began on 28 July 1914 and lasted until 11 November 1918.
+                            </p>
+                        </div>
+                        <div class="button-bar">
+                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
+                            <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="post-header item balanced-bg light">
+                            <div class="ph-subject">History</div>
+                            <div class="ph-date">July 24rd</div>
+                        </div>
+                        <div class="post-question item item-stable item-body">
+                            When did the first World War break out?
+                        </div>
+                        <div class="item item-avatar">
+                            <img src="img/mcfly.jpg">
+                            <h2>McFly Macinotsh</h2>
+                            <p>4 hours ago</p>
+                        </div>
+                        <div class="post-comment item item-body">
+                            <p>
+                                The first World War began on 28 July 1914 and lasted until 11 November 1918.
+                            </p>
+                        </div>
+                        <div class="button-bar">
+                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
+                            <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>
