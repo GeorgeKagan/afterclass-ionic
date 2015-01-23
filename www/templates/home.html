@@ -7,7 +7,10 @@
         <ion-tab title="Answered" on-select="scrollToTop()">
             <ion-content on-scroll="gotScrolled()">
                 <div class="ask-q-area calm-bg text-center">
-                    <button ng-click="askQuestion()" class="button button-balanced button-large icon-left ion-help-circled" style="width:70%;"> Ask a question</button>
+                    <div class="aqa-btn" ng-click="askQuestion()">
+                        <div class="ab-icon"></div>
+                        <div class="ab-text">Ask a teacher</div>
+                    </div>
                     <div class="light text-center padding">Touch to send your question to a private teacher</div>
                 </div>
 
@@ -33,7 +36,6 @@
                             <img src="img/homework.png">
                         </div>
                         <div class="button-bar">
-                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
                             <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
                         </div>
                     </div>
@@ -56,7 +58,6 @@
                             </p>
                         </div>
                         <div class="button-bar">
-                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
                             <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
                         </div>
                     </div>
@@ -79,7 +80,6 @@
                             </p>
                         </div>
                         <div class="button-bar">
-                            <button class="button ion-thumbsup button-positive">&nbsp; Accept</button>
                             <button class="button ion-chatbox button-positive">&nbsp; Reply</button>
                         </div>
                     </div>
@@ -91,12 +91,15 @@
         <ion-tab title="Unanswered" on-select="scrollToTop()">
             <ion-content on-scroll="gotScrolled()">
                 <div class="ask-q-area calm-bg text-center">
-                    <button ng-click="askQuestion()" class="button button-balanced button-large icon-left ion-help-circled" style="width:70%;"> Ask a question</button>
+                    <div class="aqa-btn" ng-click="askQuestion()">
+                        <div class="ab-icon"></div>
+                        <div class="ab-text">Ask a teacher</div>
+                    </div>
                     <div class="light text-center padding">Touch to send your question to a private teacher</div>
                 </div>
                 <div class="posts content">
                     <div class="list card">
-                        <div class="post-header item balanced-bg light">
+                        <div class="post-header item calm-bg light">
                             <div class="ph-subject">History</div>
                             <div class="ph-date">July 24rd</div>
                         </div>
@@ -119,7 +122,7 @@
                         </div>
                     </div>
                     <div class="list card">
-                        <div class="post-header item balanced-bg light">
+                        <div class="post-header item calm-bg light">
                             <div class="ph-subject">History</div>
                             <div class="ph-date">July 24rd</div>
                         </div>

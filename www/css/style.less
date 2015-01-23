@@ -1,16 +1,29 @@
 // Colors
+@white: #fff;
 @gray: #555;
-@lightblue: #59b3dd;
+@light_blue: #59b3dd;
 @blue: #4d9abf;
+@pale_blue: #374E5E;
+@pale_blue2: #27313A;
+@green: #68E366;
+@green2: #4D974C;
+
+// Mix-ins
+.TextShadow {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
 
 // Ionic overrides
 .calm-bg {
-  background-color: @lightblue;
+  background-color: @light_blue;
 }
-//.button.button-positive {
-//  background-color: @blue;
-//  border-color: @blue;
-//}
+.balanced-bg {
+  background: desaturate(@green, 15%);
+}
+.button.button-positive {
+  background-color: darken(@blue, 5%);
+  border-color: darken(@blue, 10%);
+}
 
 // General
 * {
@@ -26,31 +39,52 @@
 }
 
 // Questions tabs
-#ac-tabs-inner {
-  .tab-nav.tabs {
-    top: 199px;
-  }
-  .calm-bg {
-    margin: 0 0  48px 0;
-  }
-}
 .tab-item {
   max-width: inherit;
 }
 
 // Ask a question area
 .ask-q-area {
+  .TextShadow;
+  margin: 0 0 48px 0;
   padding: 80px 0 20px 0;
-  button {
-    margin: 0 0 10px 0;
+  .aqa-btn {
+    background: @pale_blue;
+    color: @white;
+    border: 0;
+    border-radius: 0;
+    height: 70px;
+    width: 90%;
+    line-height: 70px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+    .ab-icon {
+      float: left;
+      background: @green url(../img/question-icon.png) center center no-repeat;
+      width: 25%;
+      height: 100%;
+      display: inline-block;
+      border-bottom: 3px solid lighten(@green2, 5%);
+      background-size: 45px 45px;
+    }
+    .ab-text {
+      float: left;
+      height: 100%;
+      width: 75%;
+      display: inline-block;
+      border-bottom: 3px solid lighten(@pale_blue2, 5%);
+      font-size: 25px;
+      text-align: center;
+    }
   }
 }
 
 // Cards/Posts
 .posts {
-  top: 16px;
+  top: 25px;
 }
 .card {
+  margin: 20px 20px;
   &:first-child {
     margin-top: 0;
   }

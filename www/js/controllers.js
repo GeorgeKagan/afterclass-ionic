@@ -1,6 +1,7 @@
 angular.module('starter.controllers', ['ui.router'])
 
 .controller('HomeCtrl', function($scope, $ionicScrollDelegate, $state) {
+  var tabs_top_pos = 230;
   $scope.items = [
     {title: 'lol rofl lmao first'}
   ];
@@ -10,7 +11,7 @@ angular.module('starter.controllers', ['ui.router'])
   };
   $scope.gotScrolled = function() {
     var y = angular.element('.scroll:visible').offset().top;
-    if (y <= -155) {
+    if (y <= -186) {
       //angular.element('#ac-tabs-outer').show();
       //angular.element('#ac-tabs-inner').hide();
       angular.element('#ac-tabs-inner .tabs').css('top', 44);
@@ -18,12 +19,12 @@ angular.module('starter.controllers', ['ui.router'])
       //angular.element('#ac-tabs-outer').hide();
       //angular.element('#ac-tabs-inner').show();
       var curr_y = angular.element('#ac-tabs-inner .tabs').position().top;
-      angular.element('#ac-tabs-inner .tabs').css('top', 199 - Math.abs(y));
+      angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
     }
   };
   $scope.scrollToTop = function() {
     $ionicScrollDelegate.scrollTop();
-    angular.element('#ac-tabs-inner .tabs').css('top', 199);
+    angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
     return true;
   };
 })
