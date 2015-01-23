@@ -34,6 +34,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     templateUrl: "templates/ask-question.html",
     controller: 'AskQuestionCtrl'
   })
+  .state('viewPost', {
+    url: "/viewPost",
+    templateUrl: "templates/view-post.html",
+    controller: 'ViewPostCtrl'
+  })
   ;
   //.state('app.search', {
   //  url: "/search",

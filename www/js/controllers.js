@@ -6,8 +6,16 @@ angular.module('starter.controllers', ['ui.router'])
     {title: 'lol rofl lmao first'}
   ];
   $scope.askQuestion = function() {
-    //alert('aaa');
     $state.go('askQuestion');
+  };
+  $scope.viewPost = function() {
+    $state.go('viewPost');
+  };
+  $scope.postReply = function(e) {
+
+  };
+  $scope.postAccept = function(e) {
+
   };
   $scope.gotScrolled = function() {
     var y = angular.element('.scroll:visible').offset().top;
@@ -29,6 +37,11 @@ angular.module('starter.controllers', ['ui.router'])
   };
 })
 .controller('AskQuestionCtrl', function($scope, $ionicScrollDelegate, $state) {
+  $scope.backToHome = function() {
+    $state.go('home');
+  };
+})
+.controller('ViewPostCtrl', function($scope, $ionicScrollDelegate, $state) {
   $scope.backToHome = function() {
     $state.go('home');
   };
