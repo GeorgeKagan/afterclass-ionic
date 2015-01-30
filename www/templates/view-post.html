@@ -1,12 +1,13 @@
 <ion-view view-title="Home">
     <div class="bar bar-header bar-positive">
-        <h1 class="title"></h1>
-        <button class="button button-icon icon ion-android-more"></button>
+        <h1 class="title no-logo">
+            <i ng-click="backToHome()" class="icon ion-chevron-left"></i>
+            Post view
+        </h1>
     </div>
     <ion-content class="has-header">
         <p class="padding">
-            Full post view will be here<br><br>
-            <button ng-click="backToHome()" class="button"> Back</button>
+            Full post view will be here
         </p>
     </ion-content>
 </ion-view>

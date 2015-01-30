@@ -32,13 +32,23 @@
 
 // Header
 .bar-header {
-  h1 {
+  h1.title {
+    text-align: left;
+    .icon {
+      margin: 0 7px 0 0;
+      padding: 0 5px;
+    }
+  }
+  h1.title:not(.no-logo) {
     background: url(../img/logo.png) 0 center no-repeat;
     background-size: 30%;
   }
 }
 
 // Questions tabs
+#ac-tabs-inner {
+
+}
 .tab-item {
   max-width: inherit;
 }
@@ -135,5 +145,34 @@
   }
   img {
     max-width: 100%;
+  }
+}
+
+// Ask question page
+#ask-question-page {
+  select {
+    border: 0;
+    margin: 12px;
+    background: transparent;
+    -webkit-appearance: none;
+  }
+  textarea {
+    resize: none;
+  }
+  select, textarea {
+    font-size: 14px;
+    color: #999;
+  }
+  .tabs-icon-only {
+    border-top: 0;
+    .icon-camera {
+      background: url(../img/take-picture-icon.png) center 9px no-repeat;
+      background-size: 36px 24px;
+      border-right: 1px solid #666;
+    }
+    .icon-attachment {
+      background: url(../img/documnet-attachment.png) center 8px no-repeat;
+      background-size: 21px 26px;
+    }
   }
 }

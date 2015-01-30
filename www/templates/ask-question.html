@@ -1,12 +1,25 @@
-<ion-view view-title="Home">
-    <div class="bar bar-header bar-positive">
-        <h1 class="title"></h1>
-        <button class="button button-icon icon ion-android-more"></button>
+<ion-view id="ask-question-page" view-title="Home">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i ng-click="backToHome()" class="icon ion-chevron-left calm"></i>
+            <span class="dark">Ask a question</span>
+        </h1>
+        <button class="button button-outline button-calm">&nbsp;Send&nbsp;</button>
     </div>
     <ion-content class="has-header">
-        <p class="padding">
-            Ask a question form will be here<br><br>
-            <button ng-click="backToHome()" class="button"> Back</button>
-        </p>
+        <select>
+            <option>Choose subject...</option>
+            <option>Algebra 1</option>
+            <option>Algebra 2</option>
+            <option>Algebra 3</option>
+            <option>Other</option>
+        </select>
+        <label class="item item-input item-stacked-label">
+            <textarea rows="10" placeholder="Type your question..."></textarea>
+        </label>
     </ion-content>
+    <div class="tabs tabs-icon-only tabs-dark tabs-color-light">
+        <a class="tab-item icon-camera"></a>
+        <a class="tab-item icon-attachment"></a>
+    </div>
 </ion-view>
