@@ -1,51 +1,54 @@
 angular.module('starter.controllers', ['ui.router'])
 
-.controller('HomeCtrl', function($scope, $ionicScrollDelegate, $state) {
-  var tabs_top_pos = 230;
-  $scope.items = [
-    {title: 'lol rofl lmao first'}
-  ];
-  $scope.askQuestion = function() {
-    $state.go('askQuestion');
-  };
-  $scope.viewPost = function() {
-    $state.go('viewPost');
-  };
-  $scope.postReply = function(e) {
+    .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state) {
+        var tabs_top_pos = 230;
+        $scope.items = [
+            {title: 'lol rofl lmao first'}
+        ];
+        $scope.askQuestion = function () {
+            $state.go('askQuestion');
+        };
+        $scope.viewPost = function () {
+            $state.go('viewPost');
+        };
+        $scope.postReply = function (e) {
 
-  };
-  $scope.postAccept = function(e) {
+        };
+        $scope.postAccept = function (e) {
 
-  };
-  $scope.gotScrolled = function() {
-    var y = angular.element('.scroll:visible').offset().top;
-    if (y <= -186) {
-      //angular.element('#ac-tabs-outer').show();
-      //angular.element('#ac-tabs-inner').hide();
-      angular.element('#ac-tabs-inner .tabs').css('top', 44);
-    } else {
-      //angular.element('#ac-tabs-outer').hide();
-      //angular.element('#ac-tabs-inner').show();
-      var curr_y = angular.element('#ac-tabs-inner .tabs').position().top;
-      angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
-    }
-  };
-  $scope.scrollToTop = function() {
-    $ionicScrollDelegate.scrollTop();
-    angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
-    return true;
-  };
-})
-.controller('AskQuestionCtrl', function($scope, $ionicScrollDelegate, $state) {
-  $scope.backToHome = function() {
-    $state.go('home');
-  };
-})
-.controller('ViewPostCtrl', function($scope, $ionicScrollDelegate, $state) {
-  $scope.backToHome = function() {
-    $state.go('home');
-  };
-})
+        };
+        $scope.gotScrolled = function () {
+            var y = angular.element('.scroll:visible').offset().top;
+            if (y <= -186) {
+                //angular.element('#ac-tabs-outer').show();
+                //angular.element('#ac-tabs-inner').hide();
+                angular.element('#ac-tabs-inner .tabs').css('top', 44);
+            } else {
+                //angular.element('#ac-tabs-outer').hide();
+                //angular.element('#ac-tabs-inner').show();
+                var curr_y = angular.element('#ac-tabs-inner .tabs').position().top;
+                angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
+            }
+        };
+        $scope.scrollToTop = function () {
+            $ionicScrollDelegate.scrollTop();
+            angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
+            return true;
+        };
+    })
+
+    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state) {
+        angular.element();
+        $scope.backToHome = function () {
+            $state.go('home');
+        };
+    })
+
+    .controller('ViewPostCtrl', function ($scope, $ionicScrollDelegate, $state) {
+        $scope.backToHome = function () {
+            $state.go('home');
+        };
+    })
 ;
 
 //.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
