@@ -1,4 +1,4 @@
-<ion-view id="ask-question-page" view-title="Home">
+<ion-view id="ask-question-page" view-title="Home" ask-question>
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i ng-click="backToHome()" class="icon ion-chevron-left calm"></i>
@@ -7,7 +7,7 @@
         <button class="button button-outline button-calm">&nbsp;Send&nbsp;</button>
     </div>
     <ion-content class="has-header">
-        <select>
+        <select id="aq-subject">
             <option>Choose subject...</option>
             <option>Algebra 1</option>
             <option>Algebra 2</option>
@@ -15,7 +15,7 @@
             <option>Other</option>
         </select>
         <label class="item item-input item-stacked-label">
-            <textarea rows="10" placeholder="Type your question..."></textarea>
+            <textarea id="aq-body" rows="10" placeholder="Type your question..."></textarea>
         </label>
     </ion-content>
     <div class="tabs tabs-icon-only tabs-dark tabs-color-light">

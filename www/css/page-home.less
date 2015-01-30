@@ -1,0 +1,105 @@
+@import "misc/variables.less";
+@import "misc/mixins.less";
+
+// Questions tabs
+#ac-tabs-inner {
+
+}
+.tab-item {
+  max-width: inherit;
+}
+
+// Ask a question area
+.ask-q-area {
+  .TextShadow;
+  margin: 0 0 48px 0;
+  padding: 80px 0 20px 0;
+  .aqa-btn {
+    background: @pale_blue;
+    color: @white;
+    border: 0;
+    border-radius: 0;
+    height: 70px;
+    width: 90%;
+    line-height: 70px;
+    margin: 0 auto 20px auto;
+    cursor: pointer;
+    .ab-icon {
+      float: left;
+      background: @green url(../img/question-icon.png) center center no-repeat;
+      width: 25%;
+      height: 100%;
+      display: inline-block;
+      border-bottom: 3px solid lighten(@green2, 5%);
+      background-size: 45px 45px;
+    }
+    .ab-text {
+      float: left;
+      height: 100%;
+      width: 75%;
+      display: inline-block;
+      border-bottom: 3px solid lighten(@pale_blue2, 5%);
+      font-size: 25px;
+      text-align: center;
+    }
+  }
+}
+
+// Cards/Posts
+.posts {
+  top: 25px;
+}
+.card {
+  margin: 20px 20px;
+  &:first-child {
+    margin-top: 0;
+  }
+  &.list:last-child {
+    margin-bottom: 16px;
+  }
+  .post-header {
+    .ph-subject {
+      font-size: 24px;
+      display: inline-block;
+    }
+    .ph-date {
+      font-size: 20px;
+      font-weight: 100;
+      font-style: italic;
+      float: right;
+    }
+  }
+  .post-question {
+    color: @gray;
+    font-size: 22px;
+    line-height: 29px;
+  }
+  .post-comment {
+    p {
+      color: @gray;
+      font-size: 18px;
+      line-height: 24px;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    img {
+      margin: 15px 0 0 0;
+      border-radius: 3px;
+      border: 1px solid @gray;
+    }
+  }
+  //
+  .item {
+    border: 0;
+  }
+  .item-avatar + .item-body {
+    padding-top: 0;
+  }
+  .button-bar {
+    padding: 0 1px;
+  }
+  img {
+    max-width: 100%;
+  }
+}

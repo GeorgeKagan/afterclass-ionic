@@ -1,0 +1,30 @@
+@import "misc/variables.less";
+@import "misc/mixins.less";
+
+#ask-question-page {
+  select {
+    border: 0;
+    margin: 12px;
+    background: transparent;
+    -webkit-appearance: none;
+  }
+  textarea {
+    resize: none;
+  }
+  select, textarea {
+    font-size: 15px;
+    color: #aaa;
+  }
+  .tabs-icon-only {
+    border-top: 0;
+    .icon-camera {
+      background: url(../img/take-picture-icon.png) center 9px no-repeat;
+      background-size: 36px 24px;
+      border-right: 1px solid #666;
+    }
+    .icon-attachment {
+      background: url(../img/documnet-attachment.png) center 8px no-repeat;
+      background-size: 21px 26px;
+    }
+  }
+}
