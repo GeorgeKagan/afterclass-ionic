@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ui.router'])
+angular.module('afterclass.controllers', ['ui.router'])
 
     .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state) {
         var tabs_top_pos = 230;

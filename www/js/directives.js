@@ -1,4 +1,4 @@
-angular.module('starter.directives', [])
+angular.module('afterclass.directives', [])
 
     .directive('askQuestion', function($timeout) {
         return {
