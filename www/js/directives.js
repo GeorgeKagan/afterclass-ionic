@@ -38,6 +38,7 @@ angular.module('afterclass.directives', [])
                 post: '=',
                 viewPost: '&',
                 postAccept: '&',
+                postDecline: '&',
                 postReply: '&'
             },
             restrict: 'E',

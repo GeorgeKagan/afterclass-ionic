@@ -16,7 +16,8 @@
         </div>
     </div>
     <div class="button-bar">
-        <button ng-if="post.status==='unanswered'" class="button ion-thumbsup button-positive" ng-click="postAccept()">&nbsp; Accept</button>
+        <button ng-if="post.status==='unanswered'" class="button ion-thumbsup button-positive" ng-click="postAccept(post)">&nbsp; Accept</button>
+        <button ng-if="post.status==='answered'" class="button ion-thumbsdown button-positive" ng-click="postDecline(post)">&nbsp; Decline</button>
         <button class="button ion-chatbox button-positive" ng-click="postReply()">&nbsp; Reply</button>
     </div>
 </div>

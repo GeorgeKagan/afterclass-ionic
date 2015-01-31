@@ -19,8 +19,11 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.postReply = function () {
             alert('post reply');
         };
-        $scope.postAccept = function () {
-            alert('lol');
+        $scope.postAccept = function (post) {
+            sync.$update(post.$id, { status: 'answered' });
+        };
+        $scope.postDecline = function (post) {
+            sync.$update(post.$id, { status: 'unanswered' });
         };
         $scope.gotScrolled = function () {
             var y = angular.element('.scroll:visible').offset().top;
