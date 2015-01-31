@@ -1,0 +1,20 @@
+<div>
+    <div class="post-header item {{ header_bg }} light">
+        <div class="ph-subject">{{ post.subject }}</div>
+        <div class="ph-date">{{ post.ask_date }}</div>
+    </div>
+    <div class="post-question item item-stable item-body">{{ post.body }}</div>
+    <!-- replies -->
+    <div ng-repeat="reply in post.replies">
+        <div class="item item-avatar">
+            <img src="img/mcfly.jpg">
+            <h2>{{ reply.name }}</h2>
+            <p>{{ reply.reply_date }}</p>
+        </div>
+        <div class="post-comment item item-body"><p>{{ reply.body }}</p></div>
+    </div>
+    <div class="button-bar">
+        <button ng-if="post.status==='unanswered'" class="button ion-thumbsup button-positive" ng-click="postAccept()">&nbsp; Accept</button>
+        <button class="button ion-chatbox button-positive" ng-click="postReply()">&nbsp; Reply</button>
+    </div>
+</div>
