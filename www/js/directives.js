@@ -14,7 +14,7 @@ angular.module('afterclass.directives', [])
                 var dropDown = document.getElementById('aq-subject');
                 $timeout(function() {
                     showDropDown(dropDown);
-                }, 500);
+                }, 400);
             }
         };
     });

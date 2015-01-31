@@ -37,10 +37,24 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state) {
-        angular.element();
+    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state, MyCamera) {
+        var img = angular.element('#aq-img');
         $scope.backToHome = function () {
             $state.go('home');
+        };
+        $scope.takePicture = function () {
+            MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function(imageURI) {
+                img.html('<img src="' + imageURI + '">');
+            }, function(err) {
+                img.html('Could not load image ' + err);
+            });
+        };
+        $scope.choosePicture = function () {
+            MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function(imageURI) {
+                img.html('<img src="' + imageURI + '">');
+            }, function(err) {
+                img.html('Could not load image ' + err);
+            });
         };
     })
 

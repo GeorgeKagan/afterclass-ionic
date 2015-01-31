@@ -6,7 +6,7 @@
         </h1>
         <button class="button button-outline button-calm">&nbsp;Send&nbsp;</button>
     </div>
-    <ion-content class="has-header">
+    <ion-content class="has-header has-footer">
         <select id="aq-subject">
             <option>Choose subject...</option>
             <option>Algebra 1</option>
@@ -17,9 +17,10 @@
         <label class="body-wrapper item item-input item-stacked-label">
             <textarea id="aq-body" rows="10" placeholder="Type your question..."></textarea>
         </label>
+        <div id="aq-img"></div>
     </ion-content>
     <div class="tabs tabs-icon-only tabs-dark tabs-color-light">
-        <a class="tab-item icon-camera"></a>
-        <a class="tab-item icon-attachment"></a>
+        <a ng-click="takePicture()" class="tab-item icon-camera"></a>
+        <a ng-click="choosePicture()" class="tab-item icon-attachment"></a>
     </div>
 </ion-view>

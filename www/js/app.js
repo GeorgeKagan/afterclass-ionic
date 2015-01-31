@@ -1,4 +1,4 @@
-angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives'])
+angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {

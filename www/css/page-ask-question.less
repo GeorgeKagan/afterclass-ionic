@@ -19,6 +19,13 @@
     font-size: 15px;
     color: #aaa;
   }
+  #aq-img {
+    margin: 10px;
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+    }
+  }
   .tabs-icon-only {
     border-top: 0;
     .icon-camera {
@@ -29,6 +36,11 @@
     .icon-attachment {
       background: url(../img/documnet-attachment.png) center 8px no-repeat;
       background-size: 21px 26px;
+    }
+    .icon-camera, .icon-attachment {
+      &:active {
+        background-color: @gray;
+      }
     }
   }
 }
