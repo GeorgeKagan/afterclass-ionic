@@ -35,7 +35,10 @@ angular.module('afterclass.directives', [])
     .directive('question', function() {
         return {
             scope: {
-                post: '='
+                post: '=',
+                viewPost: '&',
+                postAccept: '&',
+                postReply: '&'
             },
             restrict: 'E',
             replace: 'true',

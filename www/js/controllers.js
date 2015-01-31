@@ -16,11 +16,11 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.viewPost = function () {
             $state.go('viewPost');
         };
-        $scope.postReply = function (e) {
-
+        $scope.postReply = function () {
+            alert('post reply');
         };
-        $scope.postAccept = function (e) {
-
+        $scope.postAccept = function () {
+            alert('lol');
         };
         $scope.gotScrolled = function () {
             var y = angular.element('.scroll:visible').offset().top;
@@ -52,11 +52,11 @@ angular.module('afterclass.controllers', ['ui.router'])
                 status: 'unanswered',
                 ask_date: moment().format("MMM Do YY"),
                 replies: [
-                    {
-                        name: 'Generic Teacher',
-                        body: 'Reply body right here',
-                        reply_date: moment().format()
-                    }
+                    //{
+                    //    name: 'Generic Teacher',
+                    //    body: 'Reply body right here',
+                    //    reply_date: moment().format()
+                    //}
                 ]
             }).then(function(ref) {
                 //ref.key();
