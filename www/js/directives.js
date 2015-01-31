@@ -39,7 +39,7 @@ angular.module('afterclass.directives', [])
             },
             restrict: 'E',
             replace: 'true',
-            templateUrl: '../templates/question.html',
+            templateUrl: 'templates/question.html',
             link: function (scope, element, attrs) {
                 scope.header_bg = attrs.headerBg;
             }
