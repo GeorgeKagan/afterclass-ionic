@@ -42,21 +42,25 @@ angular.module('afterclass.controllers', ['ui.router'])
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
         $scope.addPost = function() {
+            if (angular.element('#aq-subject').val() === '0' || angular.element('#aq-body').val() === '') {
+                alert('Please fill all fields');
+                return false;
+            }
             posts.$push({
-                subject: 'algebra',
-                body: 'wut is 1+1',
-                status: 'answered',
-                ask_date: 'Jan 1, 2016',
+                subject: angular.element('#aq-subject').val(),
+                body: angular.element('#aq-body').val(),
+                status: 'unanswered',
+                ask_date: moment().format("MMM Do YY"),
                 replies: [
                     {
-                        name: 'allah',
-                        body: 'reply body right here',
-                        reply_date: '11 secs ago',
-                        img: '???'
+                        name: 'Generic Teacher',
+                        body: 'Reply body right here',
+                        reply_date: moment().format()
                     }
                 ]
             }).then(function(ref) {
                 //ref.key();
+                $state.go('home');
             }, function(error) {
                 console.log("Error:", error);
             });
