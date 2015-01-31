@@ -1,10 +1,15 @@
 angular.module('afterclass.controllers', ['ui.router'])
 
-    .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state) {
+    .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase) {
         var tabs_top_pos = 230;
-        $scope.items = [
-            {title: 'lol rofl lmao first'}
-        ];
+        // Load all user's questions from firebase
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
+        var sync = $firebase(ref);
+        var posts = sync.$asArray();
+        posts.$loaded().then(function() {
+            $scope.posts = posts;
+        });
+        //
         $scope.askQuestion = function () {
             $state.go('askQuestion');
         };
@@ -20,13 +25,8 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.gotScrolled = function () {
             var y = angular.element('.scroll:visible').offset().top;
             if (y <= -186) {
-                //angular.element('#ac-tabs-outer').show();
-                //angular.element('#ac-tabs-inner').hide();
                 angular.element('#ac-tabs-inner .tabs').css('top', 44);
             } else {
-                //angular.element('#ac-tabs-outer').hide();
-                //angular.element('#ac-tabs-inner').show();
-                var curr_y = angular.element('#ac-tabs-inner .tabs').position().top;
                 angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
             }
         };
@@ -37,8 +37,30 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state, MyCamera) {
+    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase, MyCamera) {
         var img = angular.element('#aq-img');
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
+        var posts = $firebase(ref);
+        $scope.addPost = function() {
+            posts.$push({
+                subject: 'algebra',
+                body: 'wut is 1+1',
+                status: 'answered',
+                ask_date: 'Jan 1, 2016',
+                replies: [
+                    {
+                        name: 'allah',
+                        body: 'reply body right here',
+                        reply_date: '11 secs ago',
+                        img: '???'
+                    }
+                ]
+            }).then(function(ref) {
+                //ref.key();
+            }, function(error) {
+                console.log("Error:", error);
+            });
+        };
         $scope.backToHome = function () {
             $state.go('home');
         };
