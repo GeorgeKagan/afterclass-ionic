@@ -2,7 +2,7 @@
  * Copyright 2014 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.0.0-beta.14-nightly-966
+ * Ionic, v1.0.0-beta.14-nightly-987
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -18,7 +18,7 @@
 // build processes may have already created an ionic obj
 window.ionic = window.ionic || {};
 window.ionic.views = {};
-window.ionic.version = '1.0.0-beta.14-nightly-966';
+window.ionic.version = '1.0.0-beta.14-nightly-987';
 
 (function (ionic) {
 
@@ -560,6 +560,8 @@ window.ionic.version = '1.0.0-beta.14-nightly-966';
      * @param {function(e)} callback The function to call when the gesture
      * happens.
      * @param {DOMElement} element The angular element to listen for the event on.
+     * @param {object} options object.
+     * @returns {ionic.Gesture} The gesture object (use this to remove the gesture later on).
      */
     onGesture: function(type, callback, element, options) {
       var gesture = new ionic.Gesture(element, options);
@@ -571,10 +573,11 @@ window.ionic.version = '1.0.0-beta.14-nightly-966';
      * @ngdoc method
      * @name ionic.EventController#offGesture
      * @alias ionic.offGesture
-     * @description Remove an event listener for a gesture on an element.
-     * @param {string} eventType The gesture event.
-     * @param {function(e)} callback The listener that was added earlier.
-     * @param {DOMElement} element The element the listener was added on.
+     * @description Remove an event listener for a gesture created on an element.
+     * @param {ionic.Gesture} gesture The gesture that should be removed.
+     * @param {string} eventType The gesture event to remove the listener for.
+     * @param {function(e)} callback The listener to remove.
+     
      */
     offGesture: function(gesture, type, callback) {
       gesture.off(type, callback);
@@ -4278,6 +4281,12 @@ ionic.views.Scroll = ionic.views.View.inherit({
       /** duration for animations triggered by scrollTo/zoomTo */
       animationDuration: 250,
 
+      /** The velocity required to make the scroll view "slide" after touchend */
+      decelVelocityThreshold: 4,
+
+      /** The velocity required to make the scroll view "slide" after touchend when using paging */
+      decelVelocityThresholdPaging: 4,
+
       /** Enable bouncing (content can be slowly moved outside and jumps back after releasing) */
       bouncing: true,
 
@@ -4481,9 +4490,6 @@ ionic.views.Scroll = ionic.views.View.inherit({
 
   /** Callback to execute to start the actual refresh. Call {@link #refreshFinish} when done */
   __refreshStart: null,
-
-  /** Callback to state the progress while pulling to refresh */
-  __refreshPullProgress: null,
 
   /** Zoom level */
   __zoomLevel: 1,
@@ -5291,17 +5297,16 @@ ionic.views.Scroll = ionic.views.View.inherit({
    * @param tailCallback {Function} Callback to execute just before the refresher returns to it's original state. This is for zooming out the refresher.
    * @param pullProgressCallback Callback to state the progress while pulling to refresh
    */
-  activatePullToRefresh: function(height, activateCallback, deactivateCallback, startCallback, showCallback, hideCallback, tailCallback, pullProgressCallback) {
+  activatePullToRefresh: function(height, refresherMethods) {
     var self = this;
 
     self.__refreshHeight = height;
-    self.__refreshActivate = function() {ionic.requestAnimationFrame(activateCallback);};
-    self.__refreshDeactivate = function() {ionic.requestAnimationFrame(deactivateCallback);};
-    self.__refreshStart = function() {ionic.requestAnimationFrame(startCallback);};
-    self.__refreshShow = function() {ionic.requestAnimationFrame(showCallback);};
-    self.__refreshHide = function() {ionic.requestAnimationFrame(hideCallback);};
-    self.__refreshTail = function() {ionic.requestAnimationFrame(tailCallback);};
-    self.__refreshPullProgress = pullProgressCallback;
+    self.__refreshActivate = function() {ionic.requestAnimationFrame(refresherMethods.activate);};
+    self.__refreshDeactivate = function() {ionic.requestAnimationFrame(refresherMethods.deactivate);};
+    self.__refreshStart = function() {ionic.requestAnimationFrame(refresherMethods.start);};
+    self.__refreshShow = function() {ionic.requestAnimationFrame(refresherMethods.show);};
+    self.__refreshHide = function() {ionic.requestAnimationFrame(refresherMethods.hide);};
+    self.__refreshTail = function() {ionic.requestAnimationFrame(refresherMethods.tail);};
     self.__refreshTailTime = 100;
     self.__minSpinTime = 600;
   },
@@ -5794,9 +5799,6 @@ ionic.views.Scroll = ionic.views.View.inherit({
                   self.__refreshDeactivate();
                 }
 
-              } else if (!self.__refreshActive && self.__refreshPullProgress) {
-                self.__refreshPullProgress(scrollTop / -self.__refreshHeight);
-
               }
             }
 
@@ -5915,7 +5917,7 @@ ionic.views.Scroll = ionic.views.View.inherit({
           self.__decelerationVelocityY = movedTop / timeOffset * (1000 / 60);
 
           // How much velocity is required to start the deceleration
-          var minVelocityToStartDeceleration = self.options.paging || self.options.snapping ? 4 : 1;
+          var minVelocityToStartDeceleration = self.options.paging || self.options.snapping ? self.options.decelVelocityThresholdPaging : self.options.decelVelocityThreshold;
 
           // Verify that we have enough velocity to start deceleration
           if (Math.abs(self.__decelerationVelocityX) > minVelocityToStartDeceleration || Math.abs(self.__decelerationVelocityY) > minVelocityToStartDeceleration) {
@@ -6388,6 +6390,7 @@ ionic.scroll = {
   var SlideDrag = function(opts) {
     this.dragThresholdX = opts.dragThresholdX || 10;
     this.el = opts.el;
+    this.item = opts.item;
     this.canSwipe = opts.canSwipe;
   };
 
@@ -6536,7 +6539,7 @@ ionic.scroll = {
       if (!_this._lastDrag) {
         _this._lastDrag = {};
       }
-      angular.extend(_this._lastDrag, _this._currentDrag);
+      ionic.extend(_this._lastDrag, _this._currentDrag);
       if (_this._currentDrag) {
         _this._currentDrag.buttons = null;
         _this._currentDrag.content = null;
@@ -6552,7 +6555,7 @@ ionic.scroll = {
     this.dragThresholdY = opts.dragThresholdY || 0;
     this.onReorder = opts.onReorder;
     this.listEl = opts.listEl;
-    this.el = opts.el;
+    this.el = this.item = opts.el;
     this.scrollEl = opts.scrollEl;
     this.scrollView = opts.scrollView;
     // Get the True Top of the list el http://www.quirksmode.org/js/findpos.html
@@ -6909,7 +6912,11 @@ ionic.scroll = {
         // Make sure this is an item with buttons
         item = this._getItem(e.target);
         if (item && item.querySelector('.item-options')) {
-          this._dragOp = new SlideDrag({ el: this.el, canSwipe: this.canSwipe });
+          this._dragOp = new SlideDrag({
+            el: this.el,
+            item: item,
+            canSwipe: this.canSwipe
+          });
           this._dragOp.start(e);
           e.preventDefault();
         }

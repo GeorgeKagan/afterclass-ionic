@@ -2,7 +2,7 @@
  * Copyright 2014 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.0.0-beta.14-nightly-966
+ * Ionic, v1.0.0-beta.14-nightly-987
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -2566,7 +2566,8 @@ body, .ionic-body {
   line-height: 20px;
   text-rendering: optimizeLegibility;
   -webkit-backface-visibility: hidden;
-  -webkit-user-drag: none; }
+  -webkit-user-drag: none;
+  -ms-content-zooming: none; }
 
 body.grade-b, body.grade-c {
   text-rendering: auto; }
@@ -2880,8 +2881,8 @@ a.subdued {
  * --------------------------------------------------
  */
 .action-sheet-backdrop {
-  -webkit-transition: background-color 300ms ease-in-out;
-  transition: background-color 300ms ease-in-out;
+  -webkit-transition: background-color 150ms ease-in-out;
+  transition: background-color 150ms ease-in-out;
   position: fixed;
   top: 0;
   left: 0;
@@ -2895,8 +2896,8 @@ a.subdued {
 .action-sheet-wrapper {
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
-  -webkit-transition: all ease-in-out 300ms;
-  transition: all ease-in-out 300ms;
+  -webkit-transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
+  transition: all cubic-bezier(0.36, 0.66, 0.04, 1) 500ms;
   position: absolute;
   bottom: 0;
   width: 100%; }
@@ -4985,6 +4986,7 @@ a.item-content {
     max-width: 40px;
     max-height: 40px;
     width: 100%;
+    height: 100%;
     border-radius: 50%; }
 
 .item-avatar-right, .item-avatar-right .item-content {
@@ -4997,6 +4999,7 @@ a.item-content {
     max-width: 40px;
     max-height: 40px;
     width: 100%;
+    height: 100%;
     border-radius: 50%; }
 
 .item-thumbnail-left, .item-thumbnail-left .item-content {
@@ -5009,7 +5012,8 @@ a.item-content {
     left: 10px;
     max-width: 80px;
     max-height: 80px;
-    width: 100%; }
+    width: 100%;
+    height: 100%; }
 
 .item-avatar.item-complex, .item-avatar-left.item-complex, .item-thumbnail-left.item-complex {
   padding-top: 0;
@@ -5025,7 +5029,8 @@ a.item-content {
     right: 10px;
     max-width: 80px;
     max-height: 80px;
-    width: 100%; }
+    width: 100%;
+    height: 100%; }
 
 .item-avatar-right.item-complex, .item-thumbnail-right.item-complex {
   padding-top: 0;
@@ -5497,6 +5502,12 @@ a.item-content {
     .scroll-refresher.active.refreshing.refreshing-tail {
       -webkit-transform: scale(0, 0);
       transform: scale(0, 0); }
+
+.overflow-scroll > .scroll {
+  -webkit-overflow-scrolling: touch;
+  width: 100%; }
+  .overflow-scroll > .scroll.overscroll {
+    position: fixed; }
 
 @-webkit-keyframes refresh-spin {
   0% {
@@ -7370,7 +7381,7 @@ a.button {
   top: 64px; }
 .platform-ios.platform-cordova:not(.fullscreen) .has-subheader {
   top: 108px; }
-.platform-ios.platform-cordova:not(.fullscreen) .has-tabs-top {
+.platform-ios.platform-cordova:not(.fullscreen) .has-header.has-tabs-top {
   top: 113px; }
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
   top: 157px; }
