@@ -1,19 +1,42 @@
 angular.module('afterclass.controllers', ['ui.router'])
 
-    .controller('AppCtrl', function($scope, $ionicPopover, $state) {
+    .controller('AppCtrl', function($scope, $rootScope, $ionicPopover, $state) {
+        // Logout user
         $scope.logout = function () {
+            var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+            ref.unauth();
             $state.go('login');
             $scope.popover.hide();
         };
+        // Header bar popover
         $ionicPopover.fromTemplateUrl('templates/popover.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.popover = popover;
         });
     })
-    .controller('LoginCtrl', function ($scope, $state) {
-        $scope.login = function () {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state) {
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        var authData = ref.getAuth();
+        if (authData) {
+            $rootScope.user = authData.facebook;
             $state.go('home');
+            console.log("User " + authData.uid + " is logged in with " + authData.provider);
+        } else {
+            console.log("User is logged out");
+        }
+        //
+        $scope.login = function () {
+            ref.authWithOAuthPopup("facebook", function(error, authData) {
+                if (error) {
+                    alert("Login failed: " + error);
+                    console.log("Login Failed!", error);
+                } else {
+                    $rootScope.user = authData.facebook;
+                    $state.go('home');
+                    console.log("Authenticated successfully with payload:", authData);
+                }
+            });
         }
     })
     .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase) {

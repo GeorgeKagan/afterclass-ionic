@@ -40,5 +40,5 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/login');
     });
