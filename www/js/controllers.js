@@ -15,7 +15,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             $scope.popover = popover;
         });
     })
-    .controller('LoginCtrl', function ($scope, $rootScope, $state) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading) {
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
         var authData = ref.getAuth();
         if (authData) {
@@ -27,7 +27,9 @@ angular.module('afterclass.controllers', ['ui.router'])
         }
         //
         $scope.login = function () {
+            $ionicLoading.show({template: 'Loading...'});
             ref.authWithOAuthPopup("facebook", function(error, authData) {
+                $ionicLoading.hide();
                 if (error) {
                     alert("Login failed: " + error);
                     console.log("Login Failed!", error);
@@ -79,15 +81,19 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase, MyCamera) {
+    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $ionicPopup, MyCamera) {
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
         $scope.addPost = function() {
             if (angular.element('#aq-subject').val() === '0' || angular.element('#aq-body').val() === '') {
-                alert('Please fill all fields');
+                $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'Please fill in all required fields'
+                });
                 return false;
             }
+            $ionicLoading.show({template: 'Loading...'});
             posts.$push({
                 subject: angular.element('#aq-subject').val(),
                 body: angular.element('#aq-body').val(),
@@ -102,8 +108,10 @@ angular.module('afterclass.controllers', ['ui.router'])
                 ]
             }).then(function(ref) {
                 //ref.key();
+                $ionicLoading.hide();
                 $state.go('home');
             }, function(error) {
+                $ionicLoading.hide();
                 console.log("Error:", error);
             });
         };
