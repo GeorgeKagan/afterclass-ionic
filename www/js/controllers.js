@@ -1,5 +1,10 @@
 angular.module('afterclass.controllers', ['ui.router'])
 
+    .controller('LoginCtrl', function ($scope, $state) {
+        $scope.login = function () {
+            $state.go('home');
+        }
+    })
     .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase) {
         var tabs_top_pos = 230;
         // Load all user's questions from firebase
