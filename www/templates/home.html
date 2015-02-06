@@ -1,7 +1,7 @@
 <ion-view view-title="Home">
     <div class="bar bar-header bar-positive">
         <h1 class="title"></h1>
-        <button class="button button-icon icon ion-android-more-vertical"></button>
+        <button class="button button-icon icon ion-android-more-vertical" ng-click="popover.show($event)"></button>
     </div>
     <ion-tabs id="ac-tabs-inner" class="tabs-striped tabs-background-dark tabs-color-calm">
         <ion-tab title="Answered" on-select="scrollToTop()">

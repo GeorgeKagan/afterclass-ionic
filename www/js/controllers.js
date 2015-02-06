@@ -1,5 +1,16 @@
 angular.module('afterclass.controllers', ['ui.router'])
 
+    .controller('AppCtrl', function($scope, $ionicPopover, $state) {
+        $scope.logout = function () {
+            $state.go('login');
+            $scope.popover.hide();
+        };
+        $ionicPopover.fromTemplateUrl('templates/popover.html', {
+            scope: $scope
+        }).then(function(popover) {
+            $scope.popover = popover;
+        });
+    })
     .controller('LoginCtrl', function ($scope, $state) {
         $scope.login = function () {
             $state.go('home');
