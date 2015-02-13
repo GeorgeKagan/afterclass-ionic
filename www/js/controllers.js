@@ -14,10 +14,16 @@ angular.module('afterclass.controllers', ['ui.router'])
         }).then(function(popover) {
             $scope.popover = popover;
         });
+        // Populate rootScope with user data from localStorage
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
+            authData = ref.getAuth();
+        if (authData) {
+            $rootScope.user = authData.facebook;
+        }
     })
     .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading) {
-        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
-        var authData = ref.getAuth();
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
+            authData = ref.getAuth();
         if (authData) {
             $rootScope.user = authData.facebook;
             $state.go('home');
@@ -41,11 +47,11 @@ angular.module('afterclass.controllers', ['ui.router'])
             });
         }
     })
-    .controller('HomeCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase) {
+    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase) {
         var tabs_top_pos = 230;
         // Load all user's questions from firebase
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
-        var sync = $firebase(ref);
+        var sync = $firebase(ref.orderByChild('user').equalTo($rootScope.user.id));
         var posts = sync.$asArray();
         posts.$loaded().then(function() {
             $scope.posts = posts;
@@ -81,7 +87,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $ionicPopup, MyCamera) {
+    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $ionicPopup, MyCamera) {
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
@@ -95,6 +101,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             }
             $ionicLoading.show({template: 'Loading...'});
             posts.$push({
+                user: $rootScope.user.id,
                 subject: angular.element('#aq-subject').val(),
                 body: angular.element('#aq-body').val(),
                 status: 'unanswered',
