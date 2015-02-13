@@ -1,11 +1,12 @@
 angular.module('afterclass.controllers', ['ui.router'])
 
-    .controller('AppCtrl', function($scope, $rootScope, $ionicPopover, $state) {
+    .controller('AppCtrl', function($scope, $rootScope, $ionicPopover, $state, $ionicHistory) {
         // Logout user
         $scope.logout = function () {
             var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
             ref.unauth();
             $state.go('login');
+            $ionicHistory.nextViewOptions({disableBack: true});
             $scope.popover.hide();
         };
         // Header bar popover
@@ -21,12 +22,13 @@ angular.module('afterclass.controllers', ['ui.router'])
             $rootScope.user = authData.facebook;
         }
     })
-    .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory) {
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
             authData = ref.getAuth();
         if (authData) {
             $rootScope.user = authData.facebook;
             $state.go('home');
+            $ionicHistory.nextViewOptions({disableBack: true});
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
         } else {
             console.log("User is logged out");
@@ -42,6 +44,7 @@ angular.module('afterclass.controllers', ['ui.router'])
                 } else {
                     $rootScope.user = authData.facebook;
                     $state.go('home');
+                    $ionicHistory.nextViewOptions({disableBack: true});
                     console.log("Authenticated successfully with payload:", authData);
                 }
             });
