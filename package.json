@@ -17,6 +17,7 @@
   "cordovaPlugins": [
     "org.apache.cordova.inappbrowser",
     "org.apache.cordova.camera",
-    "./engine/cordova-crosswalk-engine-c0.6.1"
+    "./engine/cordova-crosswalk-engine-c0.6.1",
+    "org.apache.cordova.splashscreen"
   ]
 }

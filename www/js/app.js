@@ -11,6 +11,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
             }
+            navigator.splashscreen.show();
         });
     })
 
