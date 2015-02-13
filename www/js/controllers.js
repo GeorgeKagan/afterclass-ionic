@@ -131,6 +131,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.takePicture = function () {
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function(imageURI) {
                 img.html('<img src="' + imageURI + '">');
+                $ionicScrollDelegate.scrollTop();
             }, function(err) {
                 img.html('Could not load image ' + err);
             });
@@ -138,13 +139,14 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.choosePicture = function () {
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function(imageURI) {
                 img.html('<img src="' + imageURI + '">');
+                $ionicScrollDelegate.scrollTop();
             }, function(err) {
                 img.html('Could not load image ' + err);
             });
         };
     })
 
-    .controller('ViewPostCtrl', function ($scope, $ionicScrollDelegate, $state) {
+    .controller('ViewPostCtrl', function ($scope, $state) {
         $scope.backToHome = function () {
             $state.go('home');
         };
