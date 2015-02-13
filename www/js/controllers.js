@@ -50,13 +50,15 @@ angular.module('afterclass.controllers', ['ui.router'])
             });
         }
     })
-    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase) {
+    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading) {
         var tabs_top_pos = 230;
         // Load all user's questions from firebase
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var sync = $firebase(ref.orderByChild('user').equalTo($rootScope.user.id));
         var posts = sync.$asArray();
+        $ionicLoading.show({template: 'Loading...'});
         posts.$loaded().then(function() {
+            $ionicLoading.hide();
             $scope.posts = posts;
         });
         //
@@ -132,16 +134,18 @@ angular.module('afterclass.controllers', ['ui.router'])
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function(imageURI) {
                 img.html('<img src="' + imageURI + '">');
                 $ionicScrollDelegate.scrollTop();
-            }, function(err) {
-                img.html('Could not load image ' + err);
+            }, function() {
+                img.html('');
+                $ionicScrollDelegate.scrollTop();
             });
         };
         $scope.choosePicture = function () {
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function(imageURI) {
                 img.html('<img src="' + imageURI + '">');
                 $ionicScrollDelegate.scrollTop();
-            }, function(err) {
-                img.html('Could not load image ' + err);
+            }, function() {
+                img.html('');
+                $ionicScrollDelegate.scrollTop();
             });
         };
     })

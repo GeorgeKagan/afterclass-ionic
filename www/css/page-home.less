@@ -23,6 +23,7 @@
     width: 90%;
     line-height: 70px;
     margin: 0 auto 20px auto;
+    padding: 0;
     cursor: pointer;
     .ab-icon {
       float: left;
@@ -41,6 +42,12 @@
       border-bottom: 3px solid lighten(@pale_blue2, 5%);
       font-size: 25px;
       text-align: center;
+    }
+    &.activated {
+      background: darken(@pale_blue, 10%);
+      .ab-icon {
+        background-color: darken(@green, 10%);
+      }
     }
   }
 }
