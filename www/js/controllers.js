@@ -50,7 +50,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             });
         }
     })
-    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading) {
+    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs) {
         var tabs_top_pos = 230;
         // Load all user's questions from firebase
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
@@ -69,7 +69,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             $state.go('viewPost');
         };
         $scope.postReply = function () {
-            alert('post reply');
+            $cordovaDialogs.alert('No action yet...', 'Post reply', 'OK');
         };
         $scope.postAccept = function (post) {
             sync.$update(post.$id, { status: 'answered' }).then(function() {
@@ -96,17 +96,14 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $ionicPopup, MyCamera) {
+    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs, MyCamera) {
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
         $scope.subjects = ['Algebra 1', 'Algebra 2', 'Algebra 3', 'Other'];
         $scope.addPost = function() {
             if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
-                $ionicPopup.alert({
-                    title: 'Error',
-                    template: 'Please fill in all required fields'
-                });
+                $cordovaDialogs.alert('Please fill out all required fields', 'Error', 'OK');
                 return false;
             }
             $ionicLoading.show({template: 'Loading...'});
