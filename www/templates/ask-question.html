@@ -7,12 +7,8 @@
         <button ng-click="addPost()" class="button button-outline button-calm">&nbsp;Send&nbsp;</button>
     </div>
     <ion-content class="has-header has-footer">
-        <select id="aq-subject">
-            <option value="0">Choose subject...</option>
-            <option value="Algebra 1">Algebra 1</option>
-            <option value="Algebra 2">Algebra 2</option>
-            <option value="Algebra 3">Algebra 3</option>
-            <option value="Other">Other</option>
+        <select id="aq-subject" ng-options="subject for subject in subjects track by subject" ng-model="subject" ng-change="subjectChanged()">
+            <option value="">Choose subject...</option>
         </select>
         <label class="body-wrapper item item-input item-stacked-label">
             <textarea id="aq-body" rows="10" placeholder="Type your question..."></textarea>

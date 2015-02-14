@@ -96,8 +96,9 @@ angular.module('afterclass.controllers', ['ui.router'])
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
+        $scope.subjects = ['Algebra 1', 'Algebra 2', 'Algebra 3', 'Other'];
         $scope.addPost = function() {
-            if (angular.element('#aq-subject').val() === '0' || angular.element('#aq-body').val() === '') {
+            if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
                 $ionicPopup.alert({
                     title: 'Error',
                     template: 'Please fill in all required fields'
@@ -111,6 +112,7 @@ angular.module('afterclass.controllers', ['ui.router'])
                 body: angular.element('#aq-body').val(),
                 status: 'unanswered',
                 ask_date: moment().format("MMM Do YY"),
+                timestamp: moment().unix(),
                 replies: [
                     //{
                     //    name: 'Generic Teacher',
@@ -126,6 +128,9 @@ angular.module('afterclass.controllers', ['ui.router'])
                 $ionicLoading.hide();
                 console.log("Error:", error);
             });
+        };
+        $scope.subjectChanged = function () {
+            angular.element('#aq-body')[0].focus();
         };
         $scope.backToHome = function () {
             $state.go('home');
