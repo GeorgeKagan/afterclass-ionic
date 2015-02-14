@@ -72,10 +72,14 @@ angular.module('afterclass.controllers', ['ui.router'])
             alert('post reply');
         };
         $scope.postAccept = function (post) {
-            sync.$update(post.$id, { status: 'answered' });
+            sync.$update(post.$id, { status: 'answered' }).then(function() {
+                $ionicScrollDelegate.scrollTop(true);
+            });
         };
         $scope.postDecline = function (post) {
-            sync.$update(post.$id, { status: 'unanswered' });
+            sync.$update(post.$id, { status: 'unanswered' }).then(function() {
+                $ionicScrollDelegate.scrollTop(true);
+            });
         };
         $scope.gotScrolled = function () {
             var y = angular.element('.scroll:visible').offset().top;
