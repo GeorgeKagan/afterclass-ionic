@@ -34,7 +34,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             })
             .state('viewPost', {
                 url: "/viewPost",
-                templateUrl: "templates/view-post.html",
+                templateUrl: "templates/view-question.html",
                 controller: 'ViewPostCtrl'
             })
         ;
