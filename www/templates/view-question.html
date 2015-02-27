@@ -7,9 +7,9 @@
         </h1>
     </div>
     <ion-content class="has-header">
-        <p class="padding">
+        <div class="padding post-question">
             {{ post.body }}
-        </p>
+        </div>
         <div class="list list-simple">
             <div class="item" href="#" ng-repeat="reply in post.replies" ng-class="{'item-thumbnail-left': reply.img}">
                 <!--<img src="cover.jpg">-->

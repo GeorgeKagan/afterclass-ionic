@@ -27,6 +27,18 @@ select, textarea, input[type="text"] {
   color: @light_gray2;
 }
 
+.post-question {
+  color: @gray;
+  font-size: 22px;
+  line-height: 29px;
+  border-bottom: 1px solid @light_gray3 !important;
+  margin: 0 0 1px 0;
+}
+
+.date {
+  float: right;
+}
+
 // Header
 .bar-header {
   h1.title {
@@ -46,6 +58,7 @@ select, textarea, input[type="text"] {
 .list.list-simple {
   .item {
     background: transparent;
+    border-color: @light_gray3;
     &.item:last-child {
       border: 0;
     }

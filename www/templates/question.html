@@ -4,20 +4,22 @@
             <div class="ph-subject">{{ post.subject }}</div>
             <div class="ph-date">{{ post.ask_date }}</div>
         </div>
-        <div class="post-question item item-stable item-body">{{ post.body }}</div>
+        <div class="post-question item item-light item-body">{{ post.body }}</div>
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:timestamp | limitTo: -2">
             <div class="item item-avatar">
                 <img src="img/mcfly.jpg">
-                <h2>{{ reply.name }}</h2>
-                <p>{{ reply.reply_date }}</p>
+                <!--<h2>{{ reply.name }}</h2>-->
+                <div class="post-comment item item-body">
+                    <small class="date">{{ reply.reply_date }}</small>
+                    {{ reply.body }}
+                </div>
             </div>
-            <div class="post-comment item item-body"><p>{{ reply.body }}</p></div>
         </div>
     </div>
     <div class="button-bar">
         <button ng-if="post.status==='unanswered'" class="button ion-thumbsup button-positive" ng-click="postAccept(post)">&nbsp; Accept</button>
         <button ng-if="post.status==='answered'" class="button ion-thumbsdown button-positive" ng-click="postDecline(post)">&nbsp; Decline</button>
-        <button class="button ion-chatbox button-positive" ng-click="postReply()">&nbsp; Reply</button>
+        <button class="button ion-chatbox button-positive" ng-click="viewPost(post.$id)">&nbsp; Reply</button>
     </div>
 </div>
