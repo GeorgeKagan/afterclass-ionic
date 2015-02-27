@@ -1,8 +1,5 @@
 angular.module('afterclass.services', [])
 
-    .factory('exampleService', function() {
-        return 'lol';
-    })
     .factory('MyCamera', ['$q', function($q) {
         return {
             getPicture: function(options) {

@@ -96,7 +96,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs, MyCamera) {
+    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs, $timeout, MyCamera) {
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
@@ -121,10 +121,11 @@ angular.module('afterclass.controllers', ['ui.router'])
                     //    reply_date: moment().format()
                     //}
                 ]
-            }).then(function(ref) {
-                //ref.key();
-                $ionicLoading.hide();
-                $state.go('home');
+            }).then(function() {
+                $timeout(function() {
+                    $ionicLoading.hide();
+                    $state.go('home');
+                }, 1000);
             }, function(error) {
                 $ionicLoading.hide();
                 console.log("Error:", error);
