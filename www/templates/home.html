@@ -13,7 +13,7 @@
                         <question
                                 post="post"
                                 view-post="viewPost"
-                                post-reply="postReply()"
+                                post-reply="postReply"
                                 post-accept="postAccept(post)"
                                 header-bg="calm-bg"
                                 ></question>
@@ -29,8 +29,8 @@
                     <div ng-repeat="post in posts | filter: {status: 'answered'}:true | orderBy: '-timestamp'" class="list card">
                         <question
                                 post="post"
-                                view-post="viewPost()"
-                                post-reply="postReply()"
+                                view-post="viewPost"
+                                post-reply="postReply"
                                 post-decline="postDecline(post)"
                                 header-bg="balanced-bg"
                                 ></question>

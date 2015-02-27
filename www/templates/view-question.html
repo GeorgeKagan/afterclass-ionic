@@ -2,13 +2,20 @@
     <div class="bar bar-header bar-positive">
         <h1 class="title no-logo">
             <i ng-click="backToHome()" class="icon ion-chevron-left"></i>
-            <span ng-click="backToHome()">Post view</span>
+            <span ng-click="backToHome()">{{ post.subject }}</span>
+            <span class="date">{{ post.ask_date }}</span>
         </h1>
     </div>
     <ion-content class="has-header">
         <p class="padding">
-            Full post view will be hereaa
+            {{ post.body }}
         </p>
+        <div class="list">
+            <div class="item item-thumbnail-left" href="#" ng-repeat="reply in post.replies">
+                <!--<img src="cover.jpg">-->
+                <div><small class="date">{{reply.reply_date}}</small>{{ reply.body }}</div>
+            </div>
+        </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-light">
         <a ng-click="takePicture()" class="icon-camera"></a>

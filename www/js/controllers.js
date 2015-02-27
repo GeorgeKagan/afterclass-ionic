@@ -106,7 +106,7 @@ angular.module('afterclass.controllers', ['ui.router'])
                 $cordovaDialogs.alert('Please fill out all required fields', 'Error', 'OK');
                 return false;
             }
-            $ionicLoading.show({template: 'Loading...'});
+            $ionicLoading.show({template: 'Sending...'});
             posts.$push({
                 user: $rootScope.user.id,
                 subject: angular.element('#aq-subject').val(),
@@ -152,8 +152,10 @@ angular.module('afterclass.controllers', ['ui.router'])
     })
 
     .controller('ViewPostCtrl', function ($rootScope, $scope, $state, $stateParams, $cordovaDialogs, $firebase, $ionicLoading, $timeout) {
-        var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id + '/replies'),
-            post = $firebase(ref);
+        var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
+            post = $firebase(ref),
+            replies = $firebase(ref.child('replies'));
+        $scope.post = post.$asObject();
         $scope.replyBody = '';
         $scope.backToHome = function () {
             $state.go('home');
@@ -163,8 +165,8 @@ angular.module('afterclass.controllers', ['ui.router'])
                 $cordovaDialogs.alert('Please type in something!', 'Error', 'OK');
                 return false;
             }
-            $ionicLoading.show({template: 'Loading...'});
-            post.$push({
+            $ionicLoading.show({template: 'Sending...'});
+            replies.$push({
                 user: $rootScope.user.id,
                 body: $scope.replyBody,
                 reply_date: moment().format("MMM Do YY"),
