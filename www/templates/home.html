@@ -12,7 +12,7 @@
                     <div ng-repeat="post in posts | filter: {status: 'unanswered'}:true | orderBy: '-timestamp'" class="list card">
                         <question
                                 post="post"
-                                view-post="viewPost()"
+                                view-post="viewPost"
                                 post-reply="postReply()"
                                 post-accept="postAccept(post)"
                                 header-bg="calm-bg"

@@ -12,9 +12,9 @@
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-light">
         <a ng-click="takePicture()" class="icon-camera"></a>
-        <input type="text" placeholder="Reply...">
-        <div class="buttons pull-right" ng-click="doSomething()">
-            <button class="button button-outline button-calm">Send</button>
+        <input ng-model="replyBody" type="text" placeholder="Reply...">
+        <div class="buttons pull-right">
+            <button class="button button-outline button-calm" ng-click="addReply()">Send</button>
         </div>
     </ion-footer-bar>
 </ion-view>

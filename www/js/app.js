@@ -33,7 +33,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 controller: 'AskQuestionCtrl'
             })
             .state('viewPost', {
-                url: "/viewPost",
+                url: "/viewPost/:firebase_id",
                 templateUrl: "templates/view-question.html",
                 controller: 'ViewPostCtrl'
             })

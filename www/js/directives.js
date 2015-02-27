@@ -36,7 +36,7 @@ angular.module('afterclass.directives', [])
         return {
             scope: {
                 post: '=',
-                viewPost: '&',
+                viewPost: '=',
                 postAccept: '&',
                 postDecline: '&',
                 postReply: '&'

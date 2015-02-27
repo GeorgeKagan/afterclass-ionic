@@ -65,8 +65,8 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.askQuestion = function () {
             $state.go('askQuestion');
         };
-        $scope.viewPost = function () {
-            $state.go('viewPost');
+        $scope.viewPost = function (firebase_id) {
+            $state.go('viewPost', {firebase_id: firebase_id});
         };
         $scope.postReply = function () {
             $cordovaDialogs.alert('No action yet...', 'Post reply', 'OK');
@@ -114,13 +114,7 @@ angular.module('afterclass.controllers', ['ui.router'])
                 status: 'unanswered',
                 ask_date: moment().format("MMM Do YY"),
                 timestamp: moment().unix(),
-                replies: [
-                    //{
-                    //    name: 'Generic Teacher',
-                    //    body: 'Reply body right here',
-                    //    reply_date: moment().format()
-                    //}
-                ]
+                replies: {}
             }).then(function() {
                 $timeout(function() {
                     $ionicLoading.hide();
@@ -157,9 +151,33 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('ViewPostCtrl', function ($scope, $state) {
+    .controller('ViewPostCtrl', function ($rootScope, $scope, $state, $stateParams, $cordovaDialogs, $firebase, $ionicLoading, $timeout) {
+        var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id + '/replies'),
+            post = $firebase(ref);
+        $scope.replyBody = '';
         $scope.backToHome = function () {
             $state.go('home');
+        };
+        $scope.addReply = function() {
+            if (!$scope.replyBody) {
+                $cordovaDialogs.alert('Please type in something!', 'Error', 'OK');
+                return false;
+            }
+            $ionicLoading.show({template: 'Loading...'});
+            post.$push({
+                user: $rootScope.user.id,
+                body: $scope.replyBody,
+                reply_date: moment().format("MMM Do YY"),
+                timestamp: moment().unix()
+            }).then(function() {
+                $timeout(function() {
+                    $ionicLoading.hide();
+                    $scope.replyBody = '';
+                }, 1000);
+            }, function(error) {
+                $ionicLoading.hide();
+                console.log("Error:", error);
+            });
         };
     })
 ;
