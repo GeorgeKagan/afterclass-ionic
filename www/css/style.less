@@ -7,8 +7,11 @@
   font-family: "Open Sans", sans-serif !important;
 }
 
-ion-view {
+.view-container {
   .RadialGradient;
+}
+.view-container .pane {
+  background-color: transparent !important;
 }
 
 .popover {
@@ -36,6 +39,16 @@ select, textarea, input[type="text"] {
   h1.title:not(.no-logo) {
     background: url(../img/logo.png) 0 center no-repeat;
     background-size: 30%;
+  }
+}
+
+// List
+.list.list-simple {
+  .item {
+    background: transparent;
+    &.item:last-child {
+      border: 0;
+    }
   }
 }
 

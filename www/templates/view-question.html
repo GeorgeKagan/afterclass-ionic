@@ -10,8 +10,8 @@
         <p class="padding">
             {{ post.body }}
         </p>
-        <div class="list">
-            <div class="item item-thumbnail-left" href="#" ng-repeat="reply in post.replies">
+        <div class="list list-simple">
+            <div class="item" href="#" ng-repeat="reply in post.replies" ng-class="{'item-thumbnail-left': reply.img}">
                 <!--<img src="cover.jpg">-->
                 <div><small class="date">{{reply.reply_date}}</small>{{ reply.body }}</div>
             </div>
