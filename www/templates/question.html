@@ -8,8 +8,7 @@
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2">
             <div class="item item-avatar">
-                <img src="img/mcfly.jpg">
-                <!--<h2>{{ reply.name }}</h2>-->
+                <img ng-src="http://graph.facebook.com/{{$root.user.id}}/picture?type=square" />
                 <div class="post-comment item item-body">
                     <small class="date">{{ reply.reply_date }}</small>
                     {{ reply.body }}
