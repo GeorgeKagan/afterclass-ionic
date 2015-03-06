@@ -96,34 +96,51 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs, $timeout, MyCamera) {
+    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload) {
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var posts = $firebase(ref);
+        var add_img_url = null;
         $scope.subjects = ['Algebra 1', 'Algebra 2', 'Algebra 3', 'Other'];
         $scope.addPost = function() {
             if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
                 $cordovaDialogs.alert('Please fill out all required fields', 'Error', 'OK');
                 return false;
             }
-            $ionicLoading.show({template: 'Sending...'});
-            posts.$push({
-                user: $rootScope.user.id,
-                subject: angular.element('#aq-subject').val(),
-                body: angular.element('#aq-body').val(),
-                status: 'unanswered',
-                ask_date: moment().format("MMM Do YY"),
-                timestamp: moment().unix(),
-                replies: {}
-            }).then(function() {
-                $timeout(function() {
+            var persist_post = function(img_id) {
+                $ionicLoading.show({template: 'Sending...'});
+                posts.$push({
+                    user: $rootScope.user.id,
+                    subject: angular.element('#aq-subject').val(),
+                    body: angular.element('#aq-body').val(),
+                    img_id: img_id || '',
+                    status: 'unanswered',
+                    ask_date: moment().format("MMM Do YY"),
+                    timestamp: moment().unix(),
+                    replies: {}
+                }).then(function() {
+                    $timeout(function() {
+                        add_img_url = null;
+                        $ionicLoading.hide();
+                        $state.go('home');
+                    }, 1000);
+                }, function(error) {
                     $ionicLoading.hide();
-                    $state.go('home');
-                }, 1000);
-            }, function(error) {
-                $ionicLoading.hide();
-                console.log("Error:", error);
-            });
+                    console.log("Error:", error);
+                });
+            };
+            if (add_img_url) {
+                CloudinaryUpload.uploadImage(add_img_url).then(
+                    function (result) {
+                        persist_post(result.public_id);
+                    },
+                    function (err) {
+
+                    }
+                );
+            } else {
+                persist_post();
+            }
         };
         $scope.subjectChanged = function () {
             angular.element('#aq-body')[0].focus();
@@ -133,6 +150,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
         $scope.takePicture = function () {
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function(imageURI) {
+                add_img_url = imageURI;
                 img.html('<img src="' + imageURI + '">');
                 $ionicScrollDelegate.scrollTop();
             }, function() {
@@ -142,6 +160,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
         $scope.choosePicture = function () {
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function(imageURI) {
+                add_img_url = imageURI;
                 img.html('<img src="' + imageURI + '">');
                 $ionicScrollDelegate.scrollTop();
             }, function() {
@@ -225,7 +244,6 @@ angular.module('afterclass.controllers', ['ui.router'])
             if (add_img_url) {
                 CloudinaryUpload.uploadImage(add_img_url).then(
                     function (result) {
-                        console.log(result);
                         persist_reply(result.public_id);
                     },
                     function (err) {

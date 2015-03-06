@@ -10,12 +10,16 @@
         <div class="padding post-question">
             {{ post.body }}
         </div>
+        <img ng-if="post.img_id"
+             ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_crop,h_250,w_550/{{post.img_id}}.jpg"
+             ng-click="viewFullImage(post.img_id)">
         <div class="list list-simple">
             <div class="item" href="#" ng-repeat="reply in post.replies" ng-class="{'item-thumbnail-left': reply.img}">
                 <div class="clearfix">
                     <small class="date">{{reply.reply_date}}</small>
                     {{ reply.body }}
-                    <img ng-if="reply.img_id" public-id="{{reply.img_id}}" class="reply-img"
+                    <img class="reply-img"
+                         ng-if="reply.img_id"
                          ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,g_north,h_50,w_50/{{reply.img_id}}.jpg"
                          ng-click="viewFullImage(reply.img_id)">
                 </div>
