@@ -10,3 +10,14 @@
   background-color: darken(@blue, 5%);
   border-color: darken(@blue, 10%);
 }
+
+.platform-android {
+  .action-sheet {
+    button {
+      padding: 0 0 0 15px;
+      &.destructive {
+        color: @red;
+      }
+    }
+  }
+}

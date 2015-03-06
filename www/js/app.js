@@ -16,7 +16,6 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-
             .state('login', {
                 url: "/login",
                 templateUrl: "templates/login.html",
@@ -36,6 +35,11 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 url: "/viewPost/:firebase_id",
                 templateUrl: "templates/view-question.html",
                 controller: 'ViewPostCtrl'
+            })
+            .state('fullImage', {
+                url: "/fullImage/:img_id",
+                templateUrl: "templates/full-image.html",
+                controller: 'FullImageCtrl'
             })
         ;
 

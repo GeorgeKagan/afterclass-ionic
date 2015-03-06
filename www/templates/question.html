@@ -6,7 +6,7 @@
         </div>
         <div class="post-question item item-light item-body">{{ post.body }}</div>
         <!-- replies -->
-        <div ng-repeat="reply in post.replies | orderObjectBy:timestamp | limitTo: -2">
+        <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2">
             <div class="item item-avatar">
                 <img src="img/mcfly.jpg">
                 <!--<h2>{{ reply.name }}</h2>-->

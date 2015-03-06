@@ -151,35 +151,99 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('ViewPostCtrl', function ($rootScope, $scope, $state, $stateParams, $cordovaDialogs, $firebase, $ionicLoading, $timeout) {
+    .controller('ViewPostCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebase, $ionicLoading,
+                                          $ionicActionSheet, $timeout, MyCamera, CloudinaryUpload) {
         var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
             post = $firebase(ref),
-            replies = $firebase(ref.child('replies'));
+            replies = $firebase(ref.child('replies')),
+            add_img_url = null;
         $scope.post = post.$asObject();
         $scope.replyBody = '';
+        $scope.add_img_preview = false;
         $scope.backToHome = function () {
             $state.go('home');
         };
+        $scope.addImage = function () {
+            $ionicActionSheet.show({
+                buttons: [{text: 'Camera'}, {text: 'Documents'}],
+                destructiveText: $scope.add_img_preview ? 'Remove' : '',
+                titleText: 'Select Source',
+                cancelText: 'Cancel',
+                destructiveButtonClicked: function () {
+                    $scope.add_img_preview = false;
+                    add_img_url = null;
+                    return true;
+                },
+                buttonClicked: function (index) {
+                    if (index === 0) {
+                        // Camera
+                        MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (imageURI) {
+                            add_img_url = imageURI;
+                            angular.element('.img-preview').attr('src', imageURI);
+                            $scope.add_img_preview = true;
+                        }, function () {
+                            $scope.add_img_preview = false;
+                        });
+                    } else {
+                        // Gallery
+                        MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (imageURI) {
+                            add_img_url = imageURI;
+                            angular.element('.img-preview').attr('src', imageURI);
+                            $scope.add_img_preview = true;
+                        }, function () {
+                            $scope.add_img_preview = false;
+                        });
+                    }
+                    return true;
+                }
+            });
+        };
         $scope.addReply = function() {
             if (!$scope.replyBody) {
-                $cordovaDialogs.alert('Please type in something!', 'Error', 'OK');
+                $cordovaDialogs.alert('Please type something in!', 'Error', 'OK');
                 return false;
             }
-            $ionicLoading.show({template: 'Sending...'});
-            replies.$push({
-                user: $rootScope.user.id,
-                body: $scope.replyBody,
-                reply_date: moment().format("MMM Do YY"),
-                timestamp: moment().unix()
-            }).then(function() {
-                $timeout(function() {
+            var persist_reply = function(img_id) {
+                $ionicLoading.show({template: 'Sending...'});
+                replies.$push({
+                    user: $rootScope.user.id,
+                    body: $scope.replyBody,
+                    img_id: img_id || '',
+                    reply_date: moment().format("MMM Do YY"),
+                    timestamp: moment().unix()
+                }).then(function() {
                     $ionicLoading.hide();
+                    $scope.add_img_preview = false;
                     $scope.replyBody = '';
-                }, 1000);
-            }, function(error) {
-                $ionicLoading.hide();
-                console.log("Error:", error);
-            });
+                    add_img_url = null;
+                    $ionicScrollDelegate.scrollBottom(true);
+                }, function(error) {
+                    $ionicLoading.hide();
+                    console.log("Error:", error);
+                });
+            };
+            if (add_img_url) {
+                CloudinaryUpload.uploadImage(add_img_url).then(
+                    function (result) {
+                        console.log(result);
+                        persist_reply(result.public_id);
+                    },
+                    function (err) {
+
+                    }
+                );
+            } else {
+                persist_reply();
+            }
+        };
+        $scope.viewFullImage = function(img_id) {
+            $state.go('fullImage', {img_id: img_id});
+        };
+    })
+    .controller('FullImageCtrl', function ($scope, $state, $stateParams, $window) {
+        $scope.img_id = $stateParams.img_id;
+        $scope.backToHome = function () {
+            $window.history.back();
         };
     })
 ;

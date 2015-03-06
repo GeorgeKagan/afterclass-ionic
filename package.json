@@ -19,6 +19,8 @@
     "org.apache.cordova.camera",
     "./engine/cordova-crosswalk-engine-c0.6.1",
     "org.apache.cordova.splashscreen",
-    "org.apache.cordova.dialogs"
+    "org.apache.cordova.dialogs",
+    "org.apache.cordova.file",
+    "org.apache.cordova.file-transfer"
   ]
 }
