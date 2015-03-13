@@ -29,7 +29,7 @@
     <ion-footer-bar align-title="left" class="bar-light">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <input ng-model="replyBody" type="text" placeholder="Reply...">
+        <textarea msd-elastic="\n" ng-model="replyBody" placeholder="Reply..."></textarea>
         <div class="buttons pull-right">
             <button class="button button-outline button-calm" ng-click="addReply()">Send</button>
         </div>
