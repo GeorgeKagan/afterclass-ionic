@@ -15,23 +15,13 @@ angular.module('afterclass.controllers', ['ui.router'])
         }).then(function(popover) {
             $scope.popover = popover;
         });
-        // Populate rootScope with user data from localStorage
-        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
-            authData = ref.getAuth();
-        if (authData) {
-            $rootScope.user = authData.facebook;
-        }
     })
-    .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory, UserCollection) {
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
             authData = ref.getAuth();
         if (authData) {
-            $rootScope.user = authData.facebook;
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
-            console.log("User " + authData.uid + " is logged in with " + authData.provider);
-        } else {
-            console.log("User is logged out");
         }
         //
         $scope.login = function () {
@@ -40,15 +30,13 @@ angular.module('afterclass.controllers', ['ui.router'])
                 $ionicLoading.hide();
                 if (error) {
                     alert("Login failed: " + error);
-                    console.log("Login Failed!", error);
                 } else {
-                    $rootScope.user = authData.facebook;
+                    UserCollection.saveToUsersCollection(authData);
                     $state.go('home');
                     $ionicHistory.nextViewOptions({disableBack: true});
-                    console.log("Authenticated successfully with payload:", authData);
                 }
             });
-        }
+        };
     })
     .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs) {
         var tabs_top_pos = 230;

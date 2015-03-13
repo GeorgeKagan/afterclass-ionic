@@ -24,7 +24,15 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             .state('home', {
                 url: "/home",
                 templateUrl: "templates/home.html",
-                controller: 'HomeCtrl'
+                controller: 'HomeCtrl',
+                resolve: {
+                    user: function(UserCollection) {
+                        // Populate rootScope with user data from localStorage
+                        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
+                            authData = ref.getAuth();
+                        return authData ? UserCollection.getFromUsersCollection(authData) : {};
+                    }
+                }
             })
             .state('askQuestion', {
                 url: "/askQuestion",

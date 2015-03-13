@@ -12,7 +12,7 @@ angular.module('afterclass.services', [])
                 }, options);
                 return q.promise;
             }
-        }
+        };
     }])
     .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFile, $window) {
         var cloudinary_url = 'https://api.cloudinary.com/v1_1/daayssulc/image/upload',
@@ -53,5 +53,30 @@ angular.module('afterclass.services', [])
             return deferred.promise;
         };
         return service;
+    })
+    .factory('UserCollection', function($rootScope, $q, $firebase) {
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        return {
+            saveToUsersCollection: function(authData) {
+                var sync = $firebase(ref.child('users').orderByChild('id').equalTo(authData.facebook.id)),
+                    user = sync.$asArray();
+                user.$loaded().then(function() {
+                    if (!user.length) {
+                        sync.$push(authData.facebook.cachedUserProfile);
+                    }
+                });
+            },
+            getFromUsersCollection: function(authData) {
+                var sync = $firebase(ref.child('users').orderByChild('id').equalTo(authData.facebook.id)),
+                    user = sync.$asArray(),
+                    q = $q.defer();
+                user.$loaded().then(function() {
+                    $rootScope.user = angular.element.extend(authData.facebook, user[0]);
+                    q.resolve();
+                    //console.log('Merged User', $rootScope.user);
+                });
+                return q.promise;
+            }
+        };
     })
 ;

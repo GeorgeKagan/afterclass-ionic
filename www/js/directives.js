@@ -49,4 +49,15 @@ angular.module('afterclass.directives', [])
             }
         };
     })
+    .directive('questionTabs', function($rootScope, $ionicTabsDelegate) {
+        return {
+            restrict: 'A',
+            link: function() {
+                var is_teacher = $rootScope.user.is_teacher,
+                    tabs = {unanswered: 0, answered: 1};
+                $ionicTabsDelegate.select(is_teacher ? tabs.unanswered : tabs.answered);
+            }
+        };
+    })
+
 ;
