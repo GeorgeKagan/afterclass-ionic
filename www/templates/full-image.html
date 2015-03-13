@@ -5,8 +5,7 @@
             <span ng-click="backToHome()">Full resolution</span>
         </h1>
     </div>
-    <ion-content class="has-header">
-        <img public-id="{{img_id}}" style="max-width: 100%"
-             ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,w_720/{{img_id}}.jpg">
-    </ion-content>
+    <ion-scroll class="has-header" zooming="true" direction="xy" style="width: 100%; height: 100%">
+        <img public-id="{{img_id}}" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,w_720/{{img_id}}.jpg">
+    </ion-scroll>
 </ion-view>
