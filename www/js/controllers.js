@@ -64,11 +64,11 @@ angular.module('afterclass.controllers', ['ui.router'])
                 $ionicScrollDelegate.scrollTop(true);
             });
         };
-        $scope.postDecline = function (post) {
-            sync.$update(post.$id, { status: 'unanswered' }).then(function() {
-                $ionicScrollDelegate.scrollTop(true);
-            });
-        };
+        //$scope.postDecline = function (post) {
+        //    sync.$update(post.$id, { status: 'unanswered' }).then(function() {
+        //        $ionicScrollDelegate.scrollTop(true);
+        //    });
+        //};
         $scope.gotScrolled = function () {
             var y = angular.element('.scroll:visible').offset().top;
             if (y <= -186) {
