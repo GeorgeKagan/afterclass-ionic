@@ -4,7 +4,7 @@
             <div class="ph-subject">{{ post.subject }}</div>
             <div class="ph-date">{{ post.ask_date }}</div>
         </div>
-        <div class="post-question item item-light item-body">{{ post.body }}</div>
+        <div class="post-question item item-light item-body" ng-bind-html="post.body | nl2br"></div>
         <img ng-if="post.img_id"
              ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_crop,h_250,w_550/{{post.img_id}}.jpg">
         <!-- replies -->
@@ -13,7 +13,7 @@
                 <img ng-src="http://graph.facebook.com/{{$root.user.id}}/picture?type=square" />
                 <div class="post-comment item item-body">
                     <small class="date">{{ reply.reply_date }}</small>
-                    {{ reply.body }}
+                    <div ng-bind-html="reply.body | nl2br"></div>
                 </div>
             </div>
         </div>
