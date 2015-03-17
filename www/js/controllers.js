@@ -230,6 +230,11 @@ angular.module('afterclass.controllers', ['ui.router'])
                     $scope.replyBody = '';
                     add_img_url = null;
                     $ionicScrollDelegate.scrollBottom(true);
+                    // Change question's status according to last comment's user type
+                    $scope.post.$loaded().then(function(post) {
+                        post.status = $rootScope.user.is_teacher ? 'answered' : 'unanswered';
+                        post.$save();
+                    });
                 }, function(error) {
                     $ionicLoading.hide();
                     console.log("Error:", error);
