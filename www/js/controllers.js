@@ -137,9 +137,9 @@ angular.module('afterclass.controllers', ['ui.router'])
             $state.go('home');
         };
         $scope.takePicture = function () {
-            MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function(imageURI) {
-                add_img_url = imageURI;
-                img.html('<img src="' + imageURI + '">');
+            MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function(result) {
+                add_img_url = result.imageURI;
+                img.html('<img src="' + result.imageURI + '">');
                 $ionicScrollDelegate.scrollTop();
             }, function() {
                 img.html('');
@@ -147,9 +147,12 @@ angular.module('afterclass.controllers', ['ui.router'])
             });
         };
         $scope.choosePicture = function () {
-            MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function(imageURI) {
-                add_img_url = imageURI;
-                img.html('<img src="' + imageURI + '">');
+            MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function(result) {
+                if (!result.is_image) {
+                    return $cordovaDialogs.alert('Only images allowed', 'Error', 'OK');
+                }
+                add_img_url = result.imageURI;
+                img.html('<img src="' + result.imageURI + '">');
                 $ionicScrollDelegate.scrollTop();
             }, function() {
                 img.html('');
@@ -184,18 +187,21 @@ angular.module('afterclass.controllers', ['ui.router'])
                 buttonClicked: function (index) {
                     if (index === 0) {
                         // Camera
-                        MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (imageURI) {
-                            add_img_url = imageURI;
-                            angular.element('.img-preview').attr('src', imageURI);
+                        MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
+                            add_img_url = result.imageURI;
+                            angular.element('.img-preview').attr('src', result.imageURI);
                             $scope.add_img_preview = true;
                         }, function () {
                             $scope.add_img_preview = false;
                         });
                     } else {
                         // Gallery
-                        MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (imageURI) {
-                            add_img_url = imageURI;
-                            angular.element('.img-preview').attr('src', imageURI);
+                        MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
+                            if (!result.is_image) {
+                                return $cordovaDialogs.alert('Only images allowed', 'Error', 'OK');
+                            }
+                            add_img_url = result.imageURI;
+                            angular.element('.img-preview').attr('src', result.imageURI);
                             $scope.add_img_preview = true;
                         }, function () {
                             $scope.add_img_preview = false;

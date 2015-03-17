@@ -1,19 +1,30 @@
 angular.module('afterclass.services', [])
 
-    .factory('MyCamera', ['$q', function($q) {
+    .factory('MyCamera', function($q, $window) {
         return {
             getPicture: function(options) {
                 var q = $q.defer();
+                options = angular.element.extend({
+                    quality: 80,
+                    destinationType: Camera.DestinationType.FILE_URI,
+                    mediaType: Camera.MediaType.PICTURE
+                }, options);
                 navigator.camera.getPicture(function(result) {
-                    // Do any magic you need
-                    q.resolve(result);
+                    $window.resolveLocalFileSystemURL(result, function (fileEntry) {
+                        fileEntry.file(function (fileObj) {
+                            q.resolve({
+                                imageURI: result,
+                                is_image: angular.element.inArray(fileObj.type, ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']) > -1
+                            });
+                        });
+                    });
                 }, function(err) {
                     q.reject(err);
                 }, options);
                 return q.promise;
             }
         };
-    }])
+    })
     .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFile, $window) {
         var cloudinary_url = 'https://api.cloudinary.com/v1_1/daayssulc/image/upload',
             upload_preset = 'gpyif5y5',
