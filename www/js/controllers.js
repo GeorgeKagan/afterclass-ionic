@@ -39,7 +39,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
     .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs) {
-        var tabs_top_pos = 230;
+        var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
         // Load all user's questions from firebase
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
         var sync = $firebase(ref.orderByChild('user').equalTo($rootScope.user.id));
@@ -70,6 +70,9 @@ angular.module('afterclass.controllers', ['ui.router'])
         //    });
         //};
         $scope.gotScrolled = function () {
+            if ($rootScope.user.is_teacher) {
+                return;
+            }
             var y = angular.element('.scroll:visible').offset().top;
             if (y <= -186) {
                 angular.element('#ac-tabs-inner .tabs').css('top', 44);

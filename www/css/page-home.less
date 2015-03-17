@@ -1,6 +1,15 @@
 @import "misc/variables.less";
 @import "misc/mixins.less";
 
+body.is-teacher {
+  .ask-q-area {
+    display: none;
+  }
+  .posts {
+    top: 117px;
+  }
+}
+
 // Questions tabs
 #ac-tabs-inner {
 
@@ -18,21 +27,21 @@
     background: @pale_blue;
     color: @white;
     border: 0;
-    border-radius: 0;
+    border-radius: 2px;
     height: 70px;
     width: 90%;
-    line-height: 70px;
+    line-height: 68px;
     margin: 0 auto 20px auto;
     padding: 0;
     cursor: pointer;
     .ab-icon {
       float: left;
-      background: @green url(../img/question-icon.png) center center no-repeat;
+      background: @green_desaturated url(../img/question-icon.png) center center no-repeat;
       width: 25%;
       height: 100%;
       display: inline-block;
-      border-bottom: 3px solid lighten(@green2, 5%);
-      background-size: 45px 45px;
+      border-bottom: 3px solid darken(@green_desaturated, 25%);
+      background-size: 45px 43px;
     }
     .ab-text {
       float: left;
@@ -44,9 +53,9 @@
       text-align: center;
     }
     &.activated {
-      background: darken(@pale_blue, 10%);
+      background: darken(@pale_blue, 5%);
       .ab-icon {
-        background-color: darken(@green, 10%);
+        background-color: darken(@green_desaturated, 5%);
       }
     }
   }
@@ -103,8 +112,14 @@
   }
   .button-bar {
     padding: 0;
+    button.button {
+      border-radius: 0 0 2px 2px;
+    }
   }
-  img {
-    max-width: 100%;
+  .img-wrapper {
+    line-height: 0;
+    img {
+      max-width: 100%;
+    }
   }
 }

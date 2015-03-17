@@ -5,8 +5,9 @@
             <div class="ph-date">{{ post.ask_date }}</div>
         </div>
         <div class="post-question item item-light item-body" ng-bind-html="post.body | nl2br"></div>
-        <img ng-if="post.img_id"
-             ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_crop,h_250,w_550/{{post.img_id}}.jpg">
+        <div class="img-wrapper">
+            <img ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_crop,h_250,w_550/{{post.img_id}}.jpg">
+        </div>
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2">
             <div class="item item-avatar">

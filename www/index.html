@@ -31,7 +31,7 @@
     <script src="js/filters.js"></script>
   </head>
 
-  <body ng-app="afterclass" ng-controller="AppCtrl">
+  <body ng-app="afterclass" ng-controller="AppCtrl" ng-class="{'is-teacher': $root.user.is_teacher}">
     <ion-nav-view></ion-nav-view>
   </body>
 </html>
