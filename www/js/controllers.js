@@ -59,11 +59,11 @@ angular.module('afterclass.controllers', ['ui.router'])
         $scope.postReply = function () {
             $cordovaDialogs.alert('No action yet...', 'Post reply', 'OK');
         };
-        $scope.postAccept = function (post) {
-            sync.$update(post.$id, { status: 'answered' }).then(function() {
-                $ionicScrollDelegate.scrollTop(true);
-            });
-        };
+        //$scope.postAccept = function (post) {
+        //    sync.$update(post.$id, { status: 'answered' }).then(function() {
+        //        $ionicScrollDelegate.scrollTop(true);
+        //    });
+        //};
         //$scope.postDecline = function (post) {
         //    sync.$update(post.$id, { status: 'unanswered' }).then(function() {
         //        $ionicScrollDelegate.scrollTop(true);
@@ -231,8 +231,10 @@ angular.module('afterclass.controllers', ['ui.router'])
                     add_img_url = null;
                     $ionicScrollDelegate.scrollBottom(true);
                     // Change question's status according to last comment's user type
+                    // + update timestamp so it would go up in feed
                     $scope.post.$loaded().then(function(post) {
                         post.status = $rootScope.user.is_teacher ? 'answered' : 'unanswered';
+                        post.timestamp = moment().unix();
                         post.$save();
                     });
                 }, function(error) {
