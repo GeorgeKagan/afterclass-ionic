@@ -29,6 +29,10 @@
     <script src="js/directives.js"></script>
     <script src="js/services.js"></script>
     <script src="js/filters.js"></script>
+
+    <script>
+        var d = function() { return console.log.apply(console, arguments); };
+    </script>
   </head>
 
   <body ng-app="afterclass" ng-controller="AppCtrl" ng-class="{'is-teacher': $root.user.is_teacher}">

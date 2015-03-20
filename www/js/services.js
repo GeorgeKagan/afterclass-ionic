@@ -77,14 +77,22 @@ angular.module('afterclass.services', [])
                     }
                 });
             },
-            getFromUsersCollection: function(authData) {
-                var sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
+            /**
+             * Populate rootScope with user data from localStorage
+             */
+            getFromUsersCollection: function() {
+                if ($rootScope.user) {
+                    return;
+                }
+                var authData = ref.getAuth(),
+                    sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
                     user = $firebaseArray(sync),
                     q = $q.defer();
                 user.$loaded().then(function() {
+                    // Use up to date fb data, but merge in custom properties set via firebase
                     $rootScope.user = angular.element.extend(authData.facebook, user[0]);
                     q.resolve();
-                    //console.log('Merged User', $rootScope.user);
+                    console.log('Merged User', $rootScope.user);
                 });
                 return q.promise;
             }

@@ -25,29 +25,25 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
-                resolve: {
-                    user: function(UserCollection) {
-                        // Populate rootScope with user data from localStorage
-                        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
-                            authData = ref.getAuth();
-                        return authData ? UserCollection.getFromUsersCollection(authData) : {};
-                    }
-                }
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('askQuestion', {
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
-                controller: 'AskQuestionCtrl'
+                controller: 'AskQuestionCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('viewPost', {
                 url: "/viewPost/:firebase_id",
                 templateUrl: "templates/view-question.html",
-                controller: 'ViewPostCtrl'
+                controller: 'ViewPostCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('fullImage', {
                 url: "/fullImage/:img_id",
                 templateUrl: "templates/full-image.html",
-                controller: 'FullImageCtrl'
+                controller: 'FullImageCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
         ;
 

@@ -8,6 +8,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             $state.go('login');
             $ionicHistory.nextViewOptions({disableBack: true});
             $scope.popover.hide();
+            $rootScope.user = null;
         };
         // Header bar popover
         $ionicPopover.fromTemplateUrl('templates/popover.html', {
@@ -46,6 +47,7 @@ angular.module('afterclass.controllers', ['ui.router'])
         $ionicLoading.show({template: 'Loading...'});
         if ($rootScope.user.is_teacher) {
             // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
+            // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
             sync2 = ref.orderByChild('status').equalTo('unanswered');
             posts_tutor_unanswered = $firebaseArray(sync2);
             posts_tutor_unanswered.$loaded().then(function() {
