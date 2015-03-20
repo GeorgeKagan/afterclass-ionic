@@ -9,7 +9,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
         $rootScope.user = null;
     };
     // Header bar popover
-    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+    $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {
         scope: $scope
     }).then(function (popover) {
         $scope.popover = popover;
