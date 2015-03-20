@@ -38,17 +38,37 @@ angular.module('afterclass.controllers', ['ui.router'])
             });
         };
     })
-    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs) {
+    .controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicLoading, $cordovaDialogs) {
         var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
         // Load all user's questions from firebase
-        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
-        var sync = $firebase(ref.orderByChild('user').equalTo($rootScope.user.id));
-        var posts = sync.$asArray();
+        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts"),
+            sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered;
         $ionicLoading.show({template: 'Loading...'});
-        posts.$loaded().then(function() {
-            $ionicLoading.hide();
-            $scope.posts = posts;
-        });
+        if ($rootScope.user.is_teacher) {
+            // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
+            sync2 = ref.orderByChild('status').equalTo('unanswered');
+            posts_tutor_unanswered = $firebaseArray(sync2);
+            posts_tutor_unanswered.$loaded().then(function() {
+                $ionicLoading.hide();
+                $scope.posts_tutor_unanswered = posts_tutor_unanswered;
+            });
+            $scope.ifPotentialTutor = function (post) {
+                return angular.element.inArray($rootScope.user.id, post.potential_tutors) > -1;
+            };
+            // Answered posts by tutor (last_tutor_id = this tutor's id)
+            sync3 = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.id);
+            posts_tutor_answered = $firebaseArray(sync3);
+            posts_tutor_answered.$loaded().then(function() {
+                $scope.posts_tutor_answered = posts_tutor_answered;
+            });
+        } else {
+            sync = ref.orderByChild('user').equalTo($rootScope.user.id);
+            posts = $firebaseArray(sync);
+            posts.$loaded().then(function() {
+                $ionicLoading.hide();
+                $scope.posts = posts;
+            });
+        }
         //
         $scope.askQuestion = function () {
             $state.go('askQuestion');
@@ -223,7 +243,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             }
             var persist_reply = function(img_id) {
                 $ionicLoading.show({template: 'Sending...'});
-                replies.$push({
+                replies.$add({
                     user: $rootScope.user.id,
                     body: $scope.replyBody,
                     img_id: img_id || '',
@@ -237,9 +257,11 @@ angular.module('afterclass.controllers', ['ui.router'])
                     $ionicScrollDelegate.scrollBottom(true);
                     // Change question's status according to last comment's user type
                     // + update timestamp so it would go up in feed
+                    // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                     $scope.post.$loaded().then(function(post) {
                         post.status = $rootScope.user.is_teacher ? 'answered' : 'unanswered';
                         post.timestamp = moment().unix();
+                        post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.id : '';
                         post.$save();
                     });
                 }, function(error) {
