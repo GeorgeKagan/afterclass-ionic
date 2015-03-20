@@ -87,10 +87,10 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebase, $ionicLoading, $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload) {
+    .controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicLoading, $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload) {
         var img = angular.element('#aq-img');
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
-        var posts = $firebase(ref);
+        var posts = $firebaseArray(ref);
         var add_img_url = null;
         $scope.subjects = ['Algebra 1', 'Algebra 2', 'Algebra 3', 'Other'];
         $scope.addPost = function() {
@@ -100,7 +100,7 @@ angular.module('afterclass.controllers', ['ui.router'])
             }
             var persist_post = function(img_id) {
                 $ionicLoading.show({template: 'Sending...'});
-                posts.$push({
+                posts.$add({
                     user: $rootScope.user.id,
                     subject: angular.element('#aq-subject').val(),
                     body: angular.element('#aq-body').val(),
@@ -108,7 +108,9 @@ angular.module('afterclass.controllers', ['ui.router'])
                     status: 'unanswered',
                     ask_date: moment().format("MMM Do YY"),
                     timestamp: moment().unix(),
-                    replies: {}
+                    replies: '',
+                    potential_tutors: '',
+                    last_tutor_id: ''
                 }).then(function() {
                     $timeout(function() {
                         add_img_url = null;
@@ -164,13 +166,13 @@ angular.module('afterclass.controllers', ['ui.router'])
         };
     })
 
-    .controller('ViewPostCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebase, $ionicLoading,
+    .controller('ViewPostCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebaseObject, $firebaseArray, $ionicLoading,
                                           $ionicActionSheet, $timeout, MyCamera, CloudinaryUpload) {
         var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
-            post = $firebase(ref),
-            replies = $firebase(ref.child('replies')),
+            post = ref,
+            replies = $firebaseArray(ref.child('replies')),
             add_img_url = null;
-        $scope.post = post.$asObject();
+        $scope.post = $firebaseObject(post);
         $scope.replyBody = '';
         $scope.add_img_preview = false;
         $scope.backToHome = function () {

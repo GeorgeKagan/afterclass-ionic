@@ -11,7 +11,7 @@
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2">
             <div class="item item-avatar">
-                <img ng-src="http://graph.facebook.com/{{$root.user.id}}/picture?type=square" />
+                <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
                 <div class="post-comment item item-body">
                     <small class="date">{{ reply.reply_date }}</small>
                     <div ng-bind-html="reply.body | nl2br"></div>

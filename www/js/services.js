@@ -65,12 +65,12 @@ angular.module('afterclass.services', [])
         };
         return service;
     })
-    .factory('UserCollection', function($rootScope, $q, $firebase) {
+    .factory('UserCollection', function($rootScope, $q, $firebaseArray) {
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
         return {
             saveToUsersCollection: function(authData) {
-                var sync = $firebase(ref.child('users').orderByChild('id').equalTo(authData.facebook.id)),
-                    user = sync.$asArray();
+                var sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
+                    user = $firebaseArray(sync);
                 user.$loaded().then(function() {
                     if (!user.length) {
                         sync.$push(authData.facebook.cachedUserProfile);
@@ -78,8 +78,8 @@ angular.module('afterclass.services', [])
                 });
             },
             getFromUsersCollection: function(authData) {
-                var sync = $firebase(ref.child('users').orderByChild('id').equalTo(authData.facebook.id)),
-                    user = sync.$asArray(),
+                var sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
+                    user = $firebaseArray(sync),
                     q = $q.defer();
                 user.$loaded().then(function() {
                     $rootScope.user = angular.element.extend(authData.facebook, user[0]);
