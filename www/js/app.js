@@ -1,3 +1,4 @@
+angular.module('afterclass.controllers', ['ui.router']);
 angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters', 'firebase', 'ngCordova', 'monospaced.elastic'])
 
     .run(function ($ionicPlatform) {
@@ -36,7 +37,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             .state('viewPost', {
                 url: "/viewPost/:firebase_id",
                 templateUrl: "templates/view-question.html",
-                controller: 'ViewPostCtrl',
+                controller: 'ViewQuestionCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('fullImage', {
