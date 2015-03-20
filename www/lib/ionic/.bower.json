@@ -1,6 +1,6 @@
 {
   "name": "ionic",
-  "codename": "neodymium-newt",
+  "codename": "osmium-ostrich",
   "homepage": "https://github.com/driftyco/ionic",
   "authors": [
     "Max Lynch <max@drifty.com>",
@@ -28,16 +28,16 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "angular": "1.3.6",
-    "angular-animate": "1.3.6",
-    "angular-sanitize": "1.3.6",
+    "angular": "1.3.13",
+    "angular-animate": "1.3.13",
+    "angular-sanitize": "1.3.13",
     "angular-ui-router": "0.2.13"
   },
-  "_release": "09db03c68a",
+  "_release": "0f00706050",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "09db03c68a221777710429620e66c9fd71e5d668"
+    "commit": "0f007060502ca8369ed726d732cee2bbb1a228c9"
   },
   "_source": "git://github.com/driftyco/ionic-bower.git",
   "_target": "master",
