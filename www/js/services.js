@@ -73,16 +73,29 @@ angular.module('afterclass.services', [])
                     user = $firebaseArray(sync);
                 user.$loaded().then(function() {
                     if (!user.length) {
-                        sync.$push(authData.facebook.cachedUserProfile);
+                        user.$add(angular.element.extend(authData.facebook.cachedUserProfile, {
+                            is_tutor: false,
+                            finished_on_boarding: false
+                        }));
                     }
                 });
+            },
+            updateUser: function(data) {
+                var sync = ref.child('users').orderByChild('id').equalTo($rootScope.user.id),
+                    user = $firebaseArray(sync);
+                user.$loaded().then(function (user) {
+                    user[0] = angular.element.extend(user[0], data);
+                    user.$save(0);
+                });
+                // Don't wait for async call
+                $rootScope.user = angular.element.extend($rootScope.user, data);
             },
             /**
              * Populate rootScope with user data from localStorage
              */
             getFromUsersCollection: function() {
                 if ($rootScope.user) {
-                    return;
+                    return $rootScope.user;
                 }
                 var authData = ref.getAuth(),
                     sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
@@ -91,7 +104,7 @@ angular.module('afterclass.services', [])
                 user.$loaded().then(function() {
                     // Use up to date fb data, but merge in custom properties set via firebase
                     $rootScope.user = angular.element.extend(authData.facebook, user[0]);
-                    q.resolve();
+                    q.resolve($rootScope.user);
                     console.log('Merged User', $rootScope.user);
                 });
                 return q.promise;

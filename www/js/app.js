@@ -22,11 +22,25 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
             })
+            .state('onBoarding', {
+                url: "/onBoarding",
+                templateUrl: "templates/on-boarding.html",
+                controller: 'OnBoardingCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
             .state('home', {
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
-                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } },
+                onEnter: function($rootScope, $state, $ionicHistory, $timeout, user) {
+                    if (!$rootScope.user.finished_on_boarding) {
+                        $timeout(function() {
+                            $ionicHistory.nextViewOptions({disableBack: true});
+                            $state.go('onBoarding');
+                        });
+                    }
+                }
             })
             .state('askQuestion', {
                 url: "/askQuestion",

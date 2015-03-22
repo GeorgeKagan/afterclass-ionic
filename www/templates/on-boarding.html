@@ -1,0 +1,16 @@
+<ion-view id="on-boarding-page" view-title="Home">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+        <ion-slide ng-click="next()">
+            <img src="img/onboarding/slide1.jpg">
+        </ion-slide>
+        <ion-slide ng-click="next()">
+            <img src="img/onboarding/slide2.jpg">
+        </ion-slide>
+        <ion-slide ng-click="next()">
+            <img src="img/onboarding/slide3.jpg">
+        </ion-slide>
+        <ion-slide ng-click="finish()">
+            <img src="img/onboarding/slide4.jpg">
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>
