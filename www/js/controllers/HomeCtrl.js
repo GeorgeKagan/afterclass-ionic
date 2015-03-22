@@ -1,16 +1,15 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicLoading, $cordovaDialogs) {
+    'use strict';
     var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
     // Load all user's questions from firebase
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts"),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered;
-    $ionicLoading.show({template: 'Loading...'});
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
         sync2 = ref.orderByChild('status').equalTo('unanswered');
         posts_tutor_unanswered = $firebaseArray(sync2);
         posts_tutor_unanswered.$loaded().then(function () {
-            $ionicLoading.hide();
             $scope.posts_tutor_unanswered = posts_tutor_unanswered;
         });
         $scope.ifPotentialTutor = function (post) {
@@ -26,7 +25,6 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootS
         sync = ref.orderByChild('user').equalTo($rootScope.user.id);
         posts = $firebaseArray(sync);
         posts.$loaded().then(function () {
-            $ionicLoading.hide();
             $scope.posts = posts;
         });
     }

@@ -11,7 +11,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
             return false;
         }
         var persist_post = function (img_id) {
-            $ionicLoading.show({template: 'Sending...'});
+            $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             posts.$add({
                 user: $rootScope.user.id,
                 subject: angular.element('#aq-subject').val(),

@@ -1,5 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebaseObject,
                                                                                   $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, MyCamera, CloudinaryUpload) {
+    'use strict';
     var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
         post = ref,
         replies = $firebaseArray(ref.child('replies')),
@@ -54,7 +55,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             return false;
         }
         var persist_reply = function (img_id) {
-            $ionicLoading.show({template: 'Sending...'});
+            $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             replies.$add({
                 user: $rootScope.user.id,
                 body: $scope.replyBody,
@@ -97,4 +98,4 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.viewFullImage = function (img_id) {
         $state.go('fullImage', {img_id: img_id});
     };
-})
+});

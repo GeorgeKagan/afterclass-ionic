@@ -2,12 +2,15 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
         authData = ref.getAuth();
     if (authData) {
-        $state.go('home');
+        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+        $state.go('home').then(function() {
+            $ionicLoading.hide();
+        });
         $ionicHistory.nextViewOptions({disableBack: true});
     }
     //
     $scope.login = function () {
-        $ionicLoading.show({template: 'Loading...'});
+        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         ref.authWithOAuthPopup("facebook", function (error, authData) {
             $ionicLoading.hide();
             if (error) {
