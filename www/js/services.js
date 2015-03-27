@@ -26,7 +26,7 @@ angular.module('afterclass.services', [])
             }
         };
     })
-    .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFile, $window) {
+    .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFileTransfer, $window) {
         'use strict';
         var cloudinary_url = 'https://api.cloudinary.com/v1_1/daayssulc/image/upload',
             upload_preset = 'gpyif5y5',
@@ -48,8 +48,8 @@ angular.module('afterclass.services', [])
                 var uploadOptions = {
                     params: {upload_preset: upload_preset}
                 };
-                $cordovaFile
-                    .uploadFile(cloudinary_url, imageURI, uploadOptions)
+                $cordovaFileTransfer
+                    .upload(cloudinary_url, imageURI, uploadOptions)
                     .then(function (result) {
                         $ionicLoading.show({template: 'Upload Completed', duration: 1000});
                         // FYI: The result will also have URLs for any new images generated with eager transformations
