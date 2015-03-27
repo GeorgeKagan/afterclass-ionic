@@ -1,5 +1,5 @@
-angular.module('afterclass.controllers').controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicLoading, $cordovaDialogs,
-                                                                                 $timeout, MyCamera, CloudinaryUpload) {
+angular.module('afterclass.controllers').controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
+                                                                                 $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload) {
     var img = angular.element('#aq-img');
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
     var posts = $firebaseArray(ref);
@@ -27,7 +27,13 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 $timeout(function () {
                     add_img_url = null;
                     $ionicLoading.hide();
-                    $state.go('home');
+                    $state.go('home').then(function() {
+                        var unanswered = 0;
+                        $ionicTabsDelegate.select(unanswered);
+                        $timeout(function() {
+                            $cordovaDialogs.alert('Your question was sent to our private teachers, the answer will soon appear below it', 'Question sent!', 'Got it');
+                        }, 2000);
+                    });
                 }, 1000);
             }, function (error) {
                 $ionicLoading.hide();
