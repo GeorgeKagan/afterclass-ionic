@@ -15,13 +15,13 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "org.apache.cordova.inappbrowser",
     "./engine/cordova-crosswalk-engine-c0.6.1",
     "org.apache.cordova.splashscreen",
     "org.apache.cordova.dialogs",
     "org.apache.cordova.file",
     "org.apache.cordova.file-transfer",
     "./engine/cordova-crosswalk-engine-c0.6.2",
-    "org.apache.cordova.camera"
+    "org.apache.cordova.camera",
+    "org.apache.cordova.inappbrowser"
   ]
 }
