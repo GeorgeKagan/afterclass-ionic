@@ -1,6 +1,7 @@
 angular.module('afterclass.services', [])
 
     .factory('MyCamera', function($q, $window) {
+        'use strict';
         return {
             getPicture: function(options) {
                 var q = $q.defer();
@@ -26,6 +27,7 @@ angular.module('afterclass.services', [])
         };
     })
     .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFile, $window) {
+        'use strict';
         var cloudinary_url = 'https://api.cloudinary.com/v1_1/daayssulc/image/upload',
             upload_preset = 'gpyif5y5',
             service = {};
@@ -66,6 +68,7 @@ angular.module('afterclass.services', [])
         return service;
     })
     .factory('UserCollection', function($rootScope, $q, $firebaseArray) {
+        'use strict';
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
         return {
             saveToUsersCollection: function(authData) {
@@ -109,6 +112,37 @@ angular.module('afterclass.services', [])
                 });
                 return q.promise;
             }
+        };
+    })
+    .factory('InstitutePopup', function($timeout, $ionicPopup, UserCollection) {
+        'use strict';
+        var showPopup = function() {
+            $timeout(function() {
+                $ionicPopup.show({
+                    template: '<select id="popup-institute"><option value="0">Choose...</option><option value="IDC">IDC</option>' +
+                    '<option value="COMAS">COMAS</option><option value="TAU">TAU</option><option value="Other">Other</option></select>' +
+                    '<span id="pi-err" style="color:red;display:none">Please choose one!</span>',
+                    title: 'Please select your institute',
+                    buttons: [
+                        {
+                            text: '<strong>Save</strong>',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                var institute = angular.element('#popup-institute :selected').val();
+                                if (institute !== '0') {
+                                    UserCollection.updateUser({institute: institute});
+                                } else {
+                                    angular.element('#pi-err').show();
+                                    e.preventDefault();
+                                }
+                            }
+                        }
+                    ]
+                });
+            }, 4000);
+        };
+        return {
+            show: showPopup
         };
     })
 ;
