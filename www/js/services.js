@@ -13,6 +13,11 @@ angular.module('afterclass.services', [])
                 navigator.camera.getPicture(function(result) {
                     $window.resolveLocalFileSystemURL(result, function (fileEntry) {
                         fileEntry.file(function (fileObj) {
+                            // On crosswalk engine, the url is bad, so let's fix it!
+                            if (result.substring(0, 21) === 'content://com.android') {
+                                var photo_split = result.split('%3A');
+                                result = 'content://media/external/images/media/' + photo_split[1];
+                            }
                             q.resolve({
                                 imageURI: result,
                                 is_image: angular.element.inArray(fileObj.type, ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']) > -1
