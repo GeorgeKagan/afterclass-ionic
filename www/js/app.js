@@ -15,7 +15,10 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {
+        if (!window.cordova) {
+            $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
+        }
         $stateProvider
             .state('login', {
                 url: "/login",

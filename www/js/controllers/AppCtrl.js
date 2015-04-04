@@ -2,6 +2,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
     // Logout user
     $scope.logout = function () {
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        facebookConnectPlugin.logout();
         ref.unauth();
         $state.go('login');
         $ionicHistory.nextViewOptions({disableBack: true});

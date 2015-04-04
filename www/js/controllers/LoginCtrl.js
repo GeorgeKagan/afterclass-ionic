@@ -1,25 +1,41 @@
-angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory, UserCollection) {
-    var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com"),
-        authData = ref.getAuth();
+angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory, $cordovaFacebook, UserCollection) {
+    'use strict';
+    var ref = new window.Firebase("https://dazzling-heat-8303.firebaseio.com"), authData;
+
+    $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+    authData = ref.getAuth();
+
+    // Check if got active session
     if (authData) {
-        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         $state.go('home').then(function() {
             $ionicLoading.hide();
         });
         $ionicHistory.nextViewOptions({disableBack: true});
+    } else {
+        $ionicLoading.hide();
     }
-    //
+
     $scope.login = function () {
-        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-        ref.authWithOAuthPopup("facebook", function (error, authData) {
-            $ionicLoading.hide();
-            if (error) {
-                alert("Login failed: " + error);
-            } else {
-                UserCollection.saveToUsersCollection(authData);
-                $state.go('home');
-                $ionicHistory.nextViewOptions({disableBack: true});
-            }
+        window.facebookConnectPlugin.login(['public_profile'], function(status) {
+            $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+            window.facebookConnectPlugin.getAccessToken(function(token) {
+                // Authenticate with Facebook using an existing OAuth 2.0 access token
+                ref.authWithOAuthToken("facebook", token, function(error, authData) {
+                    if (error) {
+                        console.log('Firebase login failed!', error);
+                    } else {
+                        UserCollection.saveToUsersCollection(authData);
+                        $state.go('home');
+                        $ionicLoading.hide();
+                        $ionicHistory.nextViewOptions({disableBack: true});
+                        console.log('Authenticated successfully with payload:', authData);
+                    }
+                });
+            }, function(error) {
+                console.log('Could not get access token', error);
+            });
+        }, function(error) {
+            console.log('An error occurred logging the user in', error);
         });
     };
 });
