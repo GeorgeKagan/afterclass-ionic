@@ -82,8 +82,7 @@ angular.module('afterclass.services', [])
                 user.$loaded().then(function() {
                     if (!user.length) {
                         user.$add(angular.element.extend(authData.facebook.cachedUserProfile, {
-                            is_tutor: false,
-                            finished_on_boarding: false
+                            is_tutor: false
                         }));
                     }
                 });

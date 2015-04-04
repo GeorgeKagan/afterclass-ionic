@@ -23,25 +23,29 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             .state('login', {
                 url: "/login",
                 templateUrl: "templates/login.html",
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                onEnter: function($state, $ionicHistory, $timeout) {
+                    if (!localStorage.getItem('finished_on_boarding')) {
+                        $timeout(function() {
+                            $ionicHistory.nextViewOptions({disableBack: true});
+                            $state.go('onBoarding');
+                        });
+                    }
+                }
             })
             .state('onBoarding', {
                 url: "/onBoarding",
                 templateUrl: "templates/on-boarding.html",
-                controller: 'OnBoardingCtrl',
-                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+                controller: 'OnBoardingCtrl'
             })
             .state('home', {
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } },
-                onEnter: function($rootScope, $state, $ionicHistory, $timeout, user) {
-                    if (!$rootScope.user.finished_on_boarding) {
-                        $timeout(function() {
-                            $ionicHistory.nextViewOptions({disableBack: true});
-                            $state.go('onBoarding');
-                        });
+                onEnter: function(InstitutePopup, user) {
+                    if (!user.institute) {
+                        InstitutePopup.show();
                     }
                 }
             })
