@@ -44,7 +44,7 @@ angular.module('afterclass.services', [])
             $window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
                 fileEntry.file(function (fileObj) {
                     fileSize = fileObj.size;
-                    $ionicLoading.show({template: 'Uploading Image : ' + 0 + '%'});
+                    $ionicLoading.show({template: 'Uploading... ' + 0 + '%'});
                     uploadFile();
                 });
             });
@@ -65,7 +65,7 @@ angular.module('afterclass.services', [])
                         deferred.reject(err);
                     }, function (progress) {
                         percentage = Math.floor(progress.loaded / fileSize * 100);
-                        $ionicLoading.show({template: 'Uploading Image : ' + percentage + '%'});
+                        $ionicLoading.show({template: 'Uploading... ' + percentage + '%'});
                     });
             }
             return deferred.promise;
