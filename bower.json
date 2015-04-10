@@ -2,7 +2,8 @@
   "name": "afterclass",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#master"
+    "ionic": "driftyco/ionic-bower#master",
+    "browser": "~0.7.2"
   },
   "dependencies": {
     "firebase": "~2.2.3",

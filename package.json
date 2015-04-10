@@ -25,5 +25,10 @@
     "org.apache.cordova.inappbrowser",
     "./engine/cordova-crosswalk-engine-c0.7.1"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "locator": "./engine/cordova-android-c0.6.1/"
+    }
+  ]
 }
