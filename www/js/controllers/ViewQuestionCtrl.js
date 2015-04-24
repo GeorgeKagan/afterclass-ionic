@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebaseObject,
-                                                                                  $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, MyCamera, CloudinaryUpload) {
+                                                                                  $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, MyCamera, CloudinaryUpload, AmazonSNS) {
     'use strict';
     var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
         post = ref,
@@ -76,6 +76,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     post.timestamp = moment().unix();
                     post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.id : '';
                     post.$save();
+                    if ($rootScope.user.is_teacher) {
+                        AmazonSNS.publish(post.amazon_endpoint_arn, "A tutor has replied to your question");
+                    }
                 });
             }, function (error) {
                 $ionicLoading.hide();

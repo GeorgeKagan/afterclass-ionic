@@ -22,7 +22,8 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 timestamp: moment().unix(),
                 replies: '',
                 potential_tutors: '',
-                last_tutor_id: ''
+                last_tutor_id: '',
+                amazon_endpoint_arn: $rootScope.user.amazon_endpoint_arn
             }).then(function () {
                 $timeout(function () {
                     add_img_url = null;
