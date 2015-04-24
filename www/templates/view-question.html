@@ -7,24 +7,27 @@
         </h1>
     </div>
     <ion-content class="has-header">
-        <div class="padding post-question">
-            {{ post.body }}
+        <div class="post-question">
+            <div dir="auto">{{ post.body }}</div>
         </div>
         <img class="post-img"
              ng-if="post.img_id"
-             ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_crop,h_250,w_550/{{post.img_id}}.jpg"
+             ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
              ng-click="viewFullImage(post.img_id)">
-        <div class="list list-simple">
-            <div class="item" href="#" ng-repeat="reply in post.replies" ng-class="{'item-thumbnail-left': reply.img}">
-                <div class="clearfix">
-                    <img class="reply-img"
-                         ng-if="reply.img_id"
-                         ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,g_north,h_50,w_50/{{reply.img_id}}.jpg"
-                         ng-click="viewFullImage(reply.img_id)">
-                    <small class="date">{{reply.reply_date}}</small>
-                    <div ng-bind-html="reply.body | nl2br"></div>
-                </div>
+        <div ng-repeat="reply in post.replies">
+            <div class="item item-avatar">
+                <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
+                {{reply.name}}<br>
+                <small class="date">{{reply.reply_date}}</small>
             </div>
+            <div class="post-comment item-body">
+                <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
+                <img class="post-img" ng-if="reply.img_id" ng-click="viewFullImage(reply.img_id)"
+                ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg">
+            </div>
+        </div>
+        <div class="padding text-center" ng-if="!post.replies">
+            No replies... yet!
         </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-light">

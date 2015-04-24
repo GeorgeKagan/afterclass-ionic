@@ -4,7 +4,8 @@
 
 // General
 * {
-  font-family: "Open Sans", sans-serif !important;
+  font-family: "Open Sans Hebrew", sans-serif !important;
+  font-weight: 300;
 }
 
 .view-container {
@@ -36,18 +37,46 @@ textarea {
 select, textarea, input[type="text"] {
   font-size: 15px;
   color: @light_gray2;
+  font-weight: 300;
 }
 
 .post-question {
-  color: @gray;
-  font-size: 22px;
-  line-height: 29px;
-  border-bottom: 1px solid @light_gray3 !important;
+  background: transparent !important;
+  font-size: 19px;
+  line-height: 27px;
   margin: 0 0 1px 0;
+  padding-top: 5px;
+  font-weight: 300;
+}
+
+.post-comment {
+  overflow: visible;
+  p {
+    font-size: 17px;
+    line-height: 21px;
+    font-weight: 300;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  img {
+    margin: 15px auto 0 auto;
+    border-radius: 2px;
+  }
 }
 
 .date {
+  color: @gray2;
+}
+.bar .date {
+  color: @white;
   float: right;
+}
+
+.post-img {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
 }
 
 .spinner-wrapper {
@@ -58,6 +87,7 @@ select, textarea, input[type="text"] {
 // Header
 .bar-header {
   h1.title {
+    font-weight: 300;
     text-align: left;
     .icon {
       margin: 0 7px 0 0;

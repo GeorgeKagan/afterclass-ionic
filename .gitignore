@@ -5,7 +5,5 @@ node_modules/
 platforms/
 plugins/
 .idea/
-www/css/*.css
-*.css
 www/lib/
 engine/

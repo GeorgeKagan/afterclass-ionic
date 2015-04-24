@@ -1,6 +1,19 @@
 @import "misc/colors.less";
 @import "misc/mixins.less";
 
+#home-page {
+  .bar-header {
+    background: transparent;
+    border: 0;
+    .button {
+      color: #fff;
+    }
+    &.scrolled {
+      background: #387EF5;
+    }
+  }
+}
+
 body.is-teacher {
   .ask-q-area {
     display: none;
@@ -20,6 +33,7 @@ body.is-teacher {
 
 // Ask a question area
 .ask-q-area {
+  background: url(../img/bg.jpg);
   .TextShadow;
   margin: 0 0 48px 0;
   padding: 80px 0 20px 0;
@@ -68,45 +82,40 @@ body.is-teacher {
 .card {
   margin: 20px 20px;
   padding: 0;
-  box-shadow: none;
+  box-shadow: 0 2px 7px #CCC;
   &:first-child {
     margin-top: 0;
   }
   &.list:last-child {
     margin-bottom: 16px;
   }
+  .post-gradient {
+    .VerticalGradient;
+  }
   .post-header {
+    background: transparent !important;
     .ph-subject {
-      font-size: 24px;
+      font-size: 16px;
       display: inline-block;
+      padding: 12px 18px;
+      border-radius: 0 0 5px 0;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     .ph-date {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 100;
-      font-style: italic;
       float: right;
-    }
-  }
-  .post-comment {
-    padding: 0;
-    overflow: visible;
-    p {
-      color: @gray;
-      font-size: 18px;
-      line-height: 24px;
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-    img {
-      margin: 15px 0 0 0;
-      border-radius: 3px;
-      border: 1px solid @gray;
+      color: @gray2;
+      position: relative;
+      top: -3px;
     }
   }
   //
   .item {
     border: 0;
+    font-weight: 300;
   }
   .item-avatar + .item-body {
     padding-top: 0;
@@ -115,14 +124,33 @@ body.is-teacher {
     padding: 0;
     button.button {
       border-radius: 0 0 2px 2px;
+      background: @white;
+      color: @blue;
+      border: 0;
+      font-size: 24px;
+      padding: 0 0 7px 0;
+      line-height: 61px;
+      font-weight: 300;
+      &::before {
+        content: " ";
+        background: url(../img/speech-bubble.png) no-repeat;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        top: 10px;
+        position: relative;
+        background-size: 100%;
+      }
+      &.activated {
+        color: darken(@blue, 10%);
+        box-shadow: none;
+        border: 0;
+      }
     }
   }
   .img-wrapper {
+    background-color: #dbdbdb;
     line-height: 0;
-    img {
-      max-width: 100%;
-      margin: 0 auto;
-      display: block;
-    }
+    margin: 1px 0px 1px 0px;
   }
 }

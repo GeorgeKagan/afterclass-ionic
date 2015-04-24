@@ -58,6 +58,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             replies.$add({
                 user: $rootScope.user.id,
+                name: $rootScope.user.name,
                 body: $scope.replyBody,
                 img_id: img_id || '',
                 reply_date: moment().format("MMM Do YY"),

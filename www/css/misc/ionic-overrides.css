@@ -1,0 +1,20 @@
+.calm-bg {
+  background-color: #54b5e2;
+}
+.balanced-bg {
+  background: #75d574;
+}
+.button.button-positive {
+  background-color: #54b5e2;
+  border-color: #54b5e2;
+}
+.button.button-positive.activated {
+  background-color: #3eabde;
+  border-color: #3eabde;
+}
+.platform-android .action-sheet button {
+  padding: 0 0 0 15px;
+}
+.platform-android .action-sheet button.destructive {
+  color: #ff3b30;
+}

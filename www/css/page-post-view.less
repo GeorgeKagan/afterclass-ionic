@@ -2,16 +2,24 @@
 @import "misc/mixins.less";
 
 #view-question-page {
-  .post-img {
-    margin: 0 auto;
-    display: block;
+  .post-question {
+    color: @dark_gray2;
+    padding: 15px;
+    margin: 0 0 20px 0;
+    position: relative;
+    border-color: @light_gray !important;
   }
-  .reply-img {
-    width: 50px;
-    height: 50px;
-    float: left;
-    margin: 0 15px 0 0;
-    border-radius: 2px;
+  .post-question + .post-img {
+    margin: -20px auto 20px auto;
+  }
+  .post-comment {
+    color: @dark_gray2;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .item {
+    border: 0 !important;
+    background: transparent;
   }
   ion-footer-bar {
     padding: 0 65px 0 60px;

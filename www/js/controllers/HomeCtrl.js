@@ -54,8 +54,10 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootS
         }
         var y = angular.element('.scroll:visible').offset().top;
         if (y <= -186) {
+            angular.element('.bar-header').addClass('scrolled');
             angular.element('#ac-tabs-inner .tabs').css('top', 44);
         } else {
+            angular.element('.bar-header').removeClass('scrolled');
             angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
         }
     };

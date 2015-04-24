@@ -1,27 +1,32 @@
 <div>
     <div ng-click="viewPost(post.$id)">
-        <div class="post-header item {{ header_bg }} light">
-            <div class="ph-subject">{{ post.subject }}</div>
-            <div class="ph-date">{{ post.ask_date }}</div>
+        <div class="post-gradient">
+            <div class="post-header item">
+                <div class="ph-subject {{ header_bg }} light">{{ post.subject }}</div>
+                <div class="ph-date">{{ post.ask_date }}</div>
+            </div>
+            <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
-        <div class="post-question item item-light item-body" ng-bind-html="post.body | nl2br"></div>
         <div class="img-wrapper">
-            <img ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_crop,h_250,w_550/{{post.img_id}}.jpg">
+            <img class="post-img" ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg">
         </div>
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2">
             <div class="item item-avatar">
                 <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
-                <div class="post-comment item item-body">
-                    <small class="date">{{ reply.reply_date }}</small>
-                    <div ng-bind-html="reply.body | nl2br"></div>
-                </div>
+                {{reply.name}}<br>
+                <small class="date">{{ reply.reply_date }}</small>
+            </div>
+            <div class="post-comment item item-body">
+                <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
+                <img class="post-img" ng-if="reply.img_id"
+                     ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg">
             </div>
         </div>
     </div>
     <div class="button-bar">
-        <button ng-if="is_teacher && post.status==='unanswered'" class="button ion-thumbsup button-positive" ng-click="viewPost(post.$id)">&nbsp; Accept & Answer</button>
+        <button ng-if="is_teacher && post.status==='unanswered'" class="button" ng-click="viewPost(post.$id)">&nbsp; Accept & Answer</button>
         <!--<button ng-if="is_teacher && post.status==='answered'" class="button ion-thumbsdown button-positive" ng-click="postDecline(post)">&nbsp; Decline</button>-->
-        <button ng-hide="is_teacher && post.status==='unanswered'" class="button ion-chatbox button-positive" ng-click="viewPost(post.$id)">&nbsp; Reply</button>
+        <button ng-hide="is_teacher && post.status==='unanswered'" class="button" ng-click="viewPost(post.$id)">&nbsp; Reply</button>
     </div>
 </div>
