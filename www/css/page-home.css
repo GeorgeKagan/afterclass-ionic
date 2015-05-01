@@ -131,6 +131,22 @@ body.is-teacher .posts {
   position: relative;
   top: -3px;
 }
+.card .post-header .ph-delete {
+  background: url(../img/close.png) no-repeat;
+  width: 25px;
+  height: 25px;
+  float: right;
+  cursor: pointer;
+  position: relative;
+  top: -5px;
+  right: -5px;
+  margin: 0 0 0 5px;
+  opacity: 0.9;
+  background-size: 100%;
+}
+.card .post-header .ph-delete:active {
+  opacity: 1;
+}
 .card .item {
   border: 0;
   font-weight: 300;

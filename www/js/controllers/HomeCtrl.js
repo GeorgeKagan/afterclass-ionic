@@ -1,4 +1,5 @@
-angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicLoading, $cordovaDialogs) {
+angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state,
+                                                                          $firebaseArray, $ionicLoading, $cordovaDialogs, Post) {
     'use strict';
     var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
     // Load all user's questions from firebase
@@ -34,6 +35,14 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootS
     };
     $scope.viewPost = function (firebase_id) {
         $state.go('viewPost', {firebase_id: firebase_id});
+    };
+    $scope.deletePost = function ($event, firebase_id) {
+        $cordovaDialogs.confirm('Are you sure?', 'Delete question', ['Delete', 'Cancel']).then(function(buttonIndex) {
+            if (buttonIndex == 1) {
+                Post.delete(firebase_id);
+            }
+        });
+        $event.stopPropagation();
     };
     $scope.postReply = function () {
         $cordovaDialogs.alert('No action yet...', 'Post reply', 'OK');

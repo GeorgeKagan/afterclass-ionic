@@ -15,7 +15,7 @@
                         You have no unanswered questions
                     </div>
                     <div ng-repeat="post in posts | filter: {status: 'unanswered'}:true | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" post-reply="postReply" header-bg="calm-bg"></question>
+                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
                     </div>
                 </div>
 
@@ -25,7 +25,7 @@
                         We have no questions for you currently<br>Please check again later
                     </div>
                     <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" post-reply="postReply" header-bg="calm-bg"></question>
+                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
                     </div>
                 </div>
             </ion-content>
@@ -41,7 +41,7 @@
                         No questions have been answered yet
                     </div>
                     <div ng-repeat="post in posts | filter: {status: 'answered'}:true | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" post-reply="postReply" header-bg="balanced-bg"></question>
+                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="balanced-bg"></question>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                         You haven't answered any questions yet
                     </div>
                     <div ng-repeat="post in posts_tutor_answered | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" post-reply="postReply" header-bg="balanced-bg"></question>
+                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="balanced-bg"></question>
                     </div>
                 </div>
             </ion-content>
