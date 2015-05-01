@@ -9,7 +9,7 @@
       color: #fff;
     }
     &.scrolled {
-      background: #387EF5;
+      background: @dark_blue;
     }
   }
 }
@@ -17,7 +17,7 @@
 body.is-teacher {
   #home-page {
     .bar-header {
-      background: #387EF5;
+      background: @dark_blue;
     }
   }
   .ask-q-area {
@@ -38,17 +38,19 @@ body.is-teacher {
 
 // Ask a question area
 .ask-q-area {
-  background: url(../img/bg.jpg);
+  background: url(../img/bg3.jpg) center center;
+  background-size: 200%;
   .TextShadow;
   margin: 0 0 48px 0;
   padding: 80px 0 20px 0;
   .aqa-btn {
+    box-shadow: -1px 3px 7px rgba(0, 0, 0, 0.2);
     background: @pale_blue;
     color: @white;
     border: 0;
     border-radius: 2px;
     height: 70px;
-    width: 90%;
+    width: 85%;
     line-height: 68px;
     margin: 0 auto 20px auto;
     padding: 0;
@@ -59,15 +61,15 @@ body.is-teacher {
       width: 25%;
       height: 100%;
       display: inline-block;
-      border-bottom: 3px solid darken(@green_desaturated, 25%);
-      background-size: 45px 43px;
+      border-bottom: 2px solid darken(@green_desaturated, 25%);
+      background-size: 40px 38px;
     }
     .ab-text {
       float: left;
       height: 100%;
       width: 75%;
       display: inline-block;
-      border-bottom: 3px solid lighten(@pale_blue2, 5%);
+      border-bottom: 2px solid lighten(@pale_blue2, 5%);
       font-size: 25px;
       text-align: center;
     }

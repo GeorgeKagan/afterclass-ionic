@@ -22,10 +22,17 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
 }
 .calm-bg {
-  background-color: #54b5e2;
+  background-color: #4d9abf;
 }
 .balanced-bg {
   background: #75d574;
+}
+.bar.bar-positive {
+  background: #2263a5;
+  border-color: #2263a5;
+}
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active {
+  border-color: #4d9abf;
 }
 .button.button-positive {
   background-color: #54b5e2;
