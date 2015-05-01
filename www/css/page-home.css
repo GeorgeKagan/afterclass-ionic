@@ -31,6 +31,9 @@
 #home-page .bar-header.scrolled {
   background: #387EF5;
 }
+body.is-teacher #home-page .bar-header {
+  background: #387EF5;
+}
 body.is-teacher .ask-q-area {
   display: none;
 }
