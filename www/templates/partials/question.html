@@ -11,7 +11,7 @@
             <img class="post-img" ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg">
         </div>
         <!-- replies -->
-        <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2">
+        <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2" class="post-comment-main">
             <div class="item item-avatar">
                 <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
                 {{reply.name}}<br>

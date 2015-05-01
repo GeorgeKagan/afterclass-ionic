@@ -31,7 +31,10 @@
 #view-question-page .post-question + .post-img {
   margin: -20px auto 20px auto;
 }
-#view-question-page .post-comment {
+#view-question-page .post-comment-main {
+  border-bottom: 1px solid #EEE;
+}
+#view-question-page .post-comment-main .post-comment {
   color: #444444;
   padding-top: 0;
   padding-bottom: 0;

@@ -49,19 +49,25 @@ select, textarea, input[type="text"] {
   font-weight: 300;
 }
 
-.post-comment {
-  overflow: visible;
-  p {
-    font-size: 17px;
-    line-height: 21px;
-    font-weight: 300;
-    &:first-child {
-      margin-top: 0;
-    }
+.post-comment-main {
+  border-bottom: 1px solid #EEE;
+  .item {
+    background: transparent;
   }
-  img {
-    margin: 15px auto 0 auto;
-    border-radius: 2px;
+  .post-comment {
+    overflow: visible;
+    p {
+      font-size: 17px;
+      line-height: 21px;
+      font-weight: 300;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    img {
+      margin: 15px auto 0 auto;
+      border-radius: 2px;
+    }
   }
 }
 
@@ -128,7 +134,3 @@ select, textarea, input[type="text"] {
     position: relative;
   }
 }
-
-@import "page-home.less";
-@import "page-ask-question.less";
-@import "page-post-view.less";
