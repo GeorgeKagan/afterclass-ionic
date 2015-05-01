@@ -3,7 +3,7 @@
         <h1 class="title no-logo">
             <i ng-click="backToHome()" class="icon ion-chevron-left"></i>
             <span ng-click="backToHome()">{{ post.subject }}</span>
-            <span class="date">{{ post.ask_date }}</span>
+            <span class="date">{{ post.timestamp | moment }}</span>
         </h1>
     </div>
     <ion-content class="has-header">
@@ -18,7 +18,7 @@
             <div class="item item-avatar">
                 <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
                 {{reply.name}}<br>
-                <small class="date">{{reply.reply_date}}</small>
+                <small class="date">{{reply.timestamp | moment}}</small>
             </div>
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>

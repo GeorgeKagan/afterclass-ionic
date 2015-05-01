@@ -17,5 +17,10 @@ angular.module('afterclass.filters', [])
         return function(text) {
             return text ? $sce.trustAsHtml(text.replace(/\n/g, '<br>')) : '';
         };
+    })
+    .filter('moment', function(){
+        return function(timestamp) {
+            return moment(timestamp * 1000).fromNow();
+        };
     });
 ;

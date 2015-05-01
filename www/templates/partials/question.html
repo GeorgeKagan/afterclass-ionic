@@ -4,7 +4,7 @@
             <div class="post-header item">
                 <div class="ph-subject {{ header_bg }} light">{{ post.subject }}</div>
                 <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-show="!post.replies"></div>
-                <div class="ph-date">{{ post.ask_date }}</div>
+                <div class="ph-date">{{ post.timestamp | moment }}</div>
             </div>
             <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
@@ -16,7 +16,7 @@
             <div class="item item-avatar">
                 <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
                 {{reply.name}}<br>
-                <small class="date">{{ reply.reply_date }}</small>
+                <small class="date">{{ reply.timestamp | moment }}</small>
             </div>
             <div class="post-comment item item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
