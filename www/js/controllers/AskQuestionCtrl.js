@@ -21,7 +21,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 ask_date: moment().format("MMM Do YY"),
                 timestamp: moment().unix(),
                 replies: '',
-                potential_tutors: '',
+                potential_tutors: null,
                 last_tutor_id: '',
                 amazon_endpoint_arn: $rootScope.user.amazon_endpoint_arn
             }).then(function () {

@@ -3,7 +3,7 @@
         <div class="post-gradient">
             <div class="post-header item">
                 <div class="ph-subject {{ header_bg }} light">{{ post.subject }}</div>
-                <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-show="!post.replies"></div>
+                <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-show="!post.replies && !is_teacher"></div>
                 <div class="ph-date">{{ post.timestamp | moment }}</div>
             </div>
             <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>

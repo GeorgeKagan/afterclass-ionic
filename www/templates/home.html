@@ -11,10 +11,10 @@
 
                 <!-- Student -->
                 <div ng-if="!$root.user.is_teacher" class="posts content">
-                    <div ng-if="(posts | filter: {status: 'unanswered'}:true).length===0" class="padding-left text-center">
+                    <div ng-if="(posts | filter:ifUserUnanswered:true).length===0" class="padding-left text-center">
                         You have no unanswered questions
                     </div>
-                    <div ng-repeat="post in posts | filter: {status: 'unanswered'}:true | orderBy: '-timestamp'" class="list card">
+                    <div ng-repeat="post in posts | filter:ifUserUnanswered:true | orderBy: '-timestamp'" class="list card">
                         <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div ng-if="(posts_tutor_unanswered | filter:ifPotentialTutor:true).length===0" class="padding-left text-center">
                         We have no questions for you currently<br>Please check again later
                     </div>
-                    <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor | orderBy: '-timestamp'" class="list card">
+                    <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor:true | orderBy: '-timestamp'" class="list card">
                         <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
                     </div>
                 </div>

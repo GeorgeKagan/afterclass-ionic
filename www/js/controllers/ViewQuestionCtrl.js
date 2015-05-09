@@ -73,13 +73,24 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 // + update timestamp so it would go up in feed
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(function (post) {
-                    post.status = $rootScope.user.is_teacher ? 'answered' : 'unanswered';
                     post.timestamp = moment().unix();
                     post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.id : '';
-                    post.$save();
+                    // If teacher replied, mark q as answered
+                    if ($rootScope.user.is_teacher) {
+                        post.status = 'answered';
+                    }
+                    // If student replied and status is answered, mark qa as unanswered
+                    else if (post.status === 'answered') {
+                        post.status = 'unanswered';
+                    }
+                    // If last reply was by tutor, reset potential tutors
+                    if (post.last_tutor_id) {
+                        post.potential_tutors = null;
+                    }
                     if ($rootScope.user.is_teacher) {
                         AmazonSNS.publish(post.amazon_endpoint_arn, "A tutor has replied to your question");
                     }
+                    post.$save();
                 });
             }, function (error) {
                 $ionicLoading.hide();

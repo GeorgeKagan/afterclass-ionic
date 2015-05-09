@@ -8,13 +8,16 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootS
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
-        sync2 = ref.orderByChild('status').equalTo('unanswered');
+        sync2 = ref.orderByChild('status').equalTo('assigned');
         posts_tutor_unanswered = $firebaseArray(sync2);
         posts_tutor_unanswered.$loaded().then(function () {
             $scope.posts_tutor_unanswered = posts_tutor_unanswered;
         });
         $scope.ifPotentialTutor = function (post) {
-            return angular.element.inArray($rootScope.user.id, post.potential_tutors) > -1;
+            var tutor_ids = post.potential_tutors ? post.potential_tutors.map(function(item) {
+                return item.ticked ? item.id : 0;
+            }) : [];
+            return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
         };
         // Answered posts by tutor (last_tutor_id = this tutor's id)
         sync3 = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.id);
@@ -28,6 +31,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootS
         posts.$loaded().then(function () {
             $scope.posts = posts;
         });
+        $scope.ifUserUnanswered = function (post) {
+            return post.status === 'unanswered' || post.status === 'assigned';
+        };
     }
     //
     $scope.askQuestion = function () {
