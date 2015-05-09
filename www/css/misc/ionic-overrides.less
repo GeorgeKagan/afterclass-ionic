@@ -1,5 +1,9 @@
 @import "colors.less";
 
+.calm {
+  color: @blue;
+}
+
 .calm-bg {
   background-color: @blue;
 }
@@ -12,8 +16,13 @@
   border-color: @dark_blue;
 }
 
+.button.button-calm.button-outline,
 .tabs-striped.tabs-color-calm .tab-item.tab-item-active {
   border-color: @blue;
+  color: @blue;
+}
+.button.button-calm.button-outline.activated {
+  background: @blue;
 }
 
 .button.button-positive {

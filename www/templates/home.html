@@ -12,7 +12,7 @@
                 <!-- Student -->
                 <div ng-if="!$root.user.is_teacher" class="posts content">
                     <div ng-if="(posts | filter:ifUserUnanswered:true).length===0" class="padding-left text-center">
-                        You have no unanswered questions
+                        <strong>You have no unanswered questions</strong>
                     </div>
                     <div ng-repeat="post in posts | filter:ifUserUnanswered:true | orderBy: '-timestamp'" class="list card">
                         <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
@@ -22,7 +22,7 @@
                 <!-- Teacher -->
                 <div ng-if="$root.user.is_teacher" class="posts content">
                     <div ng-if="(posts_tutor_unanswered | filter:ifPotentialTutor:true).length===0" class="padding-left text-center">
-                        We have no questions for you currently<br>Please check again later
+                        <strong>We have no questions for you currently<br>Please check again later</strong>
                     </div>
                     <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor:true | orderBy: '-timestamp'" class="list card">
                         <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
@@ -38,7 +38,7 @@
                 <!-- Student -->
                 <div ng-if="!$root.user.is_teacher" class="posts content">
                     <div ng-if="(posts | filter: {status: 'answered'}:true).length===0" class="padding-left text-center">
-                        No questions have been answered yet
+                        <strong>No questions have been answered yet</strong>
                     </div>
                     <div ng-repeat="post in posts | filter: {status: 'answered'}:true | orderBy: '-timestamp'" class="list card">
                         <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="balanced-bg"></question>
@@ -48,7 +48,7 @@
                 <!-- Teacher -->
                 <div ng-if="$root.user.is_teacher" class="posts content">
                     <div ng-if="posts_tutor_answered.length===0" class="padding-left text-center">
-                        You haven't answered any questions yet
+                        <strong>You haven't answered any questions yet</strong>
                     </div>
                     <div ng-repeat="post in posts_tutor_answered | orderBy: '-timestamp'" class="list card">
                         <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="balanced-bg"></question>

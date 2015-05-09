@@ -7,7 +7,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     $scope.subjects = ['Algebra 1', 'Algebra 2', 'Algebra 3', 'Other'];
     $scope.addPost = function () {
         if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
-            $cordovaDialogs.alert('Please fill out all required fields', 'Error', 'OK');
+            $cordovaDialogs.alert('Please fill out all required fields', 'Missing fields', 'OK');
             return false;
         }
         var persist_post = function (img_id) {
@@ -33,7 +33,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                         $ionicTabsDelegate.select(unanswered);
                         $timeout(function() {
                             $cordovaDialogs.alert('Your question was sent to our private teachers, the answer will soon appear below it', 'Question sent!', 'Got it');
-                        }, 2000);
+                        }, 1000);
                     });
                 }, 1000);
             }, function (error) {

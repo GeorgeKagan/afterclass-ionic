@@ -144,7 +144,7 @@ angular.module('afterclass.services', [])
                     title: 'Please select your institute',
                     buttons: [
                         {
-                            text: '<strong>Save</strong>',
+                            text: '<span>Save</span>',
                             type: 'button-positive',
                             onTap: function (e) {
                                 var institute = angular.element('#popup-institute :selected').val();

@@ -42,6 +42,7 @@ body.is-teacher .posts {
 }
 .tab-item {
   max-width: inherit;
+  font-weight: bold;
 }
 .ask-q-area {
   background: url(../img/bg3.jpg) center center;
@@ -110,6 +111,9 @@ body.is-teacher .posts {
   background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
   background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
+}
+.card .post-gradient .post-question {
+  background: transparent;
 }
 .card .post-header {
   background: transparent !important;

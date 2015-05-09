@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('OnBoardingCtrl', function ($scope, $state, $ionicHistory, $ionicSlideBoxDelegate, UserCollection, InstitutePopup) {
+angular.module('afterclass.controllers').controller('OnBoardingCtrl', function ($scope, $state, $ionicHistory, $ionicSlideBoxDelegate) {
     'use strict';
     $scope.next = function() {
         $ionicSlideBoxDelegate.next();

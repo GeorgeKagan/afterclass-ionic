@@ -1,5 +1,5 @@
 <ion-view id="view-question-page" view-title="Post view">
-    <div class="bar bar-header bar-positive">
+    <div class="bar bar-header">
         <h1 class="title no-logo">
             <i ng-click="backToHome()" class="icon ion-chevron-left"></i>
             <span ng-click="backToHome()">{{ post.subject }}</span>
@@ -8,7 +8,7 @@
     </div>
     <ion-content class="has-header">
         <div class="post-question">
-            <div dir="auto">{{ post.body }}</div>
+            <div dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
         <img class="post-img"
              ng-if="post.img_id"
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="padding text-center" ng-if="!post.replies">
-            No replies... yet!
+            <strong>No replies... yet!</strong>
         </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-light">
