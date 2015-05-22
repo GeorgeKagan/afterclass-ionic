@@ -5,7 +5,7 @@
     </div>
     <ion-tabs id="ac-tabs-inner" class="tabs-striped tabs-background-dark tabs-color-calm" question-tabs>
         <ion-tab title="Unanswered" on-select="scrollToTop()">
-            <ion-content on-scroll="gotScrolled()">
+            <ion-content on-scroll="gotScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
                 <div ng-if="!posts && !posts_tutor_unanswered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
@@ -31,7 +31,7 @@
             </ion-content>
         </ion-tab>
         <ion-tab title="Answered" on-select="scrollToTop()">
-            <ion-content on-scroll="gotScrolled()">
+            <ion-content on-scroll="gotScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
                 <div ng-if="!posts && !posts_tutor_answered" class="spinner-wrapper"><ion-spinner class="spinner-calm"></ion-spinner></div>
 

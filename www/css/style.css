@@ -60,7 +60,7 @@
   font-family: "Open Sans Hebrew", sans-serif !important;
   font-weight: 300;
 }
-.view-container {
+.view-container .pane {
   background: #ffffff;
   background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
@@ -69,9 +69,6 @@
   background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
   background: radial-gradient(ellipse at center, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
-}
-.view-container .pane {
-  background-color: transparent !important;
 }
 .view-container .pane.has-tabs {
   bottom: 0;
