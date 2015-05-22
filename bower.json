@@ -9,6 +9,7 @@
     "firebase": "~2.2.3",
     "angularfire": "~1.0.0",
     "moment": "~2.9.0",
-    "ngCordova": "~0.1.14-alpha"
+    "ngCordova": "~0.1.14-alpha",
+    "angular-elastic": "~2.4.2"
   }
 }
