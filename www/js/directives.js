@@ -28,7 +28,7 @@ angular.module('afterclass.directives', [])
                 '<div class="ab-icon"></div>' +
                 '<div class="ab-text">Ask a teacher</div>' +
             '</button>' +
-            '<div class="light text-center padding">Touch to send your question to a private teacher</div>' +
+            '<div class="light text-center padding">Tap to send your question to a tutor</div>' +
             '</div>'
         };
     })
