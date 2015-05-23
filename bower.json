@@ -10,6 +10,7 @@
     "angularfire": "~1.0.0",
     "moment": "~2.9.0",
     "ngCordova": "~0.1.14-alpha",
-    "angular-elastic": "~2.4.2"
+    "angular-elastic": "~2.4.2",
+    "lodash": "~3.9.0"
   }
 }

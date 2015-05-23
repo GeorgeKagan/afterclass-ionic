@@ -1,0 +1,40 @@
+{
+  "idc": [
+    {
+      "name": "idc-degree1",
+      "subjects": [
+        "algebra 1",
+        "algebra 2",
+        "algebra 3"
+      ]
+    },
+    {
+      "name": "idc-degree2",
+      "subjects": [
+        "arts 1",
+        "arts 2"
+      ]
+    }
+  ],
+  "comas": [
+    {
+      "name": "comas-degree1",
+      "subjects": [
+        "management"
+      ]
+    },
+    {
+      "name": "comas-degree1",
+      "subjects": [
+        "management"
+      ]
+    },
+    {
+      "name": "comas-degree2",
+      "subjects": [
+        "compsci 1",
+        "compsci 2"
+      ]
+    }
+  ]
+}

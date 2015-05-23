@@ -1,0 +1,11 @@
+<select id="popup-institute" ng-model="hash.selInstitute" ng-change="selectInstitute()">
+    <option value="0">Choose institute...</option>
+    <option value="{{::name}}" ng-repeat="(name, institute) in institutes">{{::name}}</option>
+    <option value="Other">Other</option>
+</select>
+<select id="popup-degree" ng-model="hash.selDegree" ng-show="showDegrees">
+    <option value="0">Choose degree...</option>
+    <option value="{{::degree.name}}" ng-repeat="degree in degrees track by degree.name">{{::degree.name}}</option>
+    <option value="Other">Other</option>
+</select>
+<span id="pi-err" style="color:red;display:none">Please select institute and degree!</span>
