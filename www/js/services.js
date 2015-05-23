@@ -192,6 +192,17 @@ angular.module('afterclass.services', [])
             show: showPopup
         };
     })
+    .factory('Institutes', function($q, $rootScope, $http) {
+        var obj = {}, d = $q.defer();
+        obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
+            $http.get('json/institutes-degrees.json').success(function(data) {
+                var subjects = _.find(data[institute], {name: degree}).subjects;
+                d.resolve(subjects);
+            });
+            return d.promise;
+        };
+        return obj;
+    })
     /**
      * Push notifications
      */
