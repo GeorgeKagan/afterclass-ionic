@@ -35,10 +35,6 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootS
             return post.status === 'unanswered' || post.status === 'assigned';
         };
     }
-    //
-    $scope.askQuestion = function () {
-        $state.go('askQuestion');
-    };
     $scope.viewPost = function (firebase_id) {
         $state.go('viewPost', {firebase_id: firebase_id});
     };

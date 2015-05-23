@@ -24,7 +24,7 @@ angular.module('afterclass.directives', [])
             replace: 'true',
             template:
             '<div class="ask-q-area calm-bg text-center">' +
-            '<button class="button aqa-btn" ng-click="askQuestion()">' +
+            '<button class="button aqa-btn" ui-sref="askQuestion">' +
                 '<div class="ab-icon"></div>' +
                 '<div class="ab-text">Ask a teacher</div>' +
             '</button>' +

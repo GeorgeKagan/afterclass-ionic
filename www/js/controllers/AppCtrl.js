@@ -9,6 +9,9 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
         $scope.popover.hide();
         $rootScope.user = null;
     };
+    $scope.hidePopover = function() {
+        $scope.popover.hide();
+    };
     // Header bar popover
     $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {
         scope: $scope
