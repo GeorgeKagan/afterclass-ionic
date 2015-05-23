@@ -1,10 +1,12 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-                                                                                 $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload) {
+                                                                                 $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload, Institutes) {
     var img = angular.element('#aq-img');
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
     var posts = $firebaseArray(ref);
     var add_img_url = null;
-    $scope.subjects = ['Algebra 1', 'Algebra 2', 'Algebra 3', 'Other'];
+    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute, $rootScope.user.degree).then(function (data) {
+        $scope.subjects = data;
+    });
     $scope.addPost = function () {
         if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
             $cordovaDialogs.alert('Please fill out all required fields', 'Missing fields', 'OK');

@@ -133,36 +133,75 @@ angular.module('afterclass.services', [])
         };
         return obj;
     })
-    .factory('InstitutePopup', function($timeout, $ionicPopup, UserCollection) {
+    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, UserCollection) {
         'use strict';
         var showPopup = function() {
-            $timeout(function() {
-                $ionicPopup.show({
-                    template: '<select id="popup-institute"><option value="0">Choose...</option><option value="IDC">IDC</option>' +
-                    '<option value="COMAS">COMAS</option><option value="TAU">TAU</option><option value="Other">Other</option></select>' +
-                    '<span id="pi-err" style="color:red;display:none">Please choose one!</span>',
-                    title: 'Please select your institute',
-                    buttons: [
-                        {
-                            text: '<span>Save</span>',
-                            type: 'button-positive',
-                            onTap: function (e) {
-                                var institute = angular.element('#popup-institute :selected').val();
-                                if (institute !== '0') {
-                                    UserCollection.updateUser({institute: institute});
-                                } else {
-                                    angular.element('#pi-err').show();
-                                    e.preventDefault();
+            var scope = $rootScope.$new();
+            $http.get('json/institutes-degrees.json').success(function(data) {
+                scope.hash = {selInstitute: 0, selDegree: 0};
+                scope.institutes = data;
+                scope.selectInstitute = function() {
+                    var institute = angular.element('#popup-institute :selected').val();
+                    scope.hash.selDegree = 0;
+                    if (institute != 0 && institute !== 'Other') {
+                        scope.degrees = _.uniq(data[institute], 'name');
+                        console.log('degrees', scope.degrees);
+                        scope.showDegrees = true;
+                    } else if (institute === 'Other') {
+                        var all_degrees = [];
+                        angular.forEach(data, function(institute) {
+                            angular.forEach(institute, function(degree) {
+                                all_degrees.push(degree);
+                            });
+                        });
+                        scope.degrees = _.uniq(all_degrees, 'name');
+                        scope.showDegrees = true;
+                    } else {
+                        scope.showDegrees = false;
+                    }
+                };
+                $timeout(function() {
+                    $ionicPopup.show({
+                        templateUrl: 'templates/partials/institute-popup.html',
+                        scope: scope,
+                        title: 'Please select your institute',
+                        buttons: [
+                            {
+                                text: '<span>Save</span>',
+                                type: 'button-positive',
+                                onTap: function (e) {
+                                    var institute = angular.element('#popup-institute :selected').val(),
+                                        degree = angular.element('#popup-degree :selected').val();
+                                    if (institute !== '0' && degree !== '0') {
+                                        UserCollection.updateUser({institute: institute, degree: degree});
+                                    } else {
+                                        angular.element('#pi-err').show();
+                                        e.preventDefault();
+                                    }
                                 }
                             }
-                        }
-                    ]
-                });
-            }, 4000);
+                        ]
+                    });
+                }, 3000);
+            }).
+            error(function() {
+                console.log('Failed to get institutes-degrees json');
+            });
         };
         return {
             show: showPopup
         };
+    })
+    .factory('Institutes', function($q, $rootScope, $http) {
+        var obj = {}, d = $q.defer();
+        obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
+            $http.get('json/institutes-degrees.json').success(function(data) {
+                var subjects = _.find(data[institute], {name: degree}).subjects;
+                d.resolve(subjects);
+            });
+            return d.promise;
+        };
+        return obj;
     })
     /**
      * Push notifications

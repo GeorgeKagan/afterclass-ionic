@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('HomeCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state,
+angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
                                                                           $firebaseArray, $ionicLoading, $cordovaDialogs, Post) {
     'use strict';
     var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
