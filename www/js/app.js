@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers', ['ui.router']);
-angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters', 'firebase', 'ngCordova', 'monospaced.elastic'])
+angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
         $ionicPlatform.ready(function () {
@@ -21,10 +21,22 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider) {
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
+        //Translation
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'json/lang/',
+            suffix: '.json'
+        });
+
+        $translateProvider.preferredLanguage('he');
+        $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        //$translateProvider.fallbackLanguage('he');
+        //$translateProvider.determinePreferredLanguage();
+
         $stateProvider
             .state('login', {
                 url: "/login",

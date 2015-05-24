@@ -2,13 +2,13 @@
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="list">
             <span class="item">
-                Hi, {{user.displayName}}
+                {{::'HI'|translate}}, {{user.displayName}}
             </span>
             <a class="item" ui-sref="aboutPage" ng-click="hidePopover()">
-                About
+                {{::'PAGES.ABOUT.MENU'|translate}}
             </a>
             <a class="item" ng-click="logout()">
-                Logout
+                {{::'LOGOUT'|translate}}
             </a>
         </div>
     </ion-content>

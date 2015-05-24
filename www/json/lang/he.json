@@ -1,0 +1,44 @@
+{
+    "POST": {
+        "SEND": "שלח",
+        "REPLY..": "שלח תגובה..",
+        "NOREPLIES": "אין פתרונות.. בנתיים!",
+        "UNANSWERED": "שאלות שלא נענו",
+        "ANSWERED": "שאלות עם פתרונות",
+        "STUDENT": {
+            "NOUNANSWERED": "אין לך שאלות שממתינות לפתרון",
+            "NOANSWERED": "אין לך שאלות שנענו בנתיים"
+        },
+        "TEACHER": {
+            "NOUNANSWERED": "אין כרגע שאלות שממתינות לתגובותך",
+            "NOANSWERED": "עדיין אין שאלות שענית עליהן"
+        },
+        "FULLRESOLUTION": "תצוגת גודל מקורי",
+        "ASKQUESTION": "שאל שאלה",
+        "CHOOSE..": "בחר..",
+        "YOUTQUESTION": "השאלה שלך",
+        "TYPEQUESTION": "הקלד את השאלה שלך..",
+        "CHOOSESUBJECT": "בחר נושא"
+
+    },
+    "PAGES": {
+        "ABOUT": {
+            "MENU": "אודות",
+            "TITLE": "אודות AfterClass",
+            "CONTENT": "אנחנו מגניבים!"
+        },
+        "TOS": {
+            "TITLE": "תנאי שימוש",
+            "CONTENT": "הכי מגניבים שיש!"
+        }
+    },
+    "CHOOSEINSTITUE": "בחר מוסד לימודים",
+    "OTHER": "אחר",
+    "CHOOSEDEGREE": "בחר תואר",
+    "CHOOSE_INST_AND_DEGREE": "אנא בחר מוסד לימודים ותואר",
+    "HI": "היי",
+    "LOGOUT": "התנתקות",
+    "REPLY": "שלח תגובה",
+    "ACCEPT_AND_ANSWER": "ענה על השאלה",
+    "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה"
+}

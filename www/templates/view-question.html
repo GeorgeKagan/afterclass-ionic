@@ -27,15 +27,15 @@
             </div>
         </div>
         <div class="padding text-center" ng-if="!post.replies">
-            <strong>No replies... yet!</strong>
+            <strong>{{::'POST.NOREPLIES'|translate}}</strong>
         </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-light">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <textarea msd-elastic="\n" ng-model="replyBody" placeholder="Reply..."></textarea>
+        <textarea msd-elastic="\n" ng-model="replyBody" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
         <div class="buttons pull-right">
-            <button class="button button-outline button-calm" ng-click="addReply()">Send</button>
+            <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
         </div>
     </ion-footer-bar>
 </ion-view>

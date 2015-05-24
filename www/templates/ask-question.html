@@ -2,21 +2,21 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ng-click="backToHome()"></i>
-            <span class="dark" ng-click="backToHome()">Ask a question</span>
+            <span class="dark" ng-click="backToHome()">{{::'POST.ASKQUESTION'|translate}}</span>
         </h1>
-        <button ng-click="addPost()" class="button button-outline button-calm">&nbsp;Send&nbsp;</button>
+        <button ng-click="addPost()" class="button button-outline button-calm">&nbsp;{{::'POST.SEND'|translate}}&nbsp;</button>
     </div>
     <ion-content class="has-header has-footer" has-bouncing="false" overflow-scroll="true">
         <div class="list">
             <label class="item item-input item-stacked-label">
-                <span class="input-label">Choose subject</span>
+                <span class="input-label">{{::'POST.CHOOSESUBJECT'|translate}}</span>
                 <select id="aq-subject" ng-options="subject for subject in subjects track by subject" ng-model="subject" ng-change="subjectChanged()">
-                    <option value="">Choose...</option>
+                    <option value="">{{::'POST.CHOOSE..'|translate}}</option>
                 </select>
             </label>
             <label class="body-wrapper item item-input item-floating-label">
-                <span class="input-label">Your question</span>
-                <textarea id="aq-body" rows="10" placeholder="Type your question..." dir="auto"></textarea>
+                <span class="input-label">{{::'POST.YOUTQUESTION'|translate}}</span>
+                <textarea id="aq-body" rows="10" placeholder="{{::'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
             </label>
         </div>
         <div id="aq-img"></div>
