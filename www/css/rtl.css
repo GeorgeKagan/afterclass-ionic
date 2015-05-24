@@ -1,0 +1,65 @@
+body.rtl .bar .title + .button:last-child {
+  left: 5px;
+}
+body.rtl .bar .date {
+  float: left;
+}
+body.rtl .bar-header {
+  direction: rtl;
+}
+body.rtl .bar-header h1.title {
+  text-align: right;
+}
+body.rtl .bar-header h1.title .icon {
+  margin: 0 0 0 7px;
+  float: right;
+}
+body.rtl .bar-header h1.title .icon:before {
+  content: "\f125";
+}
+body.rtl .bar-header h1.title:not(.no-logo) {
+  background-position: right center;
+}
+body.rtl .bar .buttons.pull-right {
+  left: 5px;
+  right: auto;
+}
+body.rtl textarea,
+body.rtl .popover .scroll {
+  direction: rtl;
+}
+body.rtl #about-page .scroll,
+body.rtl #ask-question-page .scroll {
+  direction: rtl;
+}
+body.rtl .card .post-header .ph-subject {
+  right: 0;
+  left: auto;
+  border-radius: 0 0 0 5px;
+}
+body.rtl .card .post-header .ph-date {
+  float: left;
+}
+body.rtl .card .post-header .ph-delete {
+  float: left;
+  left: -10px;
+}
+body.rtl .card .button-bar button.button {
+  direction: rtl;
+}
+body.rtl .item-avatar {
+  padding-right: 72px;
+  padding-left: 0;
+  direction: rtl;
+}
+body.rtl .item-avatar > img:first-child {
+  left: auto;
+  right: 16px;
+}
+body.rtl #ask-question-page select {
+  right: -4px;
+}
+body.rtl #view-question-page ion-footer-bar .icon-camera {
+  left: auto;
+  right: 5px;
+}

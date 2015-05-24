@@ -26,6 +26,7 @@
 }
 #ask-question-page label {
   font-weight: 300;
+  padding: 6px 16px 5px 16px;
 }
 #ask-question-page .item-stacked-label {
   border: 0;

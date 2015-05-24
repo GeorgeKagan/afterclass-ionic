@@ -1,0 +1,90 @@
+body.rtl {
+  // Header
+  .bar {
+    .title + .button:last-child {
+      left: 5px;
+    }
+    .date {
+      float: left;
+    }
+  }
+  .bar-header {
+    direction: rtl;
+    h1.title {
+      text-align: right;
+      .icon {
+        margin: 0 0 0 7px;
+        float: right;
+        &:before {
+          content: "\f125";
+        }
+      }
+    }
+    h1.title:not(.no-logo) {
+      background-position: right center;
+    }
+  }
+
+  // Footer
+  .bar .buttons.pull-right {
+    left: 5px;
+    right: auto;
+  }
+
+  // General
+  textarea,
+  .popover .scroll {
+    direction: rtl;
+  }
+
+  // Pages
+  #about-page,
+  #ask-question-page {
+    .scroll {
+      direction: rtl;
+    }
+  }
+
+  // Question / card
+  .card {
+    .post-header {
+      .ph-subject {
+        right: 0;
+        left: auto;
+        border-radius: 0 0 0 5px;
+      }
+      .ph-date {
+        float: left;
+      }
+      .ph-delete {
+        float: left;
+        left: -10px;
+      }
+    }
+    .button-bar button.button {
+      direction: rtl;
+    }
+  }
+  .item-avatar {
+    padding-right: 72px;
+    padding-left: 0;
+    direction: rtl;
+    > img:first-child {
+      left: auto;
+      right: 16px;
+    }
+  }
+
+  // Ask question page
+  #ask-question-page {
+    select {
+      right: -4px;
+    }
+  }
+
+  // View question page
+  #view-question-page ion-footer-bar .icon-camera {
+    left: auto;
+    right: 5px;
+  }
+}
