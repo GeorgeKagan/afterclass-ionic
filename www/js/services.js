@@ -31,7 +31,7 @@ angular.module('afterclass.services', [])
             }
         };
     })
-    .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFileTransfer, $window) {
+    .factory('CloudinaryUpload', function($q, $ionicLoading, $cordovaFileTransfer, $window, $translate) {
         'use strict';
         var cloudinary_url = 'https://api.cloudinary.com/v1_1/daayssulc/image/upload',
             upload_preset = 'gpyif5y5',
@@ -44,7 +44,7 @@ angular.module('afterclass.services', [])
             $window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
                 fileEntry.file(function (fileObj) {
                     fileSize = fileObj.size;
-                    $ionicLoading.show({template: 'Uploading... ' + 0 + '%'});
+                    $ionicLoading.show({template: $translate.instant('UPLOADS.PROGRESS') + 0 + '%'});
                     uploadFile();
                 });
             });
@@ -56,16 +56,16 @@ angular.module('afterclass.services', [])
                 $cordovaFileTransfer
                     .upload(cloudinary_url, imageURI, uploadOptions)
                     .then(function (result) {
-                        $ionicLoading.show({template: 'Upload Completed', duration: 1000});
+                        $ionicLoading.show({template: $translate.instant('UPLOADS.COMPLETE'), duration: 1000});
                         // FYI: The result will also have URLs for any new images generated with eager transformations
                         var response = JSON.parse(decodeURIComponent(result.response));
                         deferred.resolve(response);
                     }, function (err) {
-                        $ionicLoading.show({template: 'Upload Failed', duration: 3000});
+                        $ionicLoading.show({template: $translate.instant('UPLOADS.FAIL'), duration: 3000});
                         deferred.reject(err);
                     }, function (progress) {
                         percentage = Math.floor(progress.loaded / fileSize * 100);
-                        $ionicLoading.show({template: 'Uploading... ' + percentage + '%'});
+                        $ionicLoading.show({template: $translate.instant('UPLOADS.PROGRESS') + percentage + '%'});
                     });
             }
             return deferred.promise;
@@ -133,7 +133,7 @@ angular.module('afterclass.services', [])
         };
         return obj;
     })
-    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, UserCollection) {
+    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, UserCollection) {
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
@@ -164,10 +164,10 @@ angular.module('afterclass.services', [])
                     $ionicPopup.show({
                         templateUrl: 'templates/partials/institute-popup.html',
                         scope: scope,
-                        title: 'Please select your institute',
+                        title: $translate.instant('SEL_INSTITUTE'),
                         buttons: [
                             {
-                                text: '<span>Save</span>',
+                                text: '<span>' + $translate.instant('SAVE') + '</span>',
                                 type: 'button-positive',
                                 onTap: function (e) {
                                     var institute = angular.element('#popup-institute :selected').val(),

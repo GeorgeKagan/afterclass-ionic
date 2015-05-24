@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-                                                                                 $cordovaDialogs, $timeout, MyCamera, CloudinaryUpload, Institutes) {
+                                                                                 $cordovaDialogs, $timeout, $translate, MyCamera, CloudinaryUpload, Institutes) {
     var img = angular.element('#aq-img');
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
     var posts = $firebaseArray(ref);
@@ -9,7 +9,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     });
     $scope.addPost = function () {
         if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
-            $cordovaDialogs.alert('Please fill out all required fields', 'Missing fields', 'OK');
+            $cordovaDialogs.alert($translate.instant('FORM.REQUIRED'), $translate.instant('FORM.MISSING'), $translate.instant('OK'));
             return false;
         }
         var persist_post = function (img_id) {
@@ -34,7 +34,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                         var unanswered = 0;
                         $ionicTabsDelegate.select(unanswered);
                         $timeout(function() {
-                            $cordovaDialogs.alert('Your question was sent to our private teachers, the answer will soon appear below it', 'Question sent!', 'Got it');
+                            $cordovaDialogs.alert($translate.instant('FORM.Q_SENT'), $translate.instant('FORM.Q_SENT_TITLE'), $translate.instant('GOT_IT'));
                         }, 1000);
                     });
                 }, 1000);
@@ -75,7 +75,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     $scope.choosePicture = function () {
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
             if (!result.is_image) {
-                return $cordovaDialogs.alert('Only images allowed', 'Error', 'OK');
+                return $cordovaDialogs.alert($translate.instant('FORM.ONLY_IMG'), $translate.instant('ERROR'), $translate.instant('OK'));
             }
             add_img_url = result.imageURI;
             img.html('<img src="' + result.imageURI + '">');

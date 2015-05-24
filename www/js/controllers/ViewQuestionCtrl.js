@@ -1,5 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebaseObject,
-                                                                                  $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, MyCamera, CloudinaryUpload, AmazonSNS) {
+                                                                                  $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, $translate,
+                                                                                  MyCamera, CloudinaryUpload, AmazonSNS) {
     'use strict';
     var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
         post = ref,
@@ -13,10 +14,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     };
     $scope.addImage = function () {
         $ionicActionSheet.show({
-            buttons: [{text: 'Camera'}, {text: 'Documents'}],
-            destructiveText: $scope.add_img_preview ? 'Remove' : '',
-            titleText: 'Select Source',
-            cancelText: 'Cancel',
+            buttons: [{text: $translate.instant('CAMERA')}, {text: $translate.instant('DOCUMENTS')}],
+            destructiveText: $scope.add_img_preview ? $translate.instant('REMOVE') : '',
+            titleText: $translate.instant('SEL_SOURCE'),
+            cancelText: $translate.instant('CANCEL'),
             destructiveButtonClicked: function () {
                 $scope.add_img_preview = false;
                 add_img_url = null;
@@ -36,7 +37,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     // Gallery
                     MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
                         if (!result.is_image) {
-                            return $cordovaDialogs.alert('Only images allowed', 'Error', 'OK');
+                            return $cordovaDialogs.alert($translate.instant('FORM.ONLY_IMG'), $translate.instant('ERROR'), $translate.instant('OK'));
                         }
                         add_img_url = result.imageURI;
                         angular.element('.img-preview').attr('src', result.imageURI);
@@ -51,7 +52,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     };
     $scope.addReply = function () {
         if (!$scope.replyBody) {
-            $cordovaDialogs.alert('Please type something in!', 'Error', 'OK');
+            $cordovaDialogs.alert($translate.instant('PLS_TYPE'), $translate.instant('ERROR'), $translate.instant('OK'));
             return false;
         }
         var persist_reply = function (img_id) {
@@ -88,7 +89,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                         post.potential_tutors = null;
                     }
                     if ($rootScope.user.is_teacher) {
-                        AmazonSNS.publish(post.amazon_endpoint_arn, "A tutor has replied to your question");
+                        AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
                     }
                     post.$save();
                 });
