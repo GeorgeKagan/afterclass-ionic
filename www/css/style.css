@@ -64,7 +64,6 @@
   margin: 4px 18px;
 }
 .view-container .pane {
-  overflow-y: auto;
   background: #ffffff;
   background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
