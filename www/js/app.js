@@ -1,8 +1,14 @@
 angular.module('afterclass.controllers', ['ui.router']);
 angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters', 'firebase', 'ngCordova', 'monospaced.elastic'])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
         $ionicPlatform.ready(function () {
+            if (window.cordova) {
+                var isOnline = $cordovaNetwork.isOnline();
+                if (!isOnline) {
+                    alert('Please check that you are connected to the internet');
+                }
+            }
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             if (window.cordova && window.cordova.plugins.Keyboard) {
