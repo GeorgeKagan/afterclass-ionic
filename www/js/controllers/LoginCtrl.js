@@ -7,9 +7,8 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
 
     // Check if got active session
     if (authData) {
-        $state.go('home').then(function() {
-            $ionicLoading.hide();
-        });
+        $state.go('home');
+        $ionicLoading.hide();
         $ionicHistory.nextViewOptions({disableBack: true});
     } else {
         $ionicLoading.hide();
