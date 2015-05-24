@@ -1,0 +1,12 @@
+{
+    "PAGES": {
+        "ABOUT": {
+            "TITLE": "About AfterClass",
+            "CONTENT": "We are AWESOME!!"
+        },
+        "TOS": {
+            "TITLE": "Terms of service",
+            "CONTENT": "as awesome as it get!"
+        }
+    }
+}
