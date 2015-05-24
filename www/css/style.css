@@ -60,6 +60,9 @@
   font-family: "Open Sans Hebrew", sans-serif !important;
   font-weight: 300;
 }
+body.rtl {
+  direction: rtl;
+}
 .content-section {
   margin: 4px 18px;
 }

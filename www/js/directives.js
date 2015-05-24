@@ -1,5 +1,15 @@
 angular.module('afterclass.directives', [])
 
+    .directive('acGeneral', function($translate) {
+        return {
+            restrict: "A",
+            link: function (scope, element, attrs) {
+                if ($translate.preferredLanguage() === 'he') {
+                    angular.element('body').addClass('rtl');
+                }
+            }
+        }
+    })
     .directive('askQuestion', function($timeout) {
         return {
             restrict: "A",
