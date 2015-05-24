@@ -26,7 +26,7 @@ angular.module('afterclass.directives', [])
             '<div class="ask-q-area calm-bg text-center">' +
             '<button class="button aqa-btn" ui-sref="askQuestion">' +
                 '<div class="ab-icon"></div>' +
-                '<div class="ab-text">Ask a teacher</div>' +
+                '<div class="ab-text">{{::"ASK_A_TEACHER"|translate}}</div>' +
             '</button>' +
             '<div class="light text-center padding">{{::"ASK_QUESTION_INSTRUCTIONS"|translate}}</div>' +
             '</div>'

@@ -40,5 +40,6 @@
     "LOGOUT": "התנתקות",
     "REPLY": "שלח תגובה",
     "ACCEPT_AND_ANSWER": "ענה על השאלה",
-    "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה"
+    "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה",
+    "ASK_A_TEACHER": "שלח שאלה"
 }
