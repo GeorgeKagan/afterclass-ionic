@@ -55,6 +55,21 @@ angular.module('afterclass.directives', [])
             restrict: 'E',
             replace: 'true',
             templateUrl: 'templates/partials/question.html',
+            controller: function($scope) {
+                $scope.allowReply = true;
+
+                if($scope.post.status === "answered") {
+                    var lastActivity = $scope.post.timestamp;
+                    if(Array.isArray($scope.post.replies)) {
+                        lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].timestamp, lastActivity)
+                    }
+
+                    if(lastActivity < moment().subtract(32, 'hours').unix()) { //Allow replies within 32 hours from last activity
+                        $scope.allowReply = false;
+                    }
+                }
+
+            },
             link: function (scope, element, attrs) {
                 scope.is_teacher = scope.$root.user.is_teacher;
                 scope.header_bg = attrs.headerBg;

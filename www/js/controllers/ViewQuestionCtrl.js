@@ -9,6 +9,23 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post = $firebaseObject(post);
     $scope.replyBody = '';
     $scope.add_img_preview = false;
+
+    $scope.post.$loaded().then(function(post){
+
+        //Block replies after a certain amount of time
+        if(post.status === "answered") {
+            var lastActivity = post.timestamp;
+            if(Array.isArray(post.replies)) {
+                lastActivity = Math.max(post.replies[post.replies-1].timestamp, lastActivity)
+            }
+
+            if(lastActivity < moment().subtract(32, 'hours').unix()) { //Allow replies within 32 hours from last activity
+                $scope.allowReply = false;
+            }
+        }
+    });
+
+
     $scope.backToHome = function () {
         $state.go('home');
     };

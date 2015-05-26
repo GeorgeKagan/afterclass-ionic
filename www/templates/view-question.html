@@ -30,7 +30,7 @@
             <strong>{{::'POST.NOREPLIES'|translate}}</strong>
         </div>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-light">
+    <ion-footer-bar align-title="left" class="bar-light" ng-show="allowReply">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
         <textarea msd-elastic="\n" ng-model="replyBody" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
