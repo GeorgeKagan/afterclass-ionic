@@ -49,7 +49,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     function showAgreement(callback) {
         var replyingTutors = _.pluck(_.filter(replies, { 'is_teacher': true }), 'name');
         if(replyingTutors.length > 0 && $scope.shouldShowAgreement) { //Alert the uses regarding the rules
-            var popup = $ionicPopup.show({
+            $ionicPopup.show({
                 template: $translate.instant('COMMENT_AGREEMENT'),
                 scope: $scope,
                 buttons: [
