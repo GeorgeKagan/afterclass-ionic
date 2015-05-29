@@ -90,6 +90,11 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 templateUrl: "templates/about-page.html",
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
+            .state('contactPage', {
+                url: "/contact",
+                templateUrl: "templates/contact-page.html",
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
