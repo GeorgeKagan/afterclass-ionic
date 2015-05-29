@@ -26,14 +26,17 @@
                 ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg">
             </div>
         </div>
-        <div class="padding text-center" ng-if="!post.replies">
-            <strong>{{::'POST.NOREPLIES'|translate}}</strong>
+        <div class="padding text-center">
+            <strong ng-if="!post.replies">{{::'POST.NOREPLIES'|translate}}</strong>
+            <button ng-if="post.replies" ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
+                {{::'REPORT_QUESTION'|translate}}
+            </button>
         </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-light" ng-show="allowReply">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <textarea msd-elastic="\n" ng-model="replyBody" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
+        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
         <div class="buttons pull-right">
             <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
         </div>
