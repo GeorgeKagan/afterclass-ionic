@@ -29,6 +29,15 @@ body.rtl .popup,
 body.rtl .popover .scroll {
   direction: rtl;
 }
+body.rtl .item-checkbox {
+  direction: rtl;
+  padding-right: 60px;
+  padding-left: 0;
+}
+body.rtl .item-checkbox .checkbox-square .checkbox-icon::before {
+  margin-right: 14%;
+  margin-left: 0;
+}
 body.rtl #about-page .scroll,
 body.rtl #ask-question-page .scroll {
   direction: rtl;

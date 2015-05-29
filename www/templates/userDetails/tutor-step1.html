@@ -1,0 +1,16 @@
+<ion-view view-title="Tutor details step 1">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i ui-sref="userDetails_chooseType" class="icon ion-chevron-left"></i>
+            <span ui-sref="userDetails_chooseType">{{::'USER_DETAILS.TUTOR.STEP1_TITLE'|translate}}</span>
+        </h1>
+    </div>
+    <ion-scroll class="has-header padding">
+        <form>
+            <ion-checkbox ng-model="selInstitutes[name]" ng-repeat="(name, institute) in institutes">{{name}}</ion-checkbox>
+        </form>
+        <button class="button button-block button-outline button-calm" ng-click="submitTutorStep1()" ng-disabled="isChecked(selInstitutes)">
+            {{::'NEXT'|translate}}
+        </button>
+    </ion-scroll>
+</ion-view>

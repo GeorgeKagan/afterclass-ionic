@@ -1,4 +1,14 @@
 {
+    "USER_DETAILS": {
+        "CHOOSE_TITLE": "מי אתה?",
+        "IS_STUDENT": "אני סטודנט",
+        "IS_TUTOR": "אני מורה",
+        "TUTOR": {
+            "STEP1_TITLE": "אנא בחר מוסדות לימודים",
+            "STEP2_TITLE": "אנא בחר תארים",
+            "STEP3_TITLE": "אנא בחר מקצועות"
+        }
+    },
     "POST": {
         "SEND": "שלח",
         "REPLY..": "שלח תגובה..",
@@ -71,5 +81,6 @@
     "REPLY": "שלח תגובה",
     "ACCEPT_AND_ANSWER": "ענה על השאלה",
     "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה",
-    "ASK_A_TEACHER": "שלח שאלה"
+    "ASK_A_TEACHER": "שלח שאלה",
+    "NEXT": "המשך"
 }

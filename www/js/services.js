@@ -78,18 +78,27 @@ angular.module('afterclass.services', [])
         var obj = {
             saveToUsersCollection: function(authData) {
                 var sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
-                    user = $firebaseArray(sync);
+                    user = $firebaseArray(sync),
+                    q = $q.defer();
                 user.$loaded().then(function() {
+                    // New user added
                     if (!user.length) {
                         user.$add(angular.element.extend(authData.facebook.cachedUserProfile, {
-                            is_teacher: false
+                            // Add any initial custom properties here
+                            name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
                         })).then(function() {
-                            AmazonSNS.registerDevice().then(function(endpoint_arn) {
-                                obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                            });
+                            try {
+                                AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                                });
+                            } catch(e) {}
+                            q.resolve(user[0]);
                         });
+                    } else {
+                        q.resolve(user[0]);
                     }
                 });
+                return q.promise;
             },
             updateUser: function(data) {
                 var sync = ref.child('users').orderByChild('id').equalTo($rootScope.user.id),
@@ -145,7 +154,6 @@ angular.module('afterclass.services', [])
                     scope.hash.selDegree = 0;
                     if (institute != 0 && institute !== 'Other') {
                         scope.degrees = _.uniq(data[institute], 'name');
-                        console.log('degrees', scope.degrees);
                         scope.showDegrees = true;
                     } else if (institute === 'Other') {
                         var all_degrees = [];
