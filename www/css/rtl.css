@@ -29,6 +29,10 @@ body.rtl .popup,
 body.rtl .popover .scroll {
   direction: rtl;
 }
+body.rtl .popup-buttons .button {
+  margin-left: 5px;
+  margin-right: 0;
+}
 body.rtl #about-page .scroll,
 body.rtl #ask-question-page .scroll {
   direction: rtl;

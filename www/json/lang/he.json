@@ -57,6 +57,7 @@
     "CANCEL": "ביטול",
     "SAVE": "שמירה",
     "CAMERA": "מצלמה",
+    "CAMERA": "מצלמה",
     "REMOVE": "הסר",
     "DOCUMENTS": "מסמכים",
     "SEL_SOURCE": "בחר מקור",
@@ -71,5 +72,10 @@
     "REPLY": "שלח תגובה",
     "ACCEPT_AND_ANSWER": "ענה על השאלה",
     "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה",
-    "ASK_A_TEACHER": "שלח שאלה"
+    "ASK_A_TEACHER": "שלח שאלה",
+    "REPORT_QUESTION": "דווח על התכתבות זו",
+    "REPORT_PLACEHOLDER": "פירוט הבעיה",
+    "REPORT_SENT": "הדיווח נשלח בהצלחה, ניצור עמך קשר בהקדם",
+    "SEND": "שלח",
+    "COMMENT_AGREEMENT": "לתשומת לבך, שליחת התגובה למורה אהיא לצורך חידוד הפתרון או התשובה ולא על מנת לשאול שאלה חדשה"
 }

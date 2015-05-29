@@ -34,7 +34,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                         var unanswered = 0;
                         $ionicTabsDelegate.select(unanswered);
                         $timeout(function() {
-                            $cordovaDialogs.alert($translate.instant('FORM.Q_SENT'), $translate.instant('FORM.Q_SENT_TITLE'), $translate.instant('GOT_IT'));
+                            $cordovaDialogs.alert($translate.instant('FORM.Q_SENT'), $translate.instant('FORM.Q_SENT_TITLE'), $translate.instant('FORM.GOT_IT'));
                         }, 1000);
                     });
                 }, 1000);
