@@ -1,5 +1,6 @@
 body.rtl .bar .title + .button:last-child {
   left: 5px;
+  right: auto;
 }
 body.rtl .bar .date {
   float: left;
@@ -32,6 +33,13 @@ body.rtl .popover .scroll {
 body.rtl .popup-buttons .button {
   margin-left: 5px;
   margin-right: 0;
+}
+body.rtl.platform-android .action-sheet .action-sheet-title {
+  text-align: right;
+}
+body.rtl.platform-android .action-sheet .button {
+  text-align: right;
+  padding: 0 15px 0 0;
 }
 body.rtl .item-checkbox {
   direction: rtl;
@@ -75,6 +83,10 @@ body.rtl #ask-question-page select {
   right: -4px;
 }
 body.rtl #view-question-page ion-footer-bar .icon-camera {
+  left: auto;
+  right: 5px;
+}
+body.rtl #view-question-page ion-footer-bar .img-preview {
   left: auto;
   right: 5px;
 }

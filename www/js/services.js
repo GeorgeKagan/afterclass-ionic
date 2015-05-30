@@ -190,7 +190,7 @@ angular.module('afterclass.services', [])
                             }
                         ]
                     });
-                }, 3000);
+                }, 500);
             }).
             error(function() {
                 console.log('Failed to get institutes-degrees json');
