@@ -34,6 +34,9 @@ body.rtl .popup-buttons .button {
   margin-left: 5px;
   margin-right: 0;
 }
+body.rtl .popup-buttons .button:last-child {
+  margin-left: 0;
+}
 body.rtl.platform-android .action-sheet .action-sheet-title {
   text-align: right;
 }
@@ -49,6 +52,9 @@ body.rtl .item-checkbox {
 body.rtl .item-checkbox .checkbox-square .checkbox-icon::before {
   margin-right: 14%;
   margin-left: 0;
+}
+body.rtl .item-input {
+  padding: 6px 16px 5px 5px;
 }
 body.rtl #about-page .scroll,
 body.rtl #contact-page .scroll,
