@@ -22,6 +22,8 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
     })
 
     .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider) {
+        var appLang = 'he';
+
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
@@ -31,11 +33,13 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('he');
+        $translateProvider.preferredLanguage(appLang);
         $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
         $translateProvider.useSanitizeValueStrategy('escaped');
         //$translateProvider.fallbackLanguage('he');
         //$translateProvider.determinePreferredLanguage();
+
+        moment.locale(appLang);
 
         $stateProvider
             .state('login', {
