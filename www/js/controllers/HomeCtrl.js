@@ -47,6 +47,10 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         });
         $event.stopPropagation();
     };
+    $scope.toggleAcceptance = function (firebase_id) {
+        Post.toggleAcceptance(firebase_id, $rootScope.user.id);
+        //$event.stopPropagation();
+    };
     $scope.postReply = function () {
 
     };

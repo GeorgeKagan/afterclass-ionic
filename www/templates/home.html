@@ -15,7 +15,12 @@
                         <strong>{{::'POST.STUDENT.NOUNANSWERED'|translate}}</strong>
                     </div>
                     <div ng-repeat="post in posts | filter:ifUserUnanswered:true | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
+                        <question post="post"
+                                  view-post="viewPost"
+                                  delete-post="deletePost"
+                                  post-reply="postReply"
+                                  header-bg="calm-bg">
+                        </question>
                     </div>
                 </div>
 
@@ -25,7 +30,13 @@
                         <strong>{{::'POST.TEACHER.NOUNANSWERED'|translate}}</strong>
                     </div>
                     <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor:true | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="calm-bg"></question>
+                        <question post="post"
+                                  toggle-acceptance="toggleAcceptance"
+                                  view-post="viewPost"
+                                  delete-post="deletePost"
+                                  post-reply="postReply"
+                                  header-bg="calm-bg">
+                        </question>
                     </div>
                 </div>
             </ion-content>
@@ -41,7 +52,12 @@
                         <strong>{{::'POST.STUDENT.NOANSWERED'|translate}}</strong>
                     </div>
                     <div ng-repeat="post in posts | filter: {status: 'answered'}:true | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="balanced-bg"></question>
+                        <question post="post"
+                                  view-post="viewPost"
+                                  delete-post="deletePost"
+                                  post-reply="postReply"
+                                  header-bg="balanced-bg">
+                        </question>
                     </div>
                 </div>
 
@@ -51,7 +67,13 @@
                         <strong>{{::'POST.TEACHER.NOANSWERED'|translate}}</strong>
                     </div>
                     <div ng-repeat="post in posts_tutor_answered | orderBy: '-timestamp'" class="list card">
-                        <question post="post" view-post="viewPost" delete-post="deletePost" post-reply="postReply" header-bg="balanced-bg"></question>
+                        <question post="post"
+                                  toggle-acceptance="toggleAcceptance"
+                                  view-post="viewPost"
+                                  delete-post="deletePost"
+                                  post-reply="postReply"
+                                  header-bg="balanced-bg">
+                        </question>
                     </div>
                 </div>
             </ion-content>

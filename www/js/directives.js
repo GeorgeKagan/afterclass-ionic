@@ -50,14 +50,15 @@ angular.module('afterclass.directives', [])
                 deletePost: '=',
                 postAccept: '&',
                 postDecline: '&',
-                postReply: '&'
+                postReply: '&',
+                toggleAcceptance: '='
             },
             restrict: 'E',
             replace: 'true',
             templateUrl: 'templates/partials/question.html',
-            controller: function($scope) {
-                $scope.allowReply = true;
+            controller: function($rootScope, $scope) {
 
+                $scope.allowReply = true;
                 if($scope.post.status === "answered") {
                     var lastActivity = $scope.post.timestamp;
                     if(Array.isArray($scope.post.replies)) {
@@ -69,6 +70,14 @@ angular.module('afterclass.directives', [])
                     }
                 }
 
+                $scope.isPostAccepted = function(post) {
+                    var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
+                    if(acceptingTutors.length > 0) {
+                        return acceptingTutors[0] === $rootScope.user.id;
+                    } else {
+                        return false;
+                    }
+                };
             },
             link: function (scope, element, attrs) {
                 scope.is_teacher = scope.$root.user.is_teacher;

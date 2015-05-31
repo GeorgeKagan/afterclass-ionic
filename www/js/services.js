@@ -123,12 +123,24 @@ angular.module('afterclass.services', [])
         };
         return obj;
     })
-    .factory('Post', function($firebaseObject) {
+    .factory('Post', function($firebaseObject, $firebaseArray) {
         var obj = {
             delete: function(firebase_id) {
                 var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
                     post = $firebaseObject(ref);
                 post.$remove();
+            },
+            toggleAcceptance: function(firebase_id, user_id) {
+                var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
+                    post = $firebaseObject(ref),
+                    potential_tutors = $firebaseArray(ref.child('potential_tutors'));
+
+                potential_tutors.$loaded().then(function(potentialTutors){
+                    //TODO: Finish this
+                    //Find user_id in potentialTutors
+                    //data[0].testField = 'test';
+                    //data.$save(0); //Index of modified thing
+                });
             }
         };
         return obj;

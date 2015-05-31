@@ -1,5 +1,7 @@
 {
     "POST": {
+        "ACCEPT_QUESTION": "ענה על השאלה",
+        "UNACCEPT_QUESTION": "דחה שאלה",
         "SEND": "שלח",
         "REPLY..": "שלח תגובה..",
         "NOREPLIES": "אין פתרונות.. בנתיים!",
