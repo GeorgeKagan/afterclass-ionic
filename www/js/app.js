@@ -22,6 +22,8 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
     })
 
     .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider) {
+        var appLang = 'he';
+
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
@@ -31,11 +33,13 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('he');
+        $translateProvider.preferredLanguage(appLang);
         $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
         $translateProvider.useSanitizeValueStrategy('escaped');
         //$translateProvider.fallbackLanguage('he');
         //$translateProvider.determinePreferredLanguage();
+
+        moment.locale(appLang);
 
         $stateProvider
             .state('login', {
@@ -56,16 +60,41 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 templateUrl: "templates/on-boarding.html",
                 controller: 'OnBoardingCtrl'
             })
+            // User details wizard
+            .state('userDetails_chooseType', {
+                url: '/chooseType',
+                templateUrl: 'templates/userDetails/choose-type.html',
+                controller: 'UserDetailsChooseTypeCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            .state('userDetails_tutorStep1', {
+                cache: false,
+                url: '/tutorStep1',
+                templateUrl: 'templates/userDetails/tutor-step1.html',
+                controller: 'UserDetailsTutorStep1Ctrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            .state('userDetails_tutorStep2', {
+                cache: false,
+                url: '/tutorStep2',
+                templateUrl: 'templates/userDetails/tutor-step2.html',
+                controller: 'UserDetailsTutorStep2Ctrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            .state('userDetails_tutorStep3', {
+                cache: false,
+                url: '/tutorStep3',
+                templateUrl: 'templates/userDetails/tutor-step3.html',
+                controller: 'UserDetailsTutorStep3Ctrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            // end User details wizard
             .state('home', {
+                cache: false,
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
-                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } },
-                onEnter: function(InstitutePopup, user) {
-                    if (!user.institute) {
-                        InstitutePopup.show();
-                    }
-                }
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('askQuestion', {
                 url: "/askQuestion",

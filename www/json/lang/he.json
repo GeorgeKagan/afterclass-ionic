@@ -1,4 +1,14 @@
 {
+    "USER_DETAILS": {
+        "CHOOSE_TITLE": "מי אתה?",
+        "IS_STUDENT": "אני סטודנט",
+        "IS_TUTOR": "אני מורה",
+        "TUTOR": {
+            "STEP1_TITLE": "אנא בחר מוסדות לימודים",
+            "STEP2_TITLE": "אנא בחר תארים",
+            "STEP3_TITLE": "אנא בחר מקצועות"
+        }
+    },
     "POST": {
         "ACCEPT_QUESTION": "ענה על השאלה",
         "UNACCEPT_QUESTION": "דחה שאלה",
@@ -81,6 +91,7 @@
     "ACCEPT_AND_ANSWER": "ענה על השאלה",
     "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה",
     "ASK_A_TEACHER": "שלח שאלה",
+    "NEXT": "המשך",
     "REPORT_QUESTION": "דווח על התכתבות זו",
     "REPORT_PLACEHOLDER": "פירוט הבעיה",
     "REPORT_SENT": "הדיווח נשלח בהצלחה, ניצור עמך קשר בהקדם",

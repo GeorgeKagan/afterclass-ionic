@@ -7,10 +7,9 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
 
     // Check if got active session
     if (authData) {
-        $state.go('home').then(function() {
-            $ionicLoading.hide();
+        UserCollection.getFromUsersCollection().then(function (user) {
+            doRedirect(user);
         });
-        $ionicHistory.nextViewOptions({disableBack: true});
     } else {
         $ionicLoading.hide();
     }
@@ -24,10 +23,9 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
                     if (error) {
                         console.log('Firebase login failed!', error);
                     } else {
-                        UserCollection.saveToUsersCollection(authData);
-                        $state.go('home');
-                        $ionicLoading.hide();
-                        $ionicHistory.nextViewOptions({disableBack: true});
+                        UserCollection.saveToUsersCollection(authData).then(function (user) {
+                            doRedirect(user);
+                        });
                         console.log('Authenticated successfully with payload:', authData);
                     }
                 });
@@ -37,5 +35,18 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
         }, function(error) {
             console.log('An error occurred logging the user in', error);
         });
+    };
+
+    var doRedirect = function (user) {
+        if (user.is_choose_type_finished) {
+            $state.go('home').then(function() {
+                $ionicLoading.hide();
+            });
+        } else {
+            $state.go('userDetails_chooseType').then(function() {
+                $ionicLoading.hide();
+            });
+        }
+        $ionicHistory.nextViewOptions({disableBack: true});
     };
 });

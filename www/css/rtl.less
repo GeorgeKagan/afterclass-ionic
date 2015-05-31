@@ -3,6 +3,7 @@ body.rtl {
   .bar {
     .title + .button:last-child {
       left: 5px;
+      right: auto;
     }
     .date {
       float: left;
@@ -40,6 +41,32 @@ body.rtl {
   .popup-buttons .button {
     margin-left: 5px;
     margin-right: 0;
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+  &.platform-android .action-sheet {
+    .action-sheet-title {
+      text-align: right;
+    }
+    .button {
+      text-align: right;
+      padding: 0 15px 0 0;
+    }
+  }
+
+  // Form
+  .item-checkbox {
+    direction: rtl;
+    padding-right: 60px;
+    padding-left: 0;
+    .checkbox-square .checkbox-icon::before {
+      margin-right: 14%;
+      margin-left: 0;
+    }
+  }
+  .item-input {
+    padding: 6px 16px 5px 5px;
   }
 
   // Pages
@@ -89,8 +116,14 @@ body.rtl {
   }
 
   // View question page
-  #view-question-page ion-footer-bar .icon-camera {
-    left: auto;
-    right: 5px;
+  #view-question-page ion-footer-bar {
+    .icon-camera {
+      left: auto;
+      right: 5px;
+    }
+    .img-preview {
+      left: auto;
+      right: 5px;
+    }
   }
 }

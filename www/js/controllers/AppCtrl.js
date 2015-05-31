@@ -4,10 +4,10 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
         facebookConnectPlugin.logout();
         ref.unauth();
-        $state.go('login');
         $ionicHistory.nextViewOptions({disableBack: true});
         $scope.popover.hide();
         $rootScope.user = null;
+        $state.go('login');
     };
     $scope.hidePopover = function() {
         $scope.popover.hide();
