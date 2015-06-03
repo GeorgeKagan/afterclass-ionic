@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $cordovaDialogs, $firebaseObject,
+angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $firebaseObject,
                                                                                   $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, $translate, $ionicPopup,
                                                                                   MyCamera, CloudinaryUpload, AmazonSNS) {
     'use strict';
@@ -32,7 +32,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     // Gallery
                     MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
                         if (!result.is_image) {
-                            return $cordovaDialogs.alert($translate.instant('FORM.ONLY_IMG'), $translate.instant('ERROR'), $translate.instant('OK'));
+                            return $ionicPopup.alert({
+                                title: $translate.instant('ERROR'),
+                                template: $translate.instant('FORM.ONLY_IMG'),
+                                okText: $translate.instant('OK')
+                            });
                         }
                         add_img_url = result.imageURI;
                         angular.element('.img-preview').attr('src', result.imageURI);
@@ -103,6 +107,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             title: $translate.instant('REPORT_QUESTION'),
             buttons: [
                 {
+                    text: '<span>' + $translate.instant('CANCEL') + '</span>',
+                    type: 'button-default button-block'
+                },
+                {
                     text: '<span>' + $translate.instant('SEND') + '</span>',
                     type: 'button-positive button-block',
                     onTap: function (e) {
@@ -110,13 +118,13 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                             post.complaint = $scope.report.content;
                             $scope.report.content = "";
                             post.$save();
-                            $cordovaDialogs.alert($translate.instant('REPORT_SENT'));
+                            $ionicPopup.alert({
+                                title: '',
+                                template: $translate.instant('REPORT_SENT'),
+                                okText: $translate.instant('OK')
+                            });
                         });
                     }
-                },
-                {
-                    text: '<span>' + $translate.instant('CANCEL') + '</span>',
-                   type: 'button-default button-block'
                 }
             ]
         });
@@ -134,7 +142,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     };
     $scope.addReply = function () {
         if (!$scope.replyBody) {
-            $cordovaDialogs.alert($translate.instant('PLS_TYPE'), $translate.instant('ERROR'), $translate.instant('OK'));
+            $ionicPopup.alert({
+                title: $translate.instant('ERROR'),
+                template: $translate.instant('PLS_TYPE'),
+                okText: $translate.instant('OK')
+            });
             return false;
         }
 
