@@ -184,7 +184,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     if (post.last_tutor_id) {
                         post.potential_tutors = null;
                     }
-                    if ($rootScope.user.is_teacher) {
+                    if ($rootScope.user.is_teacher && post.amazon_endpoint_arn) {
                         AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
                     }
                     post.$save();

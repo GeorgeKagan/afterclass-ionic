@@ -30,7 +30,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 replies: '',
                 potential_tutors: null,
                 last_tutor_id: '',
-                amazon_endpoint_arn: $rootScope.user.amazon_endpoint_arn
+                amazon_endpoint_arn: $rootScope.user.amazon_endpoint_arn ? $rootScope.user.amazon_endpoint_arn : ''
             }).then(function () {
                 $timeout(function () {
                     add_img_url = null;
