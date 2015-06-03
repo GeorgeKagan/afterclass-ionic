@@ -14,7 +14,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         });
         $scope.ifPotentialTutor = function (post) {
             var tutor_ids = post.potential_tutors ? post.potential_tutors.map(function(item) {
-                return item.ticked ? item.id : 0;
+                return item.id;
             }) : [];
             return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
         };
