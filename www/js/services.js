@@ -18,9 +18,14 @@ angular.module('afterclass.services', [])
                                 var photo_split = result.split('%3A');
                                 result = 'content://media/external/images/media/' + photo_split[1];
                             }
+                            var fileType = result.substring(result.lastIndexOf(".") + 1);
+                            var is_image = true;
+                            if (fileType != "png" && fileType != "jpg" && fileType != "gif" && fileType != "bmp") {
+                                is_image = angular.element.inArray(fileObj.type, ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']) > -1;
+                            }
                             q.resolve({
                                 imageURI: result,
-                                is_image: angular.element.inArray(fileObj.type, ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']) > -1
+                                is_image: is_image
                             });
                         });
                     });
