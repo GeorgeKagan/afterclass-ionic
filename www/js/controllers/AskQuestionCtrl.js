@@ -4,6 +4,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
     var posts = $firebaseArray(ref);
     var add_img_url = null;
+    $scope.hasAttachment = false;
     Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute, $rootScope.user.degree).then(function (data) {
         $scope.subjects = data;
     });
@@ -77,9 +78,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 $scope.hasAttachment = true;
                 img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
                     angular.element(this).fadeIn();
+                    $ionicScrollDelegate.scrollTop();
                 });
             }, 1000);
-            $ionicScrollDelegate.scrollTop();
         }, function () {
             $scope.removeAttachment();
         });
@@ -99,9 +100,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 $scope.hasAttachment = true;
                 img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
                     angular.element(this).fadeIn();
+                    $ionicScrollDelegate.scrollTop();
                 });
             }, 1000);
-            $ionicScrollDelegate.scrollTop();
         }, function () {
             $scope.removeAttachment();
         });
