@@ -86,3 +86,6 @@
 #ask-question-page .tabs-icon-only .icon-attachment:active {
   background-color: #333333;
 }
+body.platform-ios #ask-question-page select {
+  padding: 20px 20px;
+}
