@@ -20,11 +20,13 @@ body.is-teacher {
       background: @dark_blue;
     }
   }
-  .ask-q-area {
-    display: none;
-  }
   .posts {
     top: 117px;
+  }
+}
+body:not(.is-teacher) {
+  .ask-q-area {
+    display: block;
   }
 }
 
@@ -39,6 +41,7 @@ body.is-teacher {
 
 // Ask a question area
 .ask-q-area {
+  display: none;
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   .TextShadow;

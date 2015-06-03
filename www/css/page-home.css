@@ -34,17 +34,18 @@
 body.is-teacher #home-page .bar-header {
   background: #2263a5;
 }
-body.is-teacher .ask-q-area {
-  display: none;
-}
 body.is-teacher .posts {
   top: 117px;
+}
+body:not(.is-teacher) .ask-q-area {
+  display: block;
 }
 .tab-item {
   max-width: inherit;
   font-weight: bold;
 }
 .ask-q-area {
+  display: none;
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
