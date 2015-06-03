@@ -1,7 +1,7 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
                                                                           $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post) {
     'use strict';
-    var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
+    var tabs_top_pos = $rootScope.user.is_teacher ? $scope.getHeaderSize()  : 230;
     // Load all user's questions from firebase
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts"),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered;
@@ -78,7 +78,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         var y = angular.element('.scroll:visible').offset().top;
         if (y <= -186) {
             angular.element('.bar-header').addClass('scrolled');
-            angular.element('#ac-tabs-inner .tabs').css('top', 44);
+            angular.element('#ac-tabs-inner .tabs').css('top', $scope.getHeaderSize());
         } else {
             angular.element('.bar-header').removeClass('scrolled');
             angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
@@ -89,4 +89,11 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;
     };
+    $scope.getHeaderSize=function(){
+        if(ionic.Platform.isIOS()){
+            return 64;
+        }else{
+            return 44;
+        }
+    }
 });
