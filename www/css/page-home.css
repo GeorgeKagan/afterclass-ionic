@@ -228,6 +228,3 @@ body:not(.is-teacher) .ask-q-area {
   line-height: 0;
   margin: 1px 0px 1px 0px;
 }
-body.platform-ios .card.list:last-child {
-  margin-bottom: 46px;
-}
