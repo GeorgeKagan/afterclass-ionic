@@ -5,15 +5,15 @@
             <span ui-sref="userDetails_tutorStep2">{{::'USER_DETAILS.TUTOR.STEP3_TITLE'|translate}}</span>
         </h1>
     </div>
-    <ion-scroll class="has-header padding">
+    <ion-content class="has-header padding" has-bouncing="false">
         <form>
             <div class="padding-bottom" ng-repeat="(name, degreeCourses) in courses">
                 <h4 class="text-center">{{name}}</h4>
-                <ion-checkbox ng-model="selCourses[course]" ng-repeat="course in degreeCourses">{{course}}</ion-checkbox>
+                <ion-checkbox ng-model="selCourses[name + '|||' + course]" ng-repeat="course in degreeCourses">{{course}}</ion-checkbox>
             </div>
         </form>
         <button class="button button-block button-outline button-calm" ng-click="submitTutorStep3()" ng-disabled="isChecked(selCourses)">
             {{::'SAVE'|translate}}
         </button>
-    </ion-scroll>
+    </ion-content>
 </ion-view>

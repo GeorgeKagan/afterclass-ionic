@@ -5,12 +5,12 @@
             <span ui-sref="userDetails_chooseType">{{::'USER_DETAILS.TUTOR.STEP1_TITLE'|translate}}</span>
         </h1>
     </div>
-    <ion-scroll class="has-header padding">
+    <ion-content class="has-header padding" has-bouncing="false">
         <form>
             <ion-checkbox ng-model="selInstitutes[name]" ng-repeat="(name, institute) in institutes">{{name}}</ion-checkbox>
         </form>
         <button class="button button-block button-outline button-calm" ng-click="submitTutorStep1()" ng-disabled="isChecked(selInstitutes)">
             {{::'NEXT'|translate}}
         </button>
-    </ion-scroll>
+    </ion-content>
 </ion-view>

@@ -17,6 +17,7 @@ angular.module('afterclass.services')
         obj.getCoursesBySelectedDegrees = function (selDegrees, degrees) {
             var data = {};
             angular.forEach(selDegrees, function (isSelected, selDegree) {
+                selDegree = selDegree.split('|||')[1];
                 if (!isSelected) { return; }
                 angular.forEach(degrees, function (degreeGroup, instituteName) {
                     var courses = [];
@@ -69,10 +70,18 @@ angular.module('afterclass.services')
             payload.institutes = _.keys(institutes);
         };
         obj.setPayloadDegrees = function (degrees) {
-            payload.degrees = _.keys(degrees);
+            var new_arr = [];
+            angular.forEach(degrees, function (isSelected, degree) {
+                new_arr.push(degree.split('|||')[1]);
+            });
+            payload.degrees = new_arr;
         };
         obj.setPayloadCourses = function (courses) {
-            payload.courses = _.keys(courses);
+            var new_arr = [];
+            angular.forEach(courses, function (isSelected, course) {
+                new_arr.push(course.split('|||')[1]);
+            });
+            payload.courses = new_arr;
         };
         return obj;
     })
