@@ -111,7 +111,6 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         add_img_url = null;
         $scope.hasAttachment = false;
         img.html('');
-        $scope.$apply();
         $ionicScrollDelegate.scrollTop();
     };
 });
