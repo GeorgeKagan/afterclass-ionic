@@ -186,6 +186,42 @@ body.is-teacher .posts {
   box-shadow: none;
   border: 0;
 }
+.card .button-bar button.button-ok {
+  color: #68e366;
+}
+.card .button-bar button.button-ok::before {
+  content: " ";
+  background: url(../img/speech-bubble-ok.png) no-repeat;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  top: 10px;
+  position: relative;
+  background-size: 100%;
+}
+.card .button-bar button.button-ok.activated {
+  color: #3ddb3b;
+  box-shadow: none;
+  border: 0;
+}
+.card .button-bar button.button-notok {
+  color: #ff3b30;
+}
+.card .button-bar button.button-notok::before {
+  content: " ";
+  background: url(../img/speech-bubble-notok.png) no-repeat;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  top: 10px;
+  position: relative;
+  background-size: 100%;
+}
+.card .button-bar button.button-notok.activated {
+  color: #fc0d00;
+  box-shadow: none;
+  border: 0;
+}
 .card .img-wrapper {
   background-color: #dbdbdb;
   line-height: 0;
