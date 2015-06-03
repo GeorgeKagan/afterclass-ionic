@@ -45,7 +45,7 @@
   -webkit-appearance: none;
   position: relative;
   left: -4px;
-  padding: 5px 0;
+  padding: 15px 10px;
 }
 #ask-question-page textarea {
   resize: none;
