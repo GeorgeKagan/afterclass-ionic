@@ -30,8 +30,8 @@
         "CHOOSE..": "בחר..",
         "YOUTQUESTION": "השאלה שלך",
         "TYPEQUESTION": "הקלד את השאלה שלך..",
-        "CHOOSESUBJECT": "בחר נושא"
-
+        "CHOOSESUBJECT": "בחר נושא",
+        "ADDED_ATTACHMENT": "תמונה מצורפת"
     },
     "FORM": {
         "REQUIRED": "אנא הזן ערכים בכל השדות הנדרשים",
@@ -63,10 +63,9 @@
         "TUTOR_REPLIED": "מרצה הגיב לשאלה שלך"
     },
     "UPLOADS": {
-        "PROGRESS": "מעלה...",
+        "PROGRESS": "מעלה... ",
         "COMPLETE": "ההעלאה הושלמה",
-        "FAIL": "ההעלאה נכשלה",
-        "PROGRESS": "מעלה..."
+        "FAIL": "ההעלאה נכשלה"
     },
     "BACK": "חזור",
     "OK": "אישור",

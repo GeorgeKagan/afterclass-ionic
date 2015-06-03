@@ -49,8 +49,21 @@
 #ask-question-page textarea {
   resize: none;
 }
-#ask-question-page #aq-img {
-  margin: 10px;
+#ask-question-page .aq-delete {
+  background: url(../img/close.png) no-repeat;
+  width: 25px;
+  height: 25px;
+  float: right;
+  cursor: pointer;
+  position: absolute;
+  top: -30px;
+  left: 10px;
+  margin: 0 0 0 5px;
+  opacity: 0.9;
+  background-size: 100%;
+}
+#ask-question-page .aq-delete:active {
+  opacity: 1;
 }
 #ask-question-page #aq-img img {
   max-width: 100%;

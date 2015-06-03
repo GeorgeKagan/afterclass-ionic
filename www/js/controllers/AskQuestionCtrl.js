@@ -73,16 +73,21 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     $scope.takePicture = function () {
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
             add_img_url = result.imageURI;
-            img.html('<img src="' + result.imageURI + '">');
+            $timeout(function() {
+                $scope.hasAttachment = true;
+                img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
+                    angular.element(this).fadeIn();
+                });
+            }, 1000);
             $ionicScrollDelegate.scrollTop();
         }, function () {
-            img.html('');
-            $ionicScrollDelegate.scrollTop();
+            $scope.removeAttachment();
         });
     };
     $scope.choosePicture = function () {
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
             if (!result.is_image) {
+                $scope.removeAttachment();
                 return $ionicPopup.alert({
                     title: $translate.instant('FORM.ONLY_IMG'),
                     template: $translate.instant('ERROR'),
@@ -90,11 +95,22 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 });
             }
             add_img_url = result.imageURI;
-            img.html('<img src="' + result.imageURI + '">');
+            $timeout(function() {
+                $scope.hasAttachment = true;
+                img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
+                    angular.element(this).fadeIn();
+                });
+            }, 1000);
             $ionicScrollDelegate.scrollTop();
         }, function () {
-            img.html('');
-            $ionicScrollDelegate.scrollTop();
+            $scope.removeAttachment();
         });
+    };
+    $scope.removeAttachment = function () {
+        add_img_url = null;
+        $scope.hasAttachment = false;
+        img.html('');
+        $scope.$apply();
+        $ionicScrollDelegate.scrollTop();
     };
 });

@@ -16,10 +16,18 @@
             </label>
             <label class="body-wrapper item item-input item-floating-label">
                 <span class="input-label">{{::'POST.YOUTQUESTION'|translate}}</span>
-                <textarea id="aq-body" rows="10" placeholder="{{::'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
+                <textarea id="aq-body" rows="9" placeholder="{{::'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
             </label>
         </div>
-        <div id="aq-img"></div>
+        <div class="card" ng-show="hasAttachment">
+            <div class="item item-divider">
+                {{::'POST.ADDED_ATTACHMENT'|translate}}
+            </div>
+            <div class="item item-text-wrap">
+                <div id="aq-img"></div>
+                <div class="aq-delete" ng-click="removeAttachment()"></div>
+            </div>
+        </div>
     </ion-content>
     <div class="tabs tabs-icon-only tabs-dark tabs-color-light">
         <a ng-click="takePicture()" class="tab-item icon-camera"></a>
