@@ -226,7 +226,7 @@ angular.module('afterclass.services', [])
     /**
      * Push notifications
      */
-    .factory('AmazonSNS', function($rootScope, $cordovaPush, $cordovaDialogs, $q) {
+    .factory('AmazonSNS', function($rootScope, $cordovaPush, $ionicPopup, $translate, $q) {
         'use strict';
         var sns = new AWS.SNS({
             region: 'us-west-2',
@@ -263,7 +263,10 @@ angular.module('afterclass.services', [])
                         case 'message':
                             // This is the actual push notification. Its format depends on the data model from the push server
                             console.log('message', notification);
-                            $cordovaDialogs.alert(notification.message, 'Heads up!', 'Got it');
+                            $ionicPopup.alert({
+                                title: '',
+                                template: notification.message
+                            });
                             break;
                         case 'error':
                             console.log('GCM error = ' + notification.msg);

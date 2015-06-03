@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
-                                                                          $firebaseArray, $ionicLoading, $cordovaDialogs, $translate, Post) {
+                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post) {
     'use strict';
     var tabs_top_pos = $rootScope.user.is_teacher ? 44 : 230;
     // Load all user's questions from firebase
@@ -39,12 +39,19 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         $state.go('viewPost', {firebase_id: firebase_id});
     };
     $scope.deletePost = function ($event, firebase_id) {
-        $cordovaDialogs.confirm($translate.instant('FORM.SURE'), $translate.instant('FORM.DEL_Q'),
-            [$translate.instant('DELETE'), $translate.instant('CANCEL')]).then(function(buttonIndex) {
-            if (buttonIndex == 1) {
+
+        var confirmPopup = $ionicPopup.confirm({
+            title: $translate.instant('FORM.DEL_Q'),
+            template: $translate.instant('FORM.SURE'),
+            cancelText: $translate.instant('CANCEL'),
+            okText: $translate.instant('DELETE')
+        });
+        confirmPopup.then(function(res) {
+            if (res) {
                 Post.delete(firebase_id);
             }
         });
+
         $event.stopPropagation();
     };
     $scope.toggleAcceptance = function (firebase_id) {
