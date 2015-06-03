@@ -145,10 +145,19 @@ angular.module('afterclass.services', [])
                     potential_tutors = $firebaseArray(ref.child('potential_tutors'));
 
                 potential_tutors.$loaded().then(function(potentialTutors){
-                    //TODO: Finish this
-                    //Find user_id in potentialTutors
-                    //data[0].testField = 'test';
-                    //data.$save(0); //Index of modified thing
+
+                    var currentTutorIndex = _.findIndex(potentialTutors, {id:user_id});
+                    if(currentTutorIndex > -1) {
+                        if(typeof potential_tutors[currentTutorIndex].post_status !== 'undefined' && potential_tutors[currentTutorIndex].post_status === 'accepted') {
+                            potential_tutors[currentTutorIndex].post_status = 'declined';
+                        } else {
+                            potential_tutors[currentTutorIndex].post_status = 'accepted';
+                        }
+                        potential_tutors.$save(currentTutorIndex); //Index of modified thing
+                    } else {
+                        console.log('Error: tutor ['+user_id+'] was not found is potential tutors array');
+                    }
+
                 });
             }
         };
