@@ -31,6 +31,6 @@
         <!--<button ng-hide="is_teacher && post.status==='unanswered'" class="button" ng-click="viewPost(post.$id)">&nbsp; {{::'POST.ACCEPT_QUESTION'|translate}}</button>-->
         <button ng-show="!is_teacher" class="button" ng-click="viewPost(post.$id)">&nbsp; {{::'REPLY'|translate}}</button>
         <button ng-show="is_teacher && post.status==='assigned' && !isPostAccepted(post)" class="button button-ok" ng-click="toggleAcceptance(post.$id)">&nbsp; {{::'POST.ACCEPT_QUESTION'|translate}}</button>
-        <button ng-show="is_teacher && post.status==='assigned' && isPostAccepted(post)" class="button button-notok" ng-click="toggleAcceptance(post.$id)">&nbsp; {{::'POST.UNACCEPT_QUESTION'|translate}}</button
+        <button ng-show="is_teacher && post.status==='assigned' && isPostAccepted(post)" class="button button-notok" ng-click="toggleAcceptance(post.$id)">&nbsp; {{::'POST.UNACCEPT_QUESTION'|translate}}</button>
     </div>
 </div>

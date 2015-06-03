@@ -141,20 +141,24 @@ angular.module('afterclass.services', [])
             },
             toggleAcceptance: function(firebase_id, user_id) {
                 var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
+                    acceptedByField = ref.child('acceptedBy');
                     post = $firebaseObject(ref),
                     potential_tutors = $firebaseArray(ref.child('potential_tutors'));
 
                 potential_tutors.$loaded().then(function(potentialTutors){
 
                     var currentTutorIndex = _.findIndex(potentialTutors, {id:user_id});
-                    if(currentTutorIndex > -1) {
+                    if(currentTutorIndex > -1) { //Tutor is found in potential tutors
                         if(typeof potential_tutors[currentTutorIndex].post_status !== 'undefined' && potential_tutors[currentTutorIndex].post_status === 'accepted') {
                             potential_tutors[currentTutorIndex].post_status = 'declined';
+                            post.acceptedBy = user_id;
+                            post.$save();
                         } else {
                             potential_tutors[currentTutorIndex].post_status = 'accepted';
+                            acceptedByField.remove();
                         }
                         potential_tutors.$save(currentTutorIndex); //Index of modified thing
-                    } else {
+                    } else { //Error
                         console.log('Error: tutor ['+user_id+'] was not found is potential tutors array');
                     }
 
