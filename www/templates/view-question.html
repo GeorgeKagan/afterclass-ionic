@@ -2,7 +2,7 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i ng-click="backToHome()" class="icon ion-chevron-left"></i>
-            <span ng-click="backToHome()">{{::"BACK"|translate}}</span>
+            <span class="back-btn" ng-click="backToHome()">{{::"BACK"|translate}}</span>
             <span class="date">{{ post.timestamp | moment }}</span>
         </h1>
     </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="padding text-center">
-            <strong ng-if="!post.replies">{{::'POST.NOREPLIES'|translate}}</strong>
+            <strong ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</strong>
             <button ng-if="post.replies" ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
                 {{::'REPORT_QUESTION'|translate}}
             </button>

@@ -12,7 +12,8 @@ body.rtl .bar-header h1.title {
   text-align: right;
 }
 body.rtl .bar-header h1.title .icon {
-  margin: 0 0 0 7px;
+  margin: 0;
+  padding: 0 5px 0 12px;
   float: right;
 }
 body.rtl .bar-header h1.title .icon:before {

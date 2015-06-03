@@ -154,8 +154,11 @@ select {
   text-align: left;
 }
 .bar-header h1.title .icon {
-  margin: 0 7px 0 0;
-  padding: 0 5px;
+  margin: 0;
+  padding: 0 12px 0 5px;
+}
+.bar-header h1.title .back-btn {
+  float: right;
 }
 .bar-header h1.title:not(.no-logo) {
   background: url(../img/logo.png) 0 center no-repeat;
