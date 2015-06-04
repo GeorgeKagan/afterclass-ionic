@@ -38,6 +38,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             return post.status === 'unanswered' || post.status === 'assigned';
         };
         $scope.pointsLeft = Coupon.getPointsLeft();
+        //Coupon.createCoupon();
     }
 
     $scope.viewPost = function (firebase_id) {
