@@ -15,7 +15,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
     }
 
     $scope.login = function () {
-        window.facebookConnectPlugin.login(['public_profile'], function(status) {
+        window.facebookConnectPlugin.login(['public_profile', 'email'], function(status) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             window.facebookConnectPlugin.getAccessToken(function(token) {
                 // Authenticate with Facebook using an existing OAuth 2.0 access token
