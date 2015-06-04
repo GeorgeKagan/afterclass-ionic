@@ -235,5 +235,5 @@ body:not(.is-teacher) .ask-q-area {
   margin: 1px 0px 1px 0px;
 }
 body.platform-ios .card .post-header .ph-date {
-  font-size: 10px;
+  font-size: 12px;
 }
