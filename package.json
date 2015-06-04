@@ -26,6 +26,7 @@
     "./engine/cordova-crosswalk-engine-c0.7.1"
   ],
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ]
 }

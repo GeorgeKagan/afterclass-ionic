@@ -23,6 +23,9 @@
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarBackgroundColor" value="#000000"/>
   <preference name="StatusBarStyle" value="darkcontent"/>
+  <feature name="PushPlugin">
+    <param name="ios-package" value="PushPlugin"/>
+  </feature>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
