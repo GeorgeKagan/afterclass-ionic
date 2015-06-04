@@ -124,6 +124,11 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 templateUrl: "templates/contact-page.html",
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
+            .state('couponPage', {
+                url: "/coupon",
+                templateUrl: "templates/coupon-page.html",
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback

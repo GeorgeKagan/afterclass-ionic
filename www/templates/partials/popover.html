@@ -1,17 +1,20 @@
 <ion-popover-view>
-    <ion-content has-bouncing="false">
+    <ion-content has-bouncing="false" scroll="false">
         <div class="list">
             <span class="item">
-                {{::'HI'|translate}}, {{user.displayName}}
+                {{'HI'|translate}}, {{user.displayName}}
             </span>
             <a class="item" ui-sref="aboutPage" ng-click="hidePopover()">
-                {{::'PAGES.ABOUT.MENU'|translate}}
+                {{'PAGES.ABOUT.MENU'|translate}}
             </a>
             <a class="item" ui-sref="contactPage" ng-click="hidePopover()">
-                {{::'PAGES.CONTACT.MENU'|translate}}
+                {{'PAGES.CONTACT.MENU'|translate}}
+            </a>
+            <a class="item" ui-sref="couponPage" ng-click="hidePopover()">
+                {{'PAGES.COUPON.MENU'|translate}}
             </a>
             <a class="item" ng-click="logout()">
-                {{::'LOGOUT'|translate}}
+                {{'LOGOUT'|translate}}
             </a>
         </div>
     </ion-content>
