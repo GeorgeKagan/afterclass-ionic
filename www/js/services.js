@@ -248,20 +248,52 @@ angular.module('afterclass.services', [])
         'use strict';
         var sns = new AWS.SNS({
             region: 'us-west-2',
-            accessKeyId: 'AKIAIEAG6S2HZVPZOAHQ',
-            secretAccessKey: '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'
+            accessKeyId: 'AKIAIWZPMXE5FSUW7N6A',
+            secretAccessKey: '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'
         });
+
         var obj = {
             registerDevice: function () {
                 if (!window.cordova) {
                     console.warn('Cannot register with GCM. Must run on a real device!');
                     return;
                 }
-                var androidConfig = {
-                    // Google project ID
-                    senderID: "285670938797"
-                }, q = $q.defer();
-                $cordovaPush.register(androidConfig).then(function (result) { }, function (err) { });
+                var q = $q.defer();
+                if (ionic.Platform.isIOS()) {
+                    var iosConfig = {
+                        "badge": true,
+                        "sound": true,
+                        "alert": true
+                    };
+
+                    $cordovaPush.register(iosConfig).then(function(deviceToken) {
+                        // Success -- send deviceToken to server, and store for future use
+                        console.log("deviceToken: " + deviceToken)
+                        //$http.post("http://server.co/", {user: "Bob", tokenID: deviceToken})
+                        var params = {
+                            PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
+                            Token: deviceToken
+                        };
+                        sns.createPlatformEndpoint(params, function(err, data) {
+                            alert("got amazon id "+data.EndpointArn);
+                            q.resolve(data.EndpointArn);
+                        });
+                    }, function(err) {
+                        alert("Registration error: " + err)
+                    });
+
+                } else if (ionic.Platform.isAndroid()){
+                    var androidConfig = {
+                        // Google project ID
+                        senderID: "285670938797"
+                    };
+                    $cordovaPush.register(androidConfig).then(function (result) {
+
+                    }, function (err) {
+
+                    });
+                }
+
                 $rootScope.$on('$cordovaPush:notificationReceived', function (event, notification) {
                     switch (notification.event) {
                         case 'registered':
