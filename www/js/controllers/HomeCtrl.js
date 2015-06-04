@@ -1,9 +1,11 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
-                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post) {
+                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post, Coupon) {
     'use strict';
     // Load all user's questions from firebase
     var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts"),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered;
+
+    // Teacher home
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
@@ -24,7 +26,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         posts_tutor_answered.$loaded().then(function () {
             $scope.posts_tutor_answered = posts_tutor_answered;
         });
-    } else {
+    }
+    // Student home
+    else {
         sync = ref.orderByChild('user').equalTo($rootScope.user.id);
         posts = $firebaseArray(sync);
         posts.$loaded().then(function () {
@@ -33,7 +37,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         $scope.ifUserUnanswered = function (post) {
             return post.status === 'unanswered' || post.status === 'assigned';
         };
+        $scope.pointsLeft = Coupon.getPointsLeft();
     }
+
     $scope.viewPost = function (firebase_id) {
         $state.go('viewPost', {firebase_id: firebase_id});
     };

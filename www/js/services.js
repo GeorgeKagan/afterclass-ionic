@@ -1,5 +1,16 @@
 angular.module('afterclass.services', [])
 
+    .factory('MyFirebase', function () {
+        var obj = {},
+            ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        obj.getRef = function () {
+            return ref;
+        };
+        obj.getRefCoupons = function () {
+            return obj.getRef().child('coupons');
+        };
+        return obj;
+    })
     .factory('MyCamera', function($q, $window) {
         'use strict';
         return {
@@ -146,7 +157,7 @@ angular.module('afterclass.services', [])
             },
             toggleAcceptance: function(firebase_id, user_id) {
                 var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
-                    acceptedByField = ref.child('acceptedBy');
+                    acceptedByField = ref.child('acceptedBy'),
                     post = $firebaseObject(ref),
                     potential_tutors = $firebaseArray(ref.child('potential_tutors'));
 

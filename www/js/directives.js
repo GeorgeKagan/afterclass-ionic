@@ -37,11 +37,12 @@ angular.module('afterclass.directives', [])
             replace: 'true',
             template:
             '<div class="ask-q-area calm-bg text-center">' +
-            '<button class="button aqa-btn" ui-sref="askQuestion">' +
-                '<div class="ab-icon"></div>' +
-                '<div class="ab-text">{{::"ASK_A_TEACHER"|translate}}</div>' +
-            '</button>' +
-            '<div class="light text-center padding">{{::"ASK_QUESTION_INSTRUCTIONS"|translate}}</div>' +
+                '<button class="button aqa-btn" ui-sref="askQuestion">' +
+                    '<div class="ab-icon"></div>' +
+                    '<div class="ab-text" ng-show="pointsLeft>0">{{::"ASK_A_TEACHER"|translate}}</div>' +
+                    '<div class="ab-text" ng-show="pointsLeft===0">{{::"GET_POINTS"|translate}}</div>' +
+                '</button>' +
+                '<div class="light text-center padding">{{::"ASK_QUESTION_REMAINING"|translate:{count: pointsLeft} }}</div>' +
             '</div>'
         };
     })
