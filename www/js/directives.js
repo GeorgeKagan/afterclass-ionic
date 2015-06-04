@@ -14,6 +14,9 @@ angular.module('afterclass.directives', [])
         return {
             restrict: "A",
             link: function(scope, element, attrs) {
+                if (ionic.Platform.isIOS()) {
+                    return;
+                }
                 // Auto show the subject select options
                 var showDropDown = function (element) {
                     var event;
