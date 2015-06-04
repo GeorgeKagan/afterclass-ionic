@@ -31,6 +31,12 @@
 #home-page .bar-header.scrolled {
   background: #2263a5;
 }
+body.platform-ios #home-page .scroll {
+  padding: 0 0 30px 0;
+}
+body.platform-ios.is-teacher #home-page .scroll {
+  padding: 30px 0 130px 0;
+}
 body.is-teacher #home-page .bar-header {
   background: #2263a5;
 }
