@@ -41,6 +41,8 @@ angular.module('afterclass.services')
             UserCollection.updateUser({
                 is_choose_type_finished: true,
                 is_teacher: true,
+                degree: null,
+                institute: null,
                 target_institutes: payload.institutes
             });
         };

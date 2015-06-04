@@ -12,8 +12,10 @@
                 <ion-checkbox ng-model="selCourses[name + '|||' + course]" ng-repeat="course in degreeCourses">{{course}}</ion-checkbox>
             </div>
         </form>
+    </ion-content>
+    <ion-footer-bar>
         <button class="button button-block button-outline button-calm" ng-click="submitTutorStep3()" ng-disabled="isChecked(selCourses)">
             {{::'SAVE'|translate}}
         </button>
-    </ion-content>
+    </ion-footer-bar>
 </ion-view>

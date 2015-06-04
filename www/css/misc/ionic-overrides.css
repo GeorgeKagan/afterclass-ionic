@@ -33,3 +33,6 @@
 .platform-android .action-sheet button.destructive {
   color: #ff3b30;
 }
+.bar.bar-footer .button.button-block {
+  margin: 0;
+}

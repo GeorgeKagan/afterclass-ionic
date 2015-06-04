@@ -5,9 +5,7 @@ angular.module('afterclass.controllers').
             UserCollection.updateUser({
                 is_choose_type_finished: true,
                 is_teacher: false,
-                target_institutes: null,
-                target_degrees: null,
-                target_courses: null
+                target_institutes: null
             });
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});

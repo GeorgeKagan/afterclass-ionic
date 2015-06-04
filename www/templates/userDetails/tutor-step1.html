@@ -9,8 +9,10 @@
         <form>
             <ion-checkbox ng-model="selInstitutes[name]" ng-repeat="(name, institute) in institutes">{{name}}</ion-checkbox>
         </form>
+    </ion-content>
+    <ion-footer-bar>
         <button class="button button-block button-outline button-calm" ng-click="submitTutorStep1()" ng-disabled="isChecked(selInstitutes)">
             {{::'NEXT'|translate}}
         </button>
-    </ion-content>
+    </ion-footer-bar>
 </ion-view>
