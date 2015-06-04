@@ -275,11 +275,12 @@ angular.module('afterclass.services', [])
                             Token: deviceToken
                         };
                         sns.createPlatformEndpoint(params, function(err, data) {
-                            alert("got amazon id "+data.EndpointArn);
+                            //alert("got amazon id "+data.EndpointArn);
                             q.resolve(data.EndpointArn);
                         });
                     }, function(err) {
-                        alert("Registration error: " + err)
+                        console.log("can't get apns "+err);
+                        //alert("Registration error: " + err)
                     });
 
                 } else if (ionic.Platform.isAndroid()){
