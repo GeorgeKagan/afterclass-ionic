@@ -12,10 +12,10 @@
                 <div class="list">
                     <label class="item item-input item-floating-label" style="padding:0 5px;border:0">
                         <span class="input-label">קוד קופון</span>
-                        <input type="text" maxlength="6" style="padding:0" placeholder="הזן קוד קופון">
+                        <input type="text" maxlength="6" style="padding:0" placeholder="הזן קוד קופון" ng-model="coupon.id">
                     </label>
                 </div>
-                <button class="button button-block button-outline button-positive">ניצול</button>
+                <button class="button button-block button-outline button-positive" ng-click="claimCoupon()">ניצול</button>
             </form>
         </div>
     </ion-content>

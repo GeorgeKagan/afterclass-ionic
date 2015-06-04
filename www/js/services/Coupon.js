@@ -5,7 +5,7 @@ angular.module('afterclass.services')
         obj.createCoupon = function () {
             var coupons = $firebaseArray(ref);
             coupons.$add({
-                id: 'guid-first-octet',
+                id: window.device ? window.device.uuid.substr(0, 6) : 'created-via-web',
                 type: types.SINGLE,
                 creator_id: $rootScope.user.id,
                 total_points: 100,
@@ -22,8 +22,34 @@ angular.module('afterclass.services')
                 console.log("Error creating coupon:", error);
             });
         };
-        obj.claimCoupon = function () {
+        obj.getCoupon = function (couponId) {
+            var sync = ref.orderByChild('id').equalTo(couponId);
+            var coupon = $firebaseArray(sync);
+            return coupon.$loaded().then(function () {
+                return coupon;
+            });
+        };
+        obj.claimCoupon = function (couponId) {
+            obj.getCoupon(couponId).then(function (coupon) {
+                if (!coupon.is_valid) {
+                    // and expiration_date
+                    console.log('Coupon ' + couponId + ' is inactive!');
+                }
+                switch (coupon.type) {
+                    case types.SINGLE:
 
+                        break;
+                    case types.MULTI:
+                        // coupon.claimed_by
+                        break;
+                    case types.PERSONAL:
+                        // creator_id? what for?
+                        break;
+                }
+                console.log('promise', coupon);
+                coupon[0].total_points = coupon[0].total_points - coupon[0].claim_points;
+                coupon.$save(0);
+            });
         };
         obj.getPointsLeft = function() {
             return 11;
