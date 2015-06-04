@@ -129,7 +129,7 @@ body:not(.is-teacher) .ask-q-area {
   left: 0;
 }
 .card .post-header .ph-date {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 100;
   float: right;
   color: #888888;
@@ -227,4 +227,7 @@ body:not(.is-teacher) .ask-q-area {
   background-color: #dbdbdb;
   line-height: 0;
   margin: 1px 0px 1px 0px;
+}
+body.platform-ios .card .post-header .ph-date {
+  font-size: 10px;
 }
