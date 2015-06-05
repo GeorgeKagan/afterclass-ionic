@@ -63,6 +63,7 @@ body.rtl #ask-question-page .scroll {
   direction: rtl;
 }
 body.rtl .card .post-header .ph-subject {
+  direction: rtl;
   right: 0;
   left: auto;
   border-radius: 0 0 0 5px;

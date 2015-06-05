@@ -92,11 +92,6 @@ angular.module('afterclass.services', [])
                             // Add any initial custom properties here
                             name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
                         })).then(function() {
-                            try {
-                                AmazonSNS.registerDevice().then(function (endpoint_arn) {
-                                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                                });
-                            } catch(e) {}
                             q.resolve(user[0]);
                         });
                     } else {
@@ -114,6 +109,19 @@ angular.module('afterclass.services', [])
                 });
                 // Don't wait for async call
                 $rootScope.user = angular.element.extend($rootScope.user, data);
+            },
+            /**
+             * Makes sure any mandatory fields, that previously failed to be set, are set
+             * @param user
+             */
+            fillMandatoryFields: function(user) {
+                if (!user.amazon_endpoint_arn) {
+                    try {
+                        AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                            obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                        });
+                    } catch(e) { }
+                }
             },
             /**
              * Populate rootScope with user data from localStorage
@@ -269,24 +277,25 @@ angular.module('afterclass.services', [])
 
                     $cordovaPush.register(iosConfig).then(function(deviceToken) {
                         // Success -- send deviceToken to server, and store for future use
-                        console.log("deviceToken: " + deviceToken)
+                        console.log("deviceToken: " + deviceToken);
                         //$http.post("http://server.co/", {user: "Bob", tokenID: deviceToken})
                         var params = {
                             PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
                             Token: deviceToken
                         };
                         sns.createPlatformEndpoint(params, function(err, data) {
-                            alert("got amazon id "+data.EndpointArn);
+                            console.log("got amazon apns "+data+","+err);
                             q.resolve(data.EndpointArn);
                         });
                     }, function(err) {
-                        alert("Registration error: " + err)
+                        console.log("can't get apns "+err);
+                        //alert("Registration error: " + err)
                     });
 
                 } else if (ionic.Platform.isAndroid()){
                     var androidConfig = {
                         // Google project ID
-                        senderID: "285670938797"
+                        senderID: "afterclass-966"
                     };
                     $cordovaPush.register(androidConfig).then(function (result) {
 
@@ -302,7 +311,7 @@ angular.module('afterclass.services', [])
                                 console.log('registration ID = ' + notification.regid);
                                 // CREATE ENDPOINT
                                 var params = {
-                                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:912268630951:app/GCM/AfterClass',
+                                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/GCM/afterclass-android',
                                     Token: notification.regid
                                 };
                                 sns.createPlatformEndpoint(params, function(err, data) {

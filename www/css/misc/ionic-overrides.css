@@ -33,6 +33,9 @@
 .platform-android .action-sheet button.destructive {
   color: #ff3b30;
 }
+.popup-container .popup {
+  background: #fff;
+}
 .bar.bar-footer .button.button-block {
   margin: 0;
 }
