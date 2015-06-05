@@ -90,6 +90,7 @@ angular.module('afterclass.services', [])
                     if (!user.length) {
                         user.$add(angular.element.extend(authData.facebook.cachedUserProfile, {
                             // Add any initial custom properties here
+                            uid: authData.uid,
                             name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
                         })).then(function() {
                             q.resolve(user[0]);
