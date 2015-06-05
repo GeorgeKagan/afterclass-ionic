@@ -90,11 +90,11 @@ body.rtl .item-avatar > img:first-child {
 body.rtl #ask-question-page select {
   right: -4px;
 }
-body.rtl #view-question-page ion-footer-bar .icon-camera {
+body.rtl #view-question-page ion-footer-bar#comment-bar .icon-camera {
   left: auto;
   right: 5px;
 }
-body.rtl #view-question-page ion-footer-bar .img-preview {
+body.rtl #view-question-page ion-footer-bar#comment-bar .img-preview {
   left: auto;
   right: 5px;
 }

@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $firebaseObject,
                                                                                   $firebaseArray, $ionicLoading, $ionicActionSheet, $timeout, $translate, $ionicPopup,
-                                                                                  MyCamera, CloudinaryUpload, AmazonSNS) {
+                                                                                  MyCamera, CloudinaryUpload, AmazonSNS, Post) {
     'use strict';
     var ref = new Firebase('https://dazzling-heat-8303.firebaseio.com/posts/' + $stateParams.firebase_id),
         post = ref,
@@ -76,25 +76,54 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
         }
     }
 
+    $scope.acceptQuestion = function() {
+        Post.toggleAcceptance ($stateParams.firebase_id,$rootScope.user.id);
+        $scope.allowReply = true;
+        $scope.showAcceptQuestion = false;
+    }
+
     $scope.shouldShowAgreement = true;
     $scope.post = $firebaseObject(post);
     $scope.replyBody = '';
     $scope.add_img_preview = false;
 
-    $scope.allowReply = true;
-    $scope.post.$loaded().then(function(post){
+    $scope.allowReply = false;
+    $scope.showAcceptQuestion = false;
 
-        //Block replies after a certain amount of time
-        if(post.status === "answered") {
-            var lastActivity = post.timestamp;
-            if(Array.isArray(post.replies)) {
-                lastActivity = Math.max(post.replies[post.replies-1].timestamp, lastActivity)
-            }
 
-            if(lastActivity < moment().subtract(32, 'hours').unix()) { //Allow replies within 32 hours from last activity
+    $scope.post.$loaded().then(function(post) {
+
+        if($rootScope.user.is_teacher) { //Tutor
+
+            //Show accept button for assigned tutors
+            var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
+            if($rootScope.user.is_teacher && post.status === 'assigned' && acceptingTutors.length === 0) {
                 $scope.allowReply = false;
+                $scope.showAcceptQuestion = true;
+            } else {
+                $scope.allowReply = true;
+                $scope.showAcceptQuestion = false;
             }
+
+        } else { //User
+
+            //Block replies after a certain amount of time
+            if(post.status === 'answered') {
+                var lastActivity = post.timestamp;
+                if(Array.isArray(post.replies)) {
+                    lastActivity = Math.max(post.replies[post.replies-1].timestamp, lastActivity)
+                }
+
+                if(lastActivity < moment().subtract(8, 'hours').unix()) { //Allow replies within 32 hours from last activity
+                    $scope.allowReply = false;
+                }
+            } else {
+                $scope.allowReply = true;
+                $scope.showAcceptQuestion = false;
+            }
+
         }
+
     });
 
     $scope.report = {
