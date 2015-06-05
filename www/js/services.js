@@ -111,9 +111,21 @@ angular.module('afterclass.services', [])
                 user.$loaded().then(function (user) {
                     user[0] = angular.element.extend(user[0], data);
                     user.$save(0);
+                    obj.fillMandatoryFields(user);
                 });
                 // Don't wait for async call
                 $rootScope.user = angular.element.extend($rootScope.user, data);
+            },
+            fillMandatoryFields: function(user) {
+                if (!user.amazon_endpoint_arn) {
+                    try {
+                        AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                            obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                        });
+                    } catch(e) {
+                        console.log('can\'t get push key', e);
+                    }
+                }
             },
             /**
              * Populate rootScope with user data from localStorage
@@ -275,7 +287,7 @@ angular.module('afterclass.services', [])
                             Token: deviceToken
                         };
                         sns.createPlatformEndpoint(params, function(err, data) {
-                            //alert("got amazon id "+data.EndpointArn);
+                            console.log("got amazon apns "+data+","+err);
                             q.resolve(data.EndpointArn);
                         });
                     }, function(err) {
