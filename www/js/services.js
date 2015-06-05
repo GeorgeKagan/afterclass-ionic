@@ -137,7 +137,7 @@ angular.module('afterclass.services', [])
         };
         return obj;
     })
-    .factory('Post', function($firebaseObject, $firebaseArray) {
+    .factory('Post', function($firebaseObject, $firebaseArray, $state) {
         var obj = {
             delete: function(firebase_id) {
                 var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
@@ -156,11 +156,12 @@ angular.module('afterclass.services', [])
                     if(currentTutorIndex > -1) { //Tutor is found in potential tutors
                         if(typeof potential_tutors[currentTutorIndex].post_status !== 'undefined' && potential_tutors[currentTutorIndex].post_status === 'accepted') {
                             potential_tutors[currentTutorIndex].post_status = 'declined';
-                            post.acceptedBy = user_id;
-                            post.$save();
+                            acceptedByField.remove();
                         } else {
                             potential_tutors[currentTutorIndex].post_status = 'accepted';
-                            acceptedByField.remove();
+                            post.acceptedBy = user_id;
+                            post.$save();
+                            $state.go('viewPost', {firebase_id: firebase_id});
                         }
                         potential_tutors.$save(currentTutorIndex); //Index of modified thing
                     } else { //Error
