@@ -280,7 +280,7 @@ angular.module('afterclass.services', [])
 
                     $cordovaPush.register(iosConfig).then(function(deviceToken) {
                         // Success -- send deviceToken to server, and store for future use
-                        console.log("deviceToken: " + deviceToken)
+                        console.log("deviceToken: " + deviceToken);
                         //$http.post("http://server.co/", {user: "Bob", tokenID: deviceToken})
                         var params = {
                             PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
@@ -298,7 +298,7 @@ angular.module('afterclass.services', [])
                 } else if (ionic.Platform.isAndroid()){
                     var androidConfig = {
                         // Google project ID
-                        senderID: "285670938797"
+                        senderID: "afterclass-966"
                     };
                     $cordovaPush.register(androidConfig).then(function (result) {
 
