@@ -314,7 +314,7 @@ angular.module('afterclass.services', [])
                                 console.log('registration ID = ' + notification.regid);
                                 // CREATE ENDPOINT
                                 var params = {
-                                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:912268630951:app/GCM/AfterClass',
+                                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/GCM/afterclass-android',
                                     Token: notification.regid
                                 };
                                 sns.createPlatformEndpoint(params, function(err, data) {
