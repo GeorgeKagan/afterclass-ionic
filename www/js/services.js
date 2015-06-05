@@ -92,11 +92,6 @@ angular.module('afterclass.services', [])
                             // Add any initial custom properties here
                             name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
                         })).then(function() {
-                            try {
-                                AmazonSNS.registerDevice().then(function (endpoint_arn) {
-                                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                                });
-                            } catch(e) {}
                             q.resolve(user[0]);
                         });
                     } else {
@@ -111,20 +106,21 @@ angular.module('afterclass.services', [])
                 user.$loaded().then(function (user) {
                     user[0] = angular.element.extend(user[0], data);
                     user.$save(0);
-                    obj.fillMandatoryFields(user);
                 });
                 // Don't wait for async call
                 $rootScope.user = angular.element.extend($rootScope.user, data);
             },
+            /**
+             * Makes sure any mandatory fields, that previously failed to be set, are set
+             * @param user
+             */
             fillMandatoryFields: function(user) {
                 if (!user.amazon_endpoint_arn) {
                     try {
                         AmazonSNS.registerDevice().then(function (endpoint_arn) {
                             obj.updateUser({amazon_endpoint_arn: endpoint_arn});
                         });
-                    } catch(e) {
-                        console.log('can\'t get push key', e);
-                    }
+                    } catch(e) { }
                 }
             },
             /**

@@ -8,6 +8,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
     // Check if got active session
     if (authData) {
         UserCollection.getFromUsersCollection().then(function (user) {
+            postLoginOps(user);
             doRedirect(user);
         });
     } else {
@@ -24,6 +25,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
                         console.log('Firebase login failed!', error);
                     } else {
                         UserCollection.saveToUsersCollection(authData).then(function (user) {
+                            postLoginOps(user);
                             doRedirect(user);
                         });
                         console.log('Authenticated successfully with payload:', authData);
@@ -37,6 +39,9 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
         });
     };
 
+    var postLoginOps = function (user) {
+        UserCollection.fillMandatoryFields(user);
+    };
     var doRedirect = function (user) {
         if (user.is_choose_type_finished) {
             $state.go('home').then(function() {
