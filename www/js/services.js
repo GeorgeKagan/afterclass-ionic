@@ -77,35 +77,40 @@ angular.module('afterclass.services', [])
         };
         return service;
     })
-    .factory('UserCollection', function($rootScope, $q, $firebaseArray, AmazonSNS) {
+    .factory('UserCollection', function($rootScope, $q, $firebaseObject, AmazonSNS) {
         'use strict';
         var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
         var obj = {
             saveToUsersCollection: function(authData) {
-                var sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
-                    user = $firebaseArray(sync),
+                var sync = ref.child('users/' + authData.uid),
+                    user = $firebaseObject(sync),
                     q = $q.defer();
                 user.$loaded().then(function() {
                     // New user added
                     if (!user.length) {
-                        user.$add(angular.element.extend(authData.facebook.cachedUserProfile, {
+                        var data = angular.element.extend(authData.facebook.cachedUserProfile, {
                             // Add any initial custom properties here
                             uid: authData.uid,
                             name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
-                        })).then(function() {
-                            q.resolve(user[0]);
+                        });
+                        user = angular.element.extend(user, data);
+                        user.$save().then(function() {
+                            q.resolve(user);
+                        }, function(error) {
+                            q.resolve(null);
+                            console.log("Error saving user:", error);
                         });
                     } else {
-                        q.resolve(user[0]);
+                        q.resolve(user);
                     }
                 });
                 return q.promise;
             },
             updateUser: function(data) {
-                var sync = ref.child('users').orderByChild('id').equalTo($rootScope.user.id),
-                    user = $firebaseArray(sync);
+                var sync = ref.child('users/' + $rootScope.user.uid),
+                    user = $firebaseObject(sync);
                 user.$loaded().then(function (user) {
-                    user[0] = angular.element.extend(user[0], data);
+                    user = angular.element.extend(user, data);
                     user.$save(0);
                 });
                 // Don't wait for async call
@@ -132,12 +137,12 @@ angular.module('afterclass.services', [])
                     return $rootScope.user;
                 }
                 var authData = ref.getAuth(),
-                    sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
-                    user = $firebaseArray(sync),
+                    sync = ref.child('users/' + authData.uid),
+                    user = $firebaseObject(sync),
                     q = $q.defer();
                 user.$loaded().then(function() {
                     // Use up to date fb data, but merge in custom properties set via firebase
-                    $rootScope.user = angular.element.extend(authData.facebook, user[0]);
+                    $rootScope.user = angular.element.extend(authData, user);
                     q.resolve($rootScope.user);
                     //console.log('Merged User', $rootScope.user);
                 });
@@ -155,7 +160,7 @@ angular.module('afterclass.services', [])
             },
             toggleAcceptance: function(firebase_id, user_id) {
                 var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
-                    acceptedByField = ref.child('acceptedBy');
+                    acceptedByField = ref.child('acceptedBy'),
                     post = $firebaseObject(ref),
                     potential_tutors = $firebaseArray(ref.child('potential_tutors'));
 
