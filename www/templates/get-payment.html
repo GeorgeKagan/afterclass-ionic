@@ -7,20 +7,23 @@
     </div>
     <ion-content class="has-header has-footer padding" has-bouncing="false" dir="auto">
         <div class="gp-balance text-center">
-            לזכאותך עומדים
+            {{::'PAYMENT.OUTSTANDING'|translate}}
             <br>
-            <strong>55</strong> &#8362;
+            <div class="gp-balance-inner">
+                <strong id="gp-balance">{{payment.balance}}</strong> <span>&#8362;</span>
+            </div>
         </div>
-        <button class="button button-block button-outline button-balanced" ng-click="withdraw()">משוך</button>
-        <h3 class="padding-top padding-bottom text-center">תשלומים קודמים</h3>
+        <button class="button button-block button-outline button-balanced" ng-disabled="!payment.balance" ng-click="withdraw()">
+            {{::'PAYMENT.WITHDRAW'|translate}}
+        </button>
+        <h3 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h3>
         <ul class="list">
-            <li class="item">
-                <strong>100</strong> &#8362;
-                <span class="item-note">ממתין</span>
-            </li>
-            <li class="item">
-                <strong>80</strong> &#8362;
-                <span class="item-note balanced">שולם</span>
+            <li class="item" ng-repeat="item in payment.previous">
+                <strong>{{::item.amount}}</strong> &#8362;
+                <span class="item-note"
+                      ng-class="{'balanced': item.status_code==='paid', 'bold': item.status_code==='pending'}">
+                    {{::item.status}}
+                </span>
             </li>
         </ul>
     </ion-content>

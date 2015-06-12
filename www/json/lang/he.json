@@ -67,6 +67,15 @@
         "COMPLETE": "ההעלאה הושלמה",
         "FAIL": "ההעלאה נכשלה"
     },
+    "STATUS": {
+        "PENDING": "ממתין",
+        "PAID": "שולם"
+    },
+    "PAYMENT": {
+        "OUTSTANDING": "לזכאותך עומדים",
+        "WITHDRAW": "משוך",
+        "PREV_PAYMENTS": "תשלומים קודמים"
+    },
     "BACK": "חזור",
     "OK": "אישור",
     "ERROR": "שגיאה",

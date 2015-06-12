@@ -25,6 +25,14 @@
   font-size: 150%;
   line-height: 170%;
 }
+#get-payment-page .gp-balance .gp-balance-inner {
+  height: 44px;
+}
+#get-payment-page .gp-balance .gp-balance-inner span {
+  display: inline-block;
+  height: 100%;
+  margin: 9px 0 0 0;
+}
 #get-payment-page button {
   margin: 20px 0 30px 0;
 }
