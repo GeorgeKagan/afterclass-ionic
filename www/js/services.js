@@ -162,6 +162,7 @@ angular.module('afterclass.services', [])
 
                     var currentTutorIndex = _.findIndex(potentialTutors, {id:user_id});
                     if(currentTutorIndex > -1) { //Tutor is found in potential tutors
+                        potential_tutors[currentTutorIndex].status_update_date = moment().unix();
                         if(typeof potential_tutors[currentTutorIndex].post_status !== 'undefined' && potential_tutors[currentTutorIndex].post_status === 'accepted') {
                             potential_tutors[currentTutorIndex].post_status = 'declined';
                             acceptedByField.remove();
