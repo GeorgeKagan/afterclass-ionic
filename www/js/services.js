@@ -88,43 +88,57 @@ angular.module('afterclass.services', [])
         };
         return service;
     })
-    .factory('UserCollection', function($rootScope, $q, $firebaseArray, AmazonSNS) {
+    .factory('UserCollection', function($rootScope, $q, $firebaseObject, AmazonSNS, MyFirebase) {
         'use strict';
-        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        var ref = MyFirebase.getRef();
         var obj = {
             saveToUsersCollection: function(authData) {
-                var sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
-                    user = $firebaseArray(sync),
+                var sync = ref.child('users/' + authData.uid),
+                    user = $firebaseObject(sync),
                     q = $q.defer();
                 user.$loaded().then(function() {
                     // New user added
                     if (!user.length) {
-                        user.$add(angular.element.extend(authData.facebook.cachedUserProfile, {
+                        var data = angular.element.extend(authData.facebook.cachedUserProfile, {
                             // Add any initial custom properties here
+                            uid: authData.uid,
                             name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
-                        })).then(function() {
-                            try {
-                                AmazonSNS.registerDevice().then(function (endpoint_arn) {
-                                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                                });
-                            } catch(e) {}
-                            q.resolve(user[0]);
+                        });
+                        user = angular.element.extend(user, data);
+                        user.$save().then(function() {
+                            q.resolve(user);
+                        }, function(error) {
+                            q.resolve(null);
+                            console.log("Error saving user:", error);
                         });
                     } else {
-                        q.resolve(user[0]);
+                        q.resolve(user);
                     }
                 });
                 return q.promise;
             },
             updateUser: function(data) {
-                var sync = ref.child('users').orderByChild('id').equalTo($rootScope.user.id),
-                    user = $firebaseArray(sync);
+                var sync = ref.child('users/' + $rootScope.user.uid),
+                    user = $firebaseObject(sync);
                 user.$loaded().then(function (user) {
-                    user[0] = angular.element.extend(user[0], data);
+                    user = angular.element.extend(user, data);
                     user.$save(0);
                 });
                 // Don't wait for async call
                 $rootScope.user = angular.element.extend($rootScope.user, data);
+            },
+            /**
+             * Makes sure any mandatory fields, that previously failed to be set, are set
+             * @param user
+             */
+            fillMandatoryFields: function(user) {
+                if (!user.amazon_endpoint_arn) {
+                    try {
+                        AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                            obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                        });
+                    } catch(e) { }
+                }
             },
             /**
              * Populate rootScope with user data from localStorage
@@ -134,12 +148,12 @@ angular.module('afterclass.services', [])
                     return $rootScope.user;
                 }
                 var authData = ref.getAuth(),
-                    sync = ref.child('users').orderByChild('id').equalTo(authData.facebook.id),
-                    user = $firebaseArray(sync),
+                    sync = ref.child('users/' + authData.uid),
+                    user = $firebaseObject(sync),
                     q = $q.defer();
                 user.$loaded().then(function() {
                     // Use up to date fb data, but merge in custom properties set via firebase
-                    $rootScope.user = angular.element.extend(authData.facebook, user[0]);
+                    $rootScope.user = angular.element.extend(authData, user);
                     q.resolve($rootScope.user);
                     //console.log('Merged User', $rootScope.user);
                 });
@@ -148,15 +162,15 @@ angular.module('afterclass.services', [])
         };
         return obj;
     })
-    .factory('Post', function($firebaseObject, $firebaseArray) {
+    .factory('Post', function($firebaseObject, $firebaseArray, $state, MyFirebase) {
         var obj = {
             delete: function(firebase_id) {
-                var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
+                var ref = MyFirebase.getRef().child('posts/' + firebase_id),
                     post = $firebaseObject(ref);
                 post.$remove();
             },
             toggleAcceptance: function(firebase_id, user_id) {
-                var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
+                var ref = MyFirebase.getRef().child('posts/' + firebase_id),
                     acceptedByField = ref.child('acceptedBy'),
                     post = $firebaseObject(ref),
                     potential_tutors = $firebaseArray(ref.child('potential_tutors'));
@@ -167,11 +181,12 @@ angular.module('afterclass.services', [])
                     if(currentTutorIndex > -1) { //Tutor is found in potential tutors
                         if(typeof potential_tutors[currentTutorIndex].post_status !== 'undefined' && potential_tutors[currentTutorIndex].post_status === 'accepted') {
                             potential_tutors[currentTutorIndex].post_status = 'declined';
-                            post.acceptedBy = user_id;
-                            post.$save();
+                            acceptedByField.remove();
                         } else {
                             potential_tutors[currentTutorIndex].post_status = 'accepted';
-                            acceptedByField.remove();
+                            post.acceptedBy = user_id;
+                            post.$save();
+                            $state.go('viewPost', {firebase_id: firebase_id});
                         }
                         potential_tutors.$save(currentTutorIndex); //Index of modified thing
                     } else { //Error
@@ -259,20 +274,53 @@ angular.module('afterclass.services', [])
         'use strict';
         var sns = new AWS.SNS({
             region: 'us-west-2',
-            accessKeyId: 'AKIAIEAG6S2HZVPZOAHQ',
-            secretAccessKey: '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'
+            accessKeyId: 'AKIAIWZPMXE5FSUW7N6A',
+            secretAccessKey: '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'
         });
+
         var obj = {
             registerDevice: function () {
                 if (!window.cordova) {
                     console.warn('Cannot register with GCM. Must run on a real device!');
                     return;
                 }
-                var androidConfig = {
-                    // Google project ID
-                    senderID: "285670938797"
-                }, q = $q.defer();
-                $cordovaPush.register(androidConfig).then(function (result) { }, function (err) { });
+                var q = $q.defer();
+                if (ionic.Platform.isIOS()) {
+                    var iosConfig = {
+                        "badge": true,
+                        "sound": true,
+                        "alert": true
+                    };
+
+                    $cordovaPush.register(iosConfig).then(function(deviceToken) {
+                        // Success -- send deviceToken to server, and store for future use
+                        console.log("deviceToken: " + deviceToken);
+                        //$http.post("http://server.co/", {user: "Bob", tokenID: deviceToken})
+                        var params = {
+                            PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
+                            Token: deviceToken
+                        };
+                        sns.createPlatformEndpoint(params, function(err, data) {
+                            console.log("got amazon apns "+data+","+err);
+                            q.resolve(data.EndpointArn);
+                        });
+                    }, function(err) {
+                        console.log("can't get apns "+err);
+                        //alert("Registration error: " + err)
+                    });
+
+                } else if (ionic.Platform.isAndroid()){
+                    var androidConfig = {
+                        // Google project ID
+                        senderID: "afterclass-966"
+                    };
+                    $cordovaPush.register(androidConfig).then(function (result) {
+
+                    }, function (err) {
+
+                    });
+                }
+
                 $rootScope.$on('$cordovaPush:notificationReceived', function (event, notification) {
                     switch (notification.event) {
                         case 'registered':
@@ -280,7 +328,7 @@ angular.module('afterclass.services', [])
                                 console.log('registration ID = ' + notification.regid);
                                 // CREATE ENDPOINT
                                 var params = {
-                                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:912268630951:app/GCM/AfterClass',
+                                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/GCM/afterclass-android',
                                     Token: notification.regid
                                 };
                                 sns.createPlatformEndpoint(params, function(err, data) {
