@@ -1,8 +1,8 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
-                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post) {
+                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post, MyFirebase) {
     'use strict';
     // Load all user's questions from firebase
-    var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts"),
+    var ref = MyFirebase.getRef().child('posts'),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered;
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])

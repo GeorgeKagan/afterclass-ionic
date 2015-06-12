@@ -1,5 +1,13 @@
 angular.module('afterclass.services', [])
 
+    .factory('MyFirebase', function () {
+        var obj = {},
+            ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        obj.getRef = function () {
+            return ref;
+        };
+        return obj;
+    })
     .factory('MyCamera', function($q, $window) {
         'use strict';
         return {
@@ -77,9 +85,9 @@ angular.module('afterclass.services', [])
         };
         return service;
     })
-    .factory('UserCollection', function($rootScope, $q, $firebaseObject, AmazonSNS) {
+    .factory('UserCollection', function($rootScope, $q, $firebaseObject, AmazonSNS, MyFirebase) {
         'use strict';
-        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        var ref = MyFirebase.getRef();
         var obj = {
             saveToUsersCollection: function(authData) {
                 var sync = ref.child('users/' + authData.uid),
@@ -151,15 +159,15 @@ angular.module('afterclass.services', [])
         };
         return obj;
     })
-    .factory('Post', function($firebaseObject, $firebaseArray, $state) {
+    .factory('Post', function($firebaseObject, $firebaseArray, $state, MyFirebase) {
         var obj = {
             delete: function(firebase_id) {
-                var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
+                var ref = MyFirebase.getRef().child('posts/' + firebase_id),
                     post = $firebaseObject(ref);
                 post.$remove();
             },
             toggleAcceptance: function(firebase_id, user_id) {
-                var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts/" + firebase_id),
+                var ref = MyFirebase.getRef().child('posts/' + firebase_id),
                     acceptedByField = ref.child('acceptedBy'),
                     post = $firebaseObject(ref),
                     potential_tutors = $firebaseArray(ref.child('potential_tutors'));

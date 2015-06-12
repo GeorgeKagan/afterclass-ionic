@@ -1,7 +1,7 @@
-angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory) {
+angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory, MyFirebase) {
     // Logout user
     $scope.logout = function () {
-        var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com");
+        var ref = MyFirebase.getRef();
         facebookConnectPlugin.logout(function() {});
         ref.unauth();
         $ionicHistory.nextViewOptions({disableBack: true});
