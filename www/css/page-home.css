@@ -37,21 +37,11 @@ body.platform-ios #home-page .scroll {
 body.platform-ios.is-teacher #home-page .scroll {
   padding: 30px 0 130px 0;
 }
-body.is-teacher #home-page .bar-header {
-  background: #2263a5;
-}
-body.is-teacher .posts {
-  top: 117px;
-}
-body:not(.is-teacher) .ask-q-area {
-  display: block;
-}
 .tab-item {
   max-width: inherit;
   font-weight: bold;
 }
 .ask-q-area {
-  display: none;
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
@@ -80,6 +70,10 @@ body:not(.is-teacher) .ask-q-area {
   border-bottom: 2px solid #309b2e;
   background-size: 40px 38px;
 }
+.ask-q-area .aqa-btn .ab-icon.ab-icon-currency {
+  background-image: url(../img/shekel.png);
+  background-size: 30px 28px;
+}
 .ask-q-area .aqa-btn .ab-text {
   float: left;
   height: 100%;
@@ -94,6 +88,11 @@ body:not(.is-teacher) .ask-q-area {
 }
 .ask-q-area .aqa-btn.activated .ab-icon {
   background-color: #62d060;
+}
+.ask-q-area strong {
+  color: #ffffff;
+  font-style: normal;
+  font-size: 150%;
 }
 .posts {
   top: 25px;

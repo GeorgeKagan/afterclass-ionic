@@ -90,6 +90,8 @@
     "ACCEPT_AND_ANSWER": "ענה על השאלה",
     "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה",
     "ASK_A_TEACHER": "שלח שאלה",
+    "GET_PAYMENT": "קבל תשלום",
+    "GET_PAYMENT_SUBTITLE": "עד כה הרווחת <strong>{{sum}}</strong> &#8362;",
     "NEXT": "המשך",
     "REPORT_QUESTION": "דווח על התכתבות זו",
     "REPORT_PLACEHOLDER": "פירוט הבעיה",

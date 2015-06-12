@@ -102,6 +102,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 controller: 'AskQuestionCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
+            .state('getPayment', {
+                url: "/getPayment",
+                templateUrl: "templates/get-payment.html",
+                controller: 'GetPaymentCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
             .state('viewPost', {
                 url: "/viewPost/:firebase_id",
                 templateUrl: "templates/view-question.html",

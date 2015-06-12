@@ -31,17 +31,28 @@ angular.module('afterclass.directives', [])
             }
         };
     })
-    .directive('askQuestionArea', function() {
+    .directive('askQuestionArea', function($rootScope, $translate) {
+        var btnText, uiSref, subtitle, icon = '';
+        if ($rootScope.user.is_teacher) {
+            btnText = $translate.instant('GET_PAYMENT');
+            uiSref = 'getPayment';
+            subtitle = $translate.instant('GET_PAYMENT_SUBTITLE', {sum: 123});
+            icon = 'ab-icon-currency';
+        } else {
+            btnText = $translate.instant('ASK_A_TEACHER');
+            uiSref = 'askQuestion';
+            subtitle = $translate.instant('ASK_QUESTION_INSTRUCTIONS');
+        }
         return {
             restrict: 'E',
             replace: 'true',
             template:
             '<div class="ask-q-area calm-bg text-center">' +
-            '<button class="button aqa-btn" ui-sref="askQuestion">' +
-                '<div class="ab-icon"></div>' +
-                '<div class="ab-text">{{::"ASK_A_TEACHER"|translate}}</div>' +
+            '<button class="button aqa-btn" ui-sref="' + uiSref + '">' +
+                '<div class="ab-icon ' + icon + '"></div>' +
+                '<div class="ab-text">' + btnText + '</div>' +
             '</button>' +
-            '<div class="light text-center padding">{{::"ASK_QUESTION_INSTRUCTIONS"|translate}}</div>' +
+            '<div class="light text-center padding" dir="auto">' + subtitle + '</div>' +
             '</div>'
         };
     })

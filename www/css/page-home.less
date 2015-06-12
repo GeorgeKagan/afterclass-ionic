@@ -31,22 +31,6 @@ body.platform-ios {
   }
 }
 
-body.is-teacher {
-  #home-page {
-    .bar-header {
-      background: @dark_blue;
-    }
-  }
-  .posts {
-    top: 117px;
-  }
-}
-body:not(.is-teacher) {
-  .ask-q-area {
-    display: block;
-  }
-}
-
 // Questions tabs
 #ac-tabs-inner {
 
@@ -58,7 +42,6 @@ body:not(.is-teacher) {
 
 // Ask a question area
 .ask-q-area {
-  display: none;
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   .TextShadow;
@@ -84,6 +67,10 @@ body:not(.is-teacher) {
       display: inline-block;
       border-bottom: 2px solid darken(@green_desaturated, 25%);
       background-size: 40px 38px;
+      &.ab-icon-currency {
+        background-image: url(../img/shekel.png);
+        background-size: 30px 28px;
+      }
     }
     .ab-text {
       float: left;
@@ -100,6 +87,11 @@ body:not(.is-teacher) {
         background-color: darken(@green_desaturated, 5%);
       }
     }
+  }
+  strong {
+    color: @white;
+    font-style: normal;
+    font-size: 150%;
   }
 }
 
