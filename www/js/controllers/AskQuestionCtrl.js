@@ -1,7 +1,7 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function ($rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-                                                                                 $ionicPopup, $timeout, $translate, MyCamera, CloudinaryUpload, Institutes) {
+                                                                                 $ionicPopup, $timeout, $translate, MyCamera, CloudinaryUpload, Institutes, MyFirebase) {
     var img = angular.element('#aq-img');
-    var ref = new Firebase("https://dazzling-heat-8303.firebaseio.com/posts");
+    var ref = MyFirebase.getRef().child('posts');
     var posts = $firebaseArray(ref);
     var add_img_url = null;
     $scope.hasAttachment = false;
