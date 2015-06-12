@@ -89,10 +89,13 @@ body.platform-ios.is-teacher #home-page .scroll {
 .ask-q-area .aqa-btn.activated .ab-icon {
   background-color: #62d060;
 }
-.ask-q-area strong {
+.ask-q-area > div {
+  font-size: 110%;
+}
+.ask-q-area > div strong {
   color: #ffffff;
   font-style: normal;
-  font-size: 150%;
+  font-size: 140%;
 }
 .posts {
   top: 25px;

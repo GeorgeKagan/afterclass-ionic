@@ -5,7 +5,23 @@
             <span class="back-btn dark" ng-click="backToHome()">{{::"BACK"|translate}}</span>
         </h1>
     </div>
-    <ion-content class="has-header has-footer padding" has-bouncing="false">
-        aaa
+    <ion-content class="has-header has-footer padding" has-bouncing="false" dir="auto">
+        <div class="gp-balance text-center">
+            לזכאותך עומדים
+            <br>
+            <strong>55</strong> &#8362;
+        </div>
+        <button class="button button-block button-outline button-balanced" ng-click="withdraw()">משוך</button>
+        <h3 class="padding-top padding-bottom text-center">תשלומים קודמים</h3>
+        <ul class="list">
+            <li class="item">
+                <strong>100</strong> &#8362;
+                <span class="item-note">ממתין</span>
+            </li>
+            <li class="item">
+                <strong>80</strong> &#8362;
+                <span class="item-note balanced">שולם</span>
+            </li>
+        </ul>
     </ion-content>
 </ion-view>
