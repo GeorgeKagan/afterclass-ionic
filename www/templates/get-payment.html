@@ -10,7 +10,7 @@
             {{::'PAYMENT.OUTSTANDING'|translate}}
             <br>
             <div class="gp-balance-inner">
-                <strong id="gp-balance">{{payment.balance}}</strong> <span>&#8362;</span>
+                <strong id="gp-balance">{{payment.balance ? payment.balance : 0 | number}}</strong> <span>&#8362;</span>
             </div>
         </div>
         <button class="button button-block button-outline button-balanced" ng-disabled="!payment.balance" ng-click="withdraw()">
@@ -18,11 +18,11 @@
         </button>
         <h3 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h3>
         <ul class="list">
-            <li class="item" ng-repeat="item in payment.previous">
-                <strong>{{::item.amount}}</strong> &#8362;
+            <li class="item highlight" ng-repeat="item in payment.previous | filter:{status: '!current'} | orderBy:'-create_date'">
+                <strong>{{::item.amount | number}}</strong> &#8362; &nbsp; &nbsp; {{::item.status_date | moment}}
                 <span class="item-note"
-                      ng-class="{'balanced': item.status_code==='paid', 'bold': item.status_code==='pending'}">
-                    {{::item.status}}
+                      ng-class="{'balanced': item.status==='paid', 'bold': item.status==='pending'}">
+                    {{::'STATUS.' + item.status.toUpperCase()|translate}}
                 </span>
             </li>
         </ul>

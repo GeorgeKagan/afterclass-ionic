@@ -104,6 +104,16 @@ select {
   font-weight: bold;
 }
 
+.highlight {
+  -moz-transition: background-color 2s;
+  -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
+  transition: background-color 2s;
+  &.highlight-new {
+    background-color: #fcfc94;
+  }
+}
+
 // Header
 .bar-header {
   h1.title {

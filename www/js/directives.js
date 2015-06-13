@@ -31,12 +31,15 @@ angular.module('afterclass.directives', [])
             }
         };
     })
-    .directive('askQuestionArea', function($rootScope, $translate) {
+    .directive('askQuestionArea', function($rootScope, $translate, $filter, Payment) {
         var btnText, uiSref, subtitle, icon = '';
         if ($rootScope.user.is_teacher) {
+            Payment.getPaymentsSum().then(function (sum) {
+                $rootScope.teacherTotalPayments = sum;
+            });
             btnText = $translate.instant('GET_PAYMENT');
             uiSref = 'getPayment';
-            subtitle = $translate.instant('GET_PAYMENT_SUBTITLE', {sum: 123});
+            subtitle = $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'});
             icon = 'ab-icon-currency';
         } else {
             btnText = $translate.instant('ASK_A_TEACHER');

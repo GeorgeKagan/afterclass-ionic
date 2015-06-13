@@ -158,6 +158,15 @@ select {
 .bold {
   font-weight: bold;
 }
+.highlight {
+  -moz-transition: background-color 2s;
+  -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
+  transition: background-color 2s;
+}
+.highlight.highlight-new {
+  background-color: #fcfc94;
+}
 .bar-header h1.title {
   font-weight: 300;
   text-align: left;
