@@ -4,7 +4,7 @@
             <div class="post-header item">
                 <div class="ph-subject {{ header_bg }} light">{{ post.subject }}</div>
                 <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-show="!post.replies && !is_teacher"></div>
-                <div class="ph-date">{{ post.timestamp | moment }}</div>
+                <div class="ph-date">{{ post.create_date | moment }}</div>
             </div>
             <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
@@ -12,11 +12,11 @@
             <img class="post-img" ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg">
         </div>
         <!-- replies -->
-        <div ng-repeat="reply in post.replies | orderObjectBy:'timestamp' | limitTo: -2" class="post-comment-main">
+        <div ng-repeat="reply in post.replies | orderObjectBy:'create_date' | limitTo: -2" class="post-comment-main">
             <div class="item item-avatar">
                 <img ng-src="http://graph.facebook.com/{{reply.user}}/picture?type=square" />
                 {{reply.name}}<br>
-                <small class="date">{{ reply.timestamp | moment }}</small>
+                <small class="date">{{ reply.create_date | moment }}</small>
             </div>
             <div class="post-comment item item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>

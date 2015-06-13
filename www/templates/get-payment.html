@@ -18,7 +18,7 @@
         </button>
         <h3 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h3>
         <ul class="list">
-            <li class="item highlight" ng-repeat="item in payment.previous | filter:{status: '!current'} | orderBy:'-create_date'">
+            <li class="item highlight" ng-repeat="item in payment.previous | filter:{status: '!current'} | orderBy:'-status_date'">
                 <div class="row row-no-padding">
                     <div class="col"><strong>{{::item.amount | number}}</strong> &#8362;</div>
                     <div class="col text-center">

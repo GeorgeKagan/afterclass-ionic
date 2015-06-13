@@ -78,9 +78,9 @@ angular.module('afterclass.directives', [])
 
                 $scope.allowReply = true;
                 if($scope.post.status === "answered") {
-                    var lastActivity = $scope.post.timestamp;
+                    var lastActivity = $scope.post.create_date;
                     if(Array.isArray($scope.post.replies)) {
-                        lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].timestamp, lastActivity)
+                        lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].create_date, lastActivity)
                     }
 
                     if(lastActivity < moment().subtract(32, 'hours').unix()) { //Allow replies within 32 hours from last activity
