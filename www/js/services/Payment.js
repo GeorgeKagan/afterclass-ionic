@@ -5,7 +5,7 @@ angular.module('afterclass.services')
         obj.getPayments = function () {
             var payment = {},
                 q = $q.defer(),
-                prevPayments = $firebaseArray(ref.child('payments').orderByChild('user_id').equalTo($rootScope.user.uid));
+                prevPayments = $firebaseArray(ref.child('payments/' + $rootScope.user.uid));
             prevPayments.$loaded().then(function () {
                 _.forEach(prevPayments, function (item) {
                     if (item.status === 'current') {
@@ -33,7 +33,7 @@ angular.module('afterclass.services')
 
         obj.withdraw = function (payment_id) {
             var q = $q.defer(),
-                sync = ref.child('payments/' + payment_id),
+                sync = ref.child('payments/' + $rootScope.user.uid + '/' + payment_id),
                 payment = $firebaseObject(sync);
             payment.$loaded().then(function (payment) {
                 payment.status = 'pending';
@@ -45,13 +45,13 @@ angular.module('afterclass.services')
         };
 
         obj._debugCreatePayment = function () {
-            var payments = $firebaseArray(ref.child('payments'));
+            var payments = $firebaseArray(ref.child('payments/' + $rootScope.user.uid));
             payments.$add({
                 user_id: $rootScope.user.uid,
-                amount: 997,
-                status: 'current',
-                receipt_id: '$#%asdrsadg4',
-                payment_hash: 'JGFfdsfjoofsaQ22@',
+                amount: 981.12,
+                status: 'paid',
+                receipt_id: '$#%34gfd8gk',
+                payment_hash: 'JdasASA^$^2@',
                 status_date: Math.floor(Date.now() / 1000),
                 create_date: Math.floor(Date.now() / 1000)
             }).then(function () {

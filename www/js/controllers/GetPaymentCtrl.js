@@ -1,4 +1,8 @@
 angular.module('afterclass.controllers').controller('GetPaymentCtrl', function ($rootScope, $scope, $timeout, $state, $ionicLoading, $ionicPopup, $translate, Payment) {
+    if (!$rootScope.user.is_teacher) {
+        return false;
+    }
+
     Payment.getPayments().then(function (data) {
         $scope.payment = data;
     });
