@@ -19,11 +19,17 @@
         <h3 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h3>
         <ul class="list">
             <li class="item highlight" ng-repeat="item in payment.previous | filter:{status: '!current'} | orderBy:'-create_date'">
-                <strong>{{::item.amount | number}}</strong> &#8362; &nbsp; &nbsp; {{::item.status_date | moment}}
-                <span class="item-note"
-                      ng-class="{'balanced': item.status==='paid', 'bold': item.status==='pending'}">
-                    {{::'STATUS.' + item.status.toUpperCase()|translate}}
-                </span>
+                <div class="row row-no-padding">
+                    <div class="col"><strong>{{::item.amount | number}}</strong> &#8362;</div>
+                    <div class="col text-center">
+                        <small>{{::item.status_date | moment}}</small>
+                    </div>
+                    <div class="col">
+                        <span class="item-note" ng-class="{'balanced': item.status==='paid', 'bold': item.status==='pending'}">
+                            {{::'STATUS.' + item.status.toUpperCase()|translate}}
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
     </ion-content>

@@ -37,7 +37,7 @@ angular.module('afterclass.services')
                 payment = $firebaseObject(sync);
             payment.$loaded().then(function (payment) {
                 payment.status = 'pending';
-                payment.status_date = Math.round(Date.now() / 1000);
+                payment.status_date = Math.floor(Date.now() / 1000);
                 payment.$save(0);
                 q.resolve();
             });
@@ -52,8 +52,8 @@ angular.module('afterclass.services')
                 status: 'current',
                 receipt_id: '$#%asdrsadg4',
                 payment_hash: 'JGFfdsfjoofsaQ22@',
-                status_date: Math.round(Date.now() / 1000),
-                create_date: Math.round(Date.now() / 1000)
+                status_date: Math.floor(Date.now() / 1000),
+                create_date: Math.floor(Date.now() / 1000)
             }).then(function () {
 
             }, function (error) {
