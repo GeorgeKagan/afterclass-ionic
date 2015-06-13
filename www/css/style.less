@@ -110,7 +110,16 @@ select {
   -o-transition: background-color 2s;
   transition: background-color 2s;
   &.highlight-new {
-    background-color: #fcfc94;
+    background-color: @light_yellow;
+  }
+}
+
+// Animations
+.fade-in {
+  transition: 0.5s linear all;
+  opacity: 1;
+  &.ng-hide {
+    opacity: 0;
   }
 }
 

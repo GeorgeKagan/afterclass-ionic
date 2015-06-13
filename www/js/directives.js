@@ -39,7 +39,8 @@ angular.module('afterclass.directives', [])
             });
             btnText = $translate.instant('GET_PAYMENT');
             uiSref = 'getPayment';
-            subtitle = $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'});
+            subtitle = '<span class="fade-in ng-hide" ng-show="teacherTotalPayments">' +
+                $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'}) + '</span>';
             icon = 'ab-icon-currency';
         } else {
             btnText = $translate.instant('ASK_A_TEACHER');

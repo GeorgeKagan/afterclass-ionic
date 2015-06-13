@@ -165,7 +165,14 @@ select {
   transition: background-color 2s;
 }
 .highlight.highlight-new {
-  background-color: #fcfc94;
+  background-color: #fcfcc5;
+}
+.fade-in {
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+.fade-in.ng-hide {
+  opacity: 0;
 }
 .bar-header h1.title {
   font-weight: 300;
