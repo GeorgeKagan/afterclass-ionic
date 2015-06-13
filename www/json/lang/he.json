@@ -74,7 +74,8 @@
     "PAYMENT": {
         "OUTSTANDING": "לזכאותך עומדים",
         "WITHDRAW": "משוך",
-        "PREV_PAYMENTS": "תשלומים קודמים"
+        "PREV_PAYMENTS": "תשלומים קודמים",
+        "GET_MONEY": "קבלת תשלום"
     },
     "BACK": "חזור",
     "OK": "אישור",
