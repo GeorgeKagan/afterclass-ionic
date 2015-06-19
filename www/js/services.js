@@ -310,7 +310,7 @@ angular.module('afterclass.services', [])
                 } else if (ionic.Platform.isAndroid()){
                     var androidConfig = {
                         // Google project ID
-                        senderID: "afterclass-966"
+                        senderID: "580333274108"
                     };
                     $cordovaPush.register(androidConfig).then(function (result) {
 
