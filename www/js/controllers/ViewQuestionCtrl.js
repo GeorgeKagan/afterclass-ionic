@@ -86,7 +86,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post = $firebaseObject(post);
     $scope.replyBody = '';
     $scope.add_img_preview = false;
-
     $scope.allowReply = false;
     $scope.showAcceptQuestion = false;
 
