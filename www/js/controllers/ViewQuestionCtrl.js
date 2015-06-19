@@ -86,7 +86,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post = $firebaseObject(post);
     $scope.replyBody = '';
     $scope.add_img_preview = false;
-
     $scope.allowReply = false;
     $scope.showAcceptQuestion = false;
 
@@ -109,9 +108,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
             //Block replies after a certain amount of time
             if(post.status === 'answered') {
-                var lastActivity = post.timestamp;
+                var lastActivity = post.create_date;
                 if(Array.isArray(post.replies)) {
-                    lastActivity = Math.max(post.replies[post.replies-1].timestamp, lastActivity)
+                    lastActivity = Math.max(post.replies[post.replies-1].create_date, lastActivity);
                 }
 
                 if(lastActivity < moment().subtract(8, 'hours').unix()) { //Allow replies within 32 hours from last activity
@@ -186,8 +185,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 name: $rootScope.user.name,
                 body: $scope.replyBody,
                 img_id: img_id || '',
-                reply_date: moment().format("MMM Do YY"),
-                timestamp: moment().unix(),
+                create_date: moment().unix(),
                 is_teacher: $rootScope.user.is_teacher
             }).then(function () {
                 $ionicLoading.hide();
@@ -196,10 +194,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 add_img_url = null;
                 $ionicScrollDelegate.scrollBottom(true);
                 // Change question's status according to last comment's user type
-                // + update timestamp so it would go up in feed
+                // + update update_date so it would go up in feed
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(function (post) {
-                    post.timestamp = moment().unix();
+                    post.update_date = moment().unix();
                     post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.id : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {

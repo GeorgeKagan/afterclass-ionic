@@ -14,7 +14,7 @@
                     <div ng-if="(posts | filter:ifUserUnanswered:true).length===0" class="padding-left text-center">
                         <strong>{{::'POST.STUDENT.NOUNANSWERED'|translate}}</strong>
                     </div>
-                    <div ng-repeat="post in posts | filter:ifUserUnanswered:true | orderBy: '-timestamp'" class="list card">
+                    <div ng-repeat="post in posts | filter:ifUserUnanswered:true | orderBy: '-update_date'" class="list card">
                         <question post="post"
                                   view-post="viewPost"
                                   delete-post="deletePost"
@@ -29,7 +29,7 @@
                     <div ng-if="(posts_tutor_unanswered | filter:ifPotentialTutor:true).length===0" class="padding-left text-center">
                         <strong>{{::'POST.TEACHER.NOUNANSWERED'|translate}}</strong>
                     </div>
-                    <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor:true | orderBy: '-timestamp'" class="list card">
+                    <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor:true | orderBy: '-update_date'" class="list card">
                         <question post="post"
                                   toggle-acceptance="toggleAcceptance"
                                   view-post="viewPost"
@@ -51,7 +51,7 @@
                     <div ng-if="(posts | filter: {status: 'answered'}:true).length===0" class="padding-left text-center">
                         <strong>{{::'POST.STUDENT.NOANSWERED'|translate}}</strong>
                     </div>
-                    <div ng-repeat="post in posts | filter: {status: 'answered'}:true | orderBy: '-timestamp'" class="list card">
+                    <div ng-repeat="post in posts | filter: {status: 'answered'}:true | orderBy: '-update_date'" class="list card">
                         <question post="post"
                                   view-post="viewPost"
                                   delete-post="deletePost"
@@ -66,7 +66,7 @@
                     <div ng-if="posts_tutor_answered.length===0" class="padding-left text-center">
                         <strong>{{::'POST.TEACHER.NOANSWERED'|translate}}</strong>
                     </div>
-                    <div ng-repeat="post in posts_tutor_answered | orderBy: '-timestamp'" class="list card">
+                    <div ng-repeat="post in posts_tutor_answered | orderBy: '-update_date'" class="list card">
                         <question post="post"
                                   toggle-acceptance="toggleAcceptance"
                                   view-post="viewPost"

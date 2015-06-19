@@ -1,5 +1,6 @@
 angular.module('afterclass.controllers', ['ui.router']);
-angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate'])
+angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
+    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $translate) {
         $ionicPlatform.ready(function () {
@@ -100,6 +101,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
                 controller: 'AskQuestionCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            .state('getPayment', {
+                url: "/getPayment",
+                templateUrl: "templates/get-payment.html",
+                controller: 'GetPaymentCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('viewPost', {
