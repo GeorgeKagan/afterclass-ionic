@@ -13,9 +13,12 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             $scope.posts_tutor_unanswered = posts_tutor_unanswered;
         });
         $scope.ifPotentialTutor = function (post) {
-            var tutor_ids = post.potential_tutors ? post.potential_tutors.map(function(item) {
-                return item.id;
-            }) : [];
+            var tutor_ids = [];
+            if (post.potential_tutors) {
+                _.each(post.potential_tutors, function (item) {
+                    tutor_ids.push(item.user_id);
+                });
+            }
             return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
         };
         // Answered posts by tutor (last_tutor_id = this tutor's id)
