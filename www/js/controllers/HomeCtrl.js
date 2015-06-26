@@ -15,9 +15,12 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             $scope.posts_tutor_unanswered = posts_tutor_unanswered;
         });
         $scope.ifPotentialTutor = function (post) {
-            var tutor_ids = post.potential_tutors ? post.potential_tutors.map(function(item) {
-                return item.id;
-            }) : [];
+            var tutor_ids = [];
+            if (post.potential_tutors) {
+                _.each(post.potential_tutors, function (item) {
+                    tutor_ids.push(item.user_id);
+                });
+            }
             return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
         };
         // Answered posts by tutor (last_tutor_id = this tutor's id)
@@ -62,21 +65,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
     };
     $scope.toggleAcceptance = function (firebase_id) {
         Post.toggleAcceptance(firebase_id, $rootScope.user.id);
-        //$event.stopPropagation();
     };
-    $scope.postReply = function () {
-
-    };
-    //$scope.postAccept = function (post) {
-    //    sync.$update(post.$id, { status: 'answered' }).then(function() {
-    //        $ionicScrollDelegate.scrollTop(true);
-    //    });
-    //};
-    //$scope.postDecline = function (post) {
-    //    sync.$update(post.$id, { status: 'unanswered' }).then(function() {
-    //        $ionicScrollDelegate.scrollTop(true);
-    //    });
-    //};
     $scope.getHeaderSize = function() {
         if (ionic.Platform.isIOS()) {
             return 64;
@@ -84,7 +73,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             return 44;
         }
     };
-    var tabs_top_pos = $rootScope.user.is_teacher ? $scope.getHeaderSize()  : 230;
+    var tabs_top_pos = 230;
     $scope.gotScrolled = function () {
         if ($rootScope.user.is_teacher) {
             return;

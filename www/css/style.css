@@ -83,7 +83,7 @@
   bottom: 0;
 }
 .popover {
-  height: 266px;
+  height: 216px;
 }
 .popup-body {
   overflow: visible;
@@ -154,6 +154,25 @@ select {
 .spinner-wrapper {
   padding: 25px 0 0 0;
   text-align: center;
+}
+.bold {
+  font-weight: bold;
+}
+.highlight {
+  -moz-transition: background-color 2s;
+  -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
+  transition: background-color 2s;
+}
+.highlight.highlight-new {
+  background-color: #fcfcc5;
+}
+.fade-in {
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+.fade-in.ng-hide {
+  opacity: 0;
 }
 .bar-header h1.title {
   font-weight: 300;

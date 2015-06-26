@@ -20,7 +20,7 @@
 }
 
 .popover {
-  height: 266px;
+  height: 216px;
 }
 
 .popup-body {
@@ -98,6 +98,27 @@ select {
 .spinner-wrapper {
   padding: 25px 0 0 0;
   text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+.highlight {
+  -moz-transition: background-color 2s;
+  -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
+  transition: background-color 2s;
+  &.highlight-new {
+    background-color: @light_yellow;
+  }
+}
+// Animations
+.fade-in {
+  transition: 0.5s linear all;
+  opacity: 1;
+  &.ng-hide {
+    opacity: 0;
+  }
 }
 
 // Header

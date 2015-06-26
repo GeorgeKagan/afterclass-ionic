@@ -31,20 +31,37 @@ angular.module('afterclass.directives', [])
             }
         };
     })
-    .directive('askQuestionArea', function() {
+    .directive('askQuestionArea', function($rootScope, $translate, $filter, Payment) {
+        var btnText, uiSref, subtitle, icon = '';
+        if ($rootScope.user.is_teacher) {
+            Payment.getPaymentsSum().then(function (sum) {
+                $rootScope.teacherTotalPayments = sum;
+            });
+            btnText = $translate.instant('GET_PAYMENT');
+            uiSref = 'getPayment';
+            subtitle = '<span class="fade-in ng-hide" ng-show="teacherTotalPayments">' +
+                $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'}) + '</span>';
+            icon = 'ab-icon-currency';
+        } else {
+            btnText = $translate.instant('ASK_A_TEACHER');
+            uiSref = 'askQuestion';
+            subtitle = $translate.instant('ASK_QUESTION_INSTRUCTIONS');
+        }
         return {
             restrict: 'E',
             replace: 'true',
             template:
             '<div class="ask-q-area calm-bg text-center">' +
-                '<button class="button aqa-btn" ui-sref="askQuestion">' +
-                    '<div class="ab-icon"></div>' +
-                    '<div class="ab-text" ng-show="pointsLeft>0">{{::"ASK_A_TEACHER"|translate}}</div>' +
-                    '<div class="ab-text" ng-show="pointsLeft===0">{{::"GET_POINTS"|translate}}</div>' +
+                '<button class="button aqa-btn" ui-sref="' + uiSref + '">' +
+                    '<div class="ab-icon ' + icon + '"></div>' +
+                    '<div class="ab-text">' + btnText + '</div>' +
                 '</button>' +
-                '<div class="light text-center padding">{{::"ASK_QUESTION_REMAINING"|translate:{count: pointsLeft} }}</div>' +
+                '<div class="light text-center padding" dir="auto">' + subtitle + '</div>' +
             '</div>'
         };
+        //'<div class="ab-text" ng-show="pointsLeft>0">{{::"ASK_A_TEACHER"|translate}}</div>' +
+        //'<div class="ab-text" ng-show="pointsLeft===0">{{::"GET_POINTS"|translate}}</div>' +
+        //'<div class="light text-center padding">{{::"ASK_QUESTION_REMAINING"|translate:{count: pointsLeft} }}</div>'
     })
     .directive('question', function() {
         return {
@@ -64,9 +81,9 @@ angular.module('afterclass.directives', [])
 
                 $scope.allowReply = true;
                 if($scope.post.status === "answered") {
-                    var lastActivity = $scope.post.timestamp;
+                    var lastActivity = $scope.post.create_date;
                     if(Array.isArray($scope.post.replies)) {
-                        lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].timestamp, lastActivity)
+                        lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].create_date, lastActivity);
                     }
 
                     if(lastActivity < moment().subtract(32, 'hours').unix()) { //Allow replies within 32 hours from last activity
@@ -99,5 +116,4 @@ angular.module('afterclass.directives', [])
             }
         };
     })
-
 ;

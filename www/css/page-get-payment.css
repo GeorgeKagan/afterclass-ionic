@@ -21,71 +21,25 @@
   background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
 }
-#ask-question-page .bar-header {
-  border: 0;
+#get-payment-page .gp-balance {
+  font-size: 150%;
+  line-height: 170%;
 }
-#ask-question-page label {
-  font-weight: 300;
-  padding: 6px 16px 5px 16px;
+#get-payment-page .gp-balance .gp-balance-inner {
+  height: 44px;
 }
-#ask-question-page .item-stacked-label {
-  border: 0;
-  margin: 0 0 5px 0;
+#get-payment-page .gp-balance .gp-balance-inner span {
+  display: inline-block;
+  height: 100%;
+  margin: 9px 0 0 0;
 }
-#ask-question-page .body-wrapper {
-  border-top: 1px solid #dddddd;
-  border-bottom: 0;
+#get-payment-page button {
+  margin: 20px 0 30px 0;
 }
-#ask-question-page select {
-  width: 100%;
-  border: 0;
-  margin: 0;
-  display: block;
-  background: transparent;
-  -webkit-appearance: none;
-  position: relative;
-  left: -4px;
-  padding: 15px 0;
+#get-payment-page strong {
+  font-size: 200%;
+  font-style: normal;
 }
-#ask-question-page textarea {
-  resize: none;
-}
-#ask-question-page .aq-delete {
-  background: url(../img/close.png) no-repeat;
-  width: 25px;
-  height: 25px;
-  float: right;
-  cursor: pointer;
-  position: absolute;
-  top: -30px;
-  left: 10px;
-  margin: 0 0 0 5px;
-  opacity: 0.9;
-  background-size: 100%;
-}
-#ask-question-page .aq-delete:active {
-  opacity: 1;
-}
-#ask-question-page #aq-img img {
-  max-width: 100%;
-  border-radius: 3px;
-}
-#ask-question-page .tabs-icon-only {
-  border-top: 0;
-}
-#ask-question-page .tabs-icon-only .icon-camera {
-  background: url(../img/take-picture-icon.png) center 9px no-repeat;
-  background-size: 36px 24px;
-  border-right: 1px solid #666;
-}
-#ask-question-page .tabs-icon-only .icon-attachment {
-  background: url(../img/documnet-attachment.png) center 8px no-repeat;
-  background-size: 21px 26px;
-}
-#ask-question-page .tabs-icon-only .icon-camera:active,
-#ask-question-page .tabs-icon-only .icon-attachment:active {
-  background-color: #333333;
-}
-body.platform-ios #ask-question-page select {
-  padding: 15px 5px;
+#get-payment-page .list strong {
+  font-size: 120%;
 }

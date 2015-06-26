@@ -37,26 +37,17 @@ body.platform-ios #home-page .scroll {
 body.platform-ios.is-teacher #home-page .scroll {
   padding: 30px 0 130px 0;
 }
-body.is-teacher #home-page .bar-header {
-  background: #2263a5;
-}
-body.is-teacher .posts {
-  top: 117px;
-}
-body:not(.is-teacher) .ask-q-area {
-  display: block;
-}
 .tab-item {
   max-width: inherit;
   font-weight: bold;
 }
 .ask-q-area {
-  display: none;
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   margin: 0 0 48px 0;
   padding: 80px 0 25px 0;
+  min-height: 240px;
 }
 .ask-q-area .aqa-btn {
   box-shadow: -1px 3px 7px rgba(0, 0, 0, 0.2);
@@ -80,6 +71,10 @@ body:not(.is-teacher) .ask-q-area {
   border-bottom: 2px solid #309b2e;
   background-size: 40px 38px;
 }
+.ask-q-area .aqa-btn .ab-icon.ab-icon-currency {
+  background-image: url(../img/shekel.png);
+  background-size: 30px 28px;
+}
 .ask-q-area .aqa-btn .ab-text {
   float: left;
   height: 100%;
@@ -94,6 +89,14 @@ body:not(.is-teacher) .ask-q-area {
 }
 .ask-q-area .aqa-btn.activated .ab-icon {
   background-color: #62d060;
+}
+.ask-q-area > div {
+  font-size: 110%;
+}
+.ask-q-area > div strong {
+  color: #ffffff;
+  font-style: normal;
+  font-size: 140%;
 }
 .posts {
   top: 25px;
