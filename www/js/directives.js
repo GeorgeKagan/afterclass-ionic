@@ -31,7 +31,7 @@ angular.module('afterclass.directives', [])
             }
         };
     })
-    .directive('askQuestionArea', function($rootScope, $translate, $filter, Payment) {
+    .directive('askQuestionArea', function($rootScope, $translate, $filter, Payment, Coupon) {
         var btnText, uiSref, subtitle, icon = '';
         if ($rootScope.user.is_teacher) {
             Payment.getPaymentsSum().then(function (sum) {
@@ -43,9 +43,10 @@ angular.module('afterclass.directives', [])
                 $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'}) + '</span>';
             icon = 'ab-icon-currency';
         } else {
-            btnText = $translate.instant('ASK_A_TEACHER');
-            uiSref = 'askQuestion';
-            subtitle = $translate.instant('ASK_QUESTION_INSTRUCTIONS');
+            var pointsLeft = Coupon.getPointsLeft();
+            btnText = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
+            uiSref = pointsLeft > 0 ? 'askQuestion' : 'getCredit';
+            subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
         }
         return {
             restrict: 'E',
@@ -59,9 +60,6 @@ angular.module('afterclass.directives', [])
                 '<div class="light text-center padding" dir="auto">' + subtitle + '</div>' +
             '</div>'
         };
-        //'<div class="ab-text" ng-show="pointsLeft>0">{{::"ASK_A_TEACHER"|translate}}</div>' +
-        //'<div class="ab-text" ng-show="pointsLeft===0">{{::"GET_POINTS"|translate}}</div>' +
-        //'<div class="light text-center padding">{{::"ASK_QUESTION_REMAINING"|translate:{count: pointsLeft} }}</div>'
     })
     .directive('question', function() {
         return {

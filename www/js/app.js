@@ -103,6 +103,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 controller: 'AskQuestionCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
+            .state('getCredit', {
+                url: "/getCredit",
+                templateUrl: "templates/get-credit.html",
+                controller: 'GetCreditCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
             .state('getPayment', {
                 url: "/getPayment",
                 templateUrl: "templates/get-payment.html",
