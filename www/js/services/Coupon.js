@@ -52,7 +52,7 @@ angular.module('afterclass.services')
             });
         };
         obj.getPointsLeft = function() {
-            return 11;
+            return 0;
         };
         return obj;
     })
