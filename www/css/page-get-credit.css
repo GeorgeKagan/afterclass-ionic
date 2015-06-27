@@ -1,0 +1,104 @@
+.TextShadow {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.RadialGradient {
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+.VerticalGradient {
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(26%, #fbfbfb), color-stop(100%, #e4e4e4));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
+}
+#get-credit-page .pricing-table {
+  position: relative;
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  color: #FFF;
+  text-align: center;
+  width: 90%;
+  margin: 15px auto 0px auto;
+}
+#get-credit-page .pricing-table.wide {
+  width: 100%;
+}
+#get-credit-page .pricing-table.wide .header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#get-credit-page .pricing-table .header {
+  float: left;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+#get-credit-page .pricing-table .header .ph-subject {
+  padding: 10px 15px;
+}
+#get-credit-page .pricing-table .header h4 {
+  margin: 0;
+}
+#get-credit-page .pricing-table .body {
+  background-color: #fff;
+  float: left;
+  width: 100%;
+}
+#get-credit-page .pricing-table .body .price {
+  background-color: #3b9bdb;
+  float: left;
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+#get-credit-page .pricing-table .body .price span {
+  background-color: #2D87C4;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 0 15px;
+}
+#get-credit-page .pricing-table .body .features {
+  color: #FFF;
+  float: left;
+  width: 100%;
+  background-color: #84C3ED;
+  font-size: 20px;
+}
+#get-credit-page .pricing-table .body .features li {
+  height: 50px;
+  line-height: 50px;
+}
+#get-credit-page .pricing-table .body .features .even {
+  background-color: #fff;
+}
+#get-credit-page .pricing-table .body .features .odd {
+  background-color: #efefef;
+}
+#get-credit-page .pricing-table .footer {
+  float: left;
+  width: 100%;
+}
+#get-credit-page .pricing-table .footer a {
+  display: block;
+  font-weight: bold;
+  line-height: 45px;
+  border: 0;
+  border-radius: 0;
+}
