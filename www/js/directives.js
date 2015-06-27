@@ -41,21 +41,21 @@ angular.module('afterclass.directives', [])
                     '<div class="ab-icon {{icon}}"></div>' +
                     '<div class="ab-text">{{btnText}}</div>' +
                 '</button>' +
-                '<div class="light text-center padding" dir="auto">{{subtitle}}</div>' +
+                '<div class="light text-center padding" dir="auto" ng-bind-html="subtitle"></div>' +
             '</div>',
             scope: {},
             link: function (scope) {
                 if ($rootScope.user.is_teacher) {
                     Payment.getPaymentsSum().then(function (sum) {
-                        $rootScope.teacherTotalPayments = sum;
+                        scope.teacherTotalPayments = sum;
+                        scope.subtitle = '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
+                            $translate.instant('GET_PAYMENT_SUBTITLE', {sum: scope.teacherTotalPayments}) + '</span>';
                     });
                     scope.icon = 'ab-icon-currency';
                     scope.btnText = $translate.instant('GET_PAYMENT');
                     scope.btnClick = function () {
                         $state.go('getPayment');
                     };
-                    scope.subtitle = '<span class="fade-in ng-hide" ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
-                        $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'}) + '</span>';
                 } else {
                     var pointsLeft = Coupon.getPointsLeft();
                     scope.btnText = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
