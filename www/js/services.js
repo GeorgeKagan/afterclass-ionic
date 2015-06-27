@@ -6,6 +6,9 @@ angular.module('afterclass.services', [])
         obj.getRef = function () {
             return ref;
         };
+        obj.getRefCoupons = function () {
+            return obj.getRef().child('coupons');
+        };
         return obj;
     })
     .factory('MyCamera', function($q, $window) {
@@ -98,8 +101,10 @@ angular.module('afterclass.services', [])
                     if (!user.length) {
                         var data = angular.element.extend(authData.facebook.cachedUserProfile, {
                             // Add any initial custom properties here
-                            uid: authData.uid,
-                            name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase()
+                            //uid: authData.uid,
+                            update_date: moment().utc().unix(),
+                            create_date: moment().utc().unix(),
+                            name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase() //TODO: Remove this when new dashboard is ready
                         });
                         user = angular.element.extend(user, data);
                         user.$save().then(function() {
@@ -118,6 +123,7 @@ angular.module('afterclass.services', [])
                 var sync = ref.child('users/' + $rootScope.user.uid),
                     user = $firebaseObject(sync);
                 user.$loaded().then(function (user) {
+                    data.update_date = moment().utc().unix();
                     user = angular.element.extend(user, data);
                     user.$save(0);
                 });

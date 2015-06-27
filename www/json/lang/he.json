@@ -57,6 +57,10 @@
           "MENU": "צור קשר",
           "TITLE": "צור קשר",
           "CONTENT": "כל הדרכים ליצור איתנו קשר"
+        },
+        "COUPON": {
+            "MENU": "ניצול קופון",
+            "TITLE": "ניצול קופון"
         }
     },
     "NOTIFICATIONS": {
@@ -76,6 +80,14 @@
         "WITHDRAW": "משוך",
         "PREV_PAYMENTS": "תשלומים קודמים",
         "GET_MONEY": "קבלת תשלום"
+    },
+    "GET_CREDIT": {
+        "TITLE": "בחר את התוכנית המתאימה ביותר",
+        "PLAN_1": "5 שאלות / 15 ₪",
+        "PLAN_2": "10 שאלות / 20 ₪",
+        "PLAN_3": "15 שאלות / 25 ₪",
+        "BUY": "קנה עכשיו",
+        "RECOMMENDED": "מומלץ!"
     },
     "BACK": "חזור",
     "OK": "אישור",
@@ -98,8 +110,9 @@
     "LOGOUT": "התנתק",
     "REPLY": "שלח תגובה",
     "ACCEPT_AND_ANSWER": "ענה על השאלה",
-    "ASK_QUESTION_INSTRUCTIONS":"לחץ כאן לשליחת שאלה למורה",
+    "ASK_QUESTION_REMAINING": "נותרו לך {{count}} שאלות",
     "ASK_A_TEACHER": "שלח שאלה",
+    "GET_POINTS": "קבל נקודות",
     "GET_PAYMENT": "קבל תשלום",
     "GET_PAYMENT_SUBTITLE": "עד כה הרווחת <strong>{{sum}}</strong> &#8362;",
     "NEXT": "המשך",

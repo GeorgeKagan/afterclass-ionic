@@ -1,9 +1,11 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
-                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post, MyFirebase, PaypalService) {
+                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post, Coupon, MyFirebase, PaypalService) {
     'use strict';
     // Load all user's questions from firebase
     var ref = MyFirebase.getRef().child('posts'),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered;
+
+    // Teacher home
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
@@ -16,7 +18,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             var tutor_ids = [];
             if (post.potential_tutors) {
                 _.each(post.potential_tutors, function (item) {
-                    tutor_ids.push(item.user_id);
+                    tutor_ids.push(item.id);
                 });
             }
             return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
@@ -27,7 +29,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         posts_tutor_answered.$loaded().then(function () {
             $scope.posts_tutor_answered = posts_tutor_answered;
         });
-    } else {
+    }
+    // Student home
+    else {
         sync = ref.orderByChild('user').equalTo($rootScope.user.id);
         posts = $firebaseArray(sync);
         posts.$loaded().then(function () {
@@ -37,6 +41,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             return post.status === 'unanswered' || post.status === 'assigned';
         };
     }
+
     $scope.viewPost = function (firebase_id) {
         $state.go('viewPost', {firebase_id: firebase_id});
     };
@@ -68,6 +73,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
     };
     var tabs_top_pos = 230;
     $scope.gotScrolled = function () {
+        if ($rootScope.user.is_teacher) {
+            return;
+        }
         var y = angular.element('.scroll:visible').offset().top;
         if (y <= -186) {
             angular.element('.bar-header').addClass('scrolled');

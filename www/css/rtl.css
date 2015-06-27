@@ -28,7 +28,7 @@ body.rtl .bar .buttons.pull-right {
 }
 body.rtl textarea,
 body.rtl .popup,
-body.rtl .popover .scroll {
+body.rtl .popover {
   direction: rtl;
 }
 body.rtl .popup-buttons .button {

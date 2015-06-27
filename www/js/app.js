@@ -98,9 +98,16 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('askQuestion', {
+                cache: false,
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
                 controller: 'AskQuestionCtrl',
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            .state('getCredit', {
+                url: "/getCredit",
+                templateUrl: "templates/get-credit.html",
+                controller: 'GetCreditCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('getPayment', {
@@ -121,14 +128,20 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 controller: 'FullImageCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
-            .state('aboutPage', {
+            .state('about', {
                 url: "/about",
-                templateUrl: "templates/about-page.html",
+                templateUrl: "templates/about.html",
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
-            .state('contactPage', {
+            .state('contact', {
                 url: "/contact",
-                templateUrl: "templates/contact-page.html",
+                templateUrl: "templates/contact.html",
+                resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
+            })
+            .state('coupon', {
+                url: "/coupon",
+                templateUrl: "templates/coupon.html",
+                controller: 'CouponCtrl',
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
         ;

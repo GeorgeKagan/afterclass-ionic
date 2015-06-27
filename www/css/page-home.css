@@ -128,19 +128,6 @@ body.platform-ios.is-teacher #home-page .scroll {
 .card .post-header {
   background: transparent !important;
 }
-.card .post-header .ph-subject {
-  font-size: 16px;
-  display: inline-block;
-  padding: 12px 18px;
-  border-radius: 0 0 5px 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 50%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .card .post-header .ph-date {
   font-size: 16px;
   font-weight: 100;
@@ -240,6 +227,19 @@ body.platform-ios.is-teacher #home-page .scroll {
   background-color: #dbdbdb;
   line-height: 0;
   margin: 1px 0px 1px 0px;
+}
+.ph-subject {
+  font-size: 16px;
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 0 0 5px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 body.platform-ios .card .post-header .ph-date {
   font-size: 12px;
