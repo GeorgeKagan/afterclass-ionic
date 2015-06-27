@@ -102,6 +102,8 @@ angular.module('afterclass.services', [])
                         var data = angular.element.extend(authData.facebook.cachedUserProfile, {
                             // Add any initial custom properties here
                             //uid: authData.uid,
+                            update_date: moment().utc().unix(),
+                            create_date: moment().utc().unix(),
                             name_lowercase: authData.facebook.cachedUserProfile.name.toLowerCase() //TODO: Remove this when new dashboard is ready
                         });
                         user = angular.element.extend(user, data);
