@@ -95,8 +95,9 @@
   float: left;
   width: 100%;
 }
-#get-credit-page .pricing-table .footer a {
+#get-credit-page .pricing-table .footer button {
   display: block;
+  width: 100%;
   font-weight: bold;
   line-height: 45px;
   border: 0;

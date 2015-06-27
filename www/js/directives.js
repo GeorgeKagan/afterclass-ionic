@@ -31,34 +31,40 @@ angular.module('afterclass.directives', [])
             }
         };
     })
-    .directive('askQuestionArea', function($rootScope, $translate, $filter, Payment, Coupon) {
-        var btnText, uiSref, subtitle, icon = '';
-        if ($rootScope.user.is_teacher) {
-            Payment.getPaymentsSum().then(function (sum) {
-                $rootScope.teacherTotalPayments = sum;
-            });
-            btnText = $translate.instant('GET_PAYMENT');
-            uiSref = 'getPayment';
-            subtitle = '<span class="fade-in ng-hide" ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
-                $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'}) + '</span>';
-            icon = 'ab-icon-currency';
-        } else {
-            var pointsLeft = Coupon.getPointsLeft();
-            btnText = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
-            uiSref = pointsLeft > 0 ? 'askQuestion' : 'getCredit';
-            subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
-        }
+    .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, Payment, Coupon) {
         return {
             restrict: 'E',
             replace: 'true',
             template:
             '<div class="ask-q-area calm-bg text-center">' +
-                '<button class="button aqa-btn" ui-sref="' + uiSref + '">' +
-                    '<div class="ab-icon ' + icon + '"></div>' +
-                    '<div class="ab-text">' + btnText + '</div>' +
+                '<button class="button aqa-btn" ng-click="btnClick()">' +
+                    '<div class="ab-icon {{icon}}"></div>' +
+                    '<div class="ab-text">{{btnText}}</div>' +
                 '</button>' +
-                '<div class="light text-center padding" dir="auto">' + subtitle + '</div>' +
-            '</div>'
+                '<div class="light text-center padding" dir="auto">{{subtitle}}</div>' +
+            '</div>',
+            scope: {},
+            link: function (scope) {
+                if ($rootScope.user.is_teacher) {
+                    Payment.getPaymentsSum().then(function (sum) {
+                        $rootScope.teacherTotalPayments = sum;
+                    });
+                    scope.icon = 'ab-icon-currency';
+                    scope.btnText = $translate.instant('GET_PAYMENT');
+                    scope.btnClick = function () {
+                        $state.go('getPayment');
+                    };
+                    scope.subtitle = '<span class="fade-in ng-hide" ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
+                        $translate.instant('GET_PAYMENT_SUBTITLE', {sum: '{{teacherTotalPayments | number}}'}) + '</span>';
+                } else {
+                    var pointsLeft = Coupon.getPointsLeft();
+                    scope.btnText = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
+                    scope.btnClick = function () {
+                        $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
+                    };
+                    scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
+                }
+            }
         };
     })
     .directive('question', function() {
