@@ -123,6 +123,7 @@ angular.module('afterclass.services', [])
                 var sync = ref.child('users/' + $rootScope.user.uid),
                     user = $firebaseObject(sync);
                 user.$loaded().then(function (user) {
+                    data.update_date = moment().utc().unix();
                     user = angular.element.extend(user, data);
                     user.$save(0);
                 });

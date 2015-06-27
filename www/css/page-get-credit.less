@@ -1,0 +1,87 @@
+@import "misc/colors.less";
+@import "misc/mixins.less";
+
+#get-credit-page {
+  .pricing-table {
+    position: relative;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    color: #FFF;
+    text-align: center;
+    width: 90%;
+    margin: 15px auto 0px auto;
+    &.wide {
+      width: 100%;
+      .header {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+    }
+  }
+  .pricing-table .header {
+    float: left;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    .ph-subject {
+      padding: 10px 15px;
+    }
+    h4 {
+      margin: 0;
+    }
+  }
+  .pricing-table .body {
+    background-color: #fff;
+    float: left;
+    width: 100%;
+  }
+  .pricing-table .body .price {
+    background-color: #3b9bdb;
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .pricing-table .body .price span {
+    background-color: #2D87C4;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 1.5em;
+    padding: 0 15px;
+  }
+  .pricing-table .body .features {
+    color: #FFF;
+    float: left;
+    width: 100%;
+    background-color: #84C3ED;
+    font-size: 20px;
+  }
+  .pricing-table .body .features li {
+    height: 50px;
+    line-height: 50px;
+  }
+  .pricing-table .body .features .even {
+    background-color: #fff;
+  }
+  .pricing-table .body .features .odd {
+    background-color: #efefef;
+  }
+  .pricing-table .footer {
+    float: left;
+    width: 100%;
+  }
+  .pricing-table .footer button {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    line-height: 45px;
+    border: 0;
+    border-radius: 0;
+  }
+}

@@ -98,6 +98,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 resolve: { user: function(UserCollection) { return UserCollection.getFromUsersCollection(); } }
             })
             .state('askQuestion', {
+                cache: false,
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
                 controller: 'AskQuestionCtrl',
