@@ -113,7 +113,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     lastActivity = Math.max(post.replies[post.replies-1].create_date, lastActivity);
                 }
 
-                if(lastActivity < moment().subtract(8, 'hours').unix()) { //Allow replies within 32 hours from last activity
+                if(lastActivity < moment().utc().subtract(8, 'hours').unix()) { //Allow replies within 32 hours from last activity
                     $scope.allowReply = false;
                 }
             } else {
@@ -185,7 +185,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 name: $rootScope.user.name,
                 body: $scope.replyBody,
                 img_id: img_id || '',
-                create_date: moment().unix(),
+                create_date: moment().utc().unix(),
                 is_teacher: $rootScope.user.is_teacher
             }).then(function () {
                 $ionicLoading.hide();
@@ -197,7 +197,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 // + update update_date so it would go up in feed
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(function (post) {
-                    post.update_date = moment().unix();
+                    post.update_date = moment().utc().unix();
                     post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.id : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {

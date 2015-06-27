@@ -18,7 +18,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
             var tutor_ids = [];
             if (post.potential_tutors) {
                 _.each(post.potential_tutors, function (item) {
-                    tutor_ids.push(item.user_id);
+                    tutor_ids.push(item.id);
                 });
             }
             return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
