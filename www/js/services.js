@@ -464,7 +464,7 @@ angular.module('afterclass.services', [])
             $ionicPlatform.ready().then(function () {
                 // must be called
                 // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
-                PayPalMobile.prepareToRender('sandbox', configuration(), function () {
+                PayPalMobile.prepareToRender('PayPalEnvironmentSandbox', configuration(), function () {
 
                     $timeout(function () {
                         init_defer.resolve();
