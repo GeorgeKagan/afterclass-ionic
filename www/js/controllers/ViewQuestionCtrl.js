@@ -77,7 +77,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     }
 
     $scope.acceptQuestion = function() {
-        Post.toggleAcceptance ($stateParams.firebase_id,$rootScope.user.id);
+        Post.toggleAcceptance ($stateParams.firebase_id,$rootScope.user.uid);
         $scope.allowReply = true;
         $scope.showAcceptQuestion = false;
     }
@@ -181,7 +181,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
         var persist_reply = function (img_id) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             replies.$add({
-                user: $rootScope.user.id,
+                user: $rootScope.user.uid,
                 name: $rootScope.user.name,
                 body: $scope.replyBody,
                 img_id: img_id || '',
@@ -198,7 +198,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(function (post) {
                     post.update_date = moment().utc().unix();
-                    post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.id : '';
+                    post.last_tutor_id = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {
                         post.status = 'answered';

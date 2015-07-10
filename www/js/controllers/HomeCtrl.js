@@ -21,10 +21,10 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
                     tutor_ids.push(item.id);
                 });
             }
-            return angular.element.inArray($rootScope.user.id, tutor_ids) > -1;
+            return angular.element.inArray($rootScope.user.uid, tutor_ids) > -1;
         };
         // Answered posts by tutor (last_tutor_id = this tutor's id)
-        sync3 = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.id);
+        sync3 = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
         posts_tutor_answered = $firebaseArray(sync3);
         posts_tutor_answered.$loaded().then(function () {
             $scope.posts_tutor_answered = posts_tutor_answered;
@@ -32,7 +32,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
     }
     // Student home
     else {
-        sync = ref.orderByChild('user').equalTo($rootScope.user.id);
+        sync = ref.orderByChild('user').equalTo($rootScope.user.uid);
         posts = $firebaseArray(sync);
         posts.$loaded().then(function () {
             $scope.posts = posts;
@@ -62,7 +62,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         $event.stopPropagation();
     };
     $scope.toggleAcceptance = function (firebase_id) {
-        Post.toggleAcceptance(firebase_id, $rootScope.user.id);
+        Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
     $scope.getHeaderSize = function() {
         if (ionic.Platform.isIOS()) {

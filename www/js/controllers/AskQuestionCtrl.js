@@ -20,7 +20,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         var persist_post = function (img_id) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             posts.$add({
-                user: $rootScope.user.id,
+                user: $rootScope.user.uid,
                 subject: angular.element('#aq-subject').val(),
                 body: angular.element('#aq-body').val(),
                 img_id: img_id || '',

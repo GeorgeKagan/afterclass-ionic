@@ -98,7 +98,7 @@ angular.module('afterclass.directives', [])
                 $scope.isPostAccepted = function(post) {
                     var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
                     if(acceptingTutors.length > 0) {
-                        return acceptingTutors[0] === $rootScope.user.id;
+                        return acceptingTutors[0] === $rootScope.user.uid;
                     } else {
                         return false;
                     }

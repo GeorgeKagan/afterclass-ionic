@@ -7,7 +7,7 @@ angular.module('afterclass.services')
             coupons.$add({
                 id: window.device ? window.device.uuid.substr(0, 6) : 'created-via-web',
                 type: types.SINGLE,
-                creator_id: $rootScope.user.id,
+                creator_id: $rootScope.user.uid,
                 total_points: 100,
                 claim_points: 10,
                 claimed_by: [0],
