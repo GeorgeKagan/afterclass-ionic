@@ -10,7 +10,6 @@
                 <div ng-if="!posts && !posts_tutor_unanswered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
                 <!-- Student -->
-                <button ng-click="PayPal()">pay with PayPal 1$</button>
                 <div ng-if="!$root.user.is_teacher" class="posts content">
                     <div ng-if="(posts | filter:ifUserUnanswered:true).length===0" class="padding-left text-center">
                         <strong>{{::'POST.STUDENT.NOUNANSWERED'|translate}}</strong>

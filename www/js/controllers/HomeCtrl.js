@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (user, $rootScope, $scope, $ionicScrollDelegate, $state,
-                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post, Coupon, MyFirebase, PaypalService) {
+                                                                          $firebaseArray, $ionicLoading, $ionicPopup, $translate, Post, Coupon, MyFirebase) {
     'use strict';
     // Load all user's questions from firebase
     var ref = MyFirebase.getRef().child('posts'),
@@ -90,11 +90,4 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (user, 
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;
     };
-
-
-    $scope.PayPal = function( ) {
-        PaypalService.initPaymentUI().then(function () {
-            PaypalService.makePayment(1, "Total");
-        });
-    }
 });

@@ -1,3 +1,6 @@
+/**
+ * Payments for teachers
+ */
 angular.module('afterclass.services')
     .factory('Payment', function($rootScope, $q, $firebaseArray, $firebaseObject, MyFirebase) {
         var obj = {}, ref = MyFirebase.getRef();
