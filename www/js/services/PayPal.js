@@ -30,8 +30,8 @@ angular.module('afterclass.services')
             init_defer = $q.defer();
             $ionicPlatform.ready().then(function () {
                 var clientIDs = {
-                    "PayPalEnvironmentProduction": 'AVm5UxqpOWQxtrw419PmOjt12UHn8quTXJR9S8utqNGaqxhYFi3fzZ6ywQ_tVbgyUQwxl4JpvVC5Mnmg',
-                    "PayPalEnvironmentSandbox": 'AX24RtzGMSk3pDev2U2Rq6pbwtYMfj2PKLWwouVwmfMQY9Y3vI88qTrRYPep94bCEHyBvg8pJjj9ecnm'
+                    "PayPalEnvironmentProduction": 'AUU7N18uMHDSO7h2q9Zo9YydU1R2QD_YK80Liy6pnyioZSHGTUpq4i2fYuL9emdZ9mblcjFRkEE6wbCi',
+                    "PayPalEnvironmentSandbox": 'AYL2z2pUvjGMhgBqGm3dHMpsLWvNwYnF6lO61xkNZwLuoZVV9JwlL9QzMPMfXDX7NGbnl1pbJ_9rQf6I'
                 };
                 PayPalMobile.init(clientIDs, onPayPalMobileInit);
             });
@@ -78,7 +78,9 @@ angular.module('afterclass.services')
             $ionicPlatform.ready().then(function () {
                 // must be called
                 // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
-                PayPalMobile.prepareToRender('PayPalEnvironmentSandbox', configuration(), function () {
+                //var env = 'PayPalEnvironmentProduction';
+                var env = 'PayPalEnvironmentSandbox';
+                PayPalMobile.prepareToRender(env, configuration(), function () {
                     $timeout(function () {
                         init_defer.resolve();
                     });
