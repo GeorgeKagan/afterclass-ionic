@@ -3,6 +3,8 @@ angular.module('afterclass.controllers').controller('GetPaymentCtrl', function (
         return false;
     }
 
+    $scope.PaymentService = Payment;
+
     Payment.getPayments().then(function (data) {
         $scope.payment = data;
     });

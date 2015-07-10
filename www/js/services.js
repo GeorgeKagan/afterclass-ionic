@@ -158,7 +158,6 @@ angular.module('afterclass.services', [])
                     // Use up to date fb data, but merge in custom properties set via firebase
                     $rootScope.user = angular.element.extend(authData, user);
                     q.resolve($rootScope.user);
-                    //console.log('Merged User', $rootScope.user);
                 });
                 return q.promise;
             }
