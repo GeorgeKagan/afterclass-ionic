@@ -41,9 +41,5 @@ angular.module('afterclass.controllers').controller('GetPaymentCtrl', function (
         });
     };
 
-    $scope.backToHome = function () {
-        $state.go('home');
-    };
-
     //Payment._debugCreatePayment();
 });

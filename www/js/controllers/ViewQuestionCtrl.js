@@ -157,9 +157,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             ]
         });
     };
-    $scope.backToHome = function () {
-        $state.go('home');
-    };
     $scope.addImage = function () {
         showAgreement(imageUpload);
     };

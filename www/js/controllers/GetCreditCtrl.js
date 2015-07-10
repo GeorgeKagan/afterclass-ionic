@@ -20,7 +20,4 @@ angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($
             Paypal.makePayment(paymentAmount, questionCount + ' questions').then(updateUserCredits)
         });
     };
-    $scope.backToHome = function () {
-        $state.go('home');
-    };
 });

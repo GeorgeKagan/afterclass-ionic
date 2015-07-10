@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory, MyFirebase) {
+angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, MyFirebase) {
     // Logout user
     $scope.logout = function () {
         var ref = MyFirebase.getRef();
@@ -9,9 +9,15 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
         $rootScope.user = null;
         $state.go('login');
     };
+
     $scope.hidePopover = function() {
         $scope.popover.hide();
     };
+
+    $scope.backToHome = function () {
+        $window.history.back();
+    };
+
     // Header bar popover
     $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {
         scope: $scope
