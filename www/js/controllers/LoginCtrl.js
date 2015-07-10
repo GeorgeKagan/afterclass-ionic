@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory, $cordovaFacebook, UserCollection) {
+angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory, $cordovaFacebook, User) {
     'use strict';
     var ref = new window.Firebase("https://dazzling-heat-8303.firebaseio.com"), authData;
 
@@ -7,7 +7,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
 
     // Check if got active session
     if (authData) {
-        UserCollection.getFromUsersCollection().then(function (user) {
+        User.getFromUsersCollection().then(function (user) {
             postLoginOps(user);
             doRedirect(user);
         });
@@ -24,7 +24,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
                     if (error) {
                         console.log('Firebase login failed!', error);
                     } else {
-                        UserCollection.saveToUsersCollection(authData).then(function (user) {
+                        User.saveToUsersCollection(authData).then(function (user) {
                             postLoginOps(user);
                             doRedirect(user);
                         });
@@ -40,7 +40,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
     };
 
     var postLoginOps = function (user) {
-        UserCollection.fillMandatoryFields(user);
+        User.fillMandatoryFields(user);
     };
     var doRedirect = function (user) {
         if (user.is_choose_type_finished) {

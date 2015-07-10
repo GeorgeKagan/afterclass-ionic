@@ -1,8 +1,8 @@
 angular.module('afterclass.controllers').
 
-    controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $http, $ionicHistory, UserCollection, InstitutePopup) {
+    controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $http, $ionicHistory, User, InstitutePopup) {
         $scope.student = function () {
-            UserCollection.updateUser({
+            User.updateUser({
                 is_choose_type_finished: true,
                 is_teacher: false,
                 target_institutes: null
@@ -16,7 +16,7 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep1Ctrl', function ($scope, $state, $http, UserCollection, TutorDetails) {
+    controller('UserDetailsTutorStep1Ctrl', function ($scope, $state, $http, TutorDetails) {
         $scope.selInstitutes = {};
         $http.get('json/institutes-degrees.json').success(function(data) {
             $scope.institutes = data;
@@ -32,7 +32,7 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep2Ctrl', function ($scope, $state, $http, UserCollection, TutorDetails) {
+    controller('UserDetailsTutorStep2Ctrl', function ($scope, $state, $http, TutorDetails) {
         $scope.selDegrees = {};
         $scope.degrees = TutorDetails.getDegrees();
         $scope.submitTutorStep2 = function () {
@@ -46,7 +46,7 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep3Ctrl', function ($scope, $state, $http, $ionicHistory, UserCollection, TutorDetails) {
+    controller('UserDetailsTutorStep3Ctrl', function ($scope, $state, $http, $ionicHistory, TutorDetails) {
         $scope.selCourses = {};
         $scope.courses = TutorDetails.getCourses();
         $scope.submitTutorStep3 = function () {

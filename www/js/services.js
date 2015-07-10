@@ -47,7 +47,7 @@ angular.module('afterclass.services', [])
             }
         };
     })
-    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, UserCollection) {
+    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, User) {
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
@@ -86,7 +86,7 @@ angular.module('afterclass.services', [])
                                     var institute = angular.element('#popup-institute :selected').val(),
                                         degree = angular.element('#popup-degree :selected').val();
                                     if (institute !== '0' && degree !== '0') {
-                                        UserCollection.updateUser({institute: institute, degree: degree});
+                                        User.updateUser({institute: institute, degree: degree});
                                     } else {
                                         angular.element('#pi-err').show();
                                         e.preventDefault();

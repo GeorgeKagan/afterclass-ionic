@@ -1,5 +1,5 @@
 angular.module('afterclass.services')
-    .factory('TutorDetails', function(UserCollection) {
+    .factory('TutorDetails', function(User) {
         var obj = {}, degrees, courses, payload = {};
         obj.getDegreesBySelectedInstitutes = function (selInstitutes, institutes) {
             var data = {};
@@ -38,7 +38,7 @@ angular.module('afterclass.services')
         };
         obj.saveSelectedData = function () {
             console.log('payload', payload);
-            UserCollection.updateUser({
+            User.updateUser({
                 is_choose_type_finished: true,
                 is_teacher: true,
                 degree: null,

@@ -1,5 +1,5 @@
 angular.module('afterclass.services')
-    .factory('Coupon', function($rootScope, $firebaseArray, MyFirebase, UserCollection) {
+    .factory('Coupon', function($rootScope, $firebaseArray, MyFirebase, User) {
         var obj = {}, ref = MyFirebase.getRefCoupons();
         var types = {SINGLE: 'single', MULTI: 'multi', PERSONAL: 'personal'};
         obj.createCoupon = function () {
@@ -55,7 +55,7 @@ angular.module('afterclass.services')
             return $rootScope.user.credits;
         };
         obj.deductCredits = function(amount) {
-            UserCollection.updateUser({
+            User.updateUser({
                 credits: $rootScope.user.credits - amount
             });
         };

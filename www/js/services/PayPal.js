@@ -2,28 +2,11 @@
  * Payments for teachers
  */
 angular.module('afterclass.services')
-    .factory('PaypalService', ['$q', '$ionicPlatform', '$filter', '$timeout', function ($q, $ionicPlatform, $filter, $timeout) {
+    .factory('Paypal', ['$q', '$ionicPlatform', '$filter', '$timeout', function ($q, $ionicPlatform, $filter, $timeout) {
         var init_defer;
-        /**
-         * Service object
-         * @type object
-         */
-        var service = {
-            initPaymentUI: initPaymentUI,
-            createPayment: createPayment,
-            configuration: configuration,
-            onPayPalMobileInit: onPayPalMobileInit,
-            makePayment: makePayment
-        };
 
         /**
-         * @ngdoc method
-         * @name initPaymentUI
-         * @methodOf app.PaypalService
-         * @description
-         * Inits the payapl ui with certain envs.
-         *
-         *
+         * Initializes the paypal ui with certain environments.
          * @returns {object} Promise paypal ui init done
          */
         function initPaymentUI() {
@@ -39,15 +22,9 @@ angular.module('afterclass.services')
         }
 
         /**
-         * @ngdoc method
-         * @name createPayment
-         * @methodOf app.PaypalService
-         * @param {string|number} total total sum. Pattern 12.23
-         * @param {string} name name of the item in paypal
-         * @description
          * Creates a paypal payment object
-         *
-         *
+         * @param total
+         * @param name
          * @returns {object} PayPalPaymentObject
          */
         function createPayment(total, name) {
@@ -55,13 +32,7 @@ angular.module('afterclass.services')
         }
 
         /**
-         * @ngdoc method
-         * @name configuration
-         * @methodOf app.PaypalService
-         * @description
          * Helper to create a paypal configuration object
-         *
-         *
          * @returns {object} PayPal configuration
          */
         function configuration() {
@@ -89,15 +60,9 @@ angular.module('afterclass.services')
         }
 
         /**
-         * @ngdoc method
-         * @name makePayment
-         * @methodOf app.PaypalService
-         * @param {string|number} total total sum. Pattern 12.23
-         * @param {string} name name of the item in paypal
-         * @description
          * Performs a paypal single payment
-         *
-         *
+         * @param total
+         * @param name
          * @returns {object} Promise gets resolved on successful payment, rejected on error
          */
         function makePayment(total, name) {
@@ -117,5 +82,11 @@ angular.module('afterclass.services')
             return defer.promise;
         }
 
-        return service;
+        return {
+            initPaymentUI: initPaymentUI,
+            createPayment: createPayment,
+            configuration: configuration,
+            onPayPalMobileInit: onPayPalMobileInit,
+            makePayment: makePayment
+        };
     }]);

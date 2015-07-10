@@ -1,5 +1,5 @@
 angular.module('afterclass.services')
-    .factory('UserCollection', function ($rootScope, $q, $firebaseObject, AmazonSNS, MyFirebase) {
+    .factory('User', function ($rootScope, $q, $firebaseObject, AmazonSNS, MyFirebase) {
         'use strict';
         var ref = MyFirebase.getRef();
         var obj = {

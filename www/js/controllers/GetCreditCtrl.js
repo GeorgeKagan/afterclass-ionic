@@ -1,10 +1,10 @@
-angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, UserCollection, PaypalService) {
+angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, User, Paypal) {
     if ($rootScope.user.is_teacher) {
         return false;
     }
     $scope.addCredit = function (questionCount, paymentAmount) {
         var updateUserCredits = function () {
-            UserCollection.updateUser({
+            User.updateUser({
                 credits: questionCount
             });
             $state.go('home');
@@ -16,8 +16,8 @@ angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($
             return;
         }
         // Pay with paypal
-        PaypalService.initPaymentUI().then(function () {
-            PaypalService.makePayment(paymentAmount, questionCount + ' questions').then(updateUserCredits)
+        Paypal.initPaymentUI().then(function () {
+            Paypal.makePayment(paymentAmount, questionCount + ' questions').then(updateUserCredits)
         });
     };
     $scope.backToHome = function () {
