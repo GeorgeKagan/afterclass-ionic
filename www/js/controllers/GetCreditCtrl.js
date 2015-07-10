@@ -3,15 +3,21 @@ angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($
         return false;
     }
     $scope.addCredit = function (questionCount, paymentAmount) {
+        var updateUserCredits = function () {
+            UserCollection.updateUser({
+                credits: questionCount
+            });
+            $state.go('home');
+            $ionicHistory.nextViewOptions({disableBack: true});
+        };
+        // If desktop - just add credits
+        if (!window.PayPalMobile) {
+            updateUserCredits();
+            return;
+        }
         // Pay with paypal
         PaypalService.initPaymentUI().then(function () {
-            PaypalService.makePayment(paymentAmount, questionCount + ' questions').then(function () {
-                UserCollection.updateUser({
-                    credits: questionCount
-                });
-                $state.go('home');
-                $ionicHistory.nextViewOptions({disableBack: true});
-            })
+            PaypalService.makePayment(paymentAmount, questionCount + ' questions').then(updateUserCredits)
         });
     };
     $scope.backToHome = function () {
