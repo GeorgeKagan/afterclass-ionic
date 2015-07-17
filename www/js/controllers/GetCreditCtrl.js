@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, User, Paypal) {
+angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, User, PayPal) {
     if ($rootScope.user.is_teacher) {
         return false;
     }
@@ -16,8 +16,8 @@ angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($
             return;
         }
         // Pay with paypal
-        Paypal.initPaymentUI().then(function () {
-            Paypal.makePayment(paymentAmount, questionCount + ' questions').then(updateUserCredits)
+        PayPal.initPaymentUI().then(function () {
+            PayPal.makePayment(paymentAmount, questionCount + ' questions').then(updateUserCredits)
         });
     };
 });

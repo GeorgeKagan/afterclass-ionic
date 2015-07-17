@@ -80,7 +80,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
         Post.toggleAcceptance ($stateParams.firebase_id,$rootScope.user.uid);
         $scope.allowReply = true;
         $scope.showAcceptQuestion = false;
-    }
+    };
 
     $scope.shouldShowAgreement = true;
     $scope.post = $firebaseObject(post);

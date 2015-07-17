@@ -1,11 +1,11 @@
 angular.module('afterclass.controllers').
 
-    controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $http, $ionicHistory, User, InstitutePopup) {
+    controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $ionicHistory, User, InstitutePopup) {
         $scope.student = function () {
             User.updateUser({
-                is_choose_type_finished: true,
-                is_teacher: false,
-                target_institutes: null
+                is_choose_type_finished : true,
+                is_teacher              : false,
+                target_institutes       : null
             });
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
@@ -32,9 +32,9 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep2Ctrl', function ($scope, $state, $http, TutorDetails) {
-        $scope.selDegrees = {};
-        $scope.degrees = TutorDetails.getDegrees();
+    controller('UserDetailsTutorStep2Ctrl', function ($scope, $state, TutorDetails) {
+        $scope.selDegrees   = {};
+        $scope.degrees      = TutorDetails.getDegrees();
         $scope.submitTutorStep2 = function () {
             var courses = TutorDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
             TutorDetails.setPayloadDegrees($scope.selDegrees);
@@ -46,9 +46,9 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep3Ctrl', function ($scope, $state, $http, $ionicHistory, TutorDetails) {
-        $scope.selCourses = {};
-        $scope.courses = TutorDetails.getCourses();
+    controller('UserDetailsTutorStep3Ctrl', function ($scope, $state, $ionicHistory, TutorDetails) {
+        $scope.selCourses   = {};
+        $scope.courses      = TutorDetails.getCourses();
         $scope.submitTutorStep3 = function () {
             TutorDetails.setPayloadCourses($scope.selCourses);
             TutorDetails.saveSelectedData();

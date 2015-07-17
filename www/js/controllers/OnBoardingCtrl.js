@@ -1,9 +1,5 @@
-angular.module('afterclass.controllers').controller('OnBoardingCtrl', function ($scope, $state, $ionicHistory,$cordovaPush, $ionicSlideBoxDelegate) {
+angular.module('afterclass.controllers').controller('OnBoardingCtrl', function ($scope, $state, $ionicHistory, $cordovaPush, $ionicSlideBoxDelegate) {
     'use strict';
-
-
-
-
 
     $scope.next = function() {
         $ionicSlideBoxDelegate.next();
@@ -37,11 +33,10 @@ angular.module('afterclass.controllers').controller('OnBoardingCtrl', function (
         }, function(err) {
             alert("Registration error: " + err)
         });*/
-
     };
+
     $scope.finish = function() {
     //    $ionicSlideBoxDelegate.previous();
-
         localStorage.setItem('finished_on_boarding', true);
         $ionicHistory.nextViewOptions({disableBack: true});
         $state.go('login');

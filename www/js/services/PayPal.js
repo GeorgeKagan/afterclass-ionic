@@ -2,7 +2,7 @@
  * Payments for teachers
  */
 angular.module('afterclass.services')
-    .factory('Paypal', ['$q', '$ionicPlatform', '$filter', '$timeout', function ($q, $ionicPlatform, $filter, $timeout) {
+    .factory('PayPal', ['$q', '$ionicPlatform', '$filter', '$timeout', function ($q, $ionicPlatform, $filter, $timeout) {
         var init_defer;
 
         /**

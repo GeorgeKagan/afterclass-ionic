@@ -1,6 +1,6 @@
-angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicLoading, $ionicHistory, $cordovaFacebook, User) {
+angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, User) {
     'use strict';
-    var ref = new window.Firebase("https://dazzling-heat-8303.firebaseio.com"), authData;
+    var ref = new window.Firebase('https://dazzling-heat-8303.firebaseio.com'), authData;
 
     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
     authData = ref.getAuth();
@@ -20,7 +20,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             window.facebookConnectPlugin.getAccessToken(function(token) {
                 // Authenticate with Facebook using an existing OAuth 2.0 access token
-                ref.authWithOAuthToken("facebook", token, function(error, authData) {
+                ref.authWithOAuthToken('facebook', token, function(error, authData) {
                     if (error) {
                         console.log('Firebase login failed!', error);
                     } else {
@@ -42,6 +42,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
     var postLoginOps = function (user) {
         User.fillMandatoryFields(user);
     };
+
     var doRedirect = function (user) {
         if (user.is_choose_type_finished) {
             $state.go('home').then(function() {
