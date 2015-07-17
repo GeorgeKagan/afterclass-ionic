@@ -2,7 +2,7 @@ angular.module('afterclass.directives', [])
 
     .directive('acGeneral', function($translate) {
         return {
-            restrict: "A",
+            restrict: 'A',
             link: function (scope, element, attrs) {
                 if ($translate.preferredLanguage() === 'he') {
                     angular.element('body').addClass('rtl');
@@ -10,10 +10,11 @@ angular.module('afterclass.directives', [])
             }
         }
     })
+
     .directive('askQuestion', function($timeout) {
         return {
-            restrict: "A",
-            link: function(scope, element, attrs) {
+            restrict: 'A',
+            link: function() {
                 if (ionic.Platform.isIOS()) {
                     return;
                 }
@@ -31,10 +32,11 @@ angular.module('afterclass.directives', [])
             }
         };
     })
+
     .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, Payment, Coupon) {
         return {
             restrict: 'E',
-            replace: 'true',
+            replace : 'true',
             template:
             '<div class="ask-q-area calm-bg text-center">' +
                 '<button class="button aqa-btn" ng-click="btnClick()">' +
@@ -47,19 +49,19 @@ angular.module('afterclass.directives', [])
             link: function (scope) {
                 if ($rootScope.user.is_teacher) {
                     Payment.getPaymentsSum().then(function (sum) {
-                        scope.teacherTotalPayments = sum;
-                        scope.subtitle = '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
+                        scope.teacherTotalPayments  = sum;
+                        scope.subtitle              = '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
                             $translate.instant('GET_PAYMENT_SUBTITLE', {sum: scope.teacherTotalPayments}) + '</span>';
                     });
-                    scope.icon = 'ab-icon-currency';
-                    scope.btnText = $translate.instant('GET_PAYMENT');
-                    scope.btnClick = function () {
+                    scope.icon      = 'ab-icon-currency';
+                    scope.btnText   = $translate.instant('GET_PAYMENT');
+                    scope.btnClick  = function () {
                         $state.go('getPayment');
                     };
                 } else {
-                    var pointsLeft = Coupon.getPointsLeft();
-                    scope.btnText = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
-                    scope.btnClick = function () {
+                    var pointsLeft  = Coupon.getPointsLeft();
+                    scope.btnText   = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
+                    scope.btnClick  = function () {
                         $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
                     };
                     scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
@@ -67,30 +69,32 @@ angular.module('afterclass.directives', [])
             }
         };
     })
+
     .directive('question', function() {
         return {
             scope: {
-                post: '=',
-                viewPost: '=',
-                deletePost: '=',
-                postAccept: '&',
-                postDecline: '&',
-                postReply: '&',
+                post            : '=',
+                viewPost        : '=',
+                deletePost      : '=',
+                postAccept      : '&',
+                postDecline     : '&',
+                postReply       : '&',
                 toggleAcceptance: '='
             },
-            restrict: 'E',
-            replace: 'true',
-            templateUrl: 'templates/partials/question.html',
-            controller: function($rootScope, $scope) {
-
+            restrict    : 'E',
+            replace     : 'true',
+            templateUrl : 'templates/partials/question.html',
+            controller  : function($rootScope, $scope) {
                 $scope.allowReply = true;
-                if($scope.post.status === "answered") {
+
+                if ($scope.post.status === 'answered') {
                     var lastActivity = $scope.post.create_date;
-                    if(Array.isArray($scope.post.replies)) {
+
+                    if (Array.isArray($scope.post.replies)) {
                         lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].create_date, lastActivity);
                     }
-
-                    if(lastActivity < moment().subtract(32, 'hours').unix()) { //Allow replies within 32 hours from last activity
+                    if (lastActivity < moment().subtract(32, 'hours').unix()) {
+                        // Allow replies within 32 hours from last activity
                         $scope.allowReply = false;
                     }
                 }
@@ -105,17 +109,18 @@ angular.module('afterclass.directives', [])
                 };
             },
             link: function (scope, element, attrs) {
-                scope.is_teacher = scope.$root.user.is_teacher;
-                scope.header_bg = attrs.headerBg;
+                scope.is_teacher    = scope.$root.user.is_teacher;
+                scope.header_bg     = attrs.headerBg;
             }
         };
     })
+
     .directive('questionTabs', function($rootScope, $ionicTabsDelegate) {
         return {
             restrict: 'A',
             link: function() {
-                var is_teacher = $rootScope.user.is_teacher,
-                    tabs = {unanswered: 0, answered: 1};
+                var is_teacher  = $rootScope.user.is_teacher,
+                    tabs        = {unanswered: 0, answered: 1};
                 $ionicTabsDelegate.select(is_teacher ? tabs.unanswered : tabs.answered);
             }
         };

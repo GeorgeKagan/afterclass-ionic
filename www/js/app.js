@@ -1,8 +1,9 @@
 angular.module('afterclass.controllers', ['ui.router']);
+
 angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
     'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate'])
 
-    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $translate) {
+    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
         $ionicPlatform.ready(function () {
             if (window.cordova) {
                 var isOnline = $cordovaNetwork.isOnline();
@@ -28,12 +29,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
+
         //Translation
         $translateProvider.useStaticFilesLoader({
             prefix: 'json/lang/',
             suffix: '.json'
         });
-
         $translateProvider.preferredLanguage(appLang);
         $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
         $translateProvider.useSanitizeValueStrategy('escaped');
