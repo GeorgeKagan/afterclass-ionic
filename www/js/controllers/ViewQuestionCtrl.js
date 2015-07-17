@@ -36,9 +36,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 if (Array.isArray(post.replies)) {
                     lastActivity = Math.max(post.replies[post.replies-1].create_date, lastActivity);
                 }
-                if (lastActivity < moment().utc().subtract(8, 'hours').unix()) {
+                if (lastActivity > moment().utc().subtract(8, 'hours').unix()) {
                     // Allow replies within 32 hours from last activity
-                    $scope.allowReply = false;
+                    $scope.allowReply = true;
                 }
             } else {
                 $scope.allowReply           = true;

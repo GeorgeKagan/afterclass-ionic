@@ -19,8 +19,8 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         $scope.ifPotentialTutor = function (post) {
             var tutor_ids = [];
             if (post.potential_tutors) {
-                _.each(post.potential_tutors, function (item) {
-                    tutor_ids.push(item.id);
+                _.each(post.potential_tutors, function (item, id) {
+                    tutor_ids.push(id);
                 });
             }
             return angular.element.inArray($rootScope.user.uid, tutor_ids) > -1;
@@ -76,9 +76,6 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.gotScrolled = function () {
-        if ($rootScope.user.is_teacher) {
-            return;
-        }
         var y = angular.element('.scroll:visible').offset().top;
         if (y <= -186) {
             angular.element('.bar-header').addClass('scrolled');

@@ -96,6 +96,7 @@ angular.module('afterclass.services').factory('AmazonSNS', function ($rootScope,
             sns.publish(params, function (err, data) {
                 if (err) {
                     console.log('Error sending a message', err);
+                    console.log('endpoint_arn', endpoint_arn);
                 } else {
                     console.log('Sent message:', data);
                 }
