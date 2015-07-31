@@ -1,8 +1,16 @@
 angular.module('afterclass.services', [])
 
     .factory('MyFirebase', function () {
-        var obj = {},
+        var env = localStorage.getItem('env'),
+            obj = {},
+            ref = null;
+        if (env && env === 'dev') {
+            ref = new Firebase('https://ac-ionic-dev.firebaseio.com/');
+            console.info('Firebase env: DEV');
+        } else {
             ref = new Firebase('https://dazzling-heat-8303.firebaseio.com');
+            console.warn('Firebase env: PROD');
+        }
         obj.getRef = function () {
             return ref;
         };

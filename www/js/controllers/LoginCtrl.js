@@ -1,6 +1,6 @@
-angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, User) {
+angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
     'use strict';
-    var ref = new window.Firebase('https://dazzling-heat-8303.firebaseio.com'), authData;
+    var ref = MyFirebase.getRef(), authData;
 
     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
     authData = ref.getAuth();
