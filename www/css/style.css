@@ -82,8 +82,11 @@
 .view-container .pane.has-tabs {
   bottom: 0;
 }
-.popover {
+.popover.popover-4-items {
   height: 216px;
+}
+.popover.popover-5-items {
+  height: 266px;
 }
 .popup-body {
   overflow: visible;
