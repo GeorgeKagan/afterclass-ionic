@@ -5,10 +5,10 @@ angular.module('afterclass.services', [])
             obj = {},
             ref = null;
         if (env && env === 'dev') {
-            ref = new Firebase('https://ac-ionic-dev.firebaseio.com/');
+            ref = new Firebase('https://spankin-butts.firebaseio.com/');
             console.info('Firebase env: DEV');
         } else {
-            ref = new Firebase('https://dazzling-heat-8303.firebaseio.com');
+            ref = new Firebase('https://torrid-torch-3186.firebaseio.com/');
             console.warn('Firebase env: PROD');
         }
         obj.getRef = function () {
