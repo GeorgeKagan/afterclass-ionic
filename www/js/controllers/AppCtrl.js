@@ -10,14 +10,16 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
         $state.go('login');
     };
 
-    // Popover side menu
-    $scope.links = [
-        {sref: 'about', text: 'PAGES.ABOUT.MENU'},
-        {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
-        //{sref: 'coupon', text: 'PAGES.COUPON.MENU'}
-    ];
-    User.getFromUsersCollection().then(function(user) {
-        if (!user.is_teacher) {
+    $rootScope.$watch('user', function () {
+        if (!$rootScope.user) {
+            return;
+        }
+        // Popover side menu
+        $scope.links = [
+            {sref: 'about', text: 'PAGES.ABOUT.MENU'},
+            {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
+        ];
+        if (!$rootScope.user.is_teacher) {
             $scope.links.push({sref: 'getCredit', text: 'GET_POINTS'});
         }
     });
