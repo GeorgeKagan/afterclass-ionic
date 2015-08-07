@@ -36,14 +36,14 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
                 $scope.logout();
                 $event.preventDefault();
                 location.reload();
-            }, sref: 'dummy', classes: 'assertive', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
+            }, sref: 'dummy', classes: 'red', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
             // Delete Firebase user
             $scope.links.push({onclick: function ($event) {
                 User.deleteUser();
                 $scope.logout();
                 $event.preventDefault();
                 location.reload();
-            }, sref: 'dummy', classes: 'assertive', text: 'Delete Firebase User'});
+            }, sref: 'dummy', classes: 'red', text: 'Delete Firebase User'});
         }
     });
 

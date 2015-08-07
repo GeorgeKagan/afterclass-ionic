@@ -167,6 +167,9 @@ select {
 .bold {
   font-weight: bold;
 }
+.red {
+  color: #ff3b30 !important;
+}
 .highlight {
   -moz-transition: background-color 2s;
   -webkit-transition: background-color 2s;
