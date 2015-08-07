@@ -4,7 +4,7 @@
             <span class="item">
                 {{'HI'|translate}}, {{user.facebook.displayName}}
             </span>
-            <a class="item" ng-repeat="link in links" ui-sref="{{link.sref}}" ng-click="hidePopover()">
+            <a class="item" ng-repeat="link in links" ui-sref="{{link.sref}}" ng-click="link.onclick ? link.onclick($event) : hidePopover()">
                 {{link.text|translate}}
             </a>
             <a class="item" ng-click="logout()">

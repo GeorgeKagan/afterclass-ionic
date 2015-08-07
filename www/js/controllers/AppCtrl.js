@@ -22,6 +22,25 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
         if (!$rootScope.user.is_teacher) {
             $scope.links.push({sref: 'getCredit', text: 'GET_POINTS'});
         }
+        // Add dev actions
+        var devUsers = ['1591285834446649', '1518736295015643', '10205593403011749', '10205364847174667', '10153250113479854', '10152843702557886'],
+            env = localStorage.getItem('env');
+        if (_.indexOf(devUsers, $rootScope.user.id) !== -1) {
+            // Switch Firebase env
+            $scope.links.push({onclick: function ($event) {
+                localStorage.setItem('env', env === 'dev' ? 'prod' : 'dev');
+                $scope.logout();
+                $event.preventDefault();
+                location.reload();
+            }, sref: 'dummy', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
+            // Delete Firebase user
+            $scope.links.push({onclick: function ($event) {
+                User.deleteUser();
+                $scope.logout();
+                $event.preventDefault();
+                location.reload();
+            }, sref: 'dummy', text: 'Delete Firebase User'});
+        }
     });
     $scope.hidePopover = function() {
         $scope.popover.hide();

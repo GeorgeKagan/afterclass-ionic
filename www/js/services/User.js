@@ -72,6 +72,18 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                 q.resolve($rootScope.user);
             });
             return q.promise;
+        },
+        /**
+         * Delete a Firebase user
+         */
+        deleteUser: function () {
+            var sync = ref.child('users/' + $rootScope.user.uid),
+                user = $firebaseObject(sync);
+            user.$remove().then(function(ref) {
+                // data has been deleted locally and in the database
+            }, function(error) {
+                console.log("Error:", error);
+            });
         }
     };
 
