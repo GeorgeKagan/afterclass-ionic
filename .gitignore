@@ -9,3 +9,4 @@ www/lib/
 engine/
 #www/css/*.css
 #www/css/*/*.css
+ionic.project
