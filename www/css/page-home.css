@@ -45,9 +45,9 @@ body.platform-ios.is-teacher #home-page .scroll {
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  margin: 0 0 48px 0;
+  margin: 0 0 0 0;
   padding: 80px 0 25px 0;
-  min-height: 240px;
+  min-height: 279px;
 }
 .ask-q-area .aqa-btn {
   box-shadow: -1px 3px 7px rgba(0, 0, 0, 0.2);

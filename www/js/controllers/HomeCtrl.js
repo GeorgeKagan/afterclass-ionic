@@ -90,7 +90,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.scrollToTop = function () {
-        $ionicScrollDelegate.scrollTop();
+        $ionicScrollDelegate.scrollTop(true);
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;
     };

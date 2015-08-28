@@ -30,7 +30,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
 
-        $ionicConfigProvider.scrolling.jsScrolling(false);
+        $ionicConfigProvider.scrolling.jsScrolling(true);
 
         //Translation
         $translateProvider.useStaticFilesLoader({
