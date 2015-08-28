@@ -12,7 +12,8 @@
   border-color: #2263a5;
 }
 .button.button-calm.button-outline,
-.tabs-striped.tabs-color-calm .tab-item.tab-item-active {
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.tabs-striped.tabs-color-calm .tab-item.activated {
   border-color: #4d9abf;
   color: #4d9abf;
 }

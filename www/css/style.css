@@ -35,7 +35,8 @@
   border-color: #2263a5;
 }
 .button.button-calm.button-outline,
-.tabs-striped.tabs-color-calm .tab-item.tab-item-active {
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.tabs-striped.tabs-color-calm .tab-item.activated {
   border-color: #4d9abf;
   color: #4d9abf;
 }
@@ -81,9 +82,6 @@
 }
 .view-container .pane.has-tabs {
   bottom: 0;
-}
-.pane {
-  overflow-y: auto;
 }
 .popover.popover-4-items {
   height: 216px;
