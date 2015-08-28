@@ -6,24 +6,25 @@
             <span class="date">{{ post.create_date | moment }}</span>
         </h1>
     </div>
-    <ion-content class="has-header" has-bouncing="false">
+    <ion-content lazy-scroll class="has-header" has-bouncing="false">
         <div class="post-question">
             <div dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
         <img class="post-img"
              ng-if="post.img_id"
-             ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
+             image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
+             image-lazy-loader="crescent"
              ng-click="viewFullImage(post.img_id)">
         <div ng-repeat="reply in post.replies" class="post-comment-main">
             <div class="item item-avatar">
-                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square" />
+                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square">
                 {{reply.name}}<br>
                 <small class="date">{{reply.create_date | moment}}</small>
             </div>
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
                 <img class="post-img" ng-if="reply.img_id" ng-click="viewFullImage(reply.img_id)"
-                ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg">
+                     image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg" image-lazy-loader="crescent">
             </div>
         </div>
         <div class="padding text-center">

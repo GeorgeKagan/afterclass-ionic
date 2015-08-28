@@ -180,6 +180,13 @@ select {
 .highlight.highlight-new {
   background-color: #fcfcc5;
 }
+.image-loader-container {
+  text-align: center;
+}
+.spinner svg {
+  stroke: #4d9abf;
+  fill: #4d9abf;
+}
 .fade-in {
   transition: 0.5s linear all;
   opacity: 1;

@@ -16,7 +16,8 @@
     "angular-translate": "~2.7.0",
     "angular-translate-loader-static-files": "~2.7.0",
     "angular-animate": "~1.4.0",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "ion-image-lazy-load": "*"
   },
   "resolutions": {
     "angular": "1.4.4"

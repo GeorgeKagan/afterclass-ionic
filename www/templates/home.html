@@ -46,7 +46,7 @@
         <ion-tab title="{{::'POST.ANSWERED'|translate}}" on-select="scrollToTop()">
             <ion-content on-scroll="gotScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
-                <div ng-if="!posts && !posts_tutor_answered" class="spinner-wrapper"><ion-spinner class="spinner-calm"></ion-spinner></div>
+                <div ng-if="!posts && !posts_tutor_answered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
                 <!-- Student -->
                 <div ng-if="!$root.user.is_teacher" class="posts content">

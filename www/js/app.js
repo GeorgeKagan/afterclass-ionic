@@ -1,7 +1,7 @@
 angular.module('afterclass.controllers', ['ui.router']);
 
 angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
-    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate'])
+    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
         $ionicPlatform.ready(function () {
