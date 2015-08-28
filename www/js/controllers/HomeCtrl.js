@@ -75,14 +75,17 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         }
     };
 
+    var tabs = angular.element('#ac-tabs-inner > .tabs');
     $scope.gotScrolled = function () {
         var y = angular.element('.scroll:visible').offset().top;
         if (y <= -186) {
+            // Tabs sticky on top
             angular.element('.bar-header').addClass('scrolled');
-            angular.element('#ac-tabs-inner .tabs').css('top', $scope.getHeaderSize());
+            tabs.css('top', $scope.getHeaderSize());
         } else {
+            // Tabs following scroll
             angular.element('.bar-header').removeClass('scrolled');
-            angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos - Math.abs(y));
+            tabs.css('top', tabs_top_pos - Math.abs(y));
         }
     };
 

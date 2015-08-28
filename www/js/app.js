@@ -23,12 +23,14 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
         var appLang = 'he';
 
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
+
+        $ionicConfigProvider.scrolling.jsScrolling(false);
 
         //Translation
         $translateProvider.useStaticFilesLoader({
