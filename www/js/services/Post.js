@@ -14,8 +14,7 @@ angular.module('afterclass.services').factory('Post', function ($firebaseObject,
             potential_tutors    = $firebaseArray(ref.child('potential_tutors'));
 
         potential_tutors.$loaded().then(function (potentialTutors) {
-            var currentTutorIndex = _.findIndex(potentialTutors, {id: user_id});
-
+            var currentTutorIndex = _.findIndex(potentialTutors, {$id: user_id});
             if (currentTutorIndex > -1) {
                 // Tutor is found in potential tutors
                 potential_tutors[currentTutorIndex].status_update_date = moment().unix();
@@ -35,6 +34,7 @@ angular.module('afterclass.services').factory('Post', function ($firebaseObject,
             } else {
                 // Error
                 console.log('Error: tutor [' + user_id + '] was not found is potential tutors array');
+                console.log('potentialTutors', potentialTutors);
             }
         });
     };
