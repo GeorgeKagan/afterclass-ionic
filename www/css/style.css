@@ -83,6 +83,9 @@
 .view-container .pane.has-tabs {
   bottom: 0;
 }
+.scroll-bar-indicator {
+  display: none;
+}
 .popover.popover-4-items {
   height: 216px;
 }
@@ -204,6 +207,9 @@ select {
 }
 .bar-header h1.title .back-btn {
   float: right;
+}
+.bar-header h1.title .date {
+  font-size: 14px;
 }
 .bar-header h1.title:not(.no-logo) {
   background: url(../img/logo.png) 0 center no-repeat;

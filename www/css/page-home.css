@@ -39,7 +39,7 @@ body.platform-ios.is-teacher #home-page .scroll {
 }
 .tab-item {
   max-width: inherit;
-  font-weight: bold;
+  font-size: 16px;
 }
 .ask-q-area {
   background: url(../img/bg3.jpg) center center;
@@ -129,7 +129,7 @@ body.platform-ios.is-teacher #home-page .scroll {
   background: transparent !important;
 }
 .card .post-header .ph-date {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 100;
   float: right;
   color: #888888;
@@ -175,10 +175,10 @@ body.platform-ios.is-teacher #home-page .scroll {
 .card .button-bar button.button::before {
   content: " ";
   background: url(../img/speech-bubble.png) no-repeat;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   display: inline-block;
-  top: 10px;
+  top: 3px;
   position: relative;
   background-size: 100%;
 }
