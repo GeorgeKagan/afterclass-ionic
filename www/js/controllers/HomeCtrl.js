@@ -1,7 +1,10 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, Post, MyFirebase) {
+    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, Post, MyFirebase, InstitutePopup) {
     'use strict';
 
+    // Debug student choose insitute popup
+    //InstitutePopup.show();
+    
     // Load all user's questions from firebase
     var ref = MyFirebase.getRef().child('posts'),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered,

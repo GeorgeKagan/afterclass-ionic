@@ -1,17 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="co.il.afterclass" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>AfterClass</name>
-    <description>
-        Get answers to your questions
-    </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      AfterClass Team
-    </author>
+    <description>Get answers to your questions</description>
+    <author email="afterclass.rnd@gmail.com" href="http://www.afterclass.co.il">AfterClass Team</author>
     <content src="index.html" />
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
     <access launch-external="yes" origin="mailto:*" />
-    <allow-navigation href="*" />
+    <allow-navigation href="http://*/*" />
     <allow-intent href="*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />

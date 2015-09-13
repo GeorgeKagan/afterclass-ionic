@@ -64,20 +64,24 @@ angular.module('afterclass.services', [])
             $http.get('json/institutes-degrees.json').success(function(data) {
                 scope.hash              = {selInstitute: 0, selDegree: 0};
                 scope.institutes        = data;
+                scope.institutes[$translate.instant('OTHER')] = $translate.instant('OTHER');
                 scope.selectInstitute   = function() {
-                    var institute = angular.element('#popup-institute :selected').val();
+                    var institute = angular.element('#popup-institute :selected').attr('label');
                     scope.hash.selDegree = 0;
-                    if (institute != 0 && institute !== 'Other') {
+                    if (institute !== undefined && institute !== 'אחר') {
                         scope.degrees       = _.uniq(data[institute], 'name');
+                        scope.degrees.push({name: $translate.instant('OTHER')});
                         scope.showDegrees   = true;
-                    } else if (institute === 'Other') {
+                    } else if (institute === 'אחר') {
                         var all_degrees = [];
-                        angular.forEach(data, function(institute) {
-                            angular.forEach(institute, function(degree) {
+                        angular.forEach(data, function(dataInstitute) {
+                            angular.forEach(dataInstitute, function(degree) {
+                                if (dataInstitute === 'אחר') { return; }
                                 all_degrees.push(degree);
                             });
                         });
                         scope.degrees       = _.uniq(all_degrees, 'name');
+                        scope.degrees.push({name: $translate.instant('OTHER')});
                         scope.showDegrees   = true;
                     } else {
                         scope.showDegrees   = false;
@@ -92,9 +96,9 @@ angular.module('afterclass.services', [])
                                 text: '<span>' + $translate.instant('SAVE') + '</span>',
                                 type: 'button-positive',
                                 onTap: function (e) {
-                                    var institute = angular.element('#popup-institute :selected').val(),
-                                        degree = angular.element('#popup-degree :selected').val();
-                                    if (institute !== '0' && degree !== '0') {
+                                    var institute = angular.element('#popup-institute :selected').attr('label'),
+                                        degree = angular.element('#popup-degree :selected').attr('label');
+                                    if (institute !== undefined && degree !== undefined) {
                                         User.updateUser({institute: institute, degree: degree});
                                     } else {
                                         angular.element('#pi-err').show();
