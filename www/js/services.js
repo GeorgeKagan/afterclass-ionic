@@ -61,7 +61,7 @@ angular.module('afterclass.services', [])
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
-            $http.get('json/institutes-degrees.json').success(function(data) {
+            $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
                 scope.hash              = {selInstitute: 0, selDegree: 0};
                 scope.institutes        = data;
                 scope.institutes[$translate.instant('OTHER')] = $translate.instant('OTHER');
@@ -122,7 +122,7 @@ angular.module('afterclass.services', [])
     .factory('Institutes', function($q, $rootScope, $http) {
         var obj = {}, d = $q.defer();
         obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
-            $http.get('json/institutes-degrees.json').success(function(data) {
+            $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
                 var subjects = _.find(data[institute], {name: degree}).subjects;
                 d.resolve(subjects);
             });

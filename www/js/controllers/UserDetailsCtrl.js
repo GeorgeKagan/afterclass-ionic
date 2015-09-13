@@ -18,7 +18,7 @@ angular.module('afterclass.controllers').
 
     controller('UserDetailsTutorStep1Ctrl', function ($scope, $state, $http, TutorDetails) {
         $scope.selInstitutes = {};
-        $http.get('json/institutes-degrees.json').success(function(data) {
+        $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
             $scope.institutes = data;
         });
         $scope.submitTutorStep1 = function () {
