@@ -1,0 +1,21 @@
+<ion-view>
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i ui-sref="userDetails_tutorStep1" class="icon ion-chevron-left calm"></i>
+            <span ui-sref="userDetails_tutorStep1">{{::'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</span>
+        </h1>
+    </div>
+    <ion-content class="has-header padding" has-bouncing="false">
+        <form>
+            <div class="padding-bottom" ng-repeat="(name, instituteDegrees) in degrees">
+                <h4 class="text-center">{{name}}</h4>
+                <ion-checkbox ng-model="selDegrees[name + '|||' + degree.name]" ng-repeat="degree in instituteDegrees">{{degree.name}}</ion-checkbox>
+            </div>
+        </form>
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-block button-outline button-calm" ng-click="submitTutorStep2()" ng-disabled="isChecked(selDegrees)">
+            {{::'NEXT'|translate}}
+        </button>
+    </ion-footer-bar>
+</ion-view>

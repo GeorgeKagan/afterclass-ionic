@@ -1,0 +1,16 @@
+<ion-popover-view ng-class="'popover-' + (links.length + 2) + '-items'">
+    <ion-content has-bouncing="false" scroll="false">
+        <div class="list">
+            <span class="item">
+                {{'HI'|translate}}, {{user.facebook.displayName}}
+            </span>
+            <a class="item {{::link.classes}}" ng-repeat="link in links" ui-sref="{{link.sref}}"
+               ng-click="link.onclick ? link.onclick($event) : hidePopover()">
+                {{link.text|translate}}
+            </a>
+            <a class="item" ng-click="logout()">
+                {{'LOGOUT'|translate}}
+            </a>
+        </div>
+    </ion-content>
+</ion-popover-view>

@@ -1,0 +1,136 @@
+body.rtl {
+  // Header
+  .bar {
+    .title + .button:last-child {
+      left: 5px;
+      right: auto;
+    }
+    .date {
+      float: left;
+    }
+  }
+  .bar-header {
+    direction: rtl;
+    h1.title {
+      text-align: right;
+      .icon {
+        margin: 0;
+        padding: 0 5px 0 12px;
+        float: right;
+        &:before {
+          content: "\f125";
+        }
+      }
+    }
+    h1.title:not(.no-logo) {
+      background-position: right center;
+    }
+  }
+
+  // Footer
+  .bar .buttons.pull-right {
+    left: 5px;
+    right: auto;
+  }
+
+  // General
+  textarea,
+  .popup,
+  .popover {
+    direction: rtl;
+  }
+  .popup-buttons .button {
+    margin-left: 5px;
+    margin-right: 0;
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+  &.platform-android .action-sheet {
+    .action-sheet-title {
+      text-align: right;
+    }
+    .button {
+      text-align: right;
+      padding: 0 15px 0 0;
+    }
+  }
+
+  // Form
+  .item-checkbox {
+    direction: rtl;
+    padding-right: 60px;
+    padding-left: 0;
+    .checkbox-square .checkbox-icon::before {
+      margin-right: 14%;
+      margin-left: 0;
+    }
+  }
+  .item-input {
+    padding: 6px 16px 5px 5px;
+  }
+
+  // Question / card
+  .card {
+    .post-header {
+      .ph-subject {
+        direction: rtl;
+        right: 0;
+        left: auto;
+        border-radius: 0 0 0 5px;
+      }
+      .ph-date {
+        float: left;
+      }
+      .ph-delete {
+        float: left;
+        left: -10px;
+      }
+    }
+    .button-bar button.button {
+      direction: rtl;
+    }
+  }
+  .item-avatar {
+    padding-right: 72px;
+    padding-left: 0;
+    direction: rtl;
+    > img:first-child {
+      left: auto;
+      right: 16px;
+    }
+  }
+
+  // List
+  .item-note {
+    float: left;
+  }
+
+  // Pages
+  #about-page,
+  #contact-page,
+  #ask-question-page {
+    .scroll {
+      direction: rtl;
+    }
+  }
+
+  // Ask question page
+  #ask-question-page {
+    select {
+      right: -4px;
+    }
+  }
+
+  // View question page
+  #view-question-page ion-footer-bar#comment-bar {
+    .icon-camera {
+      left: auto;
+      right: 5px;
+    }
+    .img-preview {
+      left: auto;
+      right: 5px;
+    }
+  }
+}

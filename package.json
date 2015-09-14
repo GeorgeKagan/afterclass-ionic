@@ -14,6 +14,19 @@
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
   },
-  "cordovaPlugins": [],
-  "cordovaPlatforms": []
+  "cordovaPlugins": [
+    "./engine/cordova-crosswalk-engine-c0.6.1",
+    "org.apache.cordova.splashscreen",
+    "org.apache.cordova.dialogs",
+    "org.apache.cordova.file",
+    "org.apache.cordova.file-transfer",
+    "./engine/cordova-crosswalk-engine-c0.6.2",
+    "org.apache.cordova.camera",
+    "org.apache.cordova.inappbrowser",
+    "./engine/cordova-crosswalk-engine-c0.7.1"
+  ],
+  "cordovaPlatforms": [
+    "android",
+    "ios"
+  ]
 }

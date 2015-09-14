@@ -1,0 +1,52 @@
+<ion-view id="view-question-page" view-title="Post view">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i ng-click="backToHome()" class="icon ion-chevron-left calm"></i>
+            <span class="back-btn" ng-click="backToHome()">{{::"BACK"|translate}}</span>
+            <span class="date">{{ post.create_date | moment }}</span>
+        </h1>
+    </div>
+    <ion-content lazy-scroll class="has-header" has-bouncing="false">
+        <div class="post-question">
+            <div dir="auto" ng-bind-html="post.body | nl2br"></div>
+        </div>
+        <img class="post-img"
+             ng-if="post.img_id"
+             image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
+             image-lazy-loader="crescent"
+             ng-click="viewFullImage(post.img_id)">
+        <div ng-repeat="reply in post.replies" class="post-comment-main">
+            <div class="item item-avatar">
+                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square">
+                {{reply.name}}<br>
+                <small class="date">{{reply.create_date | moment}}</small>
+            </div>
+            <div class="post-comment item-body">
+                <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
+                <img class="post-img" ng-if="reply.img_id" ng-click="viewFullImage(reply.img_id)"
+                     image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg" image-lazy-loader="crescent">
+            </div>
+        </div>
+        <div class="padding text-center">
+            <span ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</span>
+            <button ng-if="post.replies" ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
+                {{::'REPORT_QUESTION'|translate}}
+            </button>
+        </div>
+    </ion-content>
+
+    <ion-footer-bar class="transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
+        <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
+            {{::'POST.ACCEPT_QUESTION'|translate}}
+        </button>
+    </ion-footer-bar>
+
+    <ion-footer-bar align-title="left" class="bar-light" id="comment-bar" ng-show="allowReply">
+        <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
+        <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
+        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
+        <div class="buttons pull-right">
+            <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

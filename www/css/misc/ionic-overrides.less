@@ -1,0 +1,59 @@
+@import "colors.less";
+
+.calm {
+  color: @blue;
+}
+
+.calm-bg {
+  background-color: @blue;
+}
+.balanced-bg {
+  background: @green_desaturated;
+}
+
+.bar.bar-positive {
+  background: @dark_blue;
+  border-color: @dark_blue;
+}
+
+.button.button-calm.button-outline,
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.tabs-striped.tabs-color-calm .tab-item.activated {
+  border-color: @blue;
+  color: @blue;
+}
+.button.button-calm.button-outline.activated {
+  background: @blue;
+}
+
+.button.button-positive {
+  background-color: @light_blue;
+  border-color: @light_blue;
+  &.activated {
+    background-color: darken(@light_blue, 5%);
+    border-color: darken(@light_blue, 5%);
+  }
+}
+
+.platform-android {
+  .action-sheet {
+    button {
+      padding: 0 0 0 15px;
+      &.destructive {
+        color: @red;
+      }
+    }
+  }
+}
+
+// Popup
+.popup-container .popup {
+  background: #fff;
+}
+
+// Footer
+.bar.bar-footer {
+  .button.button-block {
+    margin: 0;
+  }
+}

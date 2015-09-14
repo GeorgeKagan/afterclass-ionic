@@ -1,1 +1,242 @@
-/* Empty. Add your own CSS if you like */
+.TextShadow {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.RadialGradient {
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+.VerticalGradient {
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(26%, #fbfbfb), color-stop(100%, #e4e4e4));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
+}
+.calm {
+  color: #4d9abf;
+}
+.calm-bg {
+  background-color: #4d9abf;
+}
+.balanced-bg {
+  background: #75d574;
+}
+.bar.bar-positive {
+  background: #2263a5;
+  border-color: #2263a5;
+}
+.button.button-calm.button-outline,
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.tabs-striped.tabs-color-calm .tab-item.activated {
+  border-color: #4d9abf;
+  color: #4d9abf;
+}
+.button.button-calm.button-outline.activated {
+  background: #4d9abf;
+}
+.button.button-positive {
+  background-color: #54b5e2;
+  border-color: #54b5e2;
+}
+.button.button-positive.activated {
+  background-color: #3eabde;
+  border-color: #3eabde;
+}
+.platform-android .action-sheet button {
+  padding: 0 0 0 15px;
+}
+.platform-android .action-sheet button.destructive {
+  color: #ff3b30;
+}
+.popup-container .popup {
+  background: #fff;
+}
+.bar.bar-footer .button.button-block {
+  margin: 0;
+}
+* {
+  font-family: "Open Sans Hebrew", sans-serif !important;
+  font-weight: 300;
+}
+.content-section {
+  margin: 4px 18px;
+}
+.view-container .pane {
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+.view-container .pane.has-tabs {
+  bottom: 0;
+}
+.scroll-bar-indicator {
+  display: none;
+}
+.popover.popover-4-items {
+  height: 216px;
+}
+.popover.popover-5-items {
+  height: 266px;
+}
+.popover.popover-6-items {
+  height: 316px;
+}
+.popover.popover-7-items {
+  height: 376px;
+}
+.popup-body {
+  overflow: visible;
+}
+.popup-body select {
+  width: 100%;
+  margin: 10px 0;
+}
+strong {
+  color: #444444;
+  font-style: italic;
+}
+textarea {
+  resize: none;
+  background-color: transparent !important;
+  overflow: hidden;
+  overflow-y: auto;
+}
+select,
+textarea,
+input[type="text"] {
+  font-size: 15px;
+  color: #aaaaaa;
+  font-weight: 300;
+}
+select {
+  color: inherit;
+}
+.post-question {
+  font-size: 19px;
+  line-height: 27px;
+  margin: 0 0 1px 0;
+  padding-top: 5px;
+  font-weight: 300;
+}
+.post-comment-main {
+  border-bottom: 1px solid #EEE;
+}
+.post-comment-main .item {
+  background: transparent;
+}
+.post-comment-main .post-comment {
+  overflow: visible;
+}
+.post-comment-main .post-comment p {
+  font-size: 17px;
+  line-height: 21px;
+  font-weight: 300;
+}
+.post-comment-main .post-comment p:first-child {
+  margin-top: 0;
+}
+.post-comment-main .post-comment img {
+  margin: 15px auto 0 auto;
+  border-radius: 2px;
+}
+.date {
+  color: #888888;
+}
+.bar .date {
+  float: right;
+}
+.post-img {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+}
+.spinner-wrapper {
+  padding: 25px 0 0 0;
+  text-align: center;
+}
+.bold {
+  font-weight: bold;
+}
+.red {
+  color: #ff3b30 !important;
+}
+.highlight {
+  -moz-transition: background-color 2s;
+  -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
+  transition: background-color 2s;
+}
+.highlight.highlight-new {
+  background-color: #fcfcc5;
+}
+.image-loader-container {
+  text-align: center;
+}
+.spinner svg {
+  stroke: #4d9abf;
+  fill: #4d9abf;
+}
+.fade-in {
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+.fade-in.ng-hide {
+  opacity: 0;
+}
+.bar-header h1.title {
+  font-weight: 300;
+  text-align: left;
+}
+.bar-header h1.title .icon {
+  margin: 0;
+  padding: 0 12px 0 5px;
+}
+.bar-header h1.title .back-btn {
+  float: right;
+}
+.bar-header h1.title .date {
+  font-size: 14px;
+}
+.bar-header h1.title:not(.no-logo) {
+  background: url(../img/logo.png) 0 center no-repeat;
+  background-size: 131px 21px;
+}
+.list.list-simple .item {
+  background: transparent;
+  border-color: #eeeeee;
+  white-space: normal;
+}
+.list.list-simple .item.item:last-child {
+  border: 0;
+}
+#login-page,
+#on-boarding-page {
+  background: #BEBEBE !important;
+}
+#login-page .slider,
+#on-boarding-page .slider {
+  height: 100%;
+}
+#login-page img,
+#on-boarding-page img {
+  width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  display: block;
+  top: -1px;
+  position: relative;
+}

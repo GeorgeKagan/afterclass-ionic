@@ -1,0 +1,124 @@
+{
+    "USER_DETAILS": {
+        "CHOOSE_TITLE": "מי אתה?",
+        "IS_STUDENT": "אני סטודנט",
+        "IS_TUTOR": "אני מורה",
+        "TUTOR": {
+            "STEP1_TITLE": "אנא בחר מוסדות לימודים",
+            "STEP2_TITLE": "אנא בחר תארים",
+            "STEP3_TITLE": "אנא בחר מקצועות"
+        }
+    },
+    "POST": {
+        "ACCEPT_QUESTION": "ענה על השאלה",
+        "UNACCEPT_QUESTION": "דחה שאלה",
+        "SEND": "שלח",
+        "REPLY..": "שלח תגובה..",
+        "NOREPLIES": "אין פתרונות.. בנתיים!",
+        "UNANSWERED": "שאלות שלא נענו",
+        "ANSWERED": "שאלות עם פתרונות",
+        "STUDENT": {
+            "NOUNANSWERED": "אין לך שאלות שממתינות לפתרון",
+            "NOANSWERED": "אין לך שאלות שנענו בנתיים"
+        },
+        "TEACHER": {
+            "NOUNANSWERED": "אין כרגע שאלות שממתינות לתגובותך",
+            "NOANSWERED": "עדיין אין שאלות שענית עליהן"
+        },
+        "FULLRESOLUTION": "תצוגת גודל מקורי",
+        "ASKQUESTION": "שאל שאלה",
+        "CHOOSE..": "בחר..",
+        "YOUTQUESTION": "השאלה שלך",
+        "TYPEQUESTION": "הקלד את השאלה שלך..",
+        "CHOOSESUBJECT": "בחר נושא",
+        "ADDED_ATTACHMENT": "תמונה מצורפת"
+    },
+    "FORM": {
+        "REQUIRED": "אנא הזן ערכים בכל השדות הנדרשים",
+        "MISSING": "שדות חסרים",
+        "Q_SENT": "השאלה שלך נשלחה למרצים שלנו, התשובה תופיע מתחתיה בקרוב",
+        "Q_SENT_TITLE": "השאלה נשלחה!",
+        "GOT_IT": "אישור",
+        "ONLY_IMG": "ניתן להעלות תמונות בלבד",
+        "SURE": "האם אתה בטוח?",
+        "DEL_Q": "מחק שאלה"
+    },
+    "PAGES": {
+        "ABOUT": {
+            "MENU": "אודות",
+            "TITLE": "אודות AfterClass",
+            "CONTENT": "אנחנו מגניבים!"
+        },
+        "TOS": {
+            "TITLE": "תנאי שימוש",
+            "CONTENT": "הכי מגניבים שיש!"
+        },
+        "CONTACT": {
+          "MENU": "צור קשר",
+          "TITLE": "צור קשר",
+          "CONTENT": "כל הדרכים ליצור איתנו קשר"
+        },
+        "COUPON": {
+            "MENU": "ניצול קופון",
+            "TITLE": "ניצול קופון"
+        }
+    },
+    "NOTIFICATIONS": {
+        "TUTOR_REPLIED": "מרצה הגיב לשאלה שלך"
+    },
+    "UPLOADS": {
+        "PROGRESS": "מעלה... ",
+        "COMPLETE": "ההעלאה הושלמה",
+        "FAIL": "ההעלאה נכשלה"
+    },
+    "STATUS": {
+        "PENDING": "ממתין",
+        "PAID": "שולם"
+    },
+    "PAYMENT": {
+        "OUTSTANDING": "לזכאותך עומדים",
+        "WITHDRAW": "משוך",
+        "PREV_PAYMENTS": "תשלומים קודמים",
+        "GET_MONEY": "קבלת תשלום"
+    },
+    "GET_CREDIT": {
+        "TITLE": "בחר את התוכנית המתאימה ביותר",
+        "PLAN_1": "1 שאלות / 2 $",
+        "PLAN_2": "10 שאלות / 15 $",
+        "PLAN_3": "20 שאלות / 25 $",
+        "BUY": "קנה עכשיו",
+        "RECOMMENDED": "מומלץ!"
+    },
+    "BACK": "חזור",
+    "OK": "אישור",
+    "ERROR": "שגיאה",
+    "DELETE": "מחק",
+    "CANCEL": "ביטול",
+    "SAVE": "שמירה",
+    "CAMERA": "מצלמה",
+    "CAMERA": "מצלמה",
+    "REMOVE": "הסר",
+    "DOCUMENTS": "מסמכים",
+    "SEL_SOURCE": "בחר מקור",
+    "SEL_INSTITUTE": "אנא בחר מוסד לימודים",
+    "PLS_TYPE": "אנא הזן תגובה!",
+    "CHOOSEINSTITUE": "בחר מוסד לימודים",
+    "OTHER": "אחר",
+    "CHOOSEDEGREE": "בחר תואר",
+    "CHOOSE_INST_AND_DEGREE": "אנא בחר מוסד לימודים ותואר",
+    "HI": "היי",
+    "LOGOUT": "התנתק",
+    "REPLY": "שלח תגובה",
+    "ACCEPT_AND_ANSWER": "ענה על השאלה",
+    "ASK_QUESTION_REMAINING": "נותרו לך {{count}} שאלות",
+    "ASK_A_TEACHER": "שלח שאלה",
+    "GET_POINTS": "קבל נקודות",
+    "GET_PAYMENT": "קבל תשלום",
+    "GET_PAYMENT_SUBTITLE": "עד כה הרווחת <strong>{{sum}}</strong> &#8362;",
+    "NEXT": "המשך",
+    "REPORT_QUESTION": "דווח על התכתבות זו",
+    "REPORT_PLACEHOLDER": "פירוט הבעיה",
+    "REPORT_SENT": "הדיווח נשלח בהצלחה, ניצור עמך קשר בהקדם",
+    "SEND": "שלח",
+    "COMMENT_AGREEMENT": "לתשומת לבך, שליחת התגובה למורה היא לצורך חידוד הפתרון או התשובה ולא על מנת לשאול שאלה חדשה"
+}

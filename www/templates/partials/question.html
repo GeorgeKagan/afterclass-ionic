@@ -1,0 +1,36 @@
+<div>
+    <div ng-click="viewPost(post.$id)">
+        <div class="post-gradient">
+            <div class="post-header item">
+                <div class="ph-subject {{ header_bg }} light">{{ post.subject }}</div>
+                <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-show="!post.replies && !is_teacher"></div>
+                <div class="ph-date">{{ post.create_date | moment }}</div>
+            </div>
+            <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>
+        </div>
+        <div class="img-wrapper">
+            <img class="post-img" ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg">
+        </div>
+        <!-- replies -->
+        <div ng-repeat="reply in post.replies | orderObjectBy:'create_date' | limitTo: -2" class="post-comment-main">
+            <div class="item item-avatar">
+                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square" />
+                {{reply.name}}<br>
+                <small class="date">{{ reply.create_date | moment }}</small>
+            </div>
+            <div class="post-comment item item-body">
+                <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
+                <img class="post-img" ng-if="reply.img_id"
+                     ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg">
+            </div>
+        </div>
+    </div>
+    <div class="button-bar" ng-show="allowReply">
+        <!--<button ng-if="is_teacher && post.status==='unanswered'" class="button" ng-click="viewPost(post.$id)">&nbsp; {{::'ACCEPT_AND_ANSWER'|translate}}</button>-->
+        <!--<button ng-if="is_teacher && post.status==='answered'" class="button ion-thumbsdown button-positive" ng-click="postDecline(post)">&nbsp; Decline</button>-->
+        <!--<button ng-hide="is_teacher && post.status==='unanswered'" class="button" ng-click="viewPost(post.$id)">&nbsp; {{::'POST.ACCEPT_QUESTION'|translate}}</button>-->
+        <button ng-show="!is_teacher" class="button" ng-click="viewPost(post.$id)">&nbsp; {{::'REPLY'|translate}}</button>
+        <button ng-show="is_teacher && post.status==='assigned' && !isPostAccepted(post)" class="button button-ok" ng-click="toggleAcceptance(post.$id)">&nbsp; {{::'POST.ACCEPT_QUESTION'|translate}}</button>
+        <button ng-show="is_teacher && post.status==='assigned' && isPostAccepted(post)" class="button button-notok" ng-click="toggleAcceptance(post.$id)">&nbsp; {{::'POST.UNACCEPT_QUESTION'|translate}}</button>
+    </div>
+</div>

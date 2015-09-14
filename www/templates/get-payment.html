@@ -1,0 +1,39 @@
+<ion-view id="get-payment-page" view-title="Get payment">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i class="icon ion-chevron-left calm" ng-click="backToHome()"></i>
+            <span class="back-btn dark" ng-click="backToHome()">{{::"BACK"|translate}}</span>
+        </h1>
+    </div>
+    <ion-content class="has-header has-footer padding" has-bouncing="false" dir="auto">
+        <div class="gp-balance text-center">
+            {{::'PAYMENT.OUTSTANDING'|translate}}
+            <br>
+            <div class="gp-balance-inner">
+                <strong id="gp-balance">{{payment.balance ? payment.balance : 0 | number}}</strong> <span>&#8362;</span>
+            </div>
+        </div>
+        <button class="button button-block button-outline button-balanced" ng-disabled="!payment.balance" ng-click="withdraw()">
+            {{::'PAYMENT.WITHDRAW'|translate}}
+        </button>
+        <h3 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h3>
+        <ul class="list" ng-show="filteredPayments.length">
+            <li class="item highlight" ng-repeat="item in filteredPayments = (payment.previous | filter:{status: '!current'} | orderBy:'-status_date')">
+                <div class="row row-no-padding">
+                    <div class="col"><strong>{{::item.amount | number}}</strong> &#8362;</div>
+                    <div class="col text-center">
+                        <small>{{::item.status_date | moment}}</small>
+                    </div>
+                    <div class="col">
+                        <span class="item-note" ng-class="{'balanced': item.status==='paid', 'bold': item.status==='pending'}">
+                            {{::'STATUS.' + item.status.toUpperCase()|translate}}
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="text-center" ng-show="!filteredPayments.length">
+            N/A
+        </div>
+    </ion-content>
+</ion-view>

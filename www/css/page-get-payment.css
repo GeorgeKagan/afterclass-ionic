@@ -1,0 +1,45 @@
+.TextShadow {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.RadialGradient {
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+.VerticalGradient {
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(26%, #fbfbfb), color-stop(100%, #e4e4e4));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
+}
+#get-payment-page .gp-balance {
+  font-size: 150%;
+  line-height: 170%;
+}
+#get-payment-page .gp-balance .gp-balance-inner {
+  height: 44px;
+}
+#get-payment-page .gp-balance .gp-balance-inner span {
+  display: inline-block;
+  height: 100%;
+  margin: 9px 0 0 0;
+}
+#get-payment-page button {
+  margin: 20px 0 30px 0;
+}
+#get-payment-page strong {
+  font-size: 200%;
+  font-style: normal;
+}
+#get-payment-page .list strong {
+  font-size: 120%;
+}

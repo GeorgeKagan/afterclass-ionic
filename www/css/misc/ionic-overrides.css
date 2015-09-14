@@ -1,0 +1,42 @@
+.calm {
+  color: #4d9abf;
+}
+.calm-bg {
+  background-color: #4d9abf;
+}
+.balanced-bg {
+  background: #75d574;
+}
+.bar.bar-positive {
+  background: #2263a5;
+  border-color: #2263a5;
+}
+.button.button-calm.button-outline,
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.tabs-striped.tabs-color-calm .tab-item.activated {
+  border-color: #4d9abf;
+  color: #4d9abf;
+}
+.button.button-calm.button-outline.activated {
+  background: #4d9abf;
+}
+.button.button-positive {
+  background-color: #54b5e2;
+  border-color: #54b5e2;
+}
+.button.button-positive.activated {
+  background-color: #3eabde;
+  border-color: #3eabde;
+}
+.platform-android .action-sheet button {
+  padding: 0 0 0 15px;
+}
+.platform-android .action-sheet button.destructive {
+  color: #ff3b30;
+}
+.popup-container .popup {
+  background: #fff;
+}
+.bar.bar-footer .button.button-block {
+  margin: 0;
+}

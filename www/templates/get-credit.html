@@ -1,0 +1,40 @@
+<ion-view id="get-credit-page" view-title="Get credit">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i class="icon ion-chevron-left calm" ng-click="backToHome()"></i>
+            <span class="back-btn dark" ng-click="backToHome()">{{::"BACK"|translate}}</span>
+        </h1>
+    </div>
+    <ion-content class="has-header padding" has-bouncing="false" dir="auto">
+        <h4 class="padding text-center">
+            {{::"GET_CREDIT.TITLE"|translate}}
+        </h4>
+        <div class="padding clearfix">
+            <div class="pricing-table clearfix calm-border">
+                <div class="header">
+                    <h4>{{::"GET_CREDIT.PLAN_1"|translate}}</h4>
+                </div>
+                <div class="footer">
+                    <button class="button button-positive" ng-click="addCredit(1, 2)">{{::"GET_CREDIT.BUY"|translate}}</button>
+                </div>
+            </div>
+            <div class="pricing-table clearfix wide royal-border">
+                <div class="header">
+                    <h4>{{::"GET_CREDIT.PLAN_2"|translate}}</h4>
+                    <div class="ph-subject royal-bg light">{{::"GET_CREDIT.RECOMMENDED"|translate}}</div>
+                </div>
+                <div class="footer">
+                    <button class="button button-royal" ng-click="addCredit(10, 15)">{{::"GET_CREDIT.BUY"|translate}}</button>
+                </div>
+            </div>
+            <div class="pricing-table clearfix calm-border">
+                <div class="header">
+                    <h4>{{::"GET_CREDIT.PLAN_3"|translate}}</h4>
+                </div>
+                <div class="footer">
+                    <button class="button button-positive" ng-click="addCredit(20, 25)">{{::"GET_CREDIT.BUY"|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

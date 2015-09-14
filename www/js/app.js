@@ -1,71 +1,154 @@
-// Ionic Starter App
+angular.module('afterclass.controllers', ['ui.router']);
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
+    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
-
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-
-  .state('app', {
-    url: "/app",
-    abstract: true,
-    templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
-      }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
-    .state('app.playlists', {
-      url: "/playlists",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
-        }
-      }
+    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
+        $ionicPlatform.ready(function () {
+            if (window.cordova) {
+                var isOnline = $cordovaNetwork.isOnline();
+                if (!isOnline) {
+                    alert('Please check that you are connected to the internet');
+                }
+            }
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleDefault();
+            }
+        });
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
-});
+    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
+        var appLang = 'he';
+
+        if (!window.cordova) {
+            $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
+        }
+
+        $ionicConfigProvider.scrolling.jsScrolling(true);
+
+        //Translation
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'json/lang/',
+            suffix: '.json'
+        });
+        $translateProvider.preferredLanguage(appLang);
+        $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        //$translateProvider.fallbackLanguage('he');
+        //$translateProvider.determinePreferredLanguage();
+
+        moment.locale(appLang);
+
+        $stateProvider
+            .state('login', {
+                url: "/login",
+                templateUrl: "templates/login.html",
+                controller: 'LoginCtrl',
+                onEnter: function($state, $ionicHistory, $timeout) {
+                    if (!localStorage.getItem('finished_on_boarding')) {
+                        $timeout(function() {
+                            $ionicHistory.nextViewOptions({disableBack: true});
+                            $state.go('onBoarding');
+                        });
+                    }
+                }
+            })
+            .state('onBoarding', {
+                url: "/onBoarding",
+                templateUrl: "templates/on-boarding.html",
+                controller: 'OnBoardingCtrl'
+            })
+            // User details wizard
+            .state('userDetails_chooseType', {
+                url: '/chooseType',
+                templateUrl: 'templates/userDetails/choose-type.html',
+                controller: 'UserDetailsChooseTypeCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('userDetails_tutorStep1', {
+                cache: false,
+                url: '/tutorStep1',
+                templateUrl: 'templates/userDetails/tutor-step1.html',
+                controller: 'UserDetailsTutorStep1Ctrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('userDetails_tutorStep2', {
+                cache: false,
+                url: '/tutorStep2',
+                templateUrl: 'templates/userDetails/tutor-step2.html',
+                controller: 'UserDetailsTutorStep2Ctrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('userDetails_tutorStep3', {
+                cache: false,
+                url: '/tutorStep3',
+                templateUrl: 'templates/userDetails/tutor-step3.html',
+                controller: 'UserDetailsTutorStep3Ctrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            // end User details wizard
+            .state('home', {
+                cache: false,
+                url: "/home",
+                templateUrl: "templates/home.html",
+                controller: 'HomeCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('askQuestion', {
+                cache: false,
+                url: "/askQuestion",
+                templateUrl: "templates/ask-question.html",
+                controller: 'AskQuestionCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('getCredit', {
+                url: "/getCredit",
+                templateUrl: "templates/get-credit.html",
+                controller: 'GetCreditCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('getPayment', {
+                url: "/getPayment",
+                templateUrl: "templates/get-payment.html",
+                controller: 'GetPaymentCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('viewPost', {
+                url: "/viewPost/:firebase_id",
+                templateUrl: "templates/view-question.html",
+                controller: 'ViewQuestionCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('fullImage', {
+                url: "/fullImage/:img_id",
+                templateUrl: "templates/full-image.html",
+                controller: 'FullImageCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('about', {
+                url: "/about",
+                templateUrl: "templates/about.html",
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('contact', {
+                url: "/contact",
+                templateUrl: "templates/contact.html",
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('coupon', {
+                url: "/coupon",
+                templateUrl: "templates/coupon.html",
+                controller: 'CouponCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+        ;
+
+        // if none of the above states are matched, use this as the fallback
+        $urlRouterProvider.otherwise('/login');
+    });

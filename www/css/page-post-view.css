@@ -1,0 +1,95 @@
+.TextShadow {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.RadialGradient {
+  background: #ffffff;
+  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: radial-gradient(ellipse at center, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+}
+.VerticalGradient {
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(26%, #fbfbfb), color-stop(100%, #e4e4e4));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
+}
+#view-question-page .post-question {
+  color: #444444;
+  padding: 15px;
+  margin: 0 0 20px 0;
+  position: relative;
+  border-color: #dddddd !important;
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(26%, #fbfbfb), color-stop(100%, #e4e4e4));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #fbfbfb 26%, #e4e4e4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4', GradientType=0);
+}
+#view-question-page .post-question + .post-img {
+  margin: -20px auto 20px auto;
+}
+#view-question-page .post-comment-main {
+  border-bottom: 1px solid #EEE;
+}
+#view-question-page .post-comment-main .post-comment {
+  color: #444444;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#view-question-page .item {
+  border: 0 !important;
+  background: transparent;
+}
+#view-question-page #accept-bar {
+  background-color: #eeeeee;
+  padding: 8px 15px 10px 10px;
+  height: 60px;
+}
+#view-question-page #comment-bar {
+  padding: 0 65px 0 60px;
+  height: auto;
+}
+#view-question-page #comment-bar .icon-camera {
+  background: url(../img/take-picture-icon.png) 5px 5px no-repeat;
+  background-size: 36px 24px;
+  width: 55px;
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  bottom: 5px;
+}
+#view-question-page #comment-bar .img-preview {
+  display: block;
+  width: 45px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  bottom: 5px;
+  height: 35px;
+}
+#view-question-page #comment-bar input[type="text"],
+#view-question-page #comment-bar textarea {
+  width: 100%;
+  margin: 3px 0 0 0;
+  padding: 0;
+  position: relative;
+  top: 7px;
+  line-height: 20px;
+  resize: none;
+}
+#view-question-page #comment-bar .buttons .button {
+  height: 33px;
+  line-height: 31px;
+  padding: 0 12px;
+}

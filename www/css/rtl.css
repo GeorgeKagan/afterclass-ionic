@@ -1,0 +1,103 @@
+body.rtl .bar .title + .button:last-child {
+  left: 5px;
+  right: auto;
+}
+body.rtl .bar .date {
+  float: left;
+}
+body.rtl .bar-header {
+  direction: rtl;
+}
+body.rtl .bar-header h1.title {
+  text-align: right;
+}
+body.rtl .bar-header h1.title .icon {
+  margin: 0;
+  padding: 0 5px 0 12px;
+  float: right;
+}
+body.rtl .bar-header h1.title .icon:before {
+  content: "\f125";
+}
+body.rtl .bar-header h1.title:not(.no-logo) {
+  background-position: right center;
+}
+body.rtl .bar .buttons.pull-right {
+  left: 5px;
+  right: auto;
+}
+body.rtl textarea,
+body.rtl .popup,
+body.rtl .popover {
+  direction: rtl;
+}
+body.rtl .popup-buttons .button {
+  margin-left: 5px;
+  margin-right: 0;
+}
+body.rtl .popup-buttons .button:last-child {
+  margin-left: 0;
+}
+body.rtl.platform-android .action-sheet .action-sheet-title {
+  text-align: right;
+}
+body.rtl.platform-android .action-sheet .button {
+  text-align: right;
+  padding: 0 15px 0 0;
+}
+body.rtl .item-checkbox {
+  direction: rtl;
+  padding-right: 60px;
+  padding-left: 0;
+}
+body.rtl .item-checkbox .checkbox-square .checkbox-icon::before {
+  margin-right: 14%;
+  margin-left: 0;
+}
+body.rtl .item-input {
+  padding: 6px 16px 5px 5px;
+}
+body.rtl .card .post-header .ph-subject {
+  direction: rtl;
+  right: 0;
+  left: auto;
+  border-radius: 0 0 0 5px;
+}
+body.rtl .card .post-header .ph-date {
+  float: left;
+}
+body.rtl .card .post-header .ph-delete {
+  float: left;
+  left: -10px;
+}
+body.rtl .card .button-bar button.button {
+  direction: rtl;
+}
+body.rtl .item-avatar {
+  padding-right: 72px;
+  padding-left: 0;
+  direction: rtl;
+}
+body.rtl .item-avatar > img:first-child {
+  left: auto;
+  right: 16px;
+}
+body.rtl .item-note {
+  float: left;
+}
+body.rtl #about-page .scroll,
+body.rtl #contact-page .scroll,
+body.rtl #ask-question-page .scroll {
+  direction: rtl;
+}
+body.rtl #ask-question-page select {
+  right: -4px;
+}
+body.rtl #view-question-page ion-footer-bar#comment-bar .icon-camera {
+  left: auto;
+  right: 5px;
+}
+body.rtl #view-question-page ion-footer-bar#comment-bar .img-preview {
+  left: auto;
+  right: 5px;
+}
