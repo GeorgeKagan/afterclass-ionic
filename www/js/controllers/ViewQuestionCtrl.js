@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
+    $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
     $translate, $ionicPopup, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase) {
     'use strict';
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
@@ -139,11 +139,13 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                             post.complaint          = $scope.report.content;
                             $scope.report.content   = '';
                             post.$save();
-                            $ionicPopup.alert({
-                                title   : '',
-                                template: $translate.instant('REPORT_SENT'),
-                                okText  : $translate.instant('OK')
-                            });
+                            $timeout(function() {
+                                $ionicPopup.alert({
+                                    title   : '',
+                                    template: $translate.instant('REPORT_SENT'),
+                                    okText  : $translate.instant('OK')
+                                });
+                            }, 0);
                         });
                     }
                 }

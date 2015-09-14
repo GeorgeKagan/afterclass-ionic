@@ -2,6 +2,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
     'use strict';
 
     var ref = MyFirebase.getRef();
+    const INITIAL_CREDITS = 2;
 
     var obj = {
         saveToUsersCollection: function (authData) {
@@ -16,6 +17,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                         //uid: authData.uid,
                         update_date     : moment().utc().unix(),
                         create_date     : moment().utc().unix(),
+                        credits         : INITIAL_CREDITS,
                         name_lowercase  : authData.facebook.cachedUserProfile.name.toLowerCase() //TODO: Remove this when new dashboard is ready
                     });
                     user = angular.element.extend(user, data);
