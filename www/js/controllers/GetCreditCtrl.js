@@ -5,7 +5,7 @@ angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($
     $scope.addCredit = function (questionCount, paymentAmount) {
         var updateUserCredits = function () {
             User.updateUser({
-                credits: questionCount
+                credits: $rootScope.user.credits + questionCount
             });
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
