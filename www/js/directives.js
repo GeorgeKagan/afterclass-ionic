@@ -110,6 +110,10 @@ angular.module('afterclass.directives', [])
                         return false;
                     }
                 };
+
+                $scope.isPostHasTutorThatAccepted = function(post) {
+                    return _.filter(post.potential_tutors, {post_status: 'accepted'}).length;
+                };
             },
             link: function (scope, element, attrs) {
                 scope.is_teacher    = scope.$root.user.is_teacher;
