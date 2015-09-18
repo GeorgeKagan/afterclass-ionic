@@ -43,11 +43,11 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 Coupon.deductCredits(1);
                 $timeout(function () {
                     add_img_url = null;
-                    $ionicLoading.hide();
                     $state.go('home').then(function() {
-                        var unanswered = 0;
-                        $ionicTabsDelegate.select(unanswered);
                         $timeout(function() {
+                            var unanswered = 0;
+                            $ionicLoading.hide();
+                            $ionicTabsDelegate.select(unanswered);
                             $ionicPopup.alert({
                                 title   : $translate.instant('FORM.Q_SENT_TITLE'),
                                 template: $translate.instant('FORM.Q_SENT'),

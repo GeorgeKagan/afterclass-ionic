@@ -178,7 +178,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             replies.$add({
                 user        : $rootScope.user.uid,
-                name        : $rootScope.user.name,
+                first_name  : $rootScope.user.first_name,
+                last_name   : $rootScope.user.last_name,
                 body        : $scope.replyBody,
                 img_id      : img_id || '',
                 create_date : moment().utc().unix(),
