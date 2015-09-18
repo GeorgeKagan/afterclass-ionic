@@ -22,7 +22,8 @@ angular.module('afterclass.filters', [])
 
     .filter('moment', function(){
         return function(timestamp) {
-            return moment(timestamp * 1000).fromNow();
+            // Subtract 10 seconds (to fix 'in x seconds' bug
+            return moment(timestamp - (10 * 1000)).fromNow();
         };
     })
 ;

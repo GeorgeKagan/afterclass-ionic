@@ -182,7 +182,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 last_name   : $rootScope.user.last_name,
                 body        : $scope.replyBody,
                 img_id      : img_id || '',
-                create_date : moment().utc().unix(),
+                create_date : Firebase.ServerValue.TIMESTAMP,
                 is_teacher  : $rootScope.user.is_teacher
             }).then(function () {
                 $ionicLoading.hide();
@@ -194,7 +194,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 // + update update_date so it would go up in feed
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(function (post) {
-                    post.update_date    = moment().utc().unix();
+                    post.update_date    = Firebase.ServerValue.TIMESTAMP;
                     post.last_tutor_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {

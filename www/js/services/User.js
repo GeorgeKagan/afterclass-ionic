@@ -15,8 +15,8 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                     var data = angular.element.extend(authData.facebook.cachedUserProfile, {
                         // Add any initial custom properties here
                         //uid: authData.uid,
-                        update_date     : moment().utc().unix(),
-                        create_date     : moment().utc().unix(),
+                        update_date     : Firebase.ServerValue.TIMESTAMP,
+                        create_date     : Firebase.ServerValue.TIMESTAMP,
                         credits         : INITIAL_CREDITS,
                         name_lowercase  : authData.facebook.cachedUserProfile.name.toLowerCase() //TODO: Remove this when new dashboard is ready
                     });
@@ -37,7 +37,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
             var sync = ref.child('users/' + $rootScope.user.uid),
                 user = $firebaseObject(sync);
             user.$loaded().then(function (user) {
-                data.update_date    = moment().utc().unix();
+                data.update_date    = Firebase.ServerValue.TIMESTAMP;
                 user                = angular.element.extend(user, data);
                 user.$save(0);
             });
