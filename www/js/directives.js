@@ -122,9 +122,10 @@ angular.module('afterclass.directives', [])
         return {
             restrict: 'A',
             link: function() {
-                var is_teacher  = $rootScope.user.is_teacher,
-                    tabs        = {unanswered: 0, answered: 1};
-                $ionicTabsDelegate.select(is_teacher ? tabs.unanswered : tabs.answered);
+                var is_teacher   = $rootScope.user.is_teacher,
+                    tabs         = {unanswered: 0, answered: 1},
+                    selected_tab = parseInt(localStorage.getItem('home_selected_tab'));
+                $ionicTabsDelegate.select(selected_tab >= 0 ? selected_tab : (is_teacher ? tabs.unanswered : tabs.answered));
             }
         };
     })
