@@ -11,7 +11,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                 q       = $q.defer();
             user.$loaded().then(function () {
                 // New user added
-                if (!user.length) {
+                if (!user.id) {
                     var data = angular.element.extend(authData.facebook.cachedUserProfile, {
                         // Add any initial custom properties here
                         //uid: authData.uid,
