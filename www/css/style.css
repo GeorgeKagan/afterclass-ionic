@@ -43,6 +43,18 @@
 .button.button-calm.button-outline.activated {
   background: #4d9abf;
 }
+.tabs-striped.tabs-color-calm .tab-item {
+  height: 49px;
+}
+.tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.tabs-striped.tabs-color-calm .tab-item.activated {
+  background-color: #4c4c4c;
+}
+.platform-android .tabs-striped.tabs-color-calm .tab-item.tab-item-active,
+.platform-android .tabs-striped.tabs-color-calm .tab-item.activated {
+  margin: 0;
+  line-height: 51px;
+}
 .button.button-positive {
   background-color: #54b5e2;
   border-color: #54b5e2;
