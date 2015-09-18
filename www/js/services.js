@@ -26,9 +26,11 @@ angular.module('afterclass.services', [])
             getPicture: function(options) {
                 var q = $q.defer();
                 options = angular.element.extend({
-                    quality         : 80,
-                    destinationType : Camera.DestinationType.FILE_URI,
-                    mediaType       : Camera.MediaType.PICTURE
+                    quality             : 60,
+                    destinationType     : Camera.DestinationType.FILE_URI,
+                    mediaType           : Camera.MediaType.PICTURE,
+                    allowEdit           : true,
+                    correctOrientation  : true
                 }, options);
                 navigator.camera.getPicture(function(result) {
                     $window.resolveLocalFileSystemURL(result, function (fileEntry) {
