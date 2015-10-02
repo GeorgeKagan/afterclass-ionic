@@ -66,7 +66,13 @@
 #ask-question-page .aq-delete:active {
   opacity: 1;
 }
-#ask-question-page #aq-img img {
+#ask-question-page #aq-img-wrapper .item-divider {
+  background-color: #fff;
+}
+#ask-question-page #aq-img-wrapper .item-text-wrap {
+  border: 0;
+}
+#ask-question-page #aq-img-wrapper #aq-img img {
   max-width: 100%;
   border-radius: 3px;
 }

@@ -95,9 +95,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                     $ionicScrollDelegate.scrollTop();
                 });
             }, 1000);
-        }, function () {
-            $scope.removeAttachment();
-        });
+        }, function () { });
     };
 
     /**
@@ -121,9 +119,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                     $ionicScrollDelegate.scrollTop();
                 });
             }, 1000);
-        }, function () {
-            $scope.removeAttachment();
-        });
+        }, function () { });
     };
 
     /**

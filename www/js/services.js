@@ -29,8 +29,6 @@ angular.module('afterclass.services', [])
                     quality             : 60,
                     destinationType     : Camera.DestinationType.FILE_URI,
                     mediaType           : Camera.MediaType.PICTURE,
-                    allowEdit           : true,
-                    correctOrientation  : true
                 }, options);
                 navigator.camera.getPicture(function(result) {
                     $window.resolveLocalFileSystemURL(result, function (fileEntry) {
