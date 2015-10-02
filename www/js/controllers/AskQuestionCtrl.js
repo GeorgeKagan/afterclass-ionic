@@ -79,7 +79,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Focus body text area
      */
     $scope.subjectChanged = function () {
-        angular.element('#aq-body')[0].focus();
+        //angular.element('#aq-body')[0].focus();
     };
 
     /**
