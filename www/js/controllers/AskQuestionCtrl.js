@@ -106,8 +106,8 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
             if (!result.is_image) {
                 $scope.removeAttachment();
                 return $ionicPopup.alert({
-                    title   : $translate.instant('FORM.ONLY_IMG'),
-                    template: $translate.instant('ERROR'),
+                    title   : $translate.instant('ERROR'),
+                    template: $translate.instant('FORM.ONLY_IMG'),
                     okText  : $translate.instant('OK')
                 });
             }
@@ -116,7 +116,14 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 $scope.hasAttachment = true;
                 img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
                     angular.element(this).fadeIn();
-                    $ionicScrollDelegate.scrollTop();
+                    $ionicScrollDelegate.scrollBottom();
+                }).error(function() {
+                    $scope.removeAttachment();
+                    $ionicPopup.alert({
+                        title   : $translate.instant('ERROR'),
+                        template: $translate.instant('FORM.BAD_IMG'),
+                        okText  : $translate.instant('OK')
+                    });
                 });
             }, 1000);
         }, function () { });
