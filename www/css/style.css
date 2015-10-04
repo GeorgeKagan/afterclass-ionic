@@ -131,7 +131,7 @@ select,
 textarea,
 input[type="text"] {
   font-size: 15px;
-  color: #aaaaaa;
+  color: #888888 !important;
   font-weight: 300;
 }
 select {

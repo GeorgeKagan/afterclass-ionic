@@ -9,14 +9,14 @@
     <ion-content class="has-header has-footer" has-bouncing="false">
         <div class="list">
             <label for="aq-subject" class="item item-input item-stacked-label">
-                <span class="input-label">{{::'POST.CHOOSESUBJECT'|translate}}</span>
+                <span class="input-label"><span class="ion-university calm"></span> {{::'POST.CHOOSESUBJECT'|translate}}</span>
                 <select id="aq-subject" ng-options="subject for subject in subjects track by subject" ng-model="subject" ng-change="subjectChanged()">
                     <option value="">{{::'POST.CHOOSE..'|translate}}</option>
                 </select>
             </label>
-            <label class="body-wrapper item item-input item-floating-label">
-                <span class="input-label">{{::'POST.YOUTQUESTION'|translate}}</span>
-                <textarea id="aq-body" rows="9" placeholder="{{::'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
+            <label for="aq-body" class="item item-input item-stacked-label">
+                <span class="input-label"><span class="ion-android-textsms calm"></span> {{::'POST.YOUTQUESTION'|translate}}</span>
+                <textarea msd-elastic="\n" id="aq-body" ng-model="body" placeholder="{{::'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
             </label>
         </div>
         <div id="aq-img-wrapper" class="ng-hide" ng-show="hasAttachment">
