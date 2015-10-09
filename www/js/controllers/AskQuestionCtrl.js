@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function (
     $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
+    $ionicPopup, $timeout, $translate, $window, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
 
     var img         = angular.element('#aq-img');
     var ref         = MyFirebase.getRef().child('posts');
@@ -11,6 +11,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         $scope.subjects = data;
     });
 
+    $scope.body = {val: ''};
     $scope.hasAttachment = false;
 
     /**
@@ -137,5 +138,25 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         $scope.hasAttachment    = false;
         img.html('');
         $ionicScrollDelegate.scrollTop();
+    };
+
+    /**
+     * Confirm back if body filled
+     */
+    $scope.backToHome = function () {
+        if ($scope.body.val.trim() !== '') {
+            var confirmPopup = $ionicPopup.confirm({
+                title: $translate.instant('FORM.DATA_FILLED'),
+                template: $translate.instant('FORM.BACK_ANYWAY'),
+                cancelText: $translate.instant('CANCEL'),
+                okText: $translate.instant('OK')
+            });
+            confirmPopup.then(function(res) {
+                if (!res) { return; }
+                $window.history.back();
+            });
+        } else {
+            $window.history.back();
+        }
     };
 });
