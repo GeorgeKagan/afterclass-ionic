@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
-    $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
+    $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
     $translate, $ionicPopup, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase) {
     'use strict';
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
@@ -212,6 +212,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                         AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
                     }
                     post.$save();
+
+                    // Run sync + algorithm
+                    $http.get('http://dashboard.afterclass.co.il/run_sync_and_algorithm.php?hash=FHRH$e509ru28340sdfc2$', function (data) { console.info(data); });
                 });
             }, function (error) {
                 $ionicLoading.hide();
