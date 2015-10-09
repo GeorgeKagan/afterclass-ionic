@@ -33,6 +33,11 @@ angular.module('afterclass.services', [])
                 navigator.camera.getPicture(function(result) {
                     $window.resolveLocalFileSystemURL(result, function (fileEntry) {
                         fileEntry.file(function (fileObj) {
+                            // On some versions, gallery attachment url is bad, so let's fix it!
+                            if (result.substring(0, 21) === 'content://com.android') {
+                                var photo_split = result.split('%3A');
+                                result = 'content://media/external/images/media/' + photo_split[1];
+                            }
                             var fileType = result.substring(result.lastIndexOf('.') + 1);
                             var is_image = true;
                             if (fileType != 'png' && fileType != 'jpg' && fileType != 'gif' && fileType != 'bmp') {

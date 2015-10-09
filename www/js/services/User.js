@@ -2,7 +2,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
     'use strict';
 
     var ref = MyFirebase.getRef();
-    const INITIAL_CREDITS = 2;
+    var INITIAL_CREDITS = 2;
 
     var obj = {
         saveToUsersCollection: function (authData) {
