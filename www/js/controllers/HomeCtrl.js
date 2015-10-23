@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, Post, MyFirebase, InstitutePopup) {
+    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, Post, MyFirebase, InstitutePopup) {
     'use strict';
 
     // Debug student choose insitute popup
@@ -93,6 +93,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.scrollToTop = function () {
+        localStorage.setItem('home_selected_tab', $ionicTabsDelegate.selectedIndex());
         $ionicScrollDelegate.scrollTop(true);
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;

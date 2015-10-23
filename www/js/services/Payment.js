@@ -54,8 +54,8 @@ angular.module('afterclass.services').factory('Payment', function($rootScope, $q
             status      : 'paid',
             receipt_id  : '$#%34gfd8gk',
             payment_hash: 'JdasASA^$^2@',
-            status_date : Math.floor(Date.now() / 1000),
-            create_date : Math.floor(Date.now() / 1000)
+            status_date : Firebase.ServerValue.TIMESTAMP,
+            create_date : Firebase.ServerValue.TIMESTAMP
         }).then(function () {
 
         }, function (error) {

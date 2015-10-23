@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
-    $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
+    $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
     $translate, $ionicPopup, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase) {
     'use strict';
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
@@ -178,10 +178,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             replies.$add({
                 user        : $rootScope.user.uid,
-                name        : $rootScope.user.name,
+                first_name  : $rootScope.user.first_name,
+                last_name   : $rootScope.user.last_name,
                 body        : $scope.replyBody,
                 img_id      : img_id || '',
-                create_date : moment().utc().unix(),
+                create_date : Firebase.ServerValue.TIMESTAMP,
                 is_teacher  : $rootScope.user.is_teacher
             }).then(function () {
                 $ionicLoading.hide();
@@ -193,7 +194,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 // + update update_date so it would go up in feed
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(function (post) {
-                    post.update_date    = moment().utc().unix();
+                    post.update_date    = Firebase.ServerValue.TIMESTAMP;
                     post.last_tutor_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {
@@ -211,6 +212,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                         AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
                     }
                     post.$save();
+
+                    // Run sync + algorithm
+                    $http.get('http://dashboard.afterclass.co.il/run_sync_and_algorithm.php?hash=FHRH$e509ru28340sdfc2$', function (data) { console.info(data); });
                 });
             }, function (error) {
                 $ionicLoading.hide();

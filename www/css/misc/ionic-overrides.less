@@ -16,6 +16,7 @@
   border-color: @dark_blue;
 }
 
+// Tabs + header btn colors
 .button.button-calm.button-outline,
 .tabs-striped.tabs-color-calm .tab-item.tab-item-active,
 .tabs-striped.tabs-color-calm .tab-item.activated {
@@ -24,6 +25,18 @@
 }
 .button.button-calm.button-outline.activated {
   background: @blue;
+}
+
+// Tabs
+.tabs-striped.tabs-color-calm .tab-item {
+  height: 49px;
+  &.tab-item-active, &.activated {
+    background-color: lighten(@dark_gray2, 3%);
+    .platform-android & {
+      margin: 0;
+      line-height: 51px;
+    }
+  }
 }
 
 .button.button-positive {

@@ -34,7 +34,7 @@ angular.module('afterclass.services').factory('CloudinaryUpload', function ($q, 
                     $ionicLoading.show({template: $translate.instant('UPLOADS.FAIL'), duration: 3000});
                     deferred.reject(err);
                 }, function (progress) {
-                    percentage = Math.floor(progress.loaded / fileSize * 100);
+                    percentage = Math.min(Math.floor(progress.loaded / fileSize * 100), 100);
                     $ionicLoading.show({template: $translate.instant('UPLOADS.PROGRESS') + percentage + '%'});
                 });
         }

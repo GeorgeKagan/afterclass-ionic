@@ -22,11 +22,19 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
             {sref: 'about', text: 'PAGES.ABOUT.MENU'},
             {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
         ];
-        if (!$rootScope.user.is_teacher) {
+        if ($rootScope.user.is_teacher !== undefined && !$rootScope.user.is_teacher) {
             $scope.links.push({sref: 'getCredit', text: 'GET_POINTS'});
         }
         // Add dev actions
-        var devUsers = ['1591285834446649', '1518736295015643', '10205593403011749', '10205364847174667', '10153250113479854', '10152843702557886'],
+        var devUsers = [
+                '1591285834446649',
+                '1518736295015643',
+                '10205593403011749', // Gosha
+                '10206625622492055', // Katya
+                '10205364847174667', // Gitlin
+                '10153250113479854', // Sunshine
+                '10152843702557886'
+            ],
             env = localStorage.getItem('env');
         if (_.indexOf(devUsers, $rootScope.user.id) !== -1) {
             $rootScope.isDevUser = true;

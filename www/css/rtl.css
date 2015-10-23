@@ -90,9 +90,6 @@ body.rtl #contact-page .scroll,
 body.rtl #ask-question-page .scroll {
   direction: rtl;
 }
-body.rtl #ask-question-page select {
-  right: -4px;
-}
 body.rtl #view-question-page ion-footer-bar#comment-bar .icon-camera {
   left: auto;
   right: 5px;

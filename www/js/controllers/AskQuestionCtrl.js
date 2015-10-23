@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
+    $rootScope, $scope, $http, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
+    $ionicPopup, $timeout, $translate, $window, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
 
     var img         = angular.element('#aq-img');
     var ref         = MyFirebase.getRef().child('posts');
@@ -11,6 +11,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         $scope.subjects = data;
     });
 
+    $scope.body = {val: ''};
     $scope.hasAttachment = false;
 
     /**
@@ -33,8 +34,8 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 body                   : angular.element('#aq-body').val(),
                 img_id                 : img_id || '',
                 status                 : 'unanswered',
-                create_date            : moment().utc().unix(),
-                update_date            : moment().utc().unix(),
+                create_date            : Firebase.ServerValue.TIMESTAMP,
+                update_date            : Firebase.ServerValue.TIMESTAMP,
                 potential_tutors       : null,
                 replies                : '',
                 last_tutor_id          : '',
@@ -43,16 +44,19 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 Coupon.deductCredits(1);
                 $timeout(function () {
                     add_img_url = null;
-                    $ionicLoading.hide();
                     $state.go('home').then(function() {
-                        var unanswered = 0;
-                        $ionicTabsDelegate.select(unanswered);
                         $timeout(function() {
+                            var unanswered = 0;
+                            $ionicLoading.hide();
+                            $ionicTabsDelegate.select(unanswered);
                             $ionicPopup.alert({
                                 title   : $translate.instant('FORM.Q_SENT_TITLE'),
                                 template: $translate.instant('FORM.Q_SENT'),
                                 okText  : $translate.instant('OK')
                             });
+
+                            // Run sync + algorithm
+                            $http.get('http://dashboard.afterclass.co.il/run_sync_and_algorithm.php?hash=FHRH$e509ru28340sdfc2$', function (data) { console.info(data); });
                         }, 1000);
                     });
                 }, 1000);
@@ -79,7 +83,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Focus body text area
      */
     $scope.subjectChanged = function () {
-        angular.element('#aq-body')[0].focus();
+        //angular.element('#aq-body')[0].focus();
     };
 
     /**
@@ -95,9 +99,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                     $ionicScrollDelegate.scrollTop();
                 });
             }, 1000);
-        }, function () {
-            $scope.removeAttachment();
-        });
+        }, function () { });
     };
 
     /**
@@ -108,8 +110,8 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
             if (!result.is_image) {
                 $scope.removeAttachment();
                 return $ionicPopup.alert({
-                    title   : $translate.instant('FORM.ONLY_IMG'),
-                    template: $translate.instant('ERROR'),
+                    title   : $translate.instant('ERROR'),
+                    template: $translate.instant('FORM.ONLY_IMG'),
                     okText  : $translate.instant('OK')
                 });
             }
@@ -118,12 +120,17 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 $scope.hasAttachment = true;
                 img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
                     angular.element(this).fadeIn();
-                    $ionicScrollDelegate.scrollTop();
+                    $ionicScrollDelegate.scrollBottom();
+                }).error(function() {
+                    $scope.removeAttachment();
+                    $ionicPopup.alert({
+                        title   : $translate.instant('ERROR'),
+                        template: $translate.instant('FORM.BAD_IMG'),
+                        okText  : $translate.instant('OK')
+                    });
                 });
             }, 1000);
-        }, function () {
-            $scope.removeAttachment();
-        });
+        }, function () { });
     };
 
     /**
@@ -134,5 +141,25 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         $scope.hasAttachment    = false;
         img.html('');
         $ionicScrollDelegate.scrollTop();
+    };
+
+    /**
+     * Confirm back if body filled
+     */
+    $scope.backToHome = function () {
+        if ($scope.body.val.trim() !== '') {
+            var confirmPopup = $ionicPopup.confirm({
+                title: $translate.instant('FORM.DATA_FILLED'),
+                template: $translate.instant('FORM.BACK_ANYWAY'),
+                cancelText: $translate.instant('CANCEL'),
+                okText: $translate.instant('OK')
+            });
+            confirmPopup.then(function(res) {
+                if (!res) { return; }
+                $window.history.back();
+            });
+        } else {
+            $window.history.back();
+        }
     };
 });

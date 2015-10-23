@@ -26,14 +26,14 @@ angular.module('afterclass.services', [])
             getPicture: function(options) {
                 var q = $q.defer();
                 options = angular.element.extend({
-                    quality         : 80,
-                    destinationType : Camera.DestinationType.FILE_URI,
-                    mediaType       : Camera.MediaType.PICTURE
+                    quality             : 60,
+                    destinationType     : Camera.DestinationType.FILE_URI,
+                    mediaType           : Camera.MediaType.PICTURE
                 }, options);
                 navigator.camera.getPicture(function(result) {
                     $window.resolveLocalFileSystemURL(result, function (fileEntry) {
                         fileEntry.file(function (fileObj) {
-                            // On crosswalk engine, the url is bad, so let's fix it!
+                            // On some versions, gallery attachment url is bad, so let's fix it!
                             if (result.substring(0, 21) === 'content://com.android') {
                                 var photo_split = result.split('%3A');
                                 result = 'content://media/external/images/media/' + photo_split[1];

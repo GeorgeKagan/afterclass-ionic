@@ -17,6 +17,7 @@ angular.module('afterclass.services').factory('AmazonSNS', function ($rootScope,
                 return;
             }
             var q = $q.defer();
+
             if (ionic.Platform.isIOS()) {
                 var iosConfig = {
                     badge: true,
@@ -68,10 +69,6 @@ angular.module('afterclass.services').factory('AmazonSNS', function ($rootScope,
                     case 'message':
                         // This is the actual push notification. Its format depends on the data model from the push server
                         console.log('message', notification);
-                        $ionicPopup.alert({
-                            title   : '',
-                            template: notification.message
-                        });
                         break;
                     case 'error':
                         console.log('GCM error = ' + notification.msg);
