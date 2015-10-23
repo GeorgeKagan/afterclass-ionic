@@ -9,19 +9,23 @@
             <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
         <div class="img-wrapper">
-            <img class="post-img" ng-if="post.img_id" ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg">
+            <img class="post-img" ng-if="post.img_id"
+                 ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
+                 width="550" height="250">
         </div>
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'create_date' | limitTo: -2" class="post-comment-main">
             <div class="item item-avatar">
-                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square" />
+                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square"
+                     width="40" height="40" />
                 {{reply.first_name}} {{reply.last_name | limitTo:1}}<br>
                 <small class="date">{{ reply.create_date | moment }}</small>
             </div>
             <div class="post-comment item item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
                 <img class="post-img" ng-if="reply.img_id"
-                     ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg">
+                     ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg"
+                     width="550" height="200">
             </div>
         </div>
     </div>

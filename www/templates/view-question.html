@@ -14,17 +14,21 @@
              ng-if="post.img_id"
              image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
              image-lazy-loader="crescent"
-             ng-click="viewFullImage(post.img_id)">
+             ng-click="viewFullImage(post.img_id)"
+             width="550" height="250">
         <div ng-repeat="reply in post.replies" class="post-comment-main">
             <div class="item item-avatar">
-                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square">
+                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square"
+                     width="40" height="40">
                 {{reply.first_name}} {{reply.last_name | limitTo:1}}<br>
                 <small class="date">{{reply.create_date | moment}}</small>
             </div>
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
                 <img class="post-img" ng-if="reply.img_id" ng-click="viewFullImage(reply.img_id)"
-                     image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg" image-lazy-loader="crescent">
+                     image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_200,w_550/{{reply.img_id}}.jpg"
+                     image-lazy-loader="crescent"
+                     width="550" height="200">
             </div>
         </div>
         <div class="padding text-center">
