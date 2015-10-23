@@ -135,17 +135,29 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     text: '<span>' + $translate.instant('SEND') + '</span>',
                     type: 'button-positive button-block',
                     onTap: function () {
+                        if (!$scope.report.content.trim()) {
+                            return;
+                        }
                         $scope.post.$loaded().then(function (post) {
-                            post.complaint          = $scope.report.content;
-                            $scope.report.content   = '';
-                            post.$save();
-                            $timeout(function() {
-                                $ionicPopup.alert({
-                                    title   : '',
-                                    template: $translate.instant('REPORT_SENT'),
-                                    okText  : $translate.instant('OK')
+                            var complaints = $firebaseArray(ref.child('complaints'));
+                            complaints.$loaded().then(function(post) {
+                                complaints.$add({
+                                    user                : $rootScope.user.name,
+                                    body                : $scope.report.content,
+                                    create_date         : Firebase.ServerValue.TIMESTAMP,
+                                    create_date_human   : moment().format('D/M/YY'),
+                                    is_teacher          : $rootScope.user.is_teacher
                                 });
-                            }, 0);
+                                $scope.report.content = '';
+                                post.$save();
+                                $timeout(function() {
+                                    $ionicPopup.alert({
+                                        title   : '',
+                                        template: $translate.instant('REPORT_SENT'),
+                                        okText  : $translate.instant('OK')
+                                    });
+                                }, 0);
+                            });
                         });
                     }
                 }
