@@ -243,4 +243,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.viewFullImage = function (img_id) {
         $state.go('fullImage', {img_id: img_id});
     };
+
+    $timeout(function() {
+        $ionicScrollDelegate.scrollBottom(true);
+    }, 1000);
 });
