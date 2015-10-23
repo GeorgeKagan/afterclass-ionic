@@ -100,11 +100,8 @@ angular.module('afterclass.directives', [])
                 }
 
                 $scope.isPostAccepted = function(post) {
-                    angular.forEach(post.potential_tutors, function(tutor) {
-                        tutor.$id = 'facebook:' + tutor.id;
-                    });
-                    var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), '$id');
-                    if(acceptingTutors.length > 0) {
+                    var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'user_id');
+                    if (acceptingTutors.length > 0) {
                         return acceptingTutors[0] === $rootScope.user.uid;
                     } else {
                         return false;
