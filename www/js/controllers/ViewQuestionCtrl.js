@@ -145,7 +145,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                                     user                : $rootScope.user.name,
                                     body                : $scope.report.content,
                                     create_date         : Firebase.ServerValue.TIMESTAMP,
-                                    create_date_human   : moment().format('D/M/YY'),
+                                    create_date_human   : moment().format('D/M/YY H:mm:ss'),
                                     is_teacher          : $rootScope.user.is_teacher
                                 });
                                 $scope.report.content = '';
@@ -188,15 +188,25 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
         var persist_reply = function (img_id) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-            replies.$add({
-                user        : $rootScope.user.uid,
-                first_name  : $rootScope.user.first_name,
-                last_name   : $rootScope.user.last_name,
-                body        : $scope.replyBody,
-                img_id      : img_id || '',
-                create_date : Firebase.ServerValue.TIMESTAMP,
-                is_teacher  : $rootScope.user.is_teacher
-            }).then(function () {
+
+            var replyData = {
+                user                : $rootScope.user.uid,
+                first_name          : $rootScope.user.first_name,
+                last_name           : $rootScope.user.last_name,
+                body                : $scope.replyBody,
+                img_id              : img_id || '',
+                create_date         : Firebase.ServerValue.TIMESTAMP,
+                create_date_human   : moment().format('D/M/YY H:mm:ss'),
+                is_teacher          : $rootScope.user.is_teacher
+            };
+
+            if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
+                // Get the timestamp when teacher accepted question and save it on the reply
+                replyData.accept_date       = $scope.post.potential_tutors[$rootScope.user.$id].status_update_date;
+                replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
+            }
+
+            replies.$add(replyData).then(function () {
                 $ionicLoading.hide();
                 $scope.add_img_preview  = false;
                 $scope.replyBody        = '';
