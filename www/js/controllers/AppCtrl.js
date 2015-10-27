@@ -33,7 +33,8 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
                 '10206625622492055', // Katya
                 '10205364847174667', // Gitlin
                 '10153250113479854', // Sunshine
-                '10152843702557886'
+                '10152843702557886', // Arik
+                '10208031223882048' // Dor
             ],
             env = localStorage.getItem('env');
         if (_.indexOf(devUsers, $rootScope.user.id) !== -1) {
