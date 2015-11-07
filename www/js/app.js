@@ -6,8 +6,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
         $ionicPlatform.ready(function () {
             if (window.cordova) {
-                var isOnline = $cordovaNetwork.isOnline();
-                if (!isOnline) {
+                if (!$cordovaNetwork.isOnline()) {
                     alert('Please check that you are connected to the internet');
                 }
             }
@@ -23,13 +22,14 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
+    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
         var appLang = 'he';
 
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
         }
 
+        $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
 
         //Translation

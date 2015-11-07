@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, Post, MyFirebase, InstitutePopup) {
+    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup) {
     'use strict';
 
     // Debug student choose insitute popup
@@ -52,6 +52,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.deletePost = function ($event, firebase_id) {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         var confirmPopup = $ionicPopup.confirm({
             title       : $translate.instant('FORM.DEL_Q'),
             template    : $translate.instant('FORM.SURE'),
@@ -67,6 +70,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.toggleAcceptance = function (firebase_id) {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
 

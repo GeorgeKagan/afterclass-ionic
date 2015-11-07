@@ -33,7 +33,7 @@ angular.module('afterclass.directives', [])
         };
     })
 
-    .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, Payment, Coupon) {
+    .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, $cordovaNetwork, Payment, Coupon) {
         return {
             restrict: 'E',
             replace : 'true',
@@ -62,6 +62,9 @@ angular.module('afterclass.directives', [])
                     var pointsLeft  = Coupon.getPointsLeft();
                     scope.btnText   = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
                     scope.btnClick  = function () {
+                        if (window.cordova && !$cordovaNetwork.isOnline()) {
+                            return alert('Please check that you are connected to the internet');
+                        }
                         $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
                     };
                     scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
