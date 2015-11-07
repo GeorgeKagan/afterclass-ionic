@@ -34,10 +34,11 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
                 '10205364847174667', // Gitlin
                 '10153250113479854', // Sunshine
                 '10152843702557886', // Arik
-                '10208031223882048' // Dor
+                '10208031223882048', // Dor
+                '104530943234576' // Helen Denth
             ],
             env = localStorage.getItem('env');
-        if (_.indexOf(devUsers, $rootScope.user.id) !== -1) {
+        if (_.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
             $rootScope.isDevUser = true;
             // Switch Firebase env
             $scope.links.push({onclick: function ($event) {
