@@ -8,6 +8,8 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             if (window.cordova) {
                 if (!$cordovaNetwork.isOnline()) {
                     alert('Please check that you are connected to the internet');
+                    window.location.reload();
+                    return false;
                 }
             }
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
