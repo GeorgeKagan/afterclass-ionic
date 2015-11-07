@@ -32,8 +32,8 @@
             </div>
         </div>
         <div class="padding text-center">
-            <span ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</span>
-            <button ng-if="post.replies" ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
+            <div ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</div>
+            <button ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
                 {{::'REPORT_QUESTION'|translate}}
             </button>
         </div>
