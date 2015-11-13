@@ -226,6 +226,8 @@ select {
 }
 .bar-header h1.title .back-btn {
   float: right;
+  min-width: 50px;
+  text-align: center;
 }
 .bar-header h1.title .date {
   font-size: 14px;

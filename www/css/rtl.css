@@ -13,8 +13,11 @@ body.rtl .bar-header h1.title {
 }
 body.rtl .bar-header h1.title .icon {
   margin: 0;
-  padding: 0 5px 0 12px;
+  padding: 0;
   float: right;
+  display: inline-block;
+  width: 35px;
+  text-align: center;
 }
 body.rtl .bar-header h1.title .icon:before {
   content: "\f125";
