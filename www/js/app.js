@@ -28,7 +28,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         var appLang = 'he';
 
         if (!window.cordova) {
-            $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
+            $cordovaFacebookProvider.browserInit(776966842380887, "v2.5");
         }
 
         $httpProvider.interceptors.push('HttpInterceptor');
