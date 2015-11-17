@@ -8,7 +8,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     // Load all user's questions from firebase
     var ref = MyFirebase.getRef().child('posts'),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered,
-        tabs_top_pos = 230;
+		tabs_top_pos = $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 260 : 230;
 
     // Teacher home
     if ($rootScope.user.is_teacher) {
