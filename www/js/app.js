@@ -96,14 +96,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             })
             // end User details wizard
             .state('home', {
-                cache: false,
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('askQuestion', {
-                cache: false,
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
                 controller: 'AskQuestionCtrl',
