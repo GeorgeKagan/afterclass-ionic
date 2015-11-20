@@ -232,9 +232,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     if ($rootScope.user.is_teacher) {
                         post.status = 'answered';
                     }
-                    // If student replied and status is answered, mark qa as unanswered
+                    // If student replied and status is answered, mark q as unanswered
+                    // and remove acceptedBy field (so would be available to all potential tutors)
                     else if (post.status === 'answered') {
                         post.status = 'unanswered';
+                        post.acceptedBy = null;
                     }
                     // If last reply was by tutor, reset potential tutors
                     if (post.last_tutor_id) {
