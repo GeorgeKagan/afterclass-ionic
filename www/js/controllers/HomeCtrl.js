@@ -16,7 +16,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
         $scope.posts_tutor_unanswered = $firebaseArray(ref);
         $scope.ifPotentialTutor = function (post) {
-            if (post.acceptedBy) {
+            if (post.acceptedBy && post.acceptedBy !== $rootScope.user.uid) {
                 return false;
             }
             var tutor_ids = [];
