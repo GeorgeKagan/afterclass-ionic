@@ -14,11 +14,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
-        sync2                   = ref.orderByChild('status').equalTo('assigned');
-        posts_tutor_unanswered  = $firebaseArray(sync2);
-        posts_tutor_unanswered.$loaded().then(function () {
-            $scope.posts_tutor_unanswered = posts_tutor_unanswered;
-        });
+        $scope.posts_tutor_unanswered = $firebaseArray(ref);
         $scope.ifPotentialTutor = function (post) {
             var tutor_ids = [];
             if (post.potential_tutors) {
