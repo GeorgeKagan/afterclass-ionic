@@ -75,6 +75,13 @@
 .bar.bar-footer .button.button-block {
   margin: 0;
 }
+.bar.bar-footer.bf-big {
+  height: 60px;
+}
+.bar.bar-footer.bf-big .button.button-block {
+  font-weight: bold;
+  font-size: 18px;
+}
 * {
   font-family: "Open Sans Hebrew", sans-serif !important;
   font-weight: 300;
@@ -219,6 +226,8 @@ select {
 }
 .bar-header h1.title .back-btn {
   float: right;
+  min-width: 50px;
+  text-align: center;
 }
 .bar-header h1.title .date {
   font-size: 14px;

@@ -47,8 +47,8 @@ angular.module('afterclass.services').factory('PayPal', function ($q, $ionicPlat
         $ionicPlatform.ready().then(function () {
             // must be called
             // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
-            //var env = 'PayPalEnvironmentProduction';
-            var env = 'PayPalEnvironmentSandbox';
+            var env_app = localStorage.getItem('env');
+            var env = env_app && env_app === 'dev' ? 'PayPalEnvironmentSandbox' : 'PayPalEnvironmentProduction';
             PayPalMobile.prepareToRender(env, configuration(), function () {
                 $timeout(function () {
                     init_defer.resolve();

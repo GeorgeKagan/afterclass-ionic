@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, MyFirebase, User) {
+angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, MyFirebase, User) {
 
     $rootScope.env = localStorage.getItem('env');
 
@@ -33,24 +33,26 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
                 '10206625622492055', // Katya
                 '10205364847174667', // Gitlin
                 '10153250113479854', // Sunshine
-                '10152843702557886'
+                '10152843702557886', // Arik
+                '10208031223882048', // Dor
+                '104530943234576' // Helen Denth
             ],
             env = localStorage.getItem('env');
-        if (_.indexOf(devUsers, $rootScope.user.id) !== -1) {
+        if (_.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
             $rootScope.isDevUser = true;
             // Switch Firebase env
             $scope.links.push({onclick: function ($event) {
                 localStorage.setItem('env', env === 'dev' ? 'prod' : 'dev');
                 $scope.logout();
                 $event.preventDefault();
-                location.reload();
+                $timeout(function() { window.location.reload(true); }, 1000);
             }, sref: 'dummy', classes: 'red', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
             // Delete Firebase user
             $scope.links.push({onclick: function ($event) {
                 User.deleteUser();
                 $scope.logout();
                 $event.preventDefault();
-                location.reload();
+                $timeout(function() { window.location.reload(true); }, 1000);
             }, sref: 'dummy', classes: 'red', text: 'Delete Firebase User'});
         }
     });

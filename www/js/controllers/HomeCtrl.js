@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, Post, MyFirebase, InstitutePopup) {
+    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup) {
     'use strict';
 
     // Debug student choose insitute popup
@@ -8,17 +8,13 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     // Load all user's questions from firebase
     var ref = MyFirebase.getRef().child('posts'),
         sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered,
-        tabs_top_pos = 230;
+		tabs_top_pos = $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 260 : 230;
 
     // Teacher home
     if ($rootScope.user.is_teacher) {
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
-        sync2                   = ref.orderByChild('status').equalTo('assigned');
-        posts_tutor_unanswered  = $firebaseArray(sync2);
-        posts_tutor_unanswered.$loaded().then(function () {
-            $scope.posts_tutor_unanswered = posts_tutor_unanswered;
-        });
+        $scope.posts_tutor_unanswered = $firebaseArray(ref);
         $scope.ifPotentialTutor = function (post) {
             var tutor_ids = [];
             if (post.potential_tutors) {
@@ -52,6 +48,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.deletePost = function ($event, firebase_id) {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         var confirmPopup = $ionicPopup.confirm({
             title       : $translate.instant('FORM.DEL_Q'),
             template    : $translate.instant('FORM.SURE'),
@@ -67,6 +66,9 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     };
 
     $scope.toggleAcceptance = function (firebase_id) {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
 

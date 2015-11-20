@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('GetPaymentCtrl', function ($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, $translate, Payment) {
+angular.module('afterclass.controllers').controller('GetPaymentCtrl', function ($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, $translate, $cordovaNetwork, Payment) {
     if (!$rootScope.user.is_teacher) {
         return false;
     }
@@ -10,6 +10,9 @@ angular.module('afterclass.controllers').controller('GetPaymentCtrl', function (
     });
 
     $scope.withdraw = function () {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         var confirmPopup = $ionicPopup.confirm({
             title: $translate.instant('PAYMENT.GET_MONEY'),
             template: $translate.instant('FORM.SURE'),

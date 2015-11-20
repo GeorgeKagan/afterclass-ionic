@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function (
     $rootScope, $scope, $http, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
+    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
 
     var img         = angular.element('#aq-img');
     var ref         = MyFirebase.getRef().child('posts');
@@ -18,6 +18,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Save question to Firebase
      */
     $scope.addPost = function () {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
             $ionicPopup.alert({
                 title   : $translate.instant('FORM.MISSING'),

@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
     $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
-    $translate, $ionicPopup, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase) {
+    $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase) {
     'use strict';
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
         post        = ref,
@@ -118,12 +118,18 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     }
 
     $scope.acceptQuestion = function() {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         Post.toggleAcceptance($stateParams.firebase_id, $rootScope.user.uid);
         $scope.allowReply           = true;
         $scope.showAcceptQuestion   = false;
     };
 
     $scope.reportConversation = function() {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
         $ionicPopup.show({
             templateUrl : 'templates/partials/conversation-report-popup.html',
             scope       : $scope,
@@ -135,17 +141,29 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     text: '<span>' + $translate.instant('SEND') + '</span>',
                     type: 'button-positive button-block',
                     onTap: function () {
+                        if (!$scope.report.content.trim()) {
+                            return;
+                        }
                         $scope.post.$loaded().then(function (post) {
-                            post.complaint          = $scope.report.content;
-                            $scope.report.content   = '';
-                            post.$save();
-                            $timeout(function() {
-                                $ionicPopup.alert({
-                                    title   : '',
-                                    template: $translate.instant('REPORT_SENT'),
-                                    okText  : $translate.instant('OK')
+                            var complaints = $firebaseArray(ref.child('complaints'));
+                            complaints.$loaded().then(function(post) {
+                                complaints.$add({
+                                    user                : $rootScope.user.name,
+                                    body                : $scope.report.content,
+                                    create_date         : Firebase.ServerValue.TIMESTAMP,
+                                    create_date_human   : moment().format('D/M/YY H:mm:ss'),
+                                    is_teacher          : $rootScope.user.is_teacher
                                 });
-                            }, 0);
+                                $scope.report.content = '';
+                                post.$save();
+                                $timeout(function() {
+                                    $ionicPopup.alert({
+                                        title   : '',
+                                        template: $translate.instant('REPORT_SENT'),
+                                        okText  : $translate.instant('OK')
+                                    });
+                                }, 0);
+                            });
                         });
                     }
                 }
@@ -165,6 +183,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     };
 
     $scope.addReply = function () {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert('Please check that you are connected to the internet');
+        }
+
         if (!$scope.replyBody) {
             $ionicPopup.alert({
                 title   : $translate.instant('ERROR'),
@@ -176,15 +198,25 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
         var persist_reply = function (img_id) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-            replies.$add({
-                user        : $rootScope.user.uid,
-                first_name  : $rootScope.user.first_name,
-                last_name   : $rootScope.user.last_name,
-                body        : $scope.replyBody,
-                img_id      : img_id || '',
-                create_date : Firebase.ServerValue.TIMESTAMP,
-                is_teacher  : $rootScope.user.is_teacher
-            }).then(function () {
+
+            var replyData = {
+                user                : $rootScope.user.uid,
+                first_name          : $rootScope.user.first_name,
+                last_name           : $rootScope.user.last_name,
+                body                : $scope.replyBody,
+                img_id              : img_id || '',
+                create_date         : Firebase.ServerValue.TIMESTAMP,
+                create_date_human   : moment().format('D/M/YY H:mm:ss'),
+                is_teacher          : $rootScope.user.is_teacher
+            };
+
+            if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
+                // Get the timestamp when teacher accepted question and save it on the reply
+                replyData.accept_date       = $scope.post.potential_tutors[$rootScope.user.$id].status_update_date;
+                replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
+            }
+
+            replies.$add(replyData).then(function () {
                 $ionicLoading.hide();
                 $scope.add_img_preview  = false;
                 $scope.replyBody        = '';
@@ -231,4 +263,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.viewFullImage = function (img_id) {
         $state.go('fullImage', {img_id: img_id});
     };
+
+    $timeout(function() {
+        $ionicScrollDelegate.scrollBottom(true);
+    }, 1000);
 });

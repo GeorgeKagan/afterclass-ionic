@@ -1,14 +1,15 @@
 angular.module('afterclass.controllers', ['ui.router']);
 
 angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
-    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad'])
+    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
         $ionicPlatform.ready(function () {
             if (window.cordova) {
-                var isOnline = $cordovaNetwork.isOnline();
-                if (!isOnline) {
+                if (!$cordovaNetwork.isOnline()) {
                     alert('Please check that you are connected to the internet');
+                    window.location.reload();
+                    return false;
                 }
             }
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,13 +24,14 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
+    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
         var appLang = 'he';
 
         if (!window.cordova) {
-            $cordovaFacebookProvider.browserInit(776966842380887, "v2.0");
+            $cordovaFacebookProvider.browserInit(776966842380887, "v2.5");
         }
 
+        $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
 
         //Translation
@@ -94,14 +96,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             })
             // end User details wizard
             .state('home', {
-                cache: false,
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('askQuestion', {
-                cache: true,
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
                 controller: 'AskQuestionCtrl',

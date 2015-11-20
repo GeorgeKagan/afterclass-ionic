@@ -33,7 +33,7 @@ angular.module('afterclass.directives', [])
         };
     })
 
-    .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, Payment, Coupon) {
+    .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, $cordovaNetwork, Payment, Coupon) {
         return {
             restrict: 'E',
             replace : 'true',
@@ -48,6 +48,7 @@ angular.module('afterclass.directives', [])
             scope: {},
             link: function (scope) {
                 if ($rootScope.user.is_teacher) {
+                    // Payments will be updated only on app relaunch (state cache)
                     Payment.getPaymentsSum().then(function (sum) {
                         scope.teacherTotalPayments  = sum;
                         scope.subtitle              = '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
@@ -59,12 +60,17 @@ angular.module('afterclass.directives', [])
                         $state.go('getPayment');
                     };
                 } else {
-                    var pointsLeft  = Coupon.getPointsLeft();
-                    scope.btnText   = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
-                    scope.btnClick  = function () {
-                        $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
-                    };
-                    scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
+                    scope.$watch('$root.user.credits', function() {
+                        var pointsLeft  = Coupon.getPointsLeft();
+                        scope.btnText   = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
+                        scope.btnClick  = function () {
+                            if (window.cordova && !$cordovaNetwork.isOnline()) {
+                                return alert('Please check that you are connected to the internet');
+                            }
+                            $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
+                        };
+                        scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
+                    }, true);
                 }
             }
         };
@@ -100,11 +106,8 @@ angular.module('afterclass.directives', [])
                 }
 
                 $scope.isPostAccepted = function(post) {
-                    angular.forEach(post.potential_tutors, function(tutor) {
-                        tutor.$id = 'facebook:' + tutor.id;
-                    });
-                    var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), '$id');
-                    if(acceptingTutors.length > 0) {
+                    var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'user_id');
+                    if (acceptingTutors.length > 0) {
                         return acceptingTutors[0] === $rootScope.user.uid;
                     } else {
                         return false;
