@@ -151,4 +151,13 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
-    });
+    })
+
+    .factory('$exceptionHandler', function ($log) {
+        return function (exception, cause) {
+            $log.error('Exception: ' , exception);
+            $log.error('Cause: ', cause);
+            Bugsnag.notifyException(exception, {diagnostics:{cause: cause}});
+        };
+    })
+;
