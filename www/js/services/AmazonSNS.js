@@ -30,7 +30,8 @@ angular.module('afterclass.services').factory('AmazonSNS', function ($rootScope,
                     console.log('deviceToken: ' + deviceToken);
                     //$http.post('http://server.co/', {user: 'Bob', tokenID: deviceToken})
                     var params = {
-                        PlatformApplicationArn  : 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
+	                    //PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
+	                    PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS/ios-production',
                         Token                   : deviceToken
                     };
                     sns.createPlatformEndpoint(params, function (err, data) {
