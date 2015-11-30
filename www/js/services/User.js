@@ -49,12 +49,13 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
          * @param user
          */
         fillMandatoryFields: function (user) {
-            if (!user.amazon_endpoint_arn) {
-                try {
-                    AmazonSNS.registerDevice().then(function (endpoint_arn) {
-                        obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                    });
-                } catch (e) {}
+            try {
+                AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                    console.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
+                });
+            } catch (e) {
+                console.error('Fail Amazon SNS get endpoint ARN: ', e);
             }
         },
         /**
