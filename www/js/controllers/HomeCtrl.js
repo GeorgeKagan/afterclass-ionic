@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup) {
+    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
     'use strict';
 
     // Debug student choose insitute popup
@@ -63,6 +63,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         confirmPopup.then(function(res) {
             if (res) {
                 Post.delete(firebase_id);
+                User.updateUser({credits: $rootScope.user.credits + 1});
             }
         });
         $event.stopPropagation();
