@@ -1,5 +1,5 @@
-@import "misc/colors.less";
-@import "misc/mixins.less";
+@import "misc/colors";
+@import "misc/mixins";
 
 #home-page {
   .bar-header {
@@ -9,7 +9,7 @@
       color: #fff;
     }
     &.scrolled {
-      background: @dark_blue;
+      background: $dark_blue;
     }
   }
 }
@@ -42,16 +42,16 @@ body.platform-ios {
 
 // Ask a question area
 .ask-q-area {
-  background: url(../img/bg3.jpg) center center;
+  background: url(/img/bg3.jpg) center center;
   background-size: 200%;
-  .TextShadow;
+  @include TextShadow;
   margin: 0 0 0 0;
   padding: 80px 0 25px 0;
   min-height: 279px;
   .aqa-btn {
     box-shadow: -1px 3px 7px rgba(0, 0, 0, 0.2);
-    background: @pale_blue;
-    color: @white;
+    background: $pale_blue;
+    color: $white;
     border: 0;
     border-radius: 2px;
     height: 70px;
@@ -62,14 +62,14 @@ body.platform-ios {
     cursor: pointer;
     .ab-icon {
       float: left;
-      background: @green_desaturated url(../img/question-icon.png) center center no-repeat;
+      background: $green_desaturated url(/img/question-icon.png) center center no-repeat;
       width: 25%;
       height: 100%;
       display: inline-block;
-      border-bottom: 2px solid darken(@green_desaturated, 25%);
+      border-bottom: 2px solid darken($green_desaturated, 25%);
       background-size: 40px 38px;
       &.ab-icon-currency {
-        background-image: url(../img/shekel.png);
+        background-image: url(/img/shekel.png);
         background-size: 30px 28px;
       }
     }
@@ -78,21 +78,21 @@ body.platform-ios {
       height: 100%;
       width: 75%;
       display: inline-block;
-      border-bottom: 2px solid lighten(@pale_blue2, 5%);
+      border-bottom: 2px solid lighten($pale_blue2, 5%);
       font-size: 25px;
       text-align: center;
     }
     &.activated {
-      background: darken(@pale_blue, 5%);
+      background: darken($pale_blue, 5%);
       .ab-icon {
-        background-color: darken(@green_desaturated, 5%);
+        background-color: darken($green_desaturated, 5%);
       }
     }
   }
   > div {
     font-size: 110%;
     strong {
-      color: @white;
+      color: $white;
       font-style: normal;
       font-size: 140%;
     }
@@ -114,7 +114,7 @@ body.platform-ios {
     margin-bottom: 16px;
   }
   .post-gradient {
-    .VerticalGradient;
+    @include VerticalGradient;
     .post-question {
       background: transparent;
     }
@@ -125,12 +125,12 @@ body.platform-ios {
       font-size: 14px;
       font-weight: 100;
       float: right;
-      color: @gray2;
+      color: $gray2;
       position: relative;
       top: -3px;
     }
     .ph-delete {
-      background: url(../img/close.png) no-repeat;
+      background: url(/img/close.png) no-repeat;
       width: 20px;
       height: 20px;
       float: right;
@@ -158,8 +158,8 @@ body.platform-ios {
     padding: 0;
     button.button {
       border-radius: 0 0 2px 2px;
-      background: @white;
-      color: @blue;
+      background: $white;
+      color: $blue;
       border: 0;
       font-size: 24px;
       padding: 0 0 7px 0;
@@ -167,7 +167,7 @@ body.platform-ios {
       font-weight: 300;
       &::before {
         content: " ";
-        background: url(../img/speech-bubble.png) no-repeat;
+        background: url(/img/speech-bubble.png) no-repeat;
         width: 22px;
         height: 22px;
         display: inline-block;
@@ -176,16 +176,16 @@ body.platform-ios {
         background-size: 100%;
       }
       &.activated {
-        color: darken(@blue, 10%);
+        color: darken($blue, 10%);
         box-shadow: none;
         border: 0;
       }
     }
     button.button-ok {
-      color: @green;
+      color: $green;
       &::before {
         content: " ";
-        background: url(../img/speech-bubble-ok.png) no-repeat;
+        background: url(/img/speech-bubble-ok.png) no-repeat;
         width: 30px;
         height: 30px;
         display: inline-block;
@@ -194,16 +194,16 @@ body.platform-ios {
         background-size: 100%;
       }
       &.activated {
-        color: darken(@green, 10%);
+        color: darken($green, 10%);
         box-shadow: none;
         border: 0;
       }
     }
     button.button-notok {
-      color: @red;
+      color: $red;
       &::before {
         content: " ";
-        background: url(../img/speech-bubble-notok.png) no-repeat;
+        background: url(/img/speech-bubble-notok.png) no-repeat;
         width: 30px;
         height: 30px;
         display: inline-block;
@@ -212,7 +212,7 @@ body.platform-ios {
         background-size: 100%;
       }
       &.activated {
-        color: darken(@red, 10%);
+        color: darken($red, 10%);
         box-shadow: none;
         border: 0;
       }
@@ -232,7 +232,7 @@ body.platform-ios {
   position: absolute;
   top: 0;
   left: 0;
-  .Ellipsis(50%);
+  @include Ellipsis(50%);
 }
 
 body.platform-ios {

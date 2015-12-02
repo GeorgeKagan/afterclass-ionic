@@ -1,6 +1,6 @@
-@import "misc/colors.less";
-@import "misc/mixins.less";
-@import "misc/ionic-overrides.less";
+@import "misc/colors";
+@import "misc/mixins";
+@import "misc/ionic-overrides";
 
 // General
 * {
@@ -13,7 +13,7 @@
 }
 
 .view-container .pane {
-  .RadialGradient;
+  @include RadialGradient;
   &.has-tabs {
     bottom: 0;
   }
@@ -47,7 +47,7 @@
 }
 
 strong {
-  color: @dark_gray2;
+  color: $dark_gray2;
   font-style: italic;
 }
 
@@ -60,7 +60,7 @@ textarea {
 
 select, textarea, input[type="text"] {
   font-size: 15px;
-  color: @gray2 !important;
+  color: $gray2 !important;
   font-weight: 300;
 }
 select {
@@ -98,7 +98,7 @@ select {
 }
 
 .date {
-  color: @gray2;
+  color: $gray2;
 }
 .bar .date {
   float: right;
@@ -120,7 +120,7 @@ select {
 }
 
 .red {
-  color: @red !important;
+  color: $red !important;
 }
 
 .highlight {
@@ -129,7 +129,7 @@ select {
   -o-transition: background-color 2s;
   transition: background-color 2s;
   &.highlight-new {
-    background-color: @light_yellow;
+    background-color: $light_yellow;
   }
 }
 
@@ -138,8 +138,8 @@ select {
 }
 
 .spinner svg {
-  stroke: @blue;
-  fill: @blue;
+  stroke: $blue;
+  fill: $blue;
 }
 
 // Animations
@@ -170,7 +170,7 @@ select {
     }
   }
   h1.title:not(.no-logo) {
-    background: url(../img/logo.png) 0 center no-repeat;
+    background: url(/img/logo.png) 0 center no-repeat;
     background-size: 131px 21px;
   }
 }
@@ -179,7 +179,7 @@ select {
 .list.list-simple {
   .item {
     background: transparent;
-    border-color: @light_gray3;
+    border-color: $light_gray3;
     white-space: normal;
     &.item:last-child {
       border: 0;
