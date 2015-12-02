@@ -14,9 +14,6 @@ angular.module('afterclass.services', [])
         obj.getRef = function () {
             return ref;
         };
-        obj.getRefCoupons = function () {
-            return obj.getRef().child('coupons');
-        };
         return obj;
     })
 

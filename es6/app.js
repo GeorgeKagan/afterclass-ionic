@@ -141,12 +141,6 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 templateUrl: "templates/contact.html",
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
-            .state('coupon', {
-                url: "/coupon",
-                templateUrl: "templates/coupon.html",
-                controller: 'CouponCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
-            })
         ;
 
         // if none of the above states are matched, use this as the fallback
