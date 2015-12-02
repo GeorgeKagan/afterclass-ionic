@@ -20,17 +20,17 @@ gulp.task('babel', function () {
   return gulp.src(paths.es6)
       .pipe(plumber())
       .pipe(babel())
-      .pipe(gulp.dest('www/js'));
+      .pipe(gulp.dest('./www/js'));
 });
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
+  return gulp.src(paths.sass)
     .pipe(sass())
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
+    //.pipe(gulp.dest('./www/css/'))
+    //.pipe(minifyCss({
+    //  keepSpecialComments: 0
+    //}))
+    //.pipe(rename({ extname: '.min.css' }))
     .pipe(gulp.dest('./www/css/'))
     .on('end', done);
 });
