@@ -14,7 +14,7 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['babel', 'sass']);
+gulp.task('default', ['babel', 'sass', 'watch']);
 
 gulp.task('babel', function () {
   return gulp.src(paths.es6)
