@@ -119,6 +119,9 @@ angular.module('afterclass.services', [])
     .factory('Institutes', function($q, $rootScope, $http) {
         var obj = {}, d = $q.defer();
         obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
+            if (!institute && !degree) {
+                console.error('Ask question: no institute and degree in user data!');
+            }
             $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
                 var subjects = _.find(data[institute], {name: degree}).subjects;
                 d.resolve(subjects);
