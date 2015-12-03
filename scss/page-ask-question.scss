@@ -33,7 +33,7 @@
     line-height: 20px;
   }
   .aq-delete {
-    background: url(/img/close.png) no-repeat;
+    background: url(../img/close.png) no-repeat;
     width: 25px;
     height: 25px;
     float: right;
@@ -65,12 +65,12 @@
   .tabs-icon-only {
     border-top: 0;
     .icon-camera {
-      background: url(/img/take-picture-icon.png) center 9px no-repeat;
+      background: url(../img/take-picture-icon.png) center 9px no-repeat;
       background-size: 36px 24px;
       border-right: 1px solid #666;
     }
     .icon-attachment {
-      background: url(/img/documnet-attachment.png) center 8px no-repeat;
+      background: url(../img/documnet-attachment.png) center 8px no-repeat;
       background-size: 21px 26px;
     }
     .icon-camera, .icon-attachment {

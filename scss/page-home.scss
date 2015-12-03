@@ -42,7 +42,7 @@ body.platform-ios {
 
 // Ask a question area
 .ask-q-area {
-  background: url(/img/bg3.jpg) center center;
+  background: url(../img/bg3.jpg) center center;
   background-size: 200%;
   @include TextShadow;
   margin: 0 0 0 0;
@@ -62,14 +62,14 @@ body.platform-ios {
     cursor: pointer;
     .ab-icon {
       float: left;
-      background: $green_desaturated url(/img/question-icon.png) center center no-repeat;
+      background: $green_desaturated url(../img/question-icon.png) center center no-repeat;
       width: 25%;
       height: 100%;
       display: inline-block;
       border-bottom: 2px solid darken($green_desaturated, 25%);
       background-size: 40px 38px;
       &.ab-icon-currency {
-        background-image: url(/img/shekel.png);
+        background-image: url(../img/shekel.png);
         background-size: 30px 28px;
       }
     }
@@ -130,7 +130,7 @@ body.platform-ios {
       top: -3px;
     }
     .ph-delete {
-      background: url(/img/close.png) no-repeat;
+      background: url(../img/close.png) no-repeat;
       width: 20px;
       height: 20px;
       float: right;
@@ -167,7 +167,7 @@ body.platform-ios {
       font-weight: 300;
       &::before {
         content: " ";
-        background: url(/img/speech-bubble.png) no-repeat;
+        background: url(../img/speech-bubble.png) no-repeat;
         width: 22px;
         height: 22px;
         display: inline-block;
@@ -185,7 +185,7 @@ body.platform-ios {
       color: $green;
       &::before {
         content: " ";
-        background: url(/img/speech-bubble-ok.png) no-repeat;
+        background: url(../img/speech-bubble-ok.png) no-repeat;
         width: 30px;
         height: 30px;
         display: inline-block;
@@ -203,7 +203,7 @@ body.platform-ios {
       color: $red;
       &::before {
         content: " ";
-        background: url(/img/speech-bubble-notok.png) no-repeat;
+        background: url(../img/speech-bubble-notok.png) no-repeat;
         width: 30px;
         height: 30px;
         display: inline-block;
