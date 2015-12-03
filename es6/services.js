@@ -45,6 +45,8 @@ angular.module('afterclass.services', [])
                                 is_image: is_image
                             });
                         });
+                    }, function(error) {
+                        console.error(error);
                     });
                 }, function(err) {
                     q.reject(err);

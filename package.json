@@ -17,34 +17,7 @@
     "node-gyp": "^3.2.0",
     "shelljs": "^0.3.0"
   },
-  "cordovaPlugins": [
-    "org.apache.cordova.splashscreen",
-    "org.apache.cordova.file",
-    "org.apache.cordova.file-transfer",
-    "org.apache.cordova.camera",
-    "org.apache.cordova.inappbrowser",
-    "https://github.com/Telerik-Verified-Plugins/PushNotification.git",
-    "cordova-plugin-whitelist@1.0.0",
-    "cordova-plugin-dialogs",
-    {
-      "locator": "https://github.com/apache/cordova-plugin-network-information.git",
-      "id": "cordova-plugin-network-information"
-    },
-    {
-      "locator": "https://github.com/paypal/PayPal-Cordova-Plugin.git",
-      "id": "com.paypal.cordova.mobilesdk"
-    },
-    "com.ionic.keyboard",
-    "cordova-plugin-statusbar",
-    {
-      "variables": {
-        "APP_ID": "776966842380887",
-        "APP_NAME": "AfterClass"
-      },
-      "locator": "https://github.com/Telerik-Verified-Plugins/Facebook.git",
-      "id": "com.phonegap.plugins.facebookconnect"
-    }
-  ],
+  "cordovaPlugins": [],
   "cordovaPlatforms": [
     "android"
   ]

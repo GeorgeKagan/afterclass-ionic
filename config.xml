@@ -8,6 +8,8 @@
   <access launch-external="yes" origin="tel:*"/>
   <access launch-external="yes" origin="mailto:*"/>
   <allow-navigation href="http://*/*"/>
+  <allow-navigation href="https://*/*"/>
+  <allow-navigation href="data:*"/>
   <allow-intent href="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
@@ -19,6 +21,7 @@
   <preference name="StatusBarOverlaysWebView" value="true"/>
   <preference name="StatusBarBackgroundColor" value="#000000"/>
   <preference name="StatusBarStyle" value="darkcontent"/>
+  <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
   <feature name="PushPlugin">
     <param name="ios-package" value="PushPlugin"/>
   </feature>
