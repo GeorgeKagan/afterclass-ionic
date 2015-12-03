@@ -10,11 +10,18 @@ var babel = require('gulp-babel');
 var plumber = require('gulp-plumber');
 
 var paths = {
+  js: ['./js/**/*.js'],
   es6: ['./es6/**/*.js'],
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['babel', 'sass', 'watch']);
+gulp.task('default', ['javascript', 'babel', 'sass', 'watch']);
+
+gulp.task('javascript', function () {
+  return gulp.src(paths.js)
+      .pipe(plumber())
+      .pipe(gulp.dest('./www/js'));
+});
 
 gulp.task('babel', function () {
   return gulp.src(paths.es6)
@@ -36,6 +43,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('watch', function() {
+  gulp.watch(paths.js, ['javascript']);
   gulp.watch(paths.es6, ['babel']);
   gulp.watch(paths.sass, ['sass']);
 });

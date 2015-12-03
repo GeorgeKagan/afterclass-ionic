@@ -35,6 +35,7 @@
       "id": "com.paypal.cordova.mobilesdk"
     },
     "com.ionic.keyboard",
+    "cordova-plugin-statusbar",
     {
       "variables": {
         "APP_ID": "776966842380887",
@@ -42,8 +43,7 @@
       },
       "locator": "https://github.com/Telerik-Verified-Plugins/Facebook.git",
       "id": "com.phonegap.plugins.facebookconnect"
-    },
-    "cordova-plugin-statusbar"
+    }
   ],
   "cordovaPlatforms": [
     "android"
