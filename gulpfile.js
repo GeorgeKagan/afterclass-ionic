@@ -16,6 +16,7 @@ var paths = {
 };
 
 gulp.task('default', ['javascript', 'babel', 'sass', 'watch']);
+gulp.task('build', ['javascript', 'babel', 'sass']);
 
 gulp.task('javascript', function () {
   return gulp.src(paths.js)
@@ -38,8 +39,7 @@ gulp.task('sass', function(done) {
     //  keepSpecialComments: 0
     //}))
     //.pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
+    .pipe(gulp.dest('./www/css/'));
 });
 
 gulp.task('watch', function() {
