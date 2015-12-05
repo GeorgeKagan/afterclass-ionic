@@ -2,7 +2,7 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i ui-sref="userDetails_tutorStep1" class="icon ion-chevron-left calm"></i>
-            <span ui-sref="userDetails_tutorStep1">{{::'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</span>
+            <span ui-sref="userDetails_tutorStep1({isEdit: $state.params.isEdit})">{{::'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false">

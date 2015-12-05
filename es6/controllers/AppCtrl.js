@@ -2,6 +2,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
     $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, MyFirebase, User, InstitutePopup) {
 
     $rootScope.env = localStorage.getItem('env');
+    $rootScope.$state = $state;
 
     // Logout user
     $scope.logout = function () {
@@ -58,7 +59,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
             // Change Institution
             $scope.links.push({onclick: function ($event) {
                 if ($rootScope.user.is_teacher) {
-                    $state.go('userDetails_tutorStep1');
+                    $state.go('userDetails_tutorStep1', {isEdit: 1});
                 } else {
                     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
                     InstitutePopup.show();

@@ -25,7 +25,7 @@ angular.module('afterclass.controllers').
             var degrees = TutorDetails.getDegreesBySelectedInstitutes($scope.selInstitutes, $scope.institutes);
             TutorDetails.setPayloadInstitutes($scope.selInstitutes);
             TutorDetails.setDegrees(degrees);
-            $state.go('userDetails_tutorStep2');
+            $state.go('userDetails_tutorStep2', {isEdit: $state.params.isEdit});
         };
         $scope.isChecked = function(entities) {
             return TutorDetails.isChecked(entities);
@@ -39,7 +39,7 @@ angular.module('afterclass.controllers').
             var courses = TutorDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
             TutorDetails.setPayloadDegrees($scope.selDegrees);
             TutorDetails.setCourses(courses);
-            $state.go('userDetails_tutorStep3');
+            $state.go('userDetails_tutorStep3', {isEdit: $state.params.isEdit});
         };
         $scope.isChecked = function(entities) {
             return TutorDetails.isChecked(entities);

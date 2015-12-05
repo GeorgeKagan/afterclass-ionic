@@ -4,7 +4,7 @@ angular.module('afterclass.services').factory('Coupon', function($rootScope, $fi
     var obj = {};
 
     obj.getPointsLeft = function() {
-        return $rootScope.user.credits;
+        return $rootScope.user ? $rootScope.user.credits : 0;
     };
 
     obj.deductCredits = function(amount) {

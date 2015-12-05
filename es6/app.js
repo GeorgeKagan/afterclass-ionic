@@ -78,24 +78,27 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             })
             .state('userDetails_tutorStep1', {
                 cache: false,
-                url: '/tutorStep1',
+                url: '/tutorStep1/:isEdit',
                 templateUrl: 'templates/userDetails/tutor-step1.html',
                 controller: 'UserDetailsTutorStep1Ctrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } },
+                params: { isEdit: 0 }
             })
             .state('userDetails_tutorStep2', {
                 cache: false,
-                url: '/tutorStep2',
+                url: '/tutorStep2/:isEdit',
                 templateUrl: 'templates/userDetails/tutor-step2.html',
                 controller: 'UserDetailsTutorStep2Ctrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } },
+                params: { isEdit: 0 }
             })
             .state('userDetails_tutorStep3', {
                 cache: false,
-                url: '/tutorStep3',
+                url: '/tutorStep3/:isEdit',
                 templateUrl: 'templates/userDetails/tutor-step3.html',
                 controller: 'UserDetailsTutorStep3Ctrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } },
+                params: { isEdit: 0 }
             })
             // end User details wizard
             .state('home', {
