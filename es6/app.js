@@ -108,6 +108,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 url: "/askQuestion",
                 templateUrl: "templates/ask-question.html",
                 controller: 'AskQuestionCtrl',
+                cache: false,
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('getCredit', {

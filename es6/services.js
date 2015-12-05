@@ -56,7 +56,7 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, User) {
+    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User) {
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
@@ -107,9 +107,19 @@ angular.module('afterclass.services', [])
                             }
                         ]
                     });
+                    $timeout(() => {
+                        // If already got data (edit mode), auto-fill the selects
+                        if ($rootScope.user.institute && $rootScope.user.degree) {
+                            angular.element(`#popup-institute [label="${$rootScope.user.institute}"]`).attr('selected', true);
+                            scope.selectInstitute();
+                            $timeout(() => angular.element(`#popup-degree [label="${$rootScope.user.degree}"]`).attr('selected', true));
+                        }
+                    });
+                    $ionicLoading.hide();
                 }, 500);
             }).
             error(function() {
+                $ionicLoading.hide();
                 console.log('Failed to get institutes-degrees json');
             });
         };
@@ -119,8 +129,9 @@ angular.module('afterclass.services', [])
     })
 
     .factory('Institutes', function($q, $rootScope, $http) {
-        var obj = {}, d = $q.defer();
+        var obj = {};
         obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
+            var d = $q.defer();
             if (!institute && !degree) {
                 console.error('Ask question: no institute and degree in user data!');
             }

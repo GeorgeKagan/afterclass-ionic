@@ -1,4 +1,5 @@
-angular.module('afterclass.controllers').controller('AppCtrl', function ($scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, MyFirebase, User) {
+angular.module('afterclass.controllers').controller('AppCtrl', function (
+    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, MyFirebase, User, InstitutePopup) {
 
     $rootScope.env = localStorage.getItem('env');
 
@@ -54,6 +55,17 @@ angular.module('afterclass.controllers').controller('AppCtrl', function ($scope,
                 $event.preventDefault();
                 $timeout(function() { window.location.reload(true); }, 1000);
             }, sref: 'dummy', classes: 'red', text: 'Delete Firebase User'});
+            // Change Institution
+            $scope.links.push({onclick: function ($event) {
+                if ($rootScope.user.is_teacher) {
+                    $state.go('userDetails_tutorStep1');
+                } else {
+                    $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+                    InstitutePopup.show();
+                }
+                $scope.hidePopover();
+                $event.preventDefault();
+            }, sref: 'dummy', classes: 'red', text: 'Change Institution'});
         }
     });
 
