@@ -3,14 +3,17 @@ angular.module('afterclass.controllers', ['ui.router']);
 angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
     'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
-    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork) {
+    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) {
         $ionicPlatform.ready(function () {
             if (window.cordova) {
+                // Check online status
                 if (!$cordovaNetwork.isOnline()) {
                     alert('Please check that you are connected to the internet');
                     window.location.reload();
                     return false;
                 }
+                // Get app store version
+                $cordovaAppVersion.getVersionNumber().then(version => $rootScope.appVersion = version);
             }
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
