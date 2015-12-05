@@ -134,9 +134,16 @@ angular.module('afterclass.services', [])
             var d = $q.defer();
             if (!institute && !degree) {
                 console.error('Ask question: no institute and degree in user data!');
+                return;
             }
             $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-                var subjects = _.find(data[institute], {name: degree}).subjects;
+                var subjects = ['אחר'];
+                if (data[institute]) {
+                    var subjectsObj = _.find(data[institute], {name: degree});
+                    if (subjectsObj) {
+                        subjects = subjectsObj.subjects;
+                    }
+                }
                 d.resolve(subjects);
             });
             return d.promise;
