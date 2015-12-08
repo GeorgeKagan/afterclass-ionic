@@ -40,7 +40,11 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 '104530943234576' // Helen Denth
             ],
             env = localStorage.getItem('env');
-        if (_.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
+
+        if (!$rootScope.user.id) {
+            throw new Error('User has no ID. ' + JSON.stringify($rootScope.user));
+        }
+        else if (_.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
             $rootScope.isDevUser = true;
             // Switch Firebase env
             $scope.links.push({onclick: function ($event) {
