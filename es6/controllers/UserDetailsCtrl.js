@@ -1,15 +1,23 @@
 angular.module('afterclass.controllers').
 
-    controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $ionicHistory, User, InstitutePopup) {
+    controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $ionicHistory, $ionicPopup, $translate, User, InstitutePopup) {
         $scope.student = function () {
-            User.updateUser({
-                is_choose_type_finished : true,
-                is_teacher              : false,
-                target_institutes       : null
+            $ionicPopup.confirm({
+                title: 'בחרת בסטודנט',
+                template: 'האם זאת הבחירה הנכונה?',
+                cancelText: $translate.instant('CANCEL'),
+                okText: $translate.instant('OK')
+            }).then(function(res) {
+                if (!res) { return; }
+                User.updateUser({
+                    is_choose_type_finished : true,
+                    is_teacher              : false,
+                    target_institutes       : null
+                });
+                $state.go('home');
+                $ionicHistory.nextViewOptions({disableBack: true});
+                InstitutePopup.show();
             });
-            $state.go('home');
-            $ionicHistory.nextViewOptions({disableBack: true});
-            InstitutePopup.show();
         };
         $scope.tutor = function () {
             $state.go('userDetails_tutorStep1');
