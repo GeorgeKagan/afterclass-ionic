@@ -155,10 +155,13 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
     })
 
     .factory('$exceptionHandler', function ($log) {
+        let env = localStorage.getItem('env');
         return function (exception, cause) {
             $log.error('Exception: ' , exception);
             $log.error('Cause: ', cause);
-            Bugsnag.notifyException(exception, {diagnostics:{cause: cause}});
+            if (env !== 'dev') {
+                Bugsnag.notifyException(exception, {diagnostics:{cause: cause}});
+            }
         };
     })
 ;
