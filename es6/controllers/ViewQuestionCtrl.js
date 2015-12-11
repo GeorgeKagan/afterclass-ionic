@@ -267,6 +267,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     };
 
     $timeout(function() {
-        $ionicScrollDelegate.scrollBottom(true);
-    }, 1000);
+        if ($state.current.name === 'viewPost') {
+            $ionicScrollDelegate.scrollBottom(true);
+        }
+    }, 500);
 });
