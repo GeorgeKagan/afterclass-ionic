@@ -64,6 +64,12 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 $scope.hidePopover();
                 $event.preventDefault();
             }, sref: 'dummy', classes: 'red', text: 'Change Institution'});
+            // Impersonate
+            $scope.links.push({onclick: function ($event) {
+                $state.go('impersonate');
+                $scope.hidePopover();
+                $event.preventDefault();
+            }, sref: 'dummy', classes: 'red', text: 'Impersonate'});
         }
     });
 

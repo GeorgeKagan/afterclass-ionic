@@ -2,7 +2,7 @@
     <ion-content has-bouncing="false" scroll="false">
         <div class="list">
             <span class="item">
-                {{'HI'|translate}}, {{user.facebook.displayName}}
+                {{'HI'|translate}}, {{user.name}}
             </span>
             <a class="item {{::link.classes}}" ng-repeat="link in links" ui-sref="{{link.sref}}"
                ng-click="link.onclick ? link.onclick($event) : hidePopover()">

@@ -148,6 +148,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 templateUrl: "templates/contact.html",
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
+            .state('impersonate', {
+                url: "/impersonate",
+                templateUrl: "templates/impersonate.html",
+                controller: 'ImpersonateCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback

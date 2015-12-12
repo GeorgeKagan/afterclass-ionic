@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('User', function ($rootScope, $q, $firebaseObject, AmazonSNS, MyFirebase) {
+angular.module('afterclass.services').factory('User', function ($rootScope, $q, $firebaseObject, $timeout, AmazonSNS, MyFirebase) {
     'use strict';
 
     var ref = MyFirebase.getRef();
@@ -47,8 +47,15 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
         /**
          * Makes sure any mandatory fields, that previously failed to be set, are set
          * @param user
+         * @param authData
          */
-        fillMandatoryFields: function (user) {
+        fillMandatoryFields: function (user, authData) {
+            $timeout(() => {
+                obj.updateUser({
+                    firebaseAuthToken : authData.token
+                });
+            });
+
             try {
                 AmazonSNS.registerDevice().then(function (endpoint_arn) {
                     obj.updateUser({amazon_endpoint_arn: endpoint_arn});
@@ -62,13 +69,14 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
          * Populate rootScope with user data from localStorage
          */
         getFromUsersCollection: function () {
+            var q = $q.defer();
             if ($rootScope.user) {
-                return $rootScope.user;
+                q.resolve($rootScope.user);
+                return q.promise;
             }
             var authData = ref.getAuth(),
                 sync    = ref.child('users/' + authData.uid),
-                user    = $firebaseObject(sync),
-                q       = $q.defer();
+                user    = $firebaseObject(sync);
             user.$loaded().then(function () {
                 // Use up to date fb data, but merge in custom properties set via firebase
                 $rootScope.user = angular.element.extend(authData, user);

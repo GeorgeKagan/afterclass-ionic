@@ -1,0 +1,34 @@
+<ion-view id="-page" view-title="AfterClass - Impersonate">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i class="icon ion-chevron-left calm" ui-sref="home"></i>
+            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
+        </h1>
+    </div>
+    <ion-content class="has-header padding-top" has-bouncing="false">
+        <div class="content-section" dir="ltr">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon" style="margin: 10px;"></i>
+                <input ng-model="impersonate.name" type="text" placeholder="Full Name">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon" style="margin: 10px;"></i>
+                <input ng-model="impersonate.id" type="text" placeholder="Facebook ID (numbers only)">
+            </label>
+            <br>
+            <div class="list">
+                <a class="item item-icon-right" href="#" ng-click="doImpersonation(user)" ng-repeat="user in users | filter:{
+                        name: impersonate.name,
+                        id  : impersonate.id
+                    }:strict">
+                    <i class="icon ion-arrow-right-c"></i>
+                    <div style="font-weight:bold;width:100px;display:inline-block">
+                        <span ng-if="user.is_teacher">Tutor &nbsp;</span>
+                        <span ng-if="!user.is_teacher">Student &nbsp;</span>
+                    </div>
+                    <span>{{::user.name}}</span> <span style="color:red" ng-if="$root.user.name===user.name">&nbsp; You</span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
