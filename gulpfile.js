@@ -27,7 +27,9 @@ gulp.task('javascript', function () {
 gulp.task('babel', function () {
   return gulp.src(paths.es6)
       .pipe(plumber())
-      .pipe(babel())
+      .pipe(babel({
+        presets: ['es2015']
+      }))
       .pipe(gulp.dest('./www/js'));
 });
 
