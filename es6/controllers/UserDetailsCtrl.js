@@ -29,7 +29,11 @@ angular.module('afterclass.controllers').
 
         // If edit mode - mark chosen institutes as selected
         if ($rootScope.user.target_institutes) {
-            Object.keys($rootScope.user.target_institutes).forEach(inst => $scope.selInstitutes[inst] = true);
+            Object.keys($rootScope.user.target_institutes).forEach(inst => {
+                if (Object.keys($rootScope.user.target_institutes[inst]).length) {
+                    $scope.selInstitutes[inst] = true;
+                }
+            });
         }
 
         $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
@@ -46,9 +50,21 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep2Ctrl', function ($scope, $state, TutorDetails) {
+    controller('UserDetailsTutorStep2Ctrl', function ($rootScope, $scope, $state, TutorDetails) {
         $scope.selDegrees   = {};
         $scope.degrees      = TutorDetails.getDegrees();
+
+        // If edit mode - mark chosen degrees as selected
+        if ($rootScope.user.target_institutes) {
+            Object.keys($rootScope.user.target_institutes).forEach(inst => {
+                Object.keys($rootScope.user.target_institutes[inst]).forEach(degree => {
+                    if ($rootScope.user.target_institutes[inst][degree].length) {
+                        $scope.selDegrees[inst + '|||' + degree] = true;
+                    }
+                });
+            });
+        }
+
         $scope.submitTutorStep2 = function () {
             var courses = TutorDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
             TutorDetails.setPayloadDegrees($scope.selDegrees);
@@ -60,9 +76,21 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep3Ctrl', function ($scope, $state, $ionicHistory, TutorDetails) {
+    controller('UserDetailsTutorStep3Ctrl', function ($rootScope, $scope, $state, $ionicHistory, TutorDetails) {
         $scope.selCourses   = {};
         $scope.courses      = TutorDetails.getCourses();
+
+        // If edit mode - mark chosen courses as selected
+        if ($rootScope.user.target_institutes) {
+            Object.keys($rootScope.user.target_institutes).forEach(inst => {
+                Object.keys($rootScope.user.target_institutes[inst]).forEach(degree => {
+                    $rootScope.user.target_institutes[inst][degree].forEach(course => {
+                        $scope.selCourses[inst + '|||' + degree + '|||' + course] = true;
+                    });
+                });
+            });
+        }
+
         $scope.submitTutorStep3 = function () {
             TutorDetails.setPayloadCourses($scope.selCourses);
             TutorDetails.saveSelectedData();

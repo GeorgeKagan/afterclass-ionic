@@ -87,18 +87,24 @@ angular.module('afterclass.services').factory('TutorDetails', function(User) {
 
     obj.setPayloadDegrees = function (degrees) {
         angular.forEach(degrees, function (isSelected, degree) {
+            if (!isSelected) { return; }
             var institute   = degree.split('|||')[0],
                 degree_name = degree.split('|||')[1];
-            payload.institutes[institute][degree_name] = [];
+            if (payload.institutes[institute]) {
+                payload.institutes[institute][degree_name] = [];
+            }
         });
     };
 
     obj.setPayloadCourses = function (courses) {
         angular.forEach(courses, function (isSelected, course) {
+            if (!isSelected) { return; }
             var institute   = course.split('|||')[0],
                 degree      = course.split('|||')[1],
                 course_name = course.split('|||')[2];
-            payload.institutes[institute][degree].push(course_name);
+            if (payload.institutes[institute] && payload.institutes[institute][degree]) {
+                payload.institutes[institute][degree].push(course_name);
+            }
         });
     };
 
