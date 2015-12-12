@@ -39,7 +39,7 @@ angular.module('afterclass.services').factory('TutorDetails', function(User) {
     };
 
     obj.saveSelectedData = function () {
-        console.log('payload', payload);
+        console.log('Save tutor details payload', payload);
         User.updateUser({
             is_choose_type_finished : true,
             is_teacher              : true,
@@ -78,7 +78,9 @@ angular.module('afterclass.services').factory('TutorDetails', function(User) {
     obj.setPayloadInstitutes = function (institutes) {
         var hash = {};
         angular.forEach(_.keys(institutes), function (institute) {
-            hash[institute] = {};
+            if (institutes[institute]) {
+                hash[institute] = {};
+            }
         });
         payload.institutes = hash;
     };

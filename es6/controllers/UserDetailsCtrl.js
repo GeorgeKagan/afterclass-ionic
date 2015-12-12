@@ -16,8 +16,14 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep1Ctrl', function ($scope, $state, $http, TutorDetails) {
+    controller('UserDetailsTutorStep1Ctrl', function ($rootScope, $scope, $state, $http, TutorDetails) {
         $scope.selInstitutes = {};
+
+        // If edit mode - mark chosen institutes as selected
+        if ($rootScope.user.target_institutes) {
+            Object.keys($rootScope.user.target_institutes).forEach(inst => $scope.selInstitutes[inst] = true);
+        }
+
         $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
             $scope.institutes = data;
         });
