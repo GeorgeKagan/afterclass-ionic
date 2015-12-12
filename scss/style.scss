@@ -151,6 +151,10 @@ select {
   fill: $blue;
 }
 
+.m-20 {
+  margin: 20px 0 !important;
+}
+
 // Animations
 .fade-in {
   transition: 0.5s linear all;

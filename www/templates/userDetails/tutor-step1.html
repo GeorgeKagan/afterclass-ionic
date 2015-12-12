@@ -2,7 +2,7 @@
     <div class="bar bar-header">
         <h1 class="title no-logo" ng-if="$state.params.isEdit=='0'">
             <i ui-sref="userDetails_chooseType" class="icon ion-chevron-left calm"></i>
-            <span ui-sref="userDetails_chooseType">{{::'USER_DETAILS.TUTOR.STEP1_TITLE'|translate}}</span>
+            <span ui-sref="userDetails_chooseType">{{"BACK"|translate}}</span>
         </h1>
         <h1 class="title no-logo" ng-if="$state.params.isEdit=='1'">
             <i class="icon ion-chevron-left calm" ui-sref="home"></i>
@@ -10,6 +10,7 @@
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false">
+        <h3 class="m-20 text-center">{{::'USER_DETAILS.TUTOR.STEP1_TITLE'|translate}}</h3>
         <form>
             <ion-checkbox ng-model="selInstitutes[name]" ng-repeat="(name, institute) in institutes">{{name}}</ion-checkbox>
         </form>
