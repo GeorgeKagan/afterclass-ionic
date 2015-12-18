@@ -13,6 +13,9 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         $scope.popover.hide();
         $rootScope.user = null;
         $state.go('login');
+        if (localStorage.getItem('isDevUser')) {
+            window.location.reload(true);
+        }
     };
 
     $rootScope.$watch('user', function () {
@@ -39,12 +42,14 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 '10208031223882048', // Dor
                 '104530943234576' // Helen Denth
             ],
+            isDevUser = localStorage.getItem('isDevUser'),
             env = localStorage.getItem('env');
 
         if (!$rootScope.user.id) {
             throw new Error('User has no ID. ' + JSON.stringify($rootScope.user));
         }
-        else if (_.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
+        else if (isDevUser || _.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
+            localStorage.setItem('isDevUser', true);
             $rootScope.isDevUser = true;
             // Switch Firebase env
             $scope.links.push({onclick: function ($event) {
