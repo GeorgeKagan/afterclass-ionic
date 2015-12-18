@@ -17,7 +17,9 @@
             </label>
             <br>
             <div class="list">
-                <a class="item item-icon-right" href="#" ng-click="doImpersonation(user)" ng-repeat="user in users | filter:{
+                <a class="item item-icon-right" href="#" ng-click="doImpersonation(user)"
+                   ng-style="{'background': $root.user.name===user.name ? '#FBB9E0' : ''}"
+                   ng-repeat="user in users | filter:{
                         name: impersonate.name,
                         id  : impersonate.id
                     }:strict">
