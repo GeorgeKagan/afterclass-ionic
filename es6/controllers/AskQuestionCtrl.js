@@ -100,6 +100,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
                     angular.element(this).fadeIn();
                     $ionicScrollDelegate.scrollTop();
+                }).error(() => {
+                    reportError('Failed to load user image on ask question: ' + result.imageURI);
+                    $scope.removeAttachment();
                 });
             }, 1000);
         }, function () { });
@@ -125,6 +128,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                     angular.element(this).fadeIn();
                     $ionicScrollDelegate.scrollBottom();
                 }).error(function() {
+                    reportError('Failed to load user image on ask question: ' + result.imageURI);
                     $scope.removeAttachment();
                     $ionicPopup.alert({
                         title   : $translate.instant('ERROR'),

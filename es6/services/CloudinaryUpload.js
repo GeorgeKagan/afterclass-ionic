@@ -31,6 +31,7 @@ angular.module('afterclass.services').factory('CloudinaryUpload', function ($q, 
                     var response = JSON.parse(decodeURIComponent(result.response));
                     deferred.resolve(response);
                 }, function (err) {
+                    reportError('Failed to upload image to cloudinary: ' + err);
                     $ionicLoading.show({template: $translate.instant('UPLOADS.FAIL'), duration: 3000});
                     deferred.reject(err);
                 }, function (progress) {

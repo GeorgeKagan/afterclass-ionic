@@ -50,9 +50,10 @@ angular.module('afterclass.services', [])
                             });
                         });
                     }, function(error) {
-                        console.error(error);
+                        reportError('Failed resolveLocalFileSystemURL: ' + error);
                     });
                 }, function(err) {
+                    reportError('Failed camera.getPicture: ' + err);
                     q.reject(err);
                 }, options);
                 return q.promise;

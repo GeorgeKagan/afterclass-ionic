@@ -62,7 +62,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     // Camera
                     MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
                         add_img_url = result.imageURI;
-                        angular.element('.img-preview').attr('src', result.imageURI);
+                        angular.element('.img-preview')
+                            .error(() => reportError('Failed to load user image on view question: ' + result.imageURI))
+                            .attr('src', result.imageURI);
                         $scope.add_img_preview = true;
                     }, function () {
                         $scope.add_img_preview = false;
@@ -78,7 +80,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                             });
                         }
                         add_img_url = result.imageURI;
-                        angular.element('.img-preview').attr('src', result.imageURI);
+                        angular.element('.img-preview')
+                            .error(() => reportError('Failed to load user image on view question: ' + result.imageURI))
+                            .attr('src', result.imageURI);
                         $scope.add_img_preview = true;
                     }, function () {
                         $scope.add_img_preview = false;

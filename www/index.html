@@ -24,6 +24,10 @@
         var dd = function () {
             return console.log.apply(console, arguments);
         };
+        var reportError = function(errorStr) {
+            console.error(errorStr);
+            Bugsnag.notifyException(new Error(errorStr));
+        };
     </script>
 </head>
 
