@@ -50,6 +50,9 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
          * @param authData
          */
         fillMandatoryFields: function (user, authData) {
+            let isImpersonating = localStorage.getItem('isImpersonating') === 'true';
+            if (isImpersonating) { return; }
+
             $timeout(() => {
                 obj.updateUser({
                     firebaseAuthToken : authData.token

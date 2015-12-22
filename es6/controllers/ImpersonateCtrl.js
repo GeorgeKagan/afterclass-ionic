@@ -16,6 +16,7 @@ angular.module('afterclass.controllers').controller('ImpersonateCtrl', ($rootSco
             if (error) {
                 console.log("Authentication Failed!", error);
             } else {
+                localStorage.setItem('isImpersonating', true);
                 window.location.reload(true);
             }
         });

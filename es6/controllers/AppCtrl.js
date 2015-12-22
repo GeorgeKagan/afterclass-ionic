@@ -13,7 +13,8 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         $scope.popover.hide();
         $rootScope.user = null;
         $state.go('login');
-        if (localStorage.getItem('isDevUser')) {
+        if (localStorage.getItem('isDevUser') === 'true') {
+            localStorage.setItem('isImpersonating', false);
             window.location.reload(true);
         }
     };
@@ -42,7 +43,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 '10208031223882048', // Dor
                 '104530943234576' // Helen Denth
             ],
-            isDevUser = localStorage.getItem('isDevUser'),
+            isDevUser = localStorage.getItem('isDevUser') === 'true',
             env = localStorage.getItem('env');
 
         if (!$rootScope.user.id) {

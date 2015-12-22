@@ -15,7 +15,9 @@
                 <i class="icon ion-search placeholder-icon" style="margin: 10px;"></i>
                 <input ng-model="impersonate.id" type="text" placeholder="Facebook ID (numbers only)">
             </label>
-            <br>
+            <div class="padding" style="margin: 0 0 5px 0">
+                <i style="font-size: 30px;top:5px;position:relative" class="icon ion-ios-checkmark-empty"></i> = Can impersonate
+            </div>
             <div class="list">
                 <a class="item item-icon-right" href="#" ng-click="doImpersonation(user)"
                    ng-style="{'background': $root.user.name===user.name ? '#FBB9E0' : ''}"
@@ -23,12 +25,16 @@
                         name: impersonate.name,
                         id  : impersonate.id
                     }:strict">
-                    <i class="icon ion-arrow-right-c"></i>
+                    <!--<i class="icon ion-arrow-right-c"></i>-->
                     <div style="font-weight:bold;width:100px;display:inline-block">
                         <span ng-if="user.is_teacher">Tutor &nbsp;</span>
                         <span ng-if="!user.is_teacher">Student &nbsp;</span>
                     </div>
-                    <span>{{::user.name}}</span> <span style="color:red" ng-if="$root.user.name===user.name">&nbsp; You</span>
+                    <span>
+                        <i class="icon ion-ios-checkmark-empty" ng-if="user.firebaseAuthToken"></i>
+                        {{::user.name}}
+                    </span>
+                    <span style="color:red" ng-if="$root.user.name===user.name">&nbsp; You</span>
                 </a>
             </div>
         </div>
