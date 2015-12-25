@@ -6,7 +6,7 @@
             <span class="date">{{ post.create_date | moment }}</span>
         </h1>
     </div>
-    <ion-content lazy-scroll class="has-header" has-bouncing="false">
+    <ion-content lazy-scroll class="has-header has-footer" has-bouncing="false">
         <div class="post-question">
             <div dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
@@ -39,18 +39,18 @@
         </div>
     </ion-content>
 
-    <ion-footer-bar class="transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
+    <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
         <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
             {{::'POST.ACCEPT_QUESTION'|translate}}
         </button>
-    </ion-footer-bar>
+    </div>
 
-    <ion-footer-bar align-title="left" class="bar-light" id="comment-bar" ng-show="allowReply">
+    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="allowReply">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
         <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
         <div class="buttons pull-right">
             <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
         </div>
-    </ion-footer-bar>
+    </div>
 </ion-view>
