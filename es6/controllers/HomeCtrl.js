@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
+    $rootScope, $scope, $ionicScrollDelegate, $state, $timeout, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
     'use strict';
 
     // Debug student choose insitute popup
@@ -62,7 +62,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         });
         confirmPopup.then(function(res) {
             if (res) {
-                Post.delete(firebase_id);
+                Post.delete(firebase_id).then(() => $ionicScrollDelegate.scrollTop(false));
                 User.updateUser({credits: $rootScope.user.credits + 1});
             }
         });
@@ -103,4 +103,14 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;
     };
+
+    // Scroll to top on backing to home state
+    $scope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
+        if (fromState.name === 'userDetails_chooseType') {
+            return;
+        }
+        if ($state.current.name === 'home') {
+            $timeout(() => $ionicScrollDelegate.scrollTop(false), 100);
+        }
+    });
 });

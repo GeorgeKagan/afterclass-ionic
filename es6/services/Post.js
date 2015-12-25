@@ -4,7 +4,7 @@ angular.module('afterclass.services').factory('Post', function ($firebaseObject,
     obj.delete = function (firebase_id) {
         var ref     = MyFirebase.getRef().child('posts/' + firebase_id),
             post    = $firebaseObject(ref);
-        post.$remove();
+        return post.$remove();
     };
 
     obj.toggleAcceptance = function (firebase_id, user_id) {
