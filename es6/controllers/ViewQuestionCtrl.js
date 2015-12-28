@@ -215,8 +215,13 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             };
 
             if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
+                var currPotTutor = $scope.post.potential_tutors[$rootScope.user.$id];
+                // Another try, returned field might change on the server
+                if (!currPotTutor) {
+                    currPotTutor = $scope.post.potential_tutors[$rootScope.user.id];
+                }
                 // Get the timestamp when teacher accepted question and save it on the reply
-                replyData.accept_date       = $scope.post.potential_tutors[$rootScope.user.$id].status_update_date || null;
+                replyData.accept_date       = currPotTutor ? currPotTutor.status_update_date : null;
                 replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
             }
 
