@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('User', function ($rootScope, $q, $firebaseObject, $timeout, AmazonSNS, MyFirebase) {
+angular.module('afterclass.services').factory('User', function ($rootScope, $q, $firebaseObject, $timeout, AmazonSNS, MyFirebase, Utils) {
     'use strict';
 
     var ref = MyFirebase.getRef();
@@ -43,6 +43,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
             });
             // Don't wait for async call
             $rootScope.user = angular.element.extend($rootScope.user, data);
+            Utils.triggerServerSync();
         },
         /**
          * Makes sure any mandatory fields, that previously failed to be set, are set
