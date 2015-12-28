@@ -56,7 +56,8 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
 
             $timeout(() => {
                 obj.updateUser({
-                    firebaseAuthToken : authData.token
+                    firebaseAuthToken : authData.token,
+                    lastUsedDevice    : window.device ? `${device.model} ${device.platform} ${device.version}` : 'device-plugin-not-found'
                 });
             });
 
