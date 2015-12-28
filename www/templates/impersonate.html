@@ -31,7 +31,7 @@
                         <span ng-if="!user.is_teacher">Student &nbsp;</span>
                     </div>
                     <span>
-                        <i class="icon ion-ios-checkmark-empty" ng-if="user.firebaseAuthToken"></i>
+                        <i class="icon ion-ios-checkmark-empty" ng-if="user.firebase_auth_token"></i>
                         {{::user.name}}
                     </span>
                     <span style="color:red" ng-if="$root.user.name===user.name">&nbsp; You</span>
