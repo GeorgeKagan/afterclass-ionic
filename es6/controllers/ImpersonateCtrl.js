@@ -7,12 +7,12 @@ angular.module('afterclass.controllers').controller('ImpersonateCtrl', ($rootSco
     });
 
     $scope.doImpersonation = user => {
-        if (!user.firebase_auth_token) {
-            return alert('User has no user.firebase_auth_token. They need to login at least once.');
+        if (!user.firebaseAuthToken) {
+            return alert('User has no user.firebaseAuthToken. They need to login at least once.');
         }
         let ref = MyFirebase.getRef();
 
-        ref.authWithCustomToken(user.firebase_auth_token, error => {
+        ref.authWithCustomToken(user.firebaseAuthToken, error => {
             if (error) {
                 console.log("Authentication Failed!", error);
             } else {
