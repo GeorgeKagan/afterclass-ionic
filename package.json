@@ -2,6 +2,11 @@
   "name": "afterclass",
   "version": "1.0.0",
   "description": "AfterClass - Get answers to your questions",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://LeoLiber@bitbucket.org/timenomad/afterclass-ionic.git"
+  },
+  "license": "SEE LICENSE IN <filename>",
   "dependencies": {
     "gulp": "^3.9.0",
     "gulp-sass": "^2.1.0",
