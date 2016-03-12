@@ -1,0 +1,7 @@
+{
+    "name": "afterclass-ionic",
+    "app_id": "",
+    "gulpStartupTasks": [
+        "default"
+    ]
+}
