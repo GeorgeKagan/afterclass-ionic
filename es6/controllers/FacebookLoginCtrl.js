@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
+angular.module('afterclass.controllers').controller('FacebookLoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
     'use strict';
     var ref = MyFirebase.getRef(), authData;
 
@@ -39,13 +39,8 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
         });
     };
 
-    $scope.loginWithEmail = function () {
-        ref.authWithPassword({
-            email    : "bobtony@firebase.com",
-            password : "correcthorsebatterystaple"
-        }, function(error, authData) {
-            
-        });
+    $scope.goToLoginWithEmail = function () {
+        $state.go('registerOrLogin');
     };
 
     var postLoginOps = function (user, authData) {

@@ -54,7 +54,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             .state('login', {
                 url: "/login",
                 templateUrl: "templates/login.html",
-                controller: 'LoginCtrl',
+                controller: 'FacebookLoginCtrl',
                 onEnter: function($state, $ionicHistory, $timeout) {
                     if (!localStorage.getItem('finished_on_boarding')) {
                         $timeout(function() {
@@ -63,6 +63,11 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                         });
                     }
                 }
+            })
+            .state('registerOrLogin', {
+                url: "/registerOrLogin",
+                templateUrl: "templates/register-or-login.html",
+                controller: 'EmailLoginCtrl'
             })
             .state('onBoarding', {
                 url: "/onBoarding",

@@ -12,14 +12,18 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
             user.$loaded().then(function () {
                 // New user added
                 if (!user.id) {
-                    var data = angular.element.extend(authData.facebook.cachedUserProfile, {
+                    var data = {}, customProperties = {
                         // Add any initial custom properties here
                         //uid: authData.uid,
-                        update_date     : Firebase.ServerValue.TIMESTAMP,
-                        create_date     : Firebase.ServerValue.TIMESTAMP,
-                        credits         : INITIAL_CREDITS,
-                        name_lowercase  : authData.facebook.cachedUserProfile.name.toLowerCase() //TODO: Remove this when new dashboard is ready
-                    });
+                        update_date : Firebase.ServerValue.TIMESTAMP,
+                        create_date : Firebase.ServerValue.TIMESTAMP,
+                        credits     : INITIAL_CREDITS
+                    };
+                    if (authData.facebook) {
+                        data = angular.element.extend(authData.facebook.cachedUserProfile, customProperties);
+                    } else {
+                        data = angular.element.extend(authData, customProperties);
+                    }
                     user = angular.element.extend(user, data);
                     user.$save().then(function () {
                         q.resolve(user);
