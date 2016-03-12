@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
     $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
-    $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase) {
+    $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils) {
     'use strict';
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
         post        = ref,
@@ -215,8 +215,13 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             };
 
             if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
+                var currPotTutor = $scope.post.potential_tutors[$rootScope.user.$id];
+                // Another try, returned field might change on the server
+                if (!currPotTutor) {
+                    currPotTutor = $scope.post.potential_tutors[$rootScope.user.id];
+                }
                 // Get the timestamp when teacher accepted question and save it on the reply
-                replyData.accept_date       = $scope.post.potential_tutors[$rootScope.user.$id].status_update_date || null;
+                replyData.accept_date       = currPotTutor ? currPotTutor.status_update_date : null;
                 replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
             }
 
@@ -250,9 +255,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                         AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
                     }
                     post.$save();
-
-                    // Run sync + algorithm
-                    $http.get('http://dashboard.afterclass.co.il/run_sync_and_algorithm.php?hash=FHRH$e509ru28340sdfc2$', function (data) { console.info(data); });
+                    Utils.triggerServerSync();
                 });
             }, function (error) {
                 $ionicLoading.hide();

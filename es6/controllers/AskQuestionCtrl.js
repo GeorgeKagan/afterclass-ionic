@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', function (
     $rootScope, $scope, $http, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) {
+    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon, Utils) {
 
     var img         = angular.element('#aq-img');
     var ref         = MyFirebase.getRef().child('posts');
@@ -57,9 +57,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                                 template: $translate.instant('FORM.Q_SENT'),
                                 okText  : $translate.instant('OK')
                             });
-
-                            // Run sync + algorithm
-                            $http.get('http://dashboard.afterclass.co.il/run_sync_and_algorithm.php?hash=FHRH$e509ru28340sdfc2$', function (data) { console.info(data); });
+                            Utils.triggerServerSync();
                         }, 1000);
                     });
                 }, 1000);

@@ -34,26 +34,9 @@
 <body ac-general ng-app="afterclass" ng-controller="AppCtrl" ng-class="{'is-teacher': $root.user.is_teacher}">
     <ion-nav-view></ion-nav-view>
 
-    <!-- Facebook SDK -->
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '776966842380887',
-                xfbml      : true,
-                version    : 'v2.5'
-            });
-        };
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "http://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="js/lib/facebook-sdk.js"></script>
     <script src="js/lib/facebookConnectPlugin.js"></script>
     <script src="js/lib/paypal-mobile-js-helper.js"></script>
     <script src="js/lib/aws-sdk-2.1.22.min.js"></script>
@@ -99,6 +82,7 @@
     <script src="js/services/AmazonSNS.js"></script>
     <script src="js/services/CloudinaryUpload.js"></script>
     <script src="js/services/HttpInterceptor.js"></script>
+    <script src="js/services/Utils.js"></script>
     <script src="js/lib/angular-ios9-uiwebview.patch.js"></script>
 </body>
 </html>
