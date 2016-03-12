@@ -17,7 +17,7 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
         $ionicLoading.hide();
     }
 
-    $scope.account = {email: '', password: '', passwordAgain: ''};
+    $scope.account = {firstName: '', lastName: '', email: '', password: '', passwordAgain: ''};
     $scope.show = 'login';
 
     $scope.showLogin = ()    => $scope.show = 'login';
@@ -27,7 +27,8 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
         return $scope.account.email && $scope.account.password;
     };
     $scope.canRegister = () => {
-        return $scope.account.email && $scope.account.password && $scope.account.passwordAgain && $scope.isPasswordsSame();
+        return $scope.account.firstName && $scope.account.lastName &&
+            $scope.account.email && $scope.account.password && $scope.account.passwordAgain && $scope.isPasswordsSame();
     };
     $scope.isPasswordsSame = () => $scope.account.password === $scope.account.passwordAgain;
 
@@ -37,7 +38,6 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
             email   : $scope.account.email,
             password: $scope.account.password
         }, function (error, authData) {
-            //todo: export to service
             if (error) {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
@@ -60,10 +60,9 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
     $scope.register = () => {
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         ref.createUser({
-            email   : $scope.account.email,
-            password: $scope.account.password
+            email     : $scope.account.email,
+            password  : $scope.account.password
         }, function(error, authData) {
-            //todo: export to service
             if (error) {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
@@ -73,14 +72,21 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
                 });
                 console.log('Firebase register failed!', error);
             } else {
-                //todo: add username to firebase (via an additional input? from email?)
-                User.saveToUsersCollection(authData).then(function (user) {
-                    //todo: fix js error on reg success (needs to redirect to choose user type)
-                    postLoginOps(user, authData);
-                    $ionicLoading.hide();
-                    doRedirect(user);
+                ref.authWithPassword({
+                    email   : $scope.account.email,
+                    password: $scope.account.password
+                }, function (error, authData) {
+                    authData = angular.extend(authData, {
+                        first_name: $scope.account.firstName,
+                        last_name : $scope.account.lastName
+                    });
+                    User.saveToUsersCollection(authData).then(function (user) {
+                        postLoginOps(user, authData);
+                        $ionicLoading.hide();
+                        doRedirect(user);
+                    });
+                    console.log('Registered successfully with payload:', authData);
                 });
-                console.log('Registered successfully with payload:', authData);
             }
         });
     };

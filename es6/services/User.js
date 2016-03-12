@@ -22,7 +22,16 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                     if (authData.facebook) {
                         data = angular.element.extend(authData.facebook.cachedUserProfile, customProperties);
                     } else {
-                        data = angular.element.extend(authData, customProperties);
+                        data = angular.element.extend({
+                            first_name: authData.first_name,
+                            last_name : authData.last_name,
+                            name      : authData.first_name + ' ' + authData.last_name,
+                            id        : authData.uid,
+                            email     : authData.password.email,
+                            picture   : {data: {url: authData.password.profileImageURL}},
+                            token     : authData.token,
+                            provider  : authData.provider,
+                        }, customProperties);
                     }
                     user = angular.element.extend(user, data);
                     user.$save().then(function () {

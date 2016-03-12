@@ -41,6 +41,20 @@
                 צור חשבון חדש
             </button>
             <div class="fade" ng-if="show==='register'">
+                <!-- First Name -->
+                <label class="item item-input">
+                    <i class="icon ion-ios-person-outline placeholder-icon"
+                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.firstName" type="text" placeholder="שם פרטי"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <!-- Last Name -->
+                <label class="item item-input">
+                    <i class="icon ion-ios-people-outline placeholder-icon"
+                       style="margin: 0 -3px 0 8px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.lastName" type="text" placeholder="שם משפחה"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
                 <!-- Email -->
                 <label class="item item-input">
                     <i class="icon ion-ios-email-outline placeholder-icon"
