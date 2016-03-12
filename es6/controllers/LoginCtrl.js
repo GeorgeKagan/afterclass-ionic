@@ -15,7 +15,7 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
         $ionicLoading.hide();
     }
 
-    $scope.login = function () {
+    $scope.loginWithFacebook = function () {
         window.facebookConnectPlugin.login(['public_profile', 'email'], function(status) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             window.facebookConnectPlugin.getAccessToken(function(token) {
@@ -36,6 +36,15 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
             });
         }, function(error) {
             console.log('An error occurred logging the user in', error);
+        });
+    };
+
+    $scope.loginWithEmail = function () {
+        ref.authWithPassword({
+            email    : "bobtony@firebase.com",
+            password : "correcthorsebatterystaple"
+        }, function(error, authData) {
+            
         });
     };
 

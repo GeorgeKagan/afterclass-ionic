@@ -1,5 +1,8 @@
 {
     "PAGES": {
+        "LOGIN": {
+            "TITLE": "Login"
+        },
         "ABOUT": {
             "TITLE": "About AfterClass",
             "CONTENT": "We are AWESOME!!"
