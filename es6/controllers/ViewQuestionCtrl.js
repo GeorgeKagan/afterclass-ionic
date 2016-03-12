@@ -1,7 +1,8 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
     $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
-    $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils) {
+    $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils, Rating) {
     'use strict';
+
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
         post        = ref,
         replies     = $firebaseArray(ref.child('replies')),
@@ -14,6 +15,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.allowReply           = false;
     $scope.showAcceptQuestion   = false;
     $scope.report               = {content: ''};
+
+    replies.$loaded().then(function(listOfReplies){
+        $scope.rating = Rating.getInstance(listOfReplies, $stateParams.firebase_id);
+    });
 
     $scope.post.$loaded().then(function(post) {
         //TODO: Refactor this area to support rating
