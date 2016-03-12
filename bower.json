@@ -2,24 +2,18 @@
   "name": "afterclass",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.1"
+    "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
-    "angular": "1.4.8",
-    "angular-animate": "1.4.8",
-    "firebase": "2.3.2",
-    "angularfire": "1.1.3",
+    "firebase": "~2.4",
+    "angularfire": "~1",
     "moment": "~2.9.0",
     "angular-elastic": "~2.4.2",
     "lodash": "~3.9.0",
     "angular-translate": "~2.7.0",
     "angular-translate-loader-static-files": "~2.7.0",
-    "jquery": "~2.1.4",
+    "jquery": "~2",
     "ion-image-lazy-load": "*",
     "ngCordova": "~0.1.20-alpha"
-  },
-  "resolutions": {
-    "angular-animate": "1.4.8",
-    "angular": "1.4.8"
   }
 }
