@@ -46,6 +46,30 @@
         </button>
     </div>
 
+    <!-- Rating -->
+    <div class="bar bar-footer bar-light" id="rating-bar">
+        <div id="rating-area">
+            <div class="item item-avatar">
+                <img ng-src="http://graph.facebook.com/104530943234576/picture?type=square" width="50" height="50">
+                עד כמה היית מרצה מתשובתו של אריק?
+
+                <ul>
+                    <li><img src="../img/star-full.png"></li>
+                    <li><img src="../img/star-full.png"></li>
+                    <li><img src="../img/star-full.png"></li>
+                    <li><img src="../img/star-empty.png"></li>
+                    <li><img src="../img/star-empty.png"></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="buttons pull-right" ng-click="addReply()">
+            <button class="button button-clear button-calm icon ion-android-chat">&nbsp;</button>
+        </div>
+    </div>
+    <!-- /Rating -->
+
+    <!-- Comment form -->
     <div class="bar bar-footer bar-light" id="comment-bar" ng-show="allowReply">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
@@ -54,4 +78,6 @@
             <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
         </div>
     </div>
+    <!-- /Comment form -->
+
 </ion-view>

@@ -16,9 +16,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.report               = {content: ''};
 
     $scope.post.$loaded().then(function(post) {
+        //TODO: Refactor this area to support rating
         if ($rootScope.user.is_teacher) {
-            // Tutor
-            // Show accept button for assigned tutors
+            // Tutor - Show accept button for assigned tutors
             var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
             if ($rootScope.user.is_teacher && post.status === 'assigned' && acceptingTutors.length === 0) {
                 $scope.allowReply           = false;
@@ -28,9 +28,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 $scope.showAcceptQuestion   = false;
             }
         } else {
-            // User
-            // Block replies after a certain amount of time
-            if (post.status === 'answered') {
+            // User - Block replies after a certain amount of time
+            /*if (post.status === 'answered') {
                 var lastActivity = post.create_date;
                 if (Array.isArray(post.replies)) {
                     lastActivity = Math.max(post.replies[post.replies-1].create_date, lastActivity);
@@ -42,7 +41,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             } else {
                 $scope.allowReply           = true;
                 $scope.showAcceptQuestion   = false;
-            }
+            }*/
+
+            //TODO: Remove this, dev only
+            $scope.allowReply           = false;
+            $scope.showAcceptQuestion   = false;
         }
     });
 
