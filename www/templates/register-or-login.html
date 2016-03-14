@@ -5,7 +5,7 @@
             <span class="back-btn dark" ui-sref="login">{{::"BACK"|translate}}</span>
         </h1>
     </div>
-    <ion-content class="has-header has-footer padding-top" has-bouncing="false">
+    <ion-content class="has-header padding-top" has-bouncing="false">
         <div class="content-section" dir="auto">
 
             <!-- LOGIN -->
@@ -15,26 +15,28 @@
             </button>
             <div class="fade" ng-if="show==='login'">
                 <!-- Email -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-email-outline placeholder-icon"
                        style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.email" type="email" placeholder="אימייל"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Password -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-locked-outline placeholder-icon"
                        style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.password" type="password" placeholder="סיסמה"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
+                <div class="text-center" ng-if="!resetEmailSent" ng-click="sendResetEmail()">
+                    שכחת סיסמה? לחץ כאן
+                </div>
                 <button class="button button-block button-outline button-calm" ng-click="login()" ng-disabled="!canLogin()">
                     כניסה
                 </button>
             </div>
 
-            <hr class="m-20" style="border: 0; border-top: 1px solid #dfdfdf;">
-
+            <br>
             <!-- REGISTRATION -->
             <h4 class="text-center m-20">משתמש חדש?</h4>
             <button class="fade button button-block button-outline button-calm" ng-click="showRegister()" ng-if="show==='login'">
@@ -42,35 +44,35 @@
             </button>
             <div class="fade" ng-if="show==='register'">
                 <!-- First Name -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-person-outline placeholder-icon"
                        style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.firstName" type="text" placeholder="שם פרטי"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Last Name -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-people-outline placeholder-icon"
                        style="margin: 0 -3px 0 8px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.lastName" type="text" placeholder="שם משפחה"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Email -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-email-outline placeholder-icon"
                        style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.email" type="email" placeholder="אימייל"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Password -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-locked-outline placeholder-icon"
                        style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.password" type="password" placeholder="סיסמה"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Password Again -->
-                <label class="item item-input">
+                <label class="m-10 item item-input">
                     <i class="icon ion-ios-locked-outline placeholder-icon"
                        style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
                     <input ng-model="account.passwordAgain" type="password" placeholder="סיסמה שוב"

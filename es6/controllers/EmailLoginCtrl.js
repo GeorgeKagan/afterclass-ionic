@@ -57,6 +57,39 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
         });
     };
 
+    $scope.sendResetEmail = () => {
+        if (!$scope.account.email) {
+            return $ionicPopup.alert({
+                title   : 'שגיאה',
+                template: 'נא להזין אימייל',
+                okText  : $translate.instant('OK')
+            });
+        }
+        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+        ref.resetPassword({
+            email: $scope.account.email
+        }, function(error) {
+            if (error === null) {
+                $scope.account.email = '';
+                $ionicPopup.alert({
+                    title   : 'הצלחה',
+                    template: 'נשלח אליך אימייל עם סיסמה זמנית',
+                    okText  : $translate.instant('OK')
+                });
+                console.log("Password reset email sent successfully");
+            } else {
+                $ionicPopup.alert({
+                    title   : 'שגיאה',
+                    template: 'האימייל שהזנת לא קיים במערכת',
+                    okText  : $translate.instant('OK')
+                });
+                console.log("Error sending password reset email:", error);
+            }
+            $ionicLoading.hide();
+            $scope.$apply();
+        });
+    };
+
     $scope.register = () => {
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         ref.createUser({

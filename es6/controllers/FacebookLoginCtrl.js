@@ -1,8 +1,10 @@
 angular.module('afterclass.controllers').controller('FacebookLoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
     'use strict';
-    var ref = MyFirebase.getRef(), authData;
 
     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+    $scope.sessionChecked = false;
+
+    var ref = MyFirebase.getRef(), authData;
     authData = ref.getAuth();
 
     // Check if got active session
@@ -13,6 +15,7 @@ angular.module('afterclass.controllers').controller('FacebookLoginCtrl', functio
         });
     } else {
         $ionicLoading.hide();
+        $scope.sessionChecked = true;
     }
 
     $scope.loginWithFacebook = function () {
