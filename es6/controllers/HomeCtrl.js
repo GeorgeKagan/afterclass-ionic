@@ -86,7 +86,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
 
     var tabs = angular.element('#ac-tabs-inner > .tabs');
     $scope.gotScrolled = function () {
-        var y = angular.element('.scroll:visible').offset().top;
+        var y = angular.element('.scroll:visible').position().top;
         if (y <= -186) {
             // Tabs sticky on top
             angular.element('.bar-header').addClass('scrolled');
