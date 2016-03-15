@@ -1,0 +1,28 @@
+<ion-view id="profile-page" view-title="Profile" dir="auto">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i class="icon ion-chevron-left calm" ui-sref="home"></i>
+            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
+        </h1>
+    </div>
+    <ion-tabs class="tabs-striped tabs-background-dark tabs-color-calm tabs-icon-top">
+
+        <ion-tab title="פרופיל"
+                 icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
+            <ion-nav-view>
+                <ion-content class="ac-content-padding">
+                    כל מיני מידע...
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="סיסמה"
+                 icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline">
+            <ion-nav-view>
+                <ion-content class="ac-content-padding">
+                    שינוי סיסמה
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

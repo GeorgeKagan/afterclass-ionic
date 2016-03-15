@@ -36,6 +36,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
 
         $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
+        $ionicConfigProvider.tabs.position('bottom');
 
         //Translation
         $translateProvider.useStaticFilesLoader({
@@ -141,6 +142,11 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 url: "/fullImage/:img_id",
                 templateUrl: "templates/full-image.html",
                 controller: 'FullImageCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('profile', {
+                url: "/profile",
+                templateUrl: "templates/profile.html",
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('about', {

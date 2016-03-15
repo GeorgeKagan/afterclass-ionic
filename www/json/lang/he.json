@@ -55,6 +55,10 @@
             "TITLE": "אודות AfterClass",
             "CONTENT": "אנחנו מגניבים!"
         },
+        "PROFILE": {
+            "MENU": "פרופיל",
+            "TITLE": "פרופיל"
+        },
         "TOS": {
             "TITLE": "תנאי שימוש",
             "CONTENT": "הכי מגניבים שיש!"
@@ -97,7 +101,6 @@
     "DELETE": "מחק",
     "CANCEL": "ביטול",
     "SAVE": "שמירה",
-    "CAMERA": "מצלמה",
     "CAMERA": "מצלמה",
     "REMOVE": "הסר",
     "DOCUMENTS": "מסמכים",

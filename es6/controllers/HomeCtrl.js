@@ -106,7 +106,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
 
     // Scroll to top on backing to home state
     $scope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
-        if (fromState.name === 'userDetails_chooseType') {
+        if (fromState.name === 'userDetails_chooseType' || fromState.name === 'registerOrLogin') {
             return;
         }
         if ($state.current.name === 'home') {
