@@ -147,6 +147,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             .state('profile', {
                 url: "/profile",
                 templateUrl: "templates/profile.html",
+                controller: "ProfileCtrl",
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('about', {
