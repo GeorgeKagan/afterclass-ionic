@@ -81,10 +81,11 @@
                     <label class="m-10 item item-input">
                         <i class="icon ion-android-globe placeholder-icon"
                            style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
-                        <select ng-model="settings.language" ng-options="x.id as x.name for x in languages"></select>
+                        <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{::'FORM.UI_LANG'|translate}}</span>
+                        <select class="b-0" style="margin: 0 0 2px 0" ng-model="settings.language" ng-options="x.id as x.name for x in languages"></select>
                     </label>
-                    <button class="button button-block button-outline button-calm" ng-click="changePassword()" ng-disabled="!canChangePassword()">
-                        שמור הגדרות
+                    <button class="button button-block button-outline button-calm" ng-click="saveSettings()">
+                        {{::'FORM.SAVE_SETTINGS'|translate}}
                     </button>
                 </ion-content>
             </ion-nav-view>

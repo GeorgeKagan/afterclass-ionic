@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, MyFirebase) => {
+angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, MyFirebase, User) => {
 
     var ref = MyFirebase.getRef();
 
@@ -44,4 +44,9 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, 
         {id: 'en', name: 'אנגלית'}
     ];
     $scope.settings = {language: 'he'};
+
+    $scope.saveSettings = () => {
+        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+        User.updateUser({ui_lang: $scope.settings.language}).then(() => $ionicLoading.hide());
+    };
 });
