@@ -16,26 +16,19 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.showAcceptQuestion   = false;
     $scope.report               = {content: ''};
 
+    //Init functions
+    $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(data){
 
-    replies.$loaded().then(function(listOfReplies){
-        $scope.rating = Rating.getInstance(listOfReplies, $stateParams.firebase_id);
+        initFooter(post);
+        initRating(replies);
 
-        $scope.starIcon = function(index) {
-            if(index <= $scope.rating.getRating()) {
-                return '../img/star-full.png';
-            } else {
-                return '../img/star-empty.png';
-            }
-
-        };
     });
 
+    function initFooter(post) {
 
-
-    $scope.post.$loaded().then(function(post) {
         if ($rootScope.user.is_teacher) {
 
-            $scope.showRating = false;
+            $scope.showRating = false; //Student only
 
             // Tutor - Show accept button for assigned tutors
             var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
@@ -48,14 +41,32 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             }
         } else {
 
-            $scope.showAcceptQuestion   = false;
+            $scope.showAcceptQuestion   = false; //Tutor only
 
-            $scope.allowReply = true;
+            $scope.allowReply = false;
             $scope.showRating = true;
             $scope.showReplyForm = false;
 
         }
-    });
+
+    }
+
+    function initRating(replies) {
+        $scope.rating = Rating.getInstance(replies);
+
+        if($scope.rating.getRating() === 0) {
+            $scope.allowReply = true;
+        }
+
+        $scope.starIcon = function(index) {
+            if(index <= $scope.rating.getRating()) {
+                return '../img/star-full.png';
+            } else {
+                return '../img/star-empty.png';
+            }
+        };
+    }
+
 
     $scope.toggleReply = function() {
 

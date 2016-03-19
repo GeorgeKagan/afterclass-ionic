@@ -1,27 +1,30 @@
 angular.module('afterclass.services').factory('Rating', function($rootScope, $firebaseArray, $firebaseObject, MyFirebase) {
     'use strict';
 
-    var Rating = function(fbReplies) {
+    var Rating = function(replies) {
 
         //Fields
-        this.allReplies = fbReplies;
+        this.replies = replies;
         this.ratedReply = null;
         this.rateReplyIndex = null;
         this.rating = 0;
         this.ratedTutor = null;
 
         //Find the last tutor reply and it's index
-        _.forEachRight(this.allReplies, (reply, i) => {
+        _.forEachRight(this.replies, (reply, i) => {
              if(reply.user !== $rootScope.user.$id) {
                  this.ratedReply = reply;
                  this.rateReplyIndex = i;
 
-                 if(typeof this.ratedReply !== 'undefined') {
-                     this.rating = this.ratedReply.rating;
-                 }
+                //TODO: BREAK after first user found
 
              }
         });
+
+        //Get current rating if exists
+        if(typeof this.ratedReply !== 'undefined' && typeof this.ratedReply.rating !== 'undefined') {
+            this.rating = this.ratedReply.rating;
+        }
 
         //Get the rated tutor
         let tutorRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load tutor for updating his score
@@ -65,6 +68,7 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
 
         } else { //Tutor already rated, update the amount of stars
 
+            //Update previous rating with new one
             this.ratedTutor.rating.stars = this.ratedTutor.rating.stars - this.ratedReply.rating + stars;
 
         }
@@ -73,15 +77,14 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
 
         //Rate reply
         this.ratedReply.rating = stars;
-        this.allReplies.$save(this.rateReplyIndex);
-
+        this.replies.$save(this.rateReplyIndex);
 
     };
 
     //Return new instance
     return {
-        getInstance: function(post, user) {
-            return new Rating(post, user);
+        getInstance: function(post) {
+            return new Rating(post);
         }
     };
 
