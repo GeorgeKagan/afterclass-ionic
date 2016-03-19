@@ -72,15 +72,15 @@ angular.module('afterclass.services', [])
                 scope.selectInstitute   = function() {
                     var institute = angular.element('#popup-institute :selected').attr('label');
                     scope.hash.selDegree = 0;
-                    if (institute !== undefined && institute !== 'אחר') {
+                    if (institute !== undefined && institute !== $translate.instant('OTHER')) {
                         scope.degrees       = _.uniq(data[institute], 'name');
                         scope.degrees.push({name: $translate.instant('OTHER')});
                         scope.showDegrees   = true;
-                    } else if (institute === 'אחר') {
+                    } else if (institute === $translate.instant('OTHER')) {
                         var all_degrees = [];
                         angular.forEach(data, function(dataInstitute) {
                             angular.forEach(dataInstitute, function(degree) {
-                                if (dataInstitute === 'אחר') { return; }
+                                if (dataInstitute === $translate.instant('OTHER')) { return; }
                                 all_degrees.push(degree);
                             });
                         });
@@ -133,7 +133,7 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('Institutes', function($q, $rootScope, $http) {
+    .factory('Institutes', function($q, $rootScope, $http, $translate) {
         var obj = {};
         obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
             var d = $q.defer();
@@ -142,7 +142,7 @@ angular.module('afterclass.services', [])
                 return;
             }
             $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-                var subjects = ['אחר'];
+                var subjects = [$translate.instant('OTHER')];
                 if (data[institute]) {
                     var subjectsObj = _.find(data[institute], {name: degree});
                     if (subjectsObj) {

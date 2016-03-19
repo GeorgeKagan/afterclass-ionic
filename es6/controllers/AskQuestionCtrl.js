@@ -19,7 +19,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      */
     $scope.addPost = function () {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
             $ionicPopup.alert({
@@ -91,6 +91,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Take picture with camera
      */
     $scope.takePicture = function () {
+        if (!window.cordova) {
+            return alert('Only works on a real device!');
+        }
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
             add_img_url = result.imageURI;
             $timeout(function() {
@@ -110,6 +113,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Choose picture from gallery
      */
     $scope.choosePicture = function () {
+        if (!window.cordova) {
+            return alert('Only works on a real device!');
+        }
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
             if (!result.is_image) {
                 $scope.removeAttachment();

@@ -1,6 +1,12 @@
 angular.module('afterclass.controllers').controller('FacebookLoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
     'use strict';
 
+    if (!localStorage.getItem('finished_on_boarding')) {
+        $ionicHistory.nextViewOptions({disableBack: true});
+        $state.go('onBoarding');
+        return;
+    }
+
     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
     $scope.sessionChecked = false;
 

@@ -43,8 +43,7 @@ body.rtl {
     direction: rtl;
   }
   .popup-buttons .button {
-    margin-left: 5px;
-    margin-right: 0;
+    margin: 0 0 0 5px;
     &:last-child {
       margin-left: 0;
     }
@@ -97,7 +96,7 @@ body.rtl {
       }
       .ph-delete {
         float: left;
-        left: -10px;
+        margin: 0 10px 0 -5px;
       }
     }
     .button-bar button.button {

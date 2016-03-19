@@ -20,6 +20,12 @@
   }
 }
 
+.tabs-bottom {
+  .tabs {
+    bottom: 0;
+  }
+}
+
 .scroll-bar-indicator {
   display: none;
 }
@@ -157,8 +163,16 @@ select {
   fill: $blue;
 }
 
+.m-0 {
+  margin: 0 !important;
+}
+
 .m-10 {
   margin: 10px 0 !important;
+}
+
+.m-15 {
+  margin: 15px 0 25px 0 !important;
 }
 
 .m-20 {

@@ -5,8 +5,8 @@
             <span class="back-btn dark" ng-click="backToHome()">{{::"BACK"|translate}}</span>
         </h1>
     </div>
-    <ion-content class="has-header has-footer padding" has-bouncing="false" dir="auto">
-        <div class="gp-balance text-center">
+    <ion-content class="has-header has-footer ac-content-padding" has-bouncing="false" dir="auto">
+        <div class="m-20 gp-balance text-center">
             {{::'PAYMENT.OUTSTANDING'|translate}}
             <br>
             <div class="gp-balance-inner">
@@ -16,7 +16,7 @@
         <button class="button button-block button-outline button-balanced" ng-disabled="!payment.balance" ng-click="withdraw()">
             {{::'PAYMENT.WITHDRAW'|translate}}
         </button>
-        <h3 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h3>
+        <h4 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h4>
         <ul class="list" ng-show="filteredPayments.length">
             <li class="item highlight" ng-repeat="item in filteredPayments = (payment.previous | filter:{status: '!current'} | orderBy:'-status_date')">
                 <div class="row row-no-padding">

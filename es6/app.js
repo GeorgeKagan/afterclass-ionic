@@ -14,6 +14,8 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 }
                 // Get app store version
                 $cordovaAppVersion.getVersionNumber().then(version => $rootScope.appVersion = version);
+            } else {
+                $rootScope.appVersion = 'available_on_device';
             }
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -37,6 +39,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
         $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.views.transition('none');
 
         //Translation
         $translateProvider.useStaticFilesLoader({
@@ -53,17 +56,10 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
 
         $stateProvider
             .state('login', {
+                cache: false,
                 url: "/login",
                 templateUrl: "templates/login.html",
-                controller: 'FacebookLoginCtrl',
-                onEnter: function($state, $ionicHistory, $timeout) {
-                    if (!localStorage.getItem('finished_on_boarding')) {
-                        $timeout(function() {
-                            $ionicHistory.nextViewOptions({disableBack: true});
-                            $state.go('onBoarding');
-                        });
-                    }
-                }
+                controller: 'FacebookLoginCtrl'
             })
             .state('registerOrLogin', {
                 url: "/registerOrLogin",
