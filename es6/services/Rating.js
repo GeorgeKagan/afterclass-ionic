@@ -16,7 +16,7 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
                  this.ratedReply = reply;
                  this.rateReplyIndex = i;
 
-                //TODO: BREAK after first user found
+                return false; //Found the reply toi rate, break
 
              }
         });
