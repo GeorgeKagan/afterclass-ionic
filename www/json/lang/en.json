@@ -118,6 +118,9 @@
         "BUY": "Buy now",
         "RECOMMENDED": "Recommended!"
     },
+    "RATING": {
+        "SATISFACTION_RATE": "How much are you satisfied with the answer?"
+    }
     "BACK": "Back",
     "OK": "OK",
     "ERROR": "Error",

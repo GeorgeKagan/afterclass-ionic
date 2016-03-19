@@ -41,18 +41,51 @@
         </div>
     </ion-content>
 
+    <!-- Rating -->
+    <div class="bar bar-footer bar-light" id="rating-bar" ng-if="post.replies" ng-show="showRating">
+        <div id="rating-area">
+            <div class="item item-avatar">
+
+                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::rating.getRatedTutor().$id.replace('facebook:', '')}}/picture?type=square" width="60" height="60">
+                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::rating.getRatedTutor().$id}}?d=identicon" width="60" height="60">
+
+                {{::'RATING.SATISFACTION_RATE'|translate}}
+
+                <ul>
+                    <li><img ng-src="{{starIcon(1)}}" ng-click="rateAnswer(1)"></li>
+                    <li><img ng-src="{{starIcon(2)}}" ng-click="rateAnswer(2)"></li>
+                    <li><img ng-src="{{starIcon(3)}}" ng-click="rateAnswer(3)"></li>
+                    <li><img ng-src="{{starIcon(4)}}" ng-click="rateAnswer(4)"></li>
+                    <li><img ng-src="{{starIcon(5)}}" ng-click="rateAnswer(5)"></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="buttons pull-right" ng-click="toggleReply()" ng-show="allowReply">
+            <button class="button button-clear button-calm icon ion-android-chat">&nbsp;</button>
+        </div>
+    </div>
+    <!-- /Rating -->
+
+    <!-- Acceptance option -->
     <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
         <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
             {{::'POST.ACCEPT_QUESTION'|translate}}
         </button>
     </div>
+    <!-- /Acceptance option -->
 
-    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="allowReply">
+    <!-- Comment form -->
+    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="showReplyForm">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
+        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}">{{$rootScope.user.is_teacher}}</textarea>
         <div class="buttons pull-right">
+            <button class="button button-outline button-assertive push-right" ng-if="!isTutor" ng-click="toggleReply()">{{::'POST.CANCEL'|translate}}</button>
             <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
+
         </div>
     </div>
+    <!-- /Comment form -->
+
 </ion-view>

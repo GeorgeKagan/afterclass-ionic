@@ -1,8 +1,8 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
     $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
-    $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils) {
+    $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils, Rating) {
     'use strict';
-    
+
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
         post        = ref,
         replies     = $firebaseArray(ref.child('replies')),
@@ -12,40 +12,82 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post                 = $firebaseObject(post);
     $scope.replyBody            = '';
     $scope.add_img_preview      = false;
-    $scope.allowReply           = false;
+    $scope.showReplyForm           = false;
     $scope.showAcceptQuestion   = false;
-    $scope.report               = {content: ''};
+    $scope.report               = {content: '', customMessage: ''};
 
-    $scope.post.$loaded().then(function(post) {
-        if ($rootScope.user.is_teacher) {
-            // Tutor
-            // Show accept button for assigned tutors
-            var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
-            if ($rootScope.user.is_teacher && post.status === 'assigned' && acceptingTutors.length === 0) {
-                $scope.allowReply           = false;
+    //Init functions
+    $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(data){
+
+        initFooter(post);
+        initRating(replies);
+
+    });
+
+    function initFooter(post) {
+
+        $scope.isTutor = $rootScope.user.is_teacher;
+
+        if ($scope.isTutor) {
+
+            $scope.showRating = false; //Student only
+
+            // Tutor - Show accept button for assigned tutors
+            var acceptingTutors = _.filter(post.potential_tutors, {post_status: 'accepted'});
+            if ($scope.isTutor && post.status === 'assigned' && acceptingTutors.length === 0) {
+                $scope.showReplyForm        = false;
                 $scope.showAcceptQuestion   = true;
             } else {
-                $scope.allowReply           = true;
+                $scope.showReplyForm        = true;
                 $scope.showAcceptQuestion   = false;
             }
         } else {
-            // User
-            // Block replies after a certain amount of time
-            if (post.status === 'answered') {
-                var lastActivity = post.create_date;
-                if (Array.isArray(post.replies)) {
-                    lastActivity = Math.max(post.replies[post.replies-1].create_date, lastActivity);
-                }
-                if (lastActivity > moment().utc().subtract(8, 'hours').unix()) {
-                    // Allow replies within 32 hours from last activity
-                    $scope.allowReply = true;
-                }
-            } else {
-                $scope.allowReply           = true;
-                $scope.showAcceptQuestion   = false;
+
+            $scope.showAcceptQuestion   = false; //Tutor only
+
+            $scope.allowReply = false;
+            $scope.showRating = true;
+            $scope.showReplyForm = false;
+
+        }
+
+    }
+
+    function initRating(replies) {
+        $scope.rating = Rating.getInstance(replies);
+
+        if($scope.rating.getRating() === 0) {
+            $scope.allowReply = true;
+        }
+
+        $scope.rateAnswer = function(stars) {
+            $scope.rating.rate(stars);
+
+            if(stars <= 3) {
+                $scope.reportConversation($translate.instant('RATING.RATING_TOO_LOW'));
             }
         }
-    });
+
+        $scope.starIcon = function(index) {
+            if(index <= $scope.rating.getRating()) {
+                return '../img/star-full.png';
+            } else {
+                return '../img/star-empty.png';
+            }
+        };
+    }
+
+    $scope.toggleReply = function() {
+
+        if($scope.showRating) { //Hide rating, show comment
+            $scope.showRating = false;
+            $scope.showReplyForm = true;
+        } else { //Hide comment, show rating
+            $scope.showRating = true;
+            $scope.showReplyForm = false;
+        }
+
+    };
 
     function imageUpload() {
         $ionicActionSheet.show({
@@ -59,9 +101,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 return true;
             },
             buttonClicked: function (index) {
+
                 if (!window.cordova) {
                     return alert('Only works on a real device!');
                 }
+
                 if (index === 0) {
                     // Camera
                     MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
@@ -98,7 +142,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     }
 
     function showAgreement(callback) {
-        var replyingTutors = _.pluck(_.filter(replies, { 'is_teacher': true }), 'name');
+        var replyingTutors = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
         if (replyingTutors.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
             // Alert the uses regarding the rules
             $ionicPopup.show({
@@ -127,54 +171,62 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     $scope.acceptQuestion = function() {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert($translate.instant('CHECK_INTERNET'));
+            return alert('Please check that you are connected to the internet');
         }
         Post.toggleAcceptance($stateParams.firebase_id, $rootScope.user.uid);
-        $scope.allowReply           = true;
+        $scope.showReplyForm           = true;
         $scope.showAcceptQuestion   = false;
     };
 
-    $scope.reportConversation = function() {
+    $scope.reportConversation = function(customMessage) {
+
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
+
+        if(typeof customMessage !== 'undefined') {
+            $scope.report.customMessage = customMessage;
+        } else {
+            $scope.report.customMessage = '';
+        }
+
         $ionicPopup.show({
             templateUrl : 'templates/partials/conversation-report-popup.html',
             scope       : $scope,
             title       : $translate.instant('REPORT_QUESTION'),
             buttons     : [{
-                    text: '<span>' + $translate.instant('CANCEL') + '</span>',
-                    type: 'button-default button-block'
-                }, {
-                    text: '<span>' + $translate.instant('SEND') + '</span>',
-                    type: 'button-positive button-block',
-                    onTap: function () {
-                        if (!$scope.report.content.trim()) {
-                            return;
-                        }
-                        $scope.post.$loaded().then(function (post) {
-                            var complaints = $firebaseArray(ref.child('complaints'));
-                            complaints.$loaded().then(function(post) {
-                                complaints.$add({
-                                    user                : $rootScope.user.name,
-                                    body                : $scope.report.content,
-                                    create_date         : Firebase.ServerValue.TIMESTAMP,
-                                    create_date_human   : moment().format('D/M/YY H:mm:ss'),
-                                    is_teacher          : $rootScope.user.is_teacher
-                                });
-                                $scope.report.content = '';
-                                post.$save();
-                                $timeout(function() {
-                                    $ionicPopup.alert({
-                                        title   : '',
-                                        template: $translate.instant('REPORT_SENT'),
-                                        okText  : $translate.instant('OK')
-                                    });
-                                }, 0);
-                            });
-                        });
+                text: '<span>' + $translate.instant('CANCEL') + '</span>',
+                type: 'button-default button-block'
+            }, {
+                text: '<span>' + $translate.instant('SEND') + '</span>',
+                type: 'button-positive button-block',
+                onTap: function () {
+                    if (!$scope.report.content.trim()) {
+                        return;
                     }
+                    $scope.post.$loaded().then(function (post) {
+                        var complaints = $firebaseArray(ref.child('complaints'));
+                        complaints.$loaded().then(function(post) {
+                            complaints.$add({
+                                user                : $rootScope.user.name,
+                                body                : $scope.report.content,
+                                create_date         : Firebase.ServerValue.TIMESTAMP,
+                                create_date_human   : moment().format('D/M/YY H:mm:ss'),
+                                is_teacher          : $rootScope.user.is_teacher
+                            });
+                            $scope.report.content = '';
+                            post.$save();
+                            $timeout(function() {
+                                $ionicPopup.alert({
+                                    title   : '',
+                                    template: $translate.instant('REPORT_SENT'),
+                                    okText  : $translate.instant('OK')
+                                });
+                            }, 0);
+                        });
+                    });
                 }
+            }
             ]
         });
     };
