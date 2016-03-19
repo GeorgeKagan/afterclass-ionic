@@ -3,8 +3,9 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, 
     var ref = MyFirebase.getRef();
 
     $ionicTabsDelegate.select(0);
-
     $scope.account = {oldPassword: '', newPassword: ''};
+
+    // CHANGE PASSWORD
 
     $scope.canChangePassword = () => $scope.account.oldPassword.trim() && $scope.account.newPassword.trim();
 
@@ -35,4 +36,12 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, 
             $ionicLoading.hide();
         });
     };
+
+    // SETTINGS
+
+    $scope.languages = [
+        {id: 'he', name: 'עברית'},
+        {id: 'en', name: 'אנגלית'}
+    ];
+    $scope.settings = {language: 'he'};
 });

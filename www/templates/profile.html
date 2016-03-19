@@ -84,8 +84,23 @@
         <ion-tab title="הגדרות"
                  icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
             <ion-nav-view>
-                <ion-content class="ac-content-padding">
-                    הגדרות
+                <ion-content class="has-header has-tabs">
+                    <div class="list">
+                        <div class="item item-divider">
+                            שינוי הגדרות
+                        </div>
+                        <div class="item item-input item-select">
+                            <div class="input-label">
+                                שפת ממשק
+                            </div>
+                            <select ng-model="settings.language" ng-options="x.id as x.name for x in languages"></select>
+                        </div>
+                        <div class="item item-divider">
+                            <button class="button button-block button-outline button-calm" ng-click="changePassword()" ng-disabled="!canChangePassword()">
+                                שמור הגדרות
+                            </button>
+                        </div>
+                    </div>
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
