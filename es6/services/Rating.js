@@ -13,24 +13,28 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
         //Find the last tutor reply and it's index
         _.forEachRight(this.replies, (reply, i) => {
              if(reply.user !== $rootScope.user.$id) {
-                 this.ratedReply = reply;
-                 this.rateReplyIndex = i;
 
-                return false; //Found the reply toi rate, break
+                this.ratedReply = reply;
+                this.rateReplyIndex = i;
 
+                return false; //Found the reply to rate, break
              }
         });
 
-        //Get current rating if exists
-        if(typeof this.ratedReply !== 'undefined' && typeof this.ratedReply.rating !== 'undefined') {
-            this.rating = this.ratedReply.rating;
-        }
+        if(this.ratedReply !== null) {
 
-        //Get the rated tutor
-        let tutorRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load tutor for updating his score
-        $firebaseObject(tutorRef).$loaded().then((tutor) => {
-            this._setTutor(tutor);
-        });
+            //Get current rating if exists
+            if(typeof this.ratedReply.rating !== 'undefined') {
+                this.rating = this.ratedReply.rating;
+            }
+
+            //Get the rated tutor
+            let tutorRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load tutor for updating his score
+            $firebaseObject(tutorRef).$loaded().then((tutor) => {
+                this._setTutor(tutor);
+            });
+
+        }
 
     };
 

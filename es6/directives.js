@@ -107,10 +107,10 @@ angular.module('afterclass.directives', [])
 
                 $scope.isPostAccepted = function(post) {
                     var acceptingTutorsForPost = _.filter(post.potential_tutors, {post_status: 'accepted'}),
-                        acceptingTutors = _.pluck(acceptingTutorsForPost, 'user_id');
+                        acceptingTutors = _.map(acceptingTutorsForPost, 'user_id');
                     // Try another field as it (the user id field) tends to change on the server.
                     if (!acceptingTutors || !acceptingTutors[0]) {
-                        acceptingTutors = _.pluck(acceptingTutorsForPost, 'id');
+                        acceptingTutors = _.map(acceptingTutorsForPost, 'id');
                     }
                     if (acceptingTutors.length > 0) {
                         // uid=facebook:123456789 or id=123456789. The server may return either.

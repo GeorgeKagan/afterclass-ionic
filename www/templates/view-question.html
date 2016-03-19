@@ -42,7 +42,7 @@
     </ion-content>
 
     <!-- Rating -->
-    <div class="bar bar-footer bar-light" id="rating-bar" ng-show="showRating">
+    <div class="bar bar-footer bar-light" id="rating-bar" ng-if="post.replies" ng-show="showRating">
         <div id="rating-area">
             <div class="item item-avatar">
 
@@ -79,10 +79,11 @@
     <div class="bar bar-footer bar-light" id="comment-bar" ng-show="showReplyForm">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
+        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}">{{$rootScope.user.is_teacher}}</textarea>
         <div class="buttons pull-right">
-            <button class="button button-outline button-assertive push-right" ng-click="toggleReply()">{{::'POST.CANCEL'|translate}}</button>
+            <button class="button button-outline button-assertive push-right" ng-if="!isTutor" ng-click="toggleReply()">{{::'POST.CANCEL'|translate}}</button>
             <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
+
         </div>
     </div>
     <!-- /Comment form -->

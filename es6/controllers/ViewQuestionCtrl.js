@@ -22,21 +22,25 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
         initFooter(post);
         initRating(replies);
 
+
+
     });
 
     function initFooter(post) {
 
-        if ($rootScope.user.is_teacher) {
+        $scope.isTutor = $rootScope.user.is_teacher;
+
+        if ($scope.isTutor) {
 
             $scope.showRating = false; //Student only
 
             // Tutor - Show accept button for assigned tutors
-            var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
-            if ($rootScope.user.is_teacher && post.status === 'assigned' && acceptingTutors.length === 0) {
-                $scope.showReplyForm           = false;
+            var acceptingTutors = _.filter(post.potential_tutors, {post_status: 'accepted'});
+            if ($scope.isTutor && post.status === 'assigned' && acceptingTutors.length === 0) {
+                $scope.showReplyForm        = false;
                 $scope.showAcceptQuestion   = true;
             } else {
-                $scope.showReplyForm           = true;
+                $scope.showReplyForm        = true;
                 $scope.showAcceptQuestion   = false;
             }
         } else {
@@ -128,7 +132,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     }
 
     function showAgreement(callback) {
-        var replyingTutors = _.pluck(_.filter(replies, { 'is_teacher': true }), 'name');
+        var replyingTutors = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
         if (replyingTutors.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
             // Alert the uses regarding the rules
             $ionicPopup.show({
