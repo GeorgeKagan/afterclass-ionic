@@ -78,6 +78,14 @@
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">{{::"SETTINGS"|translate}}</h4>
+                    <label class="m-10 item item-input">
+                        <i class="icon ion-android-globe placeholder-icon"
+                           style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                        <select ng-model="settings.language" ng-options="x.id as x.name for x in languages"></select>
+                    </label>
+                    <button class="button button-block button-outline button-calm" ng-click="changePassword()" ng-disabled="!canChangePassword()">
+                        שמור הגדרות
+                    </button>
                 </ion-content>
             </ion-nav-view>
         </ion-tab>

@@ -72,6 +72,16 @@ body.rtl {
     padding: 6px 16px 5px 5px;
   }
 
+  .item-select {
+    select {
+      left: 16px;
+    }
+    &:after {
+      left: 16px;
+      right: auto;
+    }
+  }
+
   // Question / card
   .card {
     .post-header {
