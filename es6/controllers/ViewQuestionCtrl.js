@@ -14,15 +14,13 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.add_img_preview      = false;
     $scope.showReplyForm           = false;
     $scope.showAcceptQuestion   = false;
-    $scope.report               = {content: ''};
+    $scope.report               = {content: '', customMessage: ''};
 
     //Init functions
     $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(data){
 
         initFooter(post);
         initRating(replies);
-
-
 
     });
 
@@ -62,6 +60,14 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             $scope.allowReply = true;
         }
 
+        $scope.rateAnswer = function(stars) {
+            $scope.rating.rate(stars);
+
+            if(stars <= 3) {
+                $scope.reportConversation($translate.instant('RATING.RATING_TOO_LOW'));
+            }
+        }
+
         $scope.starIcon = function(index) {
             if(index <= $scope.rating.getRating()) {
                 return '../img/star-full.png';
@@ -70,7 +76,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             }
         };
     }
-
 
     $scope.toggleReply = function() {
 
@@ -168,7 +173,14 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
         $scope.showAcceptQuestion   = false;
     };
 
-    $scope.reportConversation = function() {
+    $scope.reportConversation = function(customMessage) {
+
+        if(typeof customMessage !== 'undefined') {
+            $scope.report.customMessage = customMessage;
+        } else {
+            $scope.report.customMessage = '';
+        }
+
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert('Please check that you are connected to the internet');
         }
