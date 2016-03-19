@@ -91,6 +91,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Take picture with camera
      */
     $scope.takePicture = function () {
+        if (!window.cordova) {
+            return alert('Only works on a real device!');
+        }
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
             add_img_url = result.imageURI;
             $timeout(function() {
@@ -110,6 +113,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      * Choose picture from gallery
      */
     $scope.choosePicture = function () {
+        if (!window.cordova) {
+            return alert('Only works on a real device!');
+        }
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
             if (!result.is_image) {
                 $scope.removeAttachment();

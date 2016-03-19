@@ -7,14 +7,11 @@
     </div>
     <ion-tabs class="tabs-striped tabs-background-dark tabs-color-calm tabs-icon-top">
 
-        <ion-tab title="פרופיל"
-                 icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
+        <ion-tab title="פרופיל" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
             <ion-nav-view>
                 <ion-content class="has-header has-tabs">
-                    <div class="list" ng-if="!user.is_teacher">
-                        <div class="item item-divider">
-                            מידע כללי
-                        </div>
+                    <h4 class="text-center m-20">מידע כללי</h4>
+                    <div class="ac-content-padding list list-inset" ng-if="!user.is_teacher">
                         <div class="item">
                             <h2>מוסד לימודים</h2>
                             <p>{{user.institute}}</p>
@@ -28,10 +25,7 @@
                             <p>{{user.credits}}</p>
                         </div>
                     </div>
-                    <div class="list" ng-if="user.is_teacher">
-                        <div class="item item-divider">
-                            מידע כללי
-                        </div>
+                    <div class="list list-inset" ng-if="user.is_teacher">
                         <div class="item">
                             <h2>מוסדות לימודים</h2>
                             <p ng-repeat="(institute, val) in ::user.target_institutes">{{::institute}}</p>
@@ -55,8 +49,7 @@
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="סיסמה"
-                 icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline" ng-if="user.provider==='password'">
+        <ion-tab title="סיסמה" icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline" ng-if="user.provider==='password'">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">שינוי סיסמה</h4>
@@ -81,11 +74,10 @@
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="הגדרות"
-                 icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+        <ion-tab title="הגדרות" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
             <ion-nav-view>
-                <ion-content class="ac-content-padding">
-                    הגדרות
+                <ion-content class="ac-content-padding has-header has-tabs">
+                    <h4 class="text-center m-20">הגדרות</h4>
                 </ion-content>
             </ion-nav-view>
         </ion-tab>

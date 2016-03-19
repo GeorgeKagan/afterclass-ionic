@@ -74,13 +74,15 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                 });
             });
 
-            try {
-                AmazonSNS.registerDevice().then(function (endpoint_arn) {
-                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                    console.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
-                });
-            } catch (e) {
-                console.error('Fail Amazon SNS get endpoint ARN: ', e);
+            if (window.cordova) {
+                try {
+                    AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                        obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                        console.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
+                    });
+                } catch (e) {
+                    console.error('Fail Amazon SNS get endpoint ARN: ', e);
+                }
             }
         },
         /**

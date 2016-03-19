@@ -37,6 +37,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
         $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.views.transition('none');
 
         //Translation
         $translateProvider.useStaticFilesLoader({

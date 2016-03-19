@@ -70,7 +70,7 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
             email: $scope.account.email
         }, function(error) {
             if (error === null) {
-                $scope.account.email = '';
+                $scope.account.password = '';
                 $ionicPopup.alert({
                     title   : 'הצלחה',
                     template: 'נשלח אליך אימייל עם סיסמה זמנית',
