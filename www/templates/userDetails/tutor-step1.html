@@ -2,11 +2,11 @@
     <div class="bar bar-header">
         <h1 class="title no-logo" ng-if="$state.params.isEdit=='0'">
             <i ui-sref="userDetails_chooseType" class="icon ion-chevron-left calm"></i>
-            <span ui-sref="userDetails_chooseType">{{"BACK"|translate}}</span>
+            <span ui-sref="userDetails_chooseType">{{::"BACK"|translate}}</span>
         </h1>
         <h1 class="title no-logo" ng-if="$state.params.isEdit=='1'">
             <i class="icon ion-chevron-left calm" ui-sref="home"></i>
-            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
+            <span class="back-btn dark" ui-sref="home">{{::"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false">

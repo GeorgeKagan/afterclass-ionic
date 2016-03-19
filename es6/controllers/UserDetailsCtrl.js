@@ -3,8 +3,8 @@ angular.module('afterclass.controllers').
     controller('UserDetailsChooseTypeCtrl', function ($scope, $state, $ionicHistory, $ionicPopup, $translate, User, InstitutePopup) {
         $scope.student = function () {
             $ionicPopup.confirm({
-                title: 'בחרת בסטודנט',
-                template: 'האם זאת הבחירה הנכונה?',
+                title: $translate.instant('USER_DETAILS.SELECTED_STUDENT'),
+                template: $translate.instant('CORRECT_SELECTION'),
                 cancelText: $translate.instant('CANCEL'),
                 okText: $translate.instant('OK')
             }).then(function(res) {

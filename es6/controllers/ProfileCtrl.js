@@ -19,15 +19,15 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, 
                 $scope.account.oldPassword = '';
                 $scope.account.newPassword = '';
                 $ionicPopup.alert({
-                    title   : 'הצלחה',
-                    template: 'הסיסמה שונתה בהצלחה',
+                    title   : $translate.instant('SUCCESS'),
+                    template: $translate.instant('FORM.PW_CHANGED'),
                     okText  : $translate.instant('OK')
                 });
                 console.log("Password changed successfully");
             } else {
                 $ionicPopup.alert({
-                    title   : 'שגיאה',
-                    template: 'הסיסמה הישנה שהקשת אינה נכונה',
+                    title   : $translate.instant('ERROR'),
+                    template: $translate.instant('FORM.BAD_OLD_PW'),
                     okText  : $translate.instant('OK')
                 });
                 console.log("Error changing password:", error);

@@ -41,8 +41,8 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
             if (error) {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
-                    title   : 'שגיאה',
-                    template: 'לא נמצא חשבון התואם לפרטים שהזנת',
+                    title   : $translate.instant('ERROR'),
+                    template: $translate.instant('POPUPS.ACC_NOT_FOUND'),
                     okText  : $translate.instant('OK')
                 });
                 console.log('Firebase login failed!', error);
@@ -60,8 +60,8 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
     $scope.sendResetEmail = () => {
         if (!$scope.account.email) {
             return $ionicPopup.alert({
-                title   : 'שגיאה',
-                template: 'נא להזין אימייל',
+                title   : $translate.instant('ERROR'),
+                template: $translate.instant('POPUPS.INPUT_EMAIL'),
                 okText  : $translate.instant('OK')
             });
         }
@@ -72,15 +72,15 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
             if (error === null) {
                 $scope.account.password = '';
                 $ionicPopup.alert({
-                    title   : 'הצלחה',
-                    template: 'נשלח אליך אימייל עם סיסמה זמנית',
+                    title   : $translate.instant('SUCCESS'),
+                    template: $translate.instant('RESET_PW_SENT'),
                     okText  : $translate.instant('OK')
                 });
                 console.log("Password reset email sent successfully");
             } else {
                 $ionicPopup.alert({
-                    title   : 'שגיאה',
-                    template: 'האימייל שהזנת לא קיים במערכת',
+                    title   : $translate.instant('ERROR'),
+                    template: $translate.instant('EMAIL_NOT_FOUND'),
                     okText  : $translate.instant('OK')
                 });
                 console.log("Error sending password reset email:", error);
@@ -99,7 +99,7 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', function (
             if (error) {
                 $ionicLoading.hide();
                 $ionicPopup.alert({
-                    title   : 'שגיאה',
+                    title   : $translate.instant('ERROR'),
                     template: error,
                     okText  : $translate.instant('OK')
                 });

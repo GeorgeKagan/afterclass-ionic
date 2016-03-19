@@ -11,7 +11,7 @@ angular.module('afterclass.controllers').controller('GetPaymentCtrl', function (
 
     $scope.withdraw = function () {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         var confirmPopup = $ionicPopup.confirm({
             title: $translate.instant('PAYMENT.GET_MONEY'),

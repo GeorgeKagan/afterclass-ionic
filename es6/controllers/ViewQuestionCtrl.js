@@ -2,6 +2,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
     $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils) {
     'use strict';
+    
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
         post        = ref,
         replies     = $firebaseArray(ref.child('replies')),
@@ -126,7 +127,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     $scope.acceptQuestion = function() {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         Post.toggleAcceptance($stateParams.firebase_id, $rootScope.user.uid);
         $scope.allowReply           = true;
@@ -135,7 +136,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     $scope.reportConversation = function() {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         $ionicPopup.show({
             templateUrl : 'templates/partials/conversation-report-popup.html',
@@ -191,7 +192,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     $scope.addReply = function () {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
 
         if (!$scope.replyBody) {
