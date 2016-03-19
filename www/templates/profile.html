@@ -9,9 +9,9 @@
 
         <ion-tab title="פרופיל" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
             <ion-nav-view>
-                <ion-content class="has-header has-tabs">
+                <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">מידע כללי</h4>
-                    <div class="ac-content-padding list list-inset" ng-if="!user.is_teacher">
+                    <div class="m-0 list list-inset" ng-if="!user.is_teacher">
                         <div class="item">
                             <h2>מוסד לימודים</h2>
                             <p>{{user.institute}}</p>
@@ -25,7 +25,7 @@
                             <p>{{user.credits}}</p>
                         </div>
                     </div>
-                    <div class="list list-inset" ng-if="user.is_teacher">
+                    <div class="m-0 list list-inset" ng-if="user.is_teacher">
                         <div class="item">
                             <h2>מוסדות לימודים</h2>
                             <p ng-repeat="(institute, val) in ::user.target_institutes">{{::institute}}</p>

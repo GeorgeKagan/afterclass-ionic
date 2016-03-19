@@ -24,8 +24,11 @@ body.platform-ios {
 
 // Questions tabs
 #ac-tabs-inner {
+  .tabs {
+    top: 229px;
+  }
   i.icon {
-    margin: -4px 5px 0 5px;
+    margin: -4px 7px 0 7px;
   }
   .tab-title {
     font-size: 14px;

@@ -58,6 +58,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 return true;
             },
             buttonClicked: function (index) {
+                if (!window.cordova) {
+                    return alert('Only works on a real device!');
+                }
                 if (index === 0) {
                     // Camera
                     MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {

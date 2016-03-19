@@ -16,7 +16,6 @@ angular.module('afterclass.controllers').
                 });
                 $state.go('home');
                 $ionicHistory.nextViewOptions({disableBack: true});
-                InstitutePopup.show();
             });
         };
         $scope.tutor = function () {
