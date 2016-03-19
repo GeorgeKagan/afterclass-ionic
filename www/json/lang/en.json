@@ -1,4 +1,8 @@
 {
+    "LANG": {
+        "HE": "Hebrew",
+        "EN": "English"
+    },
     "USER_DETAILS": {
         "CHOOSE_TITLE": "Who are you?",
         "IS_STUDENT": "I'm a student",
@@ -61,7 +65,7 @@
         "PW_DONT_MATCH": "Passwords don't match",
         "REG": "Register",
         "SAVE_SETTINGS": "Save settings",
-        "UI_LANG": "Interface Language"
+        "UI_LANG": "Language"
     },
     "POPUPS": {
         "ACC_NOT_FOUND": "An account with provided credentials was not found",
@@ -111,16 +115,16 @@
         "GET_MONEY": "Get paid"
     },
     "GET_CREDIT": {
-        "TITLE": "Choose of the plans below",
+        "TITLE": "Choose one of the plans below",
         "PLAN_1": "1 question / 2$",
         "PLAN_2": "10 questions / 10$",
         "PLAN_3": "20 questions / 20$",
         "BUY": "Buy now",
-        "RECOMMENDED": "Recommended!"
+        "RECOMMENDED": "Hot!"
     },
     "RATING": {
         "SATISFACTION_RATE": "How much are you satisfied with the answer?"
-    }
+    },
     "BACK": "Back",
     "OK": "OK",
     "ERROR": "Error",

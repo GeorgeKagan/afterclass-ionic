@@ -1,4 +1,8 @@
 {
+    "LANG": {
+        "HE": "עברית",
+        "EN": "אנגלית"
+    },
     "USER_DETAILS": {
         "CHOOSE_TITLE": "מי אתה?",
         "IS_STUDENT": "אני סטודנט",

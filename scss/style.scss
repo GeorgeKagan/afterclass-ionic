@@ -110,7 +110,7 @@ select {
       margin: 15px 0;
     }
     img {
-      margin: 0 0 0 10px;
+      margin: 0 15px;
       border-radius: 2px;
       display: inline-block;
       vertical-align: middle;
@@ -202,7 +202,6 @@ select {
       padding: 0 12px 0 5px;
     }
     .back-btn {
-      float: right;
       min-width: 50px;
       text-align: center;
     }
@@ -225,6 +224,13 @@ select {
     &.item:last-child {
       border: 0;
     }
+  }
+}
+
+// Form
+.item.item-input {
+  i.icon {
+    margin: 0 11px 2px 2px;
   }
 }
 

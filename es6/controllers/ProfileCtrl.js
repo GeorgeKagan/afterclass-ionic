@@ -40,8 +40,8 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, 
     // SETTINGS
 
     $scope.languages = [
-        {id: 'he', name: 'עברית'},
-        {id: 'en', name: 'אנגלית'}
+        {id: 'he', name: $translate.instant('LANG.HE')},
+        {id: 'en', name: $translate.instant('LANG.EN')}
     ];
     $scope.settings = {language: $rootScope.user.ui_lang ? $rootScope.user.ui_lang : ''};
 

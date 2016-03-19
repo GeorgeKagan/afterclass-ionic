@@ -25,17 +25,19 @@
             </div>
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
-                <div class="pci-wrapper text-right" ng-click="viewFullImage(reply.img_id)" ng-if="reply.img_id">
-                    <small>{{::'CLICK_TO_ENLRAGE'|translate}}</small>
+                <div class="pci-wrapper" dir="auto" ng-class="{'text-right': $root.uiLang==='he'}"
+                     ng-click="viewFullImage(reply.img_id)" ng-if="reply.img_id">
                     <img class="post-img"
                          image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_50,w_50/{{reply.img_id}}.jpg"
                          width="50" height="50">
+                    <small>{{::'CLICK_TO_ENLARGE'|translate}}</small>
                 </div>
             </div>
         </div>
         <div class="padding text-center">
             <div ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</div>
-            <button ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
+            <button ng-click="reportConversation()" ng-class="{'icon-right': $root.uiLang==='he', 'icon-left': $root.uiLang!=='he'}"
+                    class="button button-clear button-assertive ion-alert-circled">
                 {{::'REPORT_QUESTION'|translate}}
             </button>
         </div>

@@ -30,6 +30,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
             window.location.reload();
         }
         moment.locale($translate.use());
+        $rootScope.uiLang = $translate.use();
 
         // Popover side menu
         $scope.links = [

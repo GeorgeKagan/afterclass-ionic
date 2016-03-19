@@ -56,14 +56,14 @@
                     <!-- Old Password -->
                     <label class="m-10 item item-input">
                         <i class="icon ion-ios-locked-outline placeholder-icon"
-                           style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                           style="font-size: 25px; padding: 0"></i>
                         <input ng-model="account.oldPassword" type="password" placeholder="{{::'FORM.OLD_PW'|translate}}"
                                style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                     </label>
                     <!-- New Password -->
                     <label class="m-10 item item-input">
                         <i class="icon ion-ios-locked placeholder-icon"
-                           style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                           style="font-size: 25px; padding: 0"></i>
                         <input ng-model="account.newPassword" type="password" placeholder="{{::'FORM.NEW_PW'|translate}}"
                                style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                     </label>
@@ -80,9 +80,11 @@
                     <h4 class="text-center m-20">{{::"SETTINGS"|translate}}</h4>
                     <label class="m-10 item item-input">
                         <i class="icon ion-android-globe placeholder-icon"
-                           style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                           style="font-size: 25px; padding: 0"></i>
                         <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{::'FORM.UI_LANG'|translate}}</span>
-                        <select class="b-0" style="margin: 0 0 2px 0" ng-model="settings.language" ng-options="x.id as x.name for x in languages"></select>
+                        <select class="b-0" style="margin: 0 0 2px 0" ng-model="settings.language" ng-options="x.id as x.name for x in languages">
+                            <option value="">Choose</option>
+                        </select>
                     </label>
                     <button class="button button-block button-outline button-calm" ng-click="saveSettings()" ng-disabled="!canSaveSettings()">
                         {{::'FORM.SAVE_SETTINGS'|translate}}
