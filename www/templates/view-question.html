@@ -41,19 +41,13 @@
         </div>
     </ion-content>
 
-    <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
-        <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
-            {{::'POST.ACCEPT_QUESTION'|translate}}
-        </button>
-    </div>
-
     <!-- Rating -->
-    <div class="bar bar-footer bar-light" id="rating-bar">
+    <div class="bar bar-footer bar-light" id="rating-bar" ng-show="showRating">
         <div id="rating-area">
             <div class="item item-avatar">
 
-                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::rating.getRatedTutor().$id.replace('facebook:', '')}}/picture?type=square" width="50" height="50">
-                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::rating.getRatedTutor().$id}}?d=identicon" width="50" height="50">
+                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::rating.getRatedTutor().$id.replace('facebook:', '')}}/picture?type=square" width="60" height="60">
+                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::rating.getRatedTutor().$id}}?d=identicon" width="60" height="60">
 
                 {{::'RATING.SATISFACTION_RATE'|translate}}
 
@@ -67,11 +61,19 @@
 
             </div>
         </div>
-        <div class="buttons pull-right" ng-click="addReply()">
+        <div class="buttons pull-right" ng-click="toggleReply()">
             <button class="button button-clear button-calm icon ion-android-chat">&nbsp;</button>
         </div>
     </div>
     <!-- /Rating -->
+
+    <!-- Acceptance option -->
+    <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
+        <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
+            {{::'POST.ACCEPT_QUESTION'|translate}}
+        </button>
+    </div>
+    <!-- /Acceptance option -->
 
     <!-- Comment form -->
     <div class="bar bar-footer bar-light" id="comment-bar" ng-show="allowReply">
@@ -79,6 +81,7 @@
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
         <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
         <div class="buttons pull-right">
+            <button class="button button-outline button-assertive push-right" ng-click="toggleReply()">{{::'POST.CANCEL'|translate}}</button>
             <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
         </div>
     </div>

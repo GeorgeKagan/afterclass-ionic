@@ -31,7 +31,8 @@
         "YOUTQUESTION": "השאלה שלך",
         "TYPEQUESTION": "הקלד את השאלה שלך..",
         "CHOOSESUBJECT": "בחר נושא",
-        "ADDED_ATTACHMENT": "תמונה מצורפת"
+        "ADDED_ATTACHMENT": "תמונה מצורפת",
+        "CANCEL": "בטל"
     },
     "FORM": {
         "REQUIRED": "אנא הזן ערכים בכל השדות הנדרשים",

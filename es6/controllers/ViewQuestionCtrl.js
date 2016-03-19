@@ -34,6 +34,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post.$loaded().then(function(post) {
         //TODO: Refactor this area to support rating
         if ($rootScope.user.is_teacher) {
+
+            $scope.showRating = false;
+
             // Tutor - Show accept button for assigned tutors
             var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
             if ($rootScope.user.is_teacher && post.status === 'assigned' && acceptingTutors.length === 0) {
@@ -44,6 +47,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 $scope.showAcceptQuestion   = false;
             }
         } else {
+
+            $scope.showAcceptQuestion   = false;
+
             // User - Block replies after a certain amount of time
             /*if (post.status === 'answered') {
                 var lastActivity = post.create_date;
@@ -59,11 +65,23 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 $scope.showAcceptQuestion   = false;
             }*/
 
-            //TODO: Remove this, dev only
-            $scope.allowReply           = false;
-            $scope.showAcceptQuestion   = false;
+            $scope.showRating = true;
+            $scope.allowReply = false;
+
         }
     });
+
+    $scope.toggleReply = function() {
+
+        if($scope.showRating) { //Hide rating, show comment
+            $scope.showRating = false;
+            $scope.allowReply = true;
+        } else { //Hide comment, show rating
+            $scope.showRating = true;
+            $scope.allowReply = false;
+        }
+
+    };
 
     function imageUpload() {
         $ionicActionSheet.show({
