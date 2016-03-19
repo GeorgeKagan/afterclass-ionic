@@ -61,7 +61,7 @@
 
             </div>
         </div>
-        <div class="buttons pull-right" ng-click="toggleReply()">
+        <div class="buttons pull-right" ng-click="toggleReply()" ng-show="allowReply">
             <button class="button button-clear button-calm icon ion-android-chat">&nbsp;</button>
         </div>
     </div>
@@ -76,7 +76,7 @@
     <!-- /Acceptance option -->
 
     <!-- Comment form -->
-    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="allowReply">
+    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="showReplyForm">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
         <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>

@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
     $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
-    $translate, $ionicPopup, $cordovaNetwork, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils, Rating) {
+    $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils, Rating) {
     'use strict';
 
     var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
@@ -12,9 +12,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post                 = $firebaseObject(post);
     $scope.replyBody            = '';
     $scope.add_img_preview      = false;
-    $scope.allowReply           = false;
+    $scope.showReplyForm           = false;
     $scope.showAcceptQuestion   = false;
     $scope.report               = {content: ''};
+
 
     replies.$loaded().then(function(listOfReplies){
         $scope.rating = Rating.getInstance(listOfReplies, $stateParams.firebase_id);
@@ -32,7 +33,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
 
     $scope.post.$loaded().then(function(post) {
-        //TODO: Refactor this area to support rating
         if ($rootScope.user.is_teacher) {
 
             $scope.showRating = false;
@@ -40,33 +40,19 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             // Tutor - Show accept button for assigned tutors
             var acceptingTutors = _.pluck(_.filter(post.potential_tutors, {post_status: 'accepted'}), 'id');
             if ($rootScope.user.is_teacher && post.status === 'assigned' && acceptingTutors.length === 0) {
-                $scope.allowReply           = false;
+                $scope.showReplyForm           = false;
                 $scope.showAcceptQuestion   = true;
             } else {
-                $scope.allowReply           = true;
+                $scope.showReplyForm           = true;
                 $scope.showAcceptQuestion   = false;
             }
         } else {
 
             $scope.showAcceptQuestion   = false;
 
-            // User - Block replies after a certain amount of time
-            /*if (post.status === 'answered') {
-                var lastActivity = post.create_date;
-                if (Array.isArray(post.replies)) {
-                    lastActivity = Math.max(post.replies[post.replies-1].create_date, lastActivity);
-                }
-                if (lastActivity > moment().utc().subtract(8, 'hours').unix()) {
-                    // Allow replies within 32 hours from last activity
-                    $scope.allowReply = true;
-                }
-            } else {
-                $scope.allowReply           = true;
-                $scope.showAcceptQuestion   = false;
-            }*/
-
+            $scope.allowReply = true;
             $scope.showRating = true;
-            $scope.allowReply = false;
+            $scope.showReplyForm = false;
 
         }
     });
@@ -75,10 +61,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
         if($scope.showRating) { //Hide rating, show comment
             $scope.showRating = false;
-            $scope.allowReply = true;
+            $scope.showReplyForm = true;
         } else { //Hide comment, show rating
             $scope.showRating = true;
-            $scope.allowReply = false;
+            $scope.showReplyForm = false;
         }
 
     };
@@ -163,7 +149,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             return alert('Please check that you are connected to the internet');
         }
         Post.toggleAcceptance($stateParams.firebase_id, $rootScope.user.uid);
-        $scope.allowReply           = true;
+        $scope.showReplyForm           = true;
         $scope.showAcceptQuestion   = false;
     };
 
