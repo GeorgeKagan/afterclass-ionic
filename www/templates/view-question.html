@@ -51,7 +51,10 @@
     <div class="bar bar-footer bar-light" id="rating-bar">
         <div id="rating-area">
             <div class="item item-avatar">
-                <img ng-src="http://graph.facebook.com/104530943234576/picture?type=square" width="50" height="50">
+
+                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::rating.getRatedTutor().$id.replace('facebook:', '')}}/picture?type=square" width="50" height="50">
+                <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::rating.getRatedTutor().$id}}?d=identicon" width="50" height="50">
+
                 {{::'RATING.SATISFACTION_RATE'|translate}}
 
                 <ul>
