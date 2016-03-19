@@ -2,12 +2,14 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     $rootScope, $scope, $ionicScrollDelegate, $state, $timeout, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
     'use strict';
 
-    // Debug student choose insitute popup
-    //InstitutePopup.show();
-    
+    // If for some reason student doesn't have either Institute or Degree selected, prompt him to choose
+    if (!$rootScope.user.is_teacher && (!$rootScope.user.institute || !$rootScope.user.degree)) {
+        InstitutePopup.show();
+    }
+
     // Load all user's questions from firebase
     var ref = MyFirebase.getRef().child('posts'),
-        sync, sync2, sync3, posts, posts_tutor_unanswered, posts_tutor_answered,
+        sync, sync3, posts, posts_tutor_answered,
 		tabs_top_pos = $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 260 : 230;
 
     // Teacher home
@@ -52,7 +54,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
 
     $scope.deletePost = function ($event, firebase_id) {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         var confirmPopup = $ionicPopup.confirm({
             title       : $translate.instant('FORM.DEL_Q'),
@@ -71,7 +73,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
 
     $scope.toggleAcceptance = function (firebase_id) {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
@@ -86,7 +88,10 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
 
     var tabs = angular.element('#ac-tabs-inner > .tabs');
     $scope.gotScrolled = function () {
-        var y = angular.element('.scroll:visible').position().top;
+        var scrollDiv = angular.element('#ac-tabs-inner .scroll:visible');
+        if (!scrollDiv.length) { return; }
+        var y = scrollDiv.offset().top;
+
         if (y <= -186) {
             // Tabs sticky on top
             angular.element('.bar-header').addClass('scrolled');
@@ -103,14 +108,4 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;
     };
-
-    // Scroll to top on backing to home state
-    $scope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
-        if (fromState.name === 'userDetails_chooseType' || fromState.name === 'registerOrLogin') {
-            return;
-        }
-        if ($state.current.name === 'home') {
-            $timeout(() => $ionicScrollDelegate.scrollTop(false), 100);
-        }
-    });
 });

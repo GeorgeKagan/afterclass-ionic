@@ -11,28 +11,6 @@ angular.module('afterclass.directives', [])
         }
     })
 
-    .directive('askQuestion', function($timeout) {
-        return {
-            restrict: 'A',
-            link: function() {
-                if (ionic.Platform.isIOS()) {
-                    return;
-                }
-                // Auto show the subject select options
-                var showDropDown = function (element) {
-                    var event;
-                    event = document.createEvent('MouseEvents');
-                    event.initMouseEvent('mousedown', true, true, window);
-                    element.dispatchEvent(event);
-                };
-                var dropDown = document.getElementById('aq-subject');
-                $timeout(function() {
-                    showDropDown(dropDown);
-                }, 400);
-            }
-        };
-    })
-
     .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, $cordovaNetwork, Payment, Coupon) {
         return {
             restrict: 'E',
@@ -65,7 +43,7 @@ angular.module('afterclass.directives', [])
                         scope.btnText   = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
                         scope.btnClick  = function () {
                             if (window.cordova && !$cordovaNetwork.isOnline()) {
-                                return alert('Please check that you are connected to the internet');
+                                return alert($translate.instant('CHECK_INTERNET'));
                             }
                             $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
                         };

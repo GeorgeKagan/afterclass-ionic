@@ -19,7 +19,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      */
     $scope.addPost = function () {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
         if (angular.element('#aq-subject').val() === '' || angular.element('#aq-body').val() === '') {
             $ionicPopup.alert({

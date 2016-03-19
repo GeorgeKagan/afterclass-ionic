@@ -49,14 +49,16 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
         updateUser: function (data) {
             var sync = ref.child('users/' + $rootScope.user.uid),
                 user = $firebaseObject(sync);
-            user.$loaded().then(function (user) {
-                data.update_date    = Firebase.ServerValue.TIMESTAMP;
-                user                = angular.element.extend(user, data);
-                user.$save(0);
-            });
+
             // Don't wait for async call
             $rootScope.user = angular.element.extend($rootScope.user, data);
             Utils.triggerServerSync();
+
+            return user.$loaded().then(function (user) {
+                data.update_date    = Firebase.ServerValue.TIMESTAMP;
+                user                = angular.element.extend(user, data);
+                return user.$save(0);
+            });
         },
         /**
          * Makes sure any mandatory fields, that previously failed to be set, are set

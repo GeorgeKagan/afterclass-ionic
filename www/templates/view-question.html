@@ -26,7 +26,7 @@
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
                 <div class="pci-wrapper text-right" ng-click="viewFullImage(reply.img_id)" ng-if="reply.img_id">
-                    <small>לחץ להגדלה</small>
+                    <small>{{::'CLICK_TO_ENLRAGE'|translate}}</small>
                     <img class="post-img"
                          image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_50,w_50/{{reply.img_id}}.jpg"
                          width="50" height="50">

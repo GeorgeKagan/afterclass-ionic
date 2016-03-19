@@ -43,8 +43,7 @@ body.rtl {
     direction: rtl;
   }
   .popup-buttons .button {
-    margin-left: 5px;
-    margin-right: 0;
+    margin: 0 0 0 5px;
     &:last-child {
       margin-left: 0;
     }
@@ -77,6 +76,16 @@ body.rtl {
     padding: 6px 16px 5px 5px;
   }
 
+  .item-select {
+    select {
+      left: 16px;
+    }
+    &:after {
+      left: 16px;
+      right: auto;
+    }
+  }
+
   // Question / card
   .card {
     .post-header {
@@ -91,7 +100,7 @@ body.rtl {
       }
       .ph-delete {
         float: left;
-        left: -10px;
+        margin: 0 10px 0 -5px;
       }
     }
     .button-bar button.button {

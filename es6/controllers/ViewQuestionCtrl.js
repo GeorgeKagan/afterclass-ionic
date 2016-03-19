@@ -101,6 +101,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 return true;
             },
             buttonClicked: function (index) {
+
+                if (!window.cordova) {
+                    return alert('Only works on a real device!');
+                }
+
                 if (index === 0) {
                     // Camera
                     MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
@@ -175,52 +180,53 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     $scope.reportConversation = function(customMessage) {
 
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert($translate.instant('CHECK_INTERNET'));
+        }
+
         if(typeof customMessage !== 'undefined') {
             $scope.report.customMessage = customMessage;
         } else {
             $scope.report.customMessage = '';
         }
 
-        if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
-        }
         $ionicPopup.show({
             templateUrl : 'templates/partials/conversation-report-popup.html',
             scope       : $scope,
             title       : $translate.instant('REPORT_QUESTION'),
             buttons     : [{
-                    text: '<span>' + $translate.instant('CANCEL') + '</span>',
-                    type: 'button-default button-block'
-                }, {
-                    text: '<span>' + $translate.instant('SEND') + '</span>',
-                    type: 'button-positive button-block',
-                    onTap: function () {
-                        if (!$scope.report.content.trim()) {
-                            return;
-                        }
-                        $scope.post.$loaded().then(function (post) {
-                            var complaints = $firebaseArray(ref.child('complaints'));
-                            complaints.$loaded().then(function(post) {
-                                complaints.$add({
-                                    user                : $rootScope.user.name,
-                                    body                : $scope.report.content,
-                                    create_date         : Firebase.ServerValue.TIMESTAMP,
-                                    create_date_human   : moment().format('D/M/YY H:mm:ss'),
-                                    is_teacher          : $rootScope.user.is_teacher
-                                });
-                                $scope.report.content = '';
-                                post.$save();
-                                $timeout(function() {
-                                    $ionicPopup.alert({
-                                        title   : '',
-                                        template: $translate.instant('REPORT_SENT'),
-                                        okText  : $translate.instant('OK')
-                                    });
-                                }, 0);
-                            });
-                        });
+                text: '<span>' + $translate.instant('CANCEL') + '</span>',
+                type: 'button-default button-block'
+            }, {
+                text: '<span>' + $translate.instant('SEND') + '</span>',
+                type: 'button-positive button-block',
+                onTap: function () {
+                    if (!$scope.report.content.trim()) {
+                        return;
                     }
+                    $scope.post.$loaded().then(function (post) {
+                        var complaints = $firebaseArray(ref.child('complaints'));
+                        complaints.$loaded().then(function(post) {
+                            complaints.$add({
+                                user                : $rootScope.user.name,
+                                body                : $scope.report.content,
+                                create_date         : Firebase.ServerValue.TIMESTAMP,
+                                create_date_human   : moment().format('D/M/YY H:mm:ss'),
+                                is_teacher          : $rootScope.user.is_teacher
+                            });
+                            $scope.report.content = '';
+                            post.$save();
+                            $timeout(function() {
+                                $ionicPopup.alert({
+                                    title   : '',
+                                    template: $translate.instant('REPORT_SENT'),
+                                    okText  : $translate.instant('OK')
+                                });
+                            }, 0);
+                        });
+                    });
                 }
+            }
             ]
         });
     };
@@ -238,7 +244,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     $scope.addReply = function () {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
-            return alert('Please check that you are connected to the internet');
+            return alert($translate.instant('CHECK_INTERNET'));
         }
 
         if (!$scope.replyBody) {
