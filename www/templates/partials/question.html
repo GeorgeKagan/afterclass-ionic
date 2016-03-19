@@ -15,8 +15,9 @@
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'create_date' | limitTo: -2" class="post-comment-main">
             <div class="item item-avatar">
-                <img ng-src="http://graph.facebook.com/{{reply.user.replace('facebook:', '')}}/picture?type=square"
-                     width="40" height="40" />
+                <img ng-if="reply.user.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::reply.user.replace('facebook:', '')}}/picture?type=square"
+                     width="40" height="40">
+                <img ng-if="reply.user.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::reply.user}}?d=identicon" width="40" height="40">
                 {{reply.first_name}} {{reply.last_name | limitTo:1}}<br>
                 <small class="date">{{ reply.create_date | moment }}</small>
             </div>

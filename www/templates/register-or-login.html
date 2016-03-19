@@ -1,0 +1,91 @@
+<ion-view id="login-page" view-title="Register or Login">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i class="icon ion-chevron-left calm" ui-sref="login"></i>
+            <span class="back-btn dark" ui-sref="login">{{::"BACK"|translate}}</span>
+        </h1>
+    </div>
+    <ion-content class="has-header padding-top" has-bouncing="false">
+        <div class="content-section" dir="auto">
+
+            <!-- LOGIN -->
+            <h4 class="text-center m-20">כבר רשום?</h4>
+            <button class="fade button button-block button-outline button-calm" ng-click="showLogin()" ng-if="show==='register'">
+                כניסה
+            </button>
+            <div class="fade" ng-if="show==='login'">
+                <!-- Email -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-email-outline placeholder-icon"
+                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.email" type="email" placeholder="אימייל"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <!-- Password -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-locked-outline placeholder-icon"
+                       style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.password" type="password" placeholder="סיסמה"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <div class="text-center" ng-if="!resetEmailSent" ng-click="sendResetEmail()">
+                    שכחת סיסמה? לחץ כאן
+                </div>
+                <button class="button button-block button-outline button-calm" ng-click="login()" ng-disabled="!canLogin()">
+                    כניסה
+                </button>
+            </div>
+
+            <br>
+            <!-- REGISTRATION -->
+            <h4 class="text-center m-20">משתמש חדש?</h4>
+            <button class="fade button button-block button-outline button-calm" ng-click="showRegister()" ng-if="show==='login'">
+                צור חשבון חדש
+            </button>
+            <div class="fade" ng-if="show==='register'">
+                <!-- First Name -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-person-outline placeholder-icon"
+                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.firstName" type="text" placeholder="שם פרטי"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <!-- Last Name -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-people-outline placeholder-icon"
+                       style="margin: 0 -3px 0 8px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.lastName" type="text" placeholder="שם משפחה"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <!-- Email -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-email-outline placeholder-icon"
+                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.email" type="email" placeholder="אימייל"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <!-- Password -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-locked-outline placeholder-icon"
+                       style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.password" type="password" placeholder="סיסמה"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <!-- Password Again -->
+                <label class="m-10 item item-input">
+                    <i class="icon ion-ios-locked-outline placeholder-icon"
+                       style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.passwordAgain" type="password" placeholder="סיסמה שוב"
+                           style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                </label>
+                <div class="assertive m-20 fade" ng-if="!isPasswordsSame()">
+                    הסיסמאות לא תואמות
+                </div>
+                <button class="button button-block button-outline button-calm" ng-click="register()" ng-disabled="!canRegister()">
+                    הרשמה
+                </button>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

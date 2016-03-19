@@ -12,14 +12,27 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
             user.$loaded().then(function () {
                 // New user added
                 if (!user.id) {
-                    var data = angular.element.extend(authData.facebook.cachedUserProfile, {
+                    var data = {}, customProperties = {
                         // Add any initial custom properties here
                         //uid: authData.uid,
-                        update_date     : Firebase.ServerValue.TIMESTAMP,
-                        create_date     : Firebase.ServerValue.TIMESTAMP,
-                        credits         : INITIAL_CREDITS,
-                        name_lowercase  : authData.facebook.cachedUserProfile.name.toLowerCase() //TODO: Remove this when new dashboard is ready
-                    });
+                        update_date : Firebase.ServerValue.TIMESTAMP,
+                        create_date : Firebase.ServerValue.TIMESTAMP,
+                        credits     : INITIAL_CREDITS
+                    };
+                    if (authData.facebook) {
+                        data = angular.element.extend(authData.facebook.cachedUserProfile, customProperties);
+                    } else {
+                        data = angular.element.extend({
+                            first_name: authData.first_name,
+                            last_name : authData.last_name,
+                            name      : authData.first_name + ' ' + authData.last_name,
+                            id        : authData.uid,
+                            email     : authData.password.email,
+                            picture   : {data: {url: authData.password.profileImageURL}},
+                            token     : authData.token,
+                            provider  : authData.provider,
+                        }, customProperties);
+                    }
                     user = angular.element.extend(user, data);
                     user.$save().then(function () {
                         q.resolve(user);
@@ -61,13 +74,15 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                 });
             });
 
-            try {
-                AmazonSNS.registerDevice().then(function (endpoint_arn) {
-                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                    console.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
-                });
-            } catch (e) {
-                console.error('Fail Amazon SNS get endpoint ARN: ', e);
+            if (window.cordova) {
+                try {
+                    AmazonSNS.registerDevice().then(function (endpoint_arn) {
+                        obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                        console.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
+                    });
+                } catch (e) {
+                    console.error('Fail Amazon SNS get endpoint ARN: ', e);
+                }
             }
         },
         /**

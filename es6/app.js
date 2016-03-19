@@ -36,6 +36,8 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
 
         $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
+        $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.views.transition('none');
 
         //Translation
         $translateProvider.useStaticFilesLoader({
@@ -54,7 +56,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             .state('login', {
                 url: "/login",
                 templateUrl: "templates/login.html",
-                controller: 'LoginCtrl',
+                controller: 'FacebookLoginCtrl',
                 onEnter: function($state, $ionicHistory, $timeout) {
                     if (!localStorage.getItem('finished_on_boarding')) {
                         $timeout(function() {
@@ -63,6 +65,11 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                         });
                     }
                 }
+            })
+            .state('registerOrLogin', {
+                url: "/registerOrLogin",
+                templateUrl: "templates/register-or-login.html",
+                controller: 'EmailLoginCtrl'
             })
             .state('onBoarding', {
                 url: "/onBoarding",
@@ -136,6 +143,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 url: "/fullImage/:img_id",
                 templateUrl: "templates/full-image.html",
                 controller: 'FullImageCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
+            .state('profile', {
+                url: "/profile",
+                templateUrl: "templates/profile.html",
+                controller: "ProfileCtrl",
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('about', {

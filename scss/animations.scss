@@ -1,0 +1,43 @@
+// Fade in / fade out animation
+
+$fadeSpeed: 0.4s;
+
+.fade {
+  opacity: 1;
+
+  // Enter
+  &.ng-enter {
+    transition: $fadeSpeed linear all;
+    opacity: 0;
+  }
+  &.ng-enter-stagger {
+    transition-delay: 0s;
+    transition-duration: 0s;
+  }
+  &.ng-enter-active {
+    opacity: 1;
+  }
+
+  // Leave
+  &.ng-leave {
+    transition: 0s linear all;
+    opacity: 1;
+  }
+  &.ng-leave-stagger {
+    transition-delay: 0s;
+    transition-duration: 0s;
+  }
+  &.ng-leave-active {
+    opacity: 0;
+  }
+
+  // Fade in with a delay
+  &.fade-delay {
+    &.ng-enter {
+      transition: 1s $fadeSpeed linear all;
+    }
+    &.ng-leave {
+      transition: 0s $fadeSpeed linear all;
+    }
+  }
+}

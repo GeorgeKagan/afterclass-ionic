@@ -1,8 +1,10 @@
-angular.module('afterclass.controllers').controller('LoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
+angular.module('afterclass.controllers').controller('FacebookLoginCtrl', function ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) {
     'use strict';
-    var ref = MyFirebase.getRef(), authData;
 
     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
+    $scope.sessionChecked = false;
+
+    var ref = MyFirebase.getRef(), authData;
     authData = ref.getAuth();
 
     // Check if got active session
@@ -13,9 +15,10 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
         });
     } else {
         $ionicLoading.hide();
+        $scope.sessionChecked = true;
     }
 
-    $scope.login = function () {
+    $scope.loginWithFacebook = function () {
         window.facebookConnectPlugin.login(['public_profile', 'email'], function(status) {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             window.facebookConnectPlugin.getAccessToken(function(token) {
@@ -37,6 +40,10 @@ angular.module('afterclass.controllers').controller('LoginCtrl', function ($scop
         }, function(error) {
             console.log('An error occurred logging the user in', error);
         });
+    };
+
+    $scope.goToLoginWithEmail = function () {
+        $state.go('registerOrLogin');
     };
 
     var postLoginOps = function (user, authData) {

@@ -1,5 +1,16 @@
 <ion-view id="login-page" view-title="Login">
   <ion-content scroll="false" has-bouncing="false">
-      <img src="img/fb-login.jpg" ng-click="login()">
+      <div class="content-section fade" ng-if="sessionChecked">
+          <h3 class="text-center m-20">{{"PAGES.LOGIN.TITLE"|translate}}</h3>
+          <br>
+          <a class="button button-block button-outline button-positive icon-right ion-social-facebook" style="margin-right:3px"
+             ng-click="loginWithFacebook()">
+              באמצעות פייסבוק
+          </a>
+          <a class="m-20 button button-block button-outline button-positive icon-right ion-person"
+             ng-click="goToLoginWithEmail()">
+              באמצעות אימייל וסיסמה
+          </a>
+      </div>
   </ion-content>
 </ion-view>

@@ -25,6 +25,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         }
         // Popover side menu
         $scope.links = [
+            {sref: 'profile', text: 'PAGES.PROFILE.MENU'},
             {sref: 'about', text: 'PAGES.ABOUT.MENU'},
             {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
         ];

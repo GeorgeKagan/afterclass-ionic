@@ -47,10 +47,17 @@
         "BACK_ANYWAY": "האם ברצונך לחזור למסך הקודם?"
     },
     "PAGES": {
+        "LOGIN": {
+            "TITLE": "כניסה לאפליקציה"
+        },
         "ABOUT": {
             "MENU": "אודות",
             "TITLE": "אודות AfterClass",
             "CONTENT": "אנחנו מגניבים!"
+        },
+        "PROFILE": {
+            "MENU": "פרופיל",
+            "TITLE": "פרופיל"
         },
         "TOS": {
             "TITLE": "תנאי שימוש",

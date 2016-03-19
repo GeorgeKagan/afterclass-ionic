@@ -1,0 +1,85 @@
+<ion-view id="profile-page" view-title="Profile" dir="auto">
+    <div class="bar bar-header">
+        <h1 class="title no-logo">
+            <i class="icon ion-chevron-left calm" ui-sref="home"></i>
+            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
+        </h1>
+    </div>
+    <ion-tabs class="tabs-striped tabs-background-dark tabs-color-calm tabs-icon-top">
+
+        <ion-tab title="פרופיל" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
+            <ion-nav-view>
+                <ion-content class="has-header has-tabs">
+                    <h4 class="text-center m-20">מידע כללי</h4>
+                    <div class="ac-content-padding list list-inset" ng-if="!user.is_teacher">
+                        <div class="item">
+                            <h2>מוסד לימודים</h2>
+                            <p>{{user.institute}}</p>
+                        </div>
+                        <div class="item">
+                            <h2>מקצוע</h2>
+                            <p>{{user.degree}}</p>
+                        </div>
+                        <div class="item">
+                            <h2>מספר שאלות שנותרו</h2>
+                            <p>{{user.credits}}</p>
+                        </div>
+                    </div>
+                    <div class="list list-inset" ng-if="user.is_teacher">
+                        <div class="item">
+                            <h2>מוסדות לימודים</h2>
+                            <p ng-repeat="(institute, val) in ::user.target_institutes">{{::institute}}</p>
+                        </div>
+                        <div class="item">
+                            <h2>תארים</h2>
+                            <div ng-repeat="(institute, degrees) in ::user.target_institutes">
+                                <p ng-repeat="(degree, courses) in degrees">{{::degree}}</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h2>מקצועות</h2>
+                            <div ng-repeat="(institute, degrees) in ::user.target_institutes">
+                                <div ng-repeat="(degree, courses) in degrees">
+                                    <p ng-repeat="(key, course) in courses">{{::course}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="סיסמה" icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline" ng-if="user.provider==='password'">
+            <ion-nav-view>
+                <ion-content class="ac-content-padding has-header has-tabs">
+                    <h4 class="text-center m-20">שינוי סיסמה</h4>
+                    <!-- Old Password -->
+                    <label class="m-10 item item-input">
+                        <i class="icon ion-ios-locked-outline placeholder-icon"
+                           style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                        <input ng-model="account.oldPassword" type="password" placeholder="סיסמה ישנה"
+                               style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                    </label>
+                    <!-- New Password -->
+                    <label class="m-10 item item-input">
+                        <i class="icon ion-ios-locked placeholder-icon"
+                           style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
+                        <input ng-model="account.newPassword" type="password" placeholder="סיסמה חדשה"
+                               style="line-height: 20px; padding: 0; margin: 0 0 1px;">
+                    </label>
+                    <button class="button button-block button-outline button-calm" ng-click="changePassword()" ng-disabled="!canChangePassword()">
+                        שנה סיסמה
+                    </button>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="הגדרות" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+            <ion-nav-view>
+                <ion-content class="ac-content-padding has-header has-tabs">
+                    <h4 class="text-center m-20">הגדרות</h4>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>
