@@ -1,31 +1,70 @@
-angular.module('afterclass.services').factory('Rating', function($rootScope, $firebaseArray, MyFirebase, User) {
+angular.module('afterclass.services').factory('Rating', function($rootScope, $firebaseArray, $firebaseObject, MyFirebase) {
     'use strict';
 
     var Rating = function(fbReplies) {
 
         this.allReplies = fbReplies;
-        this.tutorReplies = _.filter(this.allReplies,function(r){ return r.user !== $rootScope.user.$id; });
-        this.lastTutorReply = _.reverse(_.sortBy(this.tutorReplies, function(r) { return r.create_date; }))[0];
+        this.ratedReply = null;
+        this.rateReplyIndex = null;
+        this.rating = 0;
 
-        console.log('Rating instantiated for reply ',this.lastTutorReply);
+        //Find the last tutor reply and it's index
+        _.forEachRight(this.allReplies, (reply, i) => {
+             if(reply.user !== $rootScope.user.$id) {
+                 this.ratedReply = reply;
+                 this.rateReplyIndex = i;
+
+                 if(typeof this.ratedReply !== 'undefined') {
+                     this.rating = this.ratedReply.rating;
+                 }
+
+             }
+        });
 
     };
 
     Rating.prototype.rate = function(stars) {
 
+        this.rating = stars;
 
-        //Rate reply
-        this.lastTutorReply.rating = stars;
-        this.allReplies.$save(0).then(function(res){ //TODO: Instead of 0, find the actual id of the reply!!
-           console.log('Rating saved!', res);
+        let tutorRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load tutor for updating his score
+        $firebaseObject(tutorRef).$loaded().then((tutor) => {
+
+            //Update tutors rating
+            if(typeof this.ratedReply.rating === 'undefined') { //Was this reply rated already?
+
+                //Init rating object of non existent
+                if(typeof tutor.rating === 'undefined') {
+                    tutor.rating = {
+                        stars: 0,
+                        ratedAnswers: 0
+                    };
+                }
+
+                //Add current rating to tutor
+                tutor.rating.stars += stars;
+                tutor.rating.ratedAnswers++;
+
+            } else { //Tutor already rated, update the amount of stars
+
+                tutor.rating.stars = tutor.rating.stars - this.ratedReply.rating + stars;
+
+            }
+
+            tutor.$save(); //Done with tutor
+
+            //Rate reply
+            this.ratedReply.rating = stars;
+            this.allReplies.$save(this.rateReplyIndex);
+
         });
 
-        //Update tutors rating
     };
 
-    Rating.prototype.ratedUser = function() {
-      //TODO: Return the currently being rated
+    Rating.prototype.getRating = function(){
+      return this.rating;
     };
+
 
     return {
         getInstance: function(post, user) {

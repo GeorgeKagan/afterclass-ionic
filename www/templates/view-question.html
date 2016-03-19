@@ -51,14 +51,14 @@
         <div id="rating-area">
             <div class="item item-avatar">
                 <img ng-src="http://graph.facebook.com/104530943234576/picture?type=square" width="50" height="50">
-                עד כמה היית מרצה מתשובתו של אריק?
+                {{::'RATING.SATISFACTION_RATE'|translate}}
 
                 <ul>
-                    <li><img src="../img/star-full.png" ng-click="rating.rate(1)"></li>
-                    <li><img src="../img/star-full.png" ng-click="rating.rate(2)"></li>
-                    <li><img src="../img/star-full.png" ng-click="rating.rate(3)"></li>
-                    <li><img src="../img/star-empty.png" ng-click="rating.rate(4)"></li>
-                    <li><img src="../img/star-empty.png" ng-click="rating.rate(5)"></li>
+                    <li><img ng-src="{{starIcon(1)}}" ng-click="rating.rate(1)"></li>
+                    <li><img ng-src="{{starIcon(2)}}" ng-click="rating.rate(2)"></li>
+                    <li><img ng-src="{{starIcon(3)}}" ng-click="rating.rate(3)"></li>
+                    <li><img ng-src="{{starIcon(4)}}" ng-click="rating.rate(4)"></li>
+                    <li><img ng-src="{{starIcon(5)}}" ng-click="rating.rate(5)"></li>
                 </ul>
 
             </div>

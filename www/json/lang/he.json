@@ -88,13 +88,15 @@
         "BUY": "קנה עכשיו",
         "RECOMMENDED": "מומלץ!"
     },
+    "RATING": {
+        "SATISFACTION_RATE": "עד כמה היית מרוצה מתשובתו של המורה?"
+    },
     "BACK": "חזור",
     "OK": "אישור",
     "ERROR": "שגיאה",
     "DELETE": "מחק",
     "CANCEL": "ביטול",
     "SAVE": "שמירה",
-    "CAMERA": "מצלמה",
     "CAMERA": "מצלמה",
     "REMOVE": "הסר",
     "DOCUMENTS": "מסמכים",

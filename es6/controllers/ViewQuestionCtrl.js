@@ -18,7 +18,18 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
     replies.$loaded().then(function(listOfReplies){
         $scope.rating = Rating.getInstance(listOfReplies, $stateParams.firebase_id);
+
+        $scope.starIcon = function(index) {
+            if(index <= $scope.rating.getRating()) {
+                return '../img/star-full.png';
+            } else {
+                return '../img/star-empty.png';
+            }
+
+        };
     });
+
+
 
     $scope.post.$loaded().then(function(post) {
         //TODO: Refactor this area to support rating

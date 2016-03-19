@@ -8,5 +8,8 @@
             "TITLE": "Terms of service",
             "CONTENT": "as awesome as it get!"
         }
+    },
+    "RATING": {
+        "SATISFACTION_RATE": "עד כמה היית מרוצה מתשובתו של המורה?"
     }
 }
