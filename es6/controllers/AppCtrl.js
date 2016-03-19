@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('AppCtrl', function (
-    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, MyFirebase, User, InstitutePopup) {
+    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, $translate, MyFirebase, User, InstitutePopup) {
 
     $rootScope.env = localStorage.getItem('env');
     $rootScope.$state = $state;
@@ -23,6 +23,14 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         if (!$rootScope.user) {
             return;
         }
+
+        // If user changed language and local storage was cleared
+        if ($rootScope.user.ui_lang && !localStorage.getItem(('uiLang'))) {
+            localStorage.setItem('uiLang', $rootScope.user.ui_lang);
+            window.location.reload();
+        }
+        moment.locale($translate.use());
+
         // Popover side menu
         $scope.links = [
             {sref: 'profile', text: 'PAGES.PROFILE.MENU'},

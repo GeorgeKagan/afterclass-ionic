@@ -84,7 +84,7 @@
                         <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{::'FORM.UI_LANG'|translate}}</span>
                         <select class="b-0" style="margin: 0 0 2px 0" ng-model="settings.language" ng-options="x.id as x.name for x in languages"></select>
                     </label>
-                    <button class="button button-block button-outline button-calm" ng-click="saveSettings()">
+                    <button class="button button-block button-outline button-calm" ng-click="saveSettings()" ng-disabled="!canSaveSettings()">
                         {{::'FORM.SAVE_SETTINGS'|translate}}
                     </button>
                 </ion-content>

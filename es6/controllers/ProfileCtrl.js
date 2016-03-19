@@ -43,10 +43,15 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, 
         {id: 'he', name: 'עברית'},
         {id: 'en', name: 'אנגלית'}
     ];
-    $scope.settings = {language: 'he'};
+    $scope.settings = {language: $rootScope.user.ui_lang ? $rootScope.user.ui_lang : ''};
+
+    $scope.canSaveSettings = () => $scope.settings.language;
 
     $scope.saveSettings = () => {
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-        User.updateUser({ui_lang: $scope.settings.language}).then(() => $ionicLoading.hide());
+        localStorage.setItem('uiLang', $scope.settings.language);
+        User.updateUser({ui_lang: $scope.settings.language}).then(() => {
+            window.location.reload();
+        });
     };
 });

@@ -30,7 +30,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
     })
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
-        var appLang = 'he';
+        var appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : '';
 
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.5");
@@ -42,17 +42,19 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         $ionicConfigProvider.views.transition('none');
 
         //Translation
+        $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        //$translateProvider.fallbackLanguage('he');
         $translateProvider.useStaticFilesLoader({
             prefix: 'json/lang/',
             suffix: '.json'
         });
-        $translateProvider.preferredLanguage(appLang);
-        $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
-        $translateProvider.useSanitizeValueStrategy('escaped');
-        //$translateProvider.fallbackLanguage('he');
-        //$translateProvider.determinePreferredLanguage();
-
-        moment.locale(appLang);
+        if (appLang) {
+            $translateProvider.preferredLanguage(appLang);
+        } else {
+            // Decide if en or he according to environment
+            $translateProvider.determinePreferredLanguage();
+        }
 
         $stateProvider
             .state('login', {
