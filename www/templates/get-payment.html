@@ -22,7 +22,7 @@
                 <div class="row row-no-padding">
                     <div class="col"><strong>{{::item.amount | number}}</strong> &#8362;</div>
                     <div class="col text-center">
-                        <small>{{::item.status_date | moment}}</small>
+                        <small ng-bind-html="item.status_date | moment"></small>
                     </div>
                     <div class="col">
                         <span class="item-note" ng-class="{'balanced': item.status==='paid', 'bold': item.status==='pending'}">

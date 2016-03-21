@@ -3,7 +3,7 @@
         <h1 class="title no-logo">
             <i ng-click="backToHome()" class="icon ion-chevron-left calm"></i>
             <span class="back-btn" ng-click="backToHome()">{{::"BACK"|translate}}</span>
-            <span class="date">{{ post.create_date | moment }}</span>
+            <span class="date" ng-bind-html="post.create_date | moment"></span>
         </h1>
     </div>
     <ion-content lazy-scroll class="has-header has-footer" has-bouncing="false">
@@ -21,7 +21,7 @@
                      width="40" height="40">
                 <img ng-if="reply.user.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::reply.user}}?d=identicon" width="40" height="40">
                 {{reply.first_name}} {{reply.last_name | limitTo:1}}<br>
-                <small class="date">{{reply.create_date | moment}}</small>
+                <small class="date" ng-bind-html="reply.create_date | moment"></small>
             </div>
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
