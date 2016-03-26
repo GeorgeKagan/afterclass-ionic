@@ -26,6 +26,10 @@
                         </div>
                     </div>
                     <div class="m-0 list list-inset" ng-if="user.is_teacher">
+                        <div class="item" ng-if="user.about_me">
+                            <h2>{{::"ABOUT_ME"|translate}}</h2>
+                            <p>{{user.about_me}}</p>
+                        </div>
                         <div class="item">
                             <h2>{{::"INSTITUTES"|translate}}</h2>
                             <p ng-repeat="(institute, val) in ::user.target_institutes">{{::institute}}</p>
