@@ -15,8 +15,9 @@
              image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
              ng-click="viewFullImage(post.img_id)"
              height="250">
+
         <div ng-repeat="reply in post.replies" class="post-comment-main">
-            <div class="item item-avatar" avatar user-id="reply.user" size="40">
+            <div class="item item-avatar" avatar user-id="reply.user" size="40" ui-sref="profile({firebase_user_id: reply.user})">
                 {{reply.first_name}} {{reply.last_name | limitTo:1}}<br>
                 <small class="date" ng-bind-html="reply.create_date | moment"></small>
             </div>
@@ -31,6 +32,7 @@
                 </div>
             </div>
         </div>
+
         <div class="padding text-center">
             <div ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</div>
             <button ng-click="reportConversation()" ng-class="{'icon-right': $root.uiLang==='he', 'icon-left': $root.uiLang!=='he'}"

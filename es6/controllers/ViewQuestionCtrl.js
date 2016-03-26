@@ -270,6 +270,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 }
                 // Get the timestamp when teacher accepted question and save it on the reply
                 replyData.accept_date       = currPotTutor ? currPotTutor.status_update_date : null;
+                // toggleAcceptance wasn't clicked somehow, so set it to current timestamp (accept by time of reply)
+                replyData.accept_date       = replyData.accept_date || Firebase.ServerValue.TIMESTAMP;
                 replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
             }
 

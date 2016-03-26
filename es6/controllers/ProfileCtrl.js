@@ -1,4 +1,12 @@
-angular.module('afterclass.controllers').controller('ProfileCtrl', ($rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, MyFirebase, User) => {
+angular.module('afterclass.controllers').controller('ProfileCtrl', (
+    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, MyFirebase, User, otherUser) => {
+
+    // If viewing someone else and that someone is not the session user
+    if (otherUser && $rootScope.user.id !== otherUser.id) {
+        $scope.viewingSomeoneElse = true;
+        $scope.user = otherUser;
+        return;
+    }
 
     var ref = MyFirebase.getRef();
 

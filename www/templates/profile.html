@@ -65,7 +65,8 @@
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="{{::'PASSWORD'|translate}}" icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline" ng-if="user.provider==='password'">
+        <ion-tab title="{{::'PASSWORD'|translate}}" icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline"
+                 ng-if="!viewingSomeoneElse && user.provider==='password'">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">{{::"FORM.CHANGE_PW"|translate}}</h4>
@@ -90,7 +91,8 @@
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="{{::'SETTINGS'|translate}}" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+        <ion-tab title="{{::'SETTINGS'|translate}}" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline"
+                 ng-if="!viewingSomeoneElse">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">{{::"SETTINGS"|translate}}</h4>

@@ -143,10 +143,19 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('profile', {
-                url: "/profile",
+                url: "/profile/:firebase_user_id",
                 templateUrl: "templates/profile.html",
                 controller: "ProfileCtrl",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: {
+                    user: function(User) { return User.getFromUsersCollection() },
+                    otherUser: function($stateParams, User) {
+                        if ($stateParams.firebase_user_id) {
+                            return User.getFromUsersCollectionById($stateParams.firebase_user_id);
+                        }
+                        return angular.noop();
+                    }
+                },
+                params: { firebase_user_id: null }
             })
             .state('about', {
                 url: "/about",

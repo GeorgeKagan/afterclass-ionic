@@ -89,6 +89,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
         },
         /**
          * Populate rootScope with user data from localStorage
+         * @returns {Promise}
          */
         getFromUsersCollection: function () {
             var q = $q.defer();
@@ -97,14 +98,23 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                 return q.promise;
             }
             var authData = ref.getAuth(),
-                sync    = ref.child('users/' + authData.uid),
-                user    = $firebaseObject(sync);
+                sync     = ref.child('users/' + authData.uid),
+                user     = $firebaseObject(sync);
             user.$loaded().then(function () {
                 // Use up to date fb data, but merge in custom properties set via firebase
                 $rootScope.user = angular.element.extend(authData, user);
                 q.resolve($rootScope.user);
             });
             return q.promise;
+        },
+        /**
+         * Get user by Firebase ID
+         * @param firebaseUserId
+         * @returns {Promise}
+         */
+        getFromUsersCollectionById: function (firebaseUserId = null) {
+            if (!firebaseUserId) { console.error('No firebase user id supplied'); }
+            return $firebaseObject(ref.child('users/' + firebaseUserId)).$loaded();
         }
     };
 
