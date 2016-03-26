@@ -157,7 +157,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     /**
      * Confirm back if body filled
      */
-    $scope.backToHome = function () {
+    $scope.backToHomeConfirm = function () {
         if ($scope.body.val.trim() !== '') {
             var confirmPopup = $ionicPopup.confirm({
                 title: $translate.instant('FORM.DATA_FILLED'),

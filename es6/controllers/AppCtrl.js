@@ -93,10 +93,6 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         $scope.popover.hide();
     };
 
-    $scope.backToHome = function () {
-        $window.history.back();
-    };
-
     $scope.myGoBack = function () {
         $ionicHistory.goBack();
     };
