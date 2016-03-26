@@ -51,7 +51,9 @@
                 <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::rating.getRatedTutor().$id.replace('facebook:', '')}}/picture?type=square" width="60" height="60">
                 <img ng-if="rating.getRatedTutor().$id.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::rating.getRatedTutor().$id}}?d=identicon" width="60" height="60">
 
-                {{::'RATING.SATISFACTION_RATE'|translate}}
+                <small style="margin: 0 10px;display: inline-block;">
+                    {{::'RATING.SATISFACTION_RATE'|translate}}
+                </small>
 
                 <ul>
                     <li><img ng-src="{{starIcon(1)}}" ng-click="rateAnswer(1)"></li>
