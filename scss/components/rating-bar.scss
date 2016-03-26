@@ -1,0 +1,43 @@
+#rating-bar {
+  height: 85px;
+  .item-avatar > img:first-child {
+    max-width: 50px;
+    max-height: 50px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid #ccc;
+  }
+  #rating-area {
+    position: absolute;
+    right: 0;
+  }
+  #rating-area > * {
+    float: left;
+  }
+  ul {
+    margin-top: 4px;
+    li {
+      display: block;
+      float: left;
+      margin-right: 12px;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  body.rtl & {
+    #rating-area > * {
+      float: right;
+    }
+    ul {
+      li {
+        float: right;
+      }
+    }
+  }
+}

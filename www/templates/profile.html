@@ -30,6 +30,9 @@
                     </div>
 
                     <!-- TEACHER -->
+                    <div id="rating-bar" class="text-center" style="height: 65px" ng-if="user.is_teacher">
+                        <star-icons class="inline-block" rating="user.rating.stars / user.rating.ratedAnswers"></star-icons>
+                    </div>
                     <div class="m-0 list list-inset" ng-if="user.is_teacher">
                         <div class="item" ng-if="user.about_me">
                             <div class="inline-block">

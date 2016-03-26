@@ -28,7 +28,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
         $scope.isTutor = $rootScope.user.is_teacher;
 
-        if ($scope.isTutor) {
+        if ($scope.isTutor) { 
 
             $scope.showRating = false; //Student only
 
@@ -65,14 +65,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
             if(stars <= 3) {
                 $scope.reportConversation($translate.instant('RATING.RATING_TOO_LOW'));
-            }
-        }
-
-        $scope.starIcon = function(index) {
-            if(index <= $scope.rating.getRating()) {
-                return '../img/star-full.png';
-            } else {
-                return '../img/star-empty.png';
             }
         };
     }
