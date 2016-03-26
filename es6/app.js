@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers', ['ui.router']);
 
-angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
+angular.module('afterclass', ['ionic', 'afterclass.defaultConfig', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
     'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) {
@@ -17,8 +17,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             } else {
                 $rootScope.appVersion = 'available_on_device';
             }
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
             if (window.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             }
@@ -52,7 +51,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         if (appLang) {
             $translateProvider.preferredLanguage(appLang);
         } else {
-            // Decide if en or he according to environment
+            // Decide if 'en' or 'he' according to environment
             $translateProvider.determinePreferredLanguage();
         }
 
@@ -155,8 +154,9 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             })
             .state('contact', {
                 url: "/contact",
+                controller: "ContactCtrl",
                 templateUrl: "templates/contact.html",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: function(User) { return User.getFromUsersCollection(); }, appConfig: function(AppConfig) { return AppConfig.promise(); } }
             })
             .state('impersonate', {
                 url: "/impersonate",
