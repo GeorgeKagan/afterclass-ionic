@@ -118,12 +118,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 cache: false,
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
-            .state('getCredit', {
+            /*.state('getCredit', { //Disabled in favor of the new "manual" credit page
                 url: "/getCredit",
                 templateUrl: "templates/get-credit.html",
                 controller: 'GetCreditCtrl',
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
-            })
+            })*/
             .state('getCreditManual', {
                 url: "/getCreditManual",
                 templateUrl: "templates/get-credit-manual.html",

@@ -18,6 +18,15 @@
         padding-bottom: 20px;
       }
     }
+
+    .row {
+      color: black;
+      i {
+        font-size: 40px;
+        color: $blue;
+      }
+    }
+
   }
   .pricing-table .header {
     float: left;
@@ -87,12 +96,15 @@
     border-radius: 0;
   }
 
-  .row {
-      color: black;
-      i {
-        font-size: 40px;
-        color: $blue;
-      }
-  }
+ .call-center {
+   margin-top: 15px;
+   text-align: center;
+   h3, i {
+     color: #54B5E2;
+   }
+   a {
+     font-size: 20px;
+   }
+ }
 
 }
