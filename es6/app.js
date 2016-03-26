@@ -124,6 +124,12 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 controller: 'GetCreditCtrl',
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
+            .state('getCreditManual', {
+                url: "/getCreditManual",
+                templateUrl: "templates/get-credit-manual.html",
+                controller: 'GetCreditCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })
             .state('getPayment', {
                 url: "/getPayment",
                 templateUrl: "templates/get-payment.html",

@@ -39,7 +39,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
             {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
         ];
         if ($rootScope.user.is_teacher !== undefined && !$rootScope.user.is_teacher) {
-            $scope.links.push({sref: 'getCredit', text: 'GET_POINTS'});
+            $scope.links.push({sref: 'getCreditManual', text: 'GET_POINTS'});
         }
         // Add dev actions
         var devUsers = [
