@@ -62,6 +62,22 @@
   }
 }
 
+.inline-block {
+  display: inline-block;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.va-top {
+  vertical-align: top;
+}
+
 strong {
   color: $dark_gray2;
   font-style: italic;
@@ -173,6 +189,10 @@ select {
 
 .m-10 {
   margin: 10px 0 !important;
+}
+
+.m-10-h {
+  margin: 0 10px !important;
 }
 
 .m-15 {
