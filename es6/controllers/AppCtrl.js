@@ -97,6 +97,10 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         $window.history.back();
     };
 
+    $scope.myGoBack = function () {
+        $ionicHistory.goBack();
+    };
+
     // Header bar popover
     $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {
         scope: $scope
