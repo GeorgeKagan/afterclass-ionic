@@ -10,7 +10,10 @@
         <ion-tab title="{{::'PROFILE'|translate}}" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
-                    <h4 class="text-center m-20">{{::"GENERAL_INFO"|translate}}</h4>
+                    <h4 class="text-center m-20">
+                        {{user.first_name}} {{user.last_name}}
+                    </h4>
+                    <!-- STUDENT -->
                     <div class="m-0 list list-inset" ng-if="!user.is_teacher">
                         <div class="item">
                             <h2>{{::"INSTITUTE"|translate}}</h2>
@@ -25,10 +28,16 @@
                             <p>{{user.credits}}</p>
                         </div>
                     </div>
+
+                    <!-- TEACHER -->
                     <div class="m-0 list list-inset" ng-if="user.is_teacher">
                         <div class="item" ng-if="user.about_me">
-                            <h2>{{::"ABOUT_ME"|translate}}</h2>
-                            <p>{{user.about_me}}</p>
+                            <div class="inline-block">
+                                <avatar user-id="user.id" size="40"></avatar>
+                            </div>
+                            <div class="inline-block m-10-h va-top" style="white-space: initial;">
+                                {{user.about_me | nl2br}}
+                            </div>
                         </div>
                         <div class="item">
                             <h2>{{::"INSTITUTES"|translate}}</h2>
