@@ -9,10 +9,9 @@ angular.module('afterclass.services').factory('AppConfig', function ($rootScope,
 
     return {
         //promise: config.$loaded,
-        promise: function() {
+        loadConfig: function() {
             var q = $q.defer();
             config.$loaded().then(function() {
-                console.log("test");
                 combinedConfig = _.assign(defaultConfig, config);
                 q.resolve();
             });

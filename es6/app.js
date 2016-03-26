@@ -156,7 +156,7 @@ angular.module('afterclass', ['ionic', 'afterclass.defaultConfig', 'afterclass.c
                 url: "/contact",
                 controller: "ContactCtrl",
                 templateUrl: "templates/contact.html",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); }, appConfig: function(AppConfig) { return AppConfig.promise(); } }
+                resolve: { user: function(User) { return User.getFromUsersCollection(); }, appConfig: function(AppConfig) { return AppConfig.loadConfig(); } }
             })
             .state('impersonate', {
                 url: "/impersonate",
