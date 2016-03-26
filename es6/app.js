@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers', ['ui.router']);
 
-angular.module('afterclass', ['ionic', 'afterclass.defaultConfig', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
+angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
     'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) {
