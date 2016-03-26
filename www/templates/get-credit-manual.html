@@ -7,34 +7,51 @@
     </div>
     <ion-content class="has-header padding" has-bouncing="false" dir="auto">
         <h4 class="padding text-center">
-            {{::"GET_CREDIT.TITLE"|translate}}
+            {{::"GET_CREDIT.INTRO"|translate}}
         </h4>
         <div class="padding clearfix">
-            <div class="pricing-table clearfix calm-border">
+
+            <div class="pricing-table clearfix wide calm-border">
                 <div class="header">
-                    <h4>{{::"GET_CREDIT.PLAN_1"|translate}}</h4>
+                    <div class="ph-subject light">{{::"GET_CREDIT.OPENING_PRICE"|translate}}</div>
                 </div>
+
+                <div class="row">
+                    <div class="col">
+                        <i class="icon ion-ios-infinite placeholder-icon" style="color: #27BE4B;"></i>
+                        <br />
+                        {{::"GET_CREDIT.FEATURES.UNLIMITED"|translate}}
+                    </div>
+                    <div class="col">
+                        <div class="col">
+                            <i class="icon ion-android-apps placeholder-icon" style="color: #AB55E5;"></i>
+                            <br />
+                            {{::"GET_CREDIT.FEATURES.MANY_SUBJECTS"|translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="col">
+                            <i class="icon ion-card placeholder-icon" style="color: #1EADF2;"></i>
+                            <br />
+                            {{::"GET_CREDIT.FEATURES.CHEAP_PRICING"|translate}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col">
+                            <i class="icon ion-ios-people placeholder-icon" style="color: #FF9D69;"></i>
+                            <br />
+                            {{::"GET_CREDIT.FEATURES.EXP_TUTORS"|translate}}
+                        </div>
+                    </div>
+                </div>
+
                 <div class="footer">
-                    <button class="button button-positive" ng-click="addCredit(1, 2)">{{::"GET_CREDIT.BUY"|translate}}</button>
+                    <button class="button button-positive" ng-click="addCredit(10, 15)" ng-bind-html="'GET_CREDIT.PRICE'|translate"></button>
                 </div>
             </div>
-            <div class="pricing-table clearfix wide royal-border">
-                <div class="header">
-                    <h4>{{::"GET_CREDIT.PLAN_2"|translate}}</h4>
-                    <div class="ph-subject royal-bg light">{{::"GET_CREDIT.RECOMMENDED"|translate}}</div>
-                </div>
-                <div class="footer">
-                    <button class="button button-royal" ng-click="addCredit(10, 15)">{{::"GET_CREDIT.BUY"|translate}}</button>
-                </div>
-            </div>
-            <div class="pricing-table clearfix calm-border">
-                <div class="header">
-                    <h4>{{::"GET_CREDIT.PLAN_3"|translate}}</h4>
-                </div>
-                <div class="footer">
-                    <button class="button button-positive" ng-click="addCredit(20, 25)">{{::"GET_CREDIT.BUY"|translate}}</button>
-                </div>
-            </div>
+
         </div>
     </ion-content>
 </ion-view>

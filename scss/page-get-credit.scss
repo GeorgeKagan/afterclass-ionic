@@ -28,6 +28,8 @@
     padding-bottom: 12px;
     .ph-subject {
       padding: 10px 15px;
+      background-color: #54b5e2;
+      font-style: italic;
     }
     h4 {
       margin: 0;
@@ -84,4 +86,13 @@
     border: 0;
     border-radius: 0;
   }
+
+  .row {
+      color: black;
+      i {
+        font-size: 40px;
+        color: $blue;
+      }
+  }
+
 }
