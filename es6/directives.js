@@ -45,7 +45,7 @@ angular.module('afterclass.directives', [])
                             if (window.cordova && !$cordovaNetwork.isOnline()) {
                                 return alert($translate.instant('CHECK_INTERNET'));
                             }
-                            $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCredit');
+                            $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCreditManual');
                         };
                         scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
                     }, true);
