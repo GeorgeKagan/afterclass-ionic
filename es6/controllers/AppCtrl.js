@@ -39,7 +39,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
             {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
         ];
         if ($rootScope.user.is_teacher !== undefined && !$rootScope.user.is_teacher) {
-            $scope.links.push({sref: 'getCredit', text: 'GET_POINTS'});
+            $scope.links.push({sref: 'getCreditManual', text: 'GET_POINTS'});
         }
         // Add dev actions
         var devUsers = [
@@ -50,8 +50,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 '10205364847174667', // Gitlin
                 '10153250113479854', // Sunshine
                 '10152843702557886', // Arik
-                '10208031223882048', // Dor
-                '104530943234576' // Helen Denth
+                '104530943234576'    // Helen Denth
             ],
             isDevUser = localStorage.getItem('isDevUser') === 'true',
             env = localStorage.getItem('env');
