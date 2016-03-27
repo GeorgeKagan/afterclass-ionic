@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('AppConfig', function ($rootScope, $q, $firebaseObject, $timeout, AmazonSNS, MyFirebase, defaultConfig) {
+angular.module('afterclass.services').factory('AppConfig', function ($rootScope, $firebaseObject, $timeout, AmazonSNS, MyFirebase, defaultConfig) {
     'use strict';
 
     let ref = MyFirebase.getRef();
@@ -10,12 +10,9 @@ angular.module('afterclass.services').factory('AppConfig', function ($rootScope,
     return {
         //promise: config.$loaded,
         loadConfig: function() {
-            var q = $q.defer();
-            config.$loaded().then(function() {
+            return config.$loaded().then(function() {
                 combinedConfig = _.assign(defaultConfig, config);
-                q.resolve();
             });
-            return q.promise;
         },
         getConfig: function() {
             return combinedConfig;
