@@ -1,5 +1,5 @@
-angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, User, PayPal) {
+angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, User, AppConfig) {
 
-    //Move on, nothing to see here
+    $scope.config = AppConfig.getConfig().payments;
 
 });
