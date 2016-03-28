@@ -6,7 +6,8 @@ angular.module('afterclass.constants', []).constant('defaultConfig',{
         phone: '054-8006370'
     },
     payments: {
-        price: 179
+        phone: '054-8006370',
+        price: '&#8362;179 לחודש'
     }
 
 });
