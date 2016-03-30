@@ -2,13 +2,6 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     $rootScope, $scope, $ionicScrollDelegate, $state, $timeout, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
     'use strict';
 
-    // $ionicPopup.alert({
-    //     title   : $translate.instant('FORM.Q_SENT_TITLE'),
-    //     template: $translate.instant('FORM.Q_SENT') +
-    //         `<hr class="m-10" style="border: 0;border-top: 1px solid #f0f0f0;"> <facebook-like></facebook-like>`,
-    //     okText  : 'לא תודה, בפעם אחרת'
-    // });
-
     // If for some reason student doesn't have either Institute or Degree selected, prompt him to choose
     if (!$rootScope.user.is_teacher && (!$rootScope.user.institute || !$rootScope.user.degree)) {
         InstitutePopup.show();

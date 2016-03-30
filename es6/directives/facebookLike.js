@@ -4,20 +4,17 @@ angular.module('afterclass.directives').directive('facebookLike', () => {
         replace: true,
         template:
             `<div style="text-align: center;display: block;">
-                <div class="fb-like" 
-                    data-href="https://www.facebook.com/AppAfterClass" data-width="230px" 
-                    data-layout="button" data-action="like" data-show-faces="false" data-share="false">
+                <div class="button button-block button-outline button-positive icon-left ion-social-facebook" ng-click="likeClicked()">
+                    Like
                 </div>
              </div>`,
         scope: {
 
         },
         link: scope => {
-            FB.init({
-                appId      : '776966842380887',
-                xfbml      : true,
-                version    : 'v2.5'
-            });
+            scope.likeClicked = () => {
+                window.open('http://www.facebook.com/AppAfterClass', '_blank', 'location=yes');
+            };
         }
     };
 });
