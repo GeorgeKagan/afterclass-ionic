@@ -68,6 +68,13 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 $event.preventDefault();
                 $timeout(function() { window.location.reload(true); }, 1000);
             }, sref: 'dummy', classes: 'red', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
+            // Delete Firebase user
+            $scope.links.push({onclick: function ($event) {
+                User.deleteUser();
+                $scope.logout();
+                $event.preventDefault();
+                $timeout(function() { window.location.reload(true); }, 1000);
+            }, sref: 'dummy', classes: 'red', text: 'Delete Firebase User'});
             // Change Institution
             $scope.links.push({onclick: function ($event) {
                 if ($rootScope.user.is_teacher) {

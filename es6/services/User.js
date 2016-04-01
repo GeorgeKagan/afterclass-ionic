@@ -115,6 +115,19 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
         getFromUsersCollectionById: function (firebaseUserId = null) {
             if (!firebaseUserId) { console.error('No firebase user id supplied'); }
             return $firebaseObject(ref.child('users/' + firebaseUserId)).$loaded();
+        },
+        /**
+         * Delete a Firebase user
+         */
+        deleteUser: function () {
+            var sync = ref.child('users/' + $rootScope.user.uid),
+                user = $firebaseObject(sync);
+            AmazonSNS.deleteEndpoint($rootScope.user.amazon_endpoint_arn);
+            user.$remove().then(function (ref) {
+                // data has been deleted locally and in the database
+            }, function (error) {
+                console.log("Error:", error);
+            });
         }
     };
 
