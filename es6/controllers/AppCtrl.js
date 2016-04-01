@@ -99,8 +99,13 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         $scope.popover.hide();
     };
 
+    $scope.backToHome = () => $window.history.back();
+
     $scope.myGoBack = function () {
-        $ionicHistory.goBack();
+        let wentBack = $ionicHistory.goBack();
+        if (!wentBack) {
+            $scope.backToHome();
+        }
     };
 
     // Header bar popover

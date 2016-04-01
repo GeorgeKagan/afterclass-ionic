@@ -2,8 +2,8 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
     $rootScope, $scope, $ionicScrollDelegate, $state, $timeout, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
     'use strict';
 
-    // If for some reason student doesn't have either Institute or Degree selected, prompt him to choose
-    if (!$rootScope.user.is_teacher && (!$rootScope.user.institute || !$rootScope.user.degree)) {
+    // If for some reason student doesn't have grade selected, prompt him to choose
+    if (!$rootScope.user.is_teacher && (!$rootScope.user.institute)) {
         InstitutePopup.show();
     }
 
