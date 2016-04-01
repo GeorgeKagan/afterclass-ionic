@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="padding text-center">
+        <div class="padding text-center" ng-class="{'report-big-footer': showRating}">
             <div ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</div>
             <button ng-click="reportConversation()" ng-class="{'icon-right': $root.uiLang==='he', 'icon-left': $root.uiLang!=='he'}"
                     class="button button-clear button-assertive ion-alert-circled">
@@ -53,7 +53,7 @@
                 <star-icons rating-obj="rating" rate-answer="rateAnswer"></star-icons>
             </div>
         </div>
-        <div class="buttons pull-right" ng-click="toggleReply()" ng-show="allowReply">
+        <div class="buttons" ng-class="{'pull-left': uiLang==='en', 'pull-right': uiLang==='he'}" ng-click="toggleReply()" ng-show="allowReply">
             <button class="button button-clear button-calm icon ion-android-chat">&nbsp;</button>
         </div>
     </div>

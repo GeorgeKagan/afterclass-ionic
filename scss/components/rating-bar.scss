@@ -22,7 +22,7 @@
     li {
       display: block;
       float: left;
-      margin-right: 12px;
+      margin-left: 12px;
       img {
         width: 30px;
         height: 30px;
@@ -37,6 +37,8 @@
     ul {
       li {
         float: right;
+        margin-left: 0;
+        margin-right: 12px;
       }
     }
   }
