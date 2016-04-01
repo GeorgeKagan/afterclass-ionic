@@ -137,6 +137,10 @@ body.rtl {
     .scroll {
       direction: rtl;
     }
+    .aq-delete {
+      right: auto;
+      left: 10px;
+    }
   }
 
   // View question page
