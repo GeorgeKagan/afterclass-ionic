@@ -111,21 +111,15 @@ angular.module('afterclass.services', [])
 
     .factory('Institutes', function($q, $rootScope, $http, $translate) {
         var obj = {};
-        obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
+        obj.getSubjectsByInstituteAndDegree = function (institute) {
             var d = $q.defer();
-            if (!institute && !degree) {
-                console.error('Ask question: no institute and degree in user data!');
+            if (!institute) {
+                console.error('Ask question: no institute in user data!');
                 return;
             }
-            $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-                var subjects = [$translate.instant('OTHER')];
-                if (data[institute]) {
-                    var subjectsObj = _.find(data[institute], {name: degree});
-                    if (subjectsObj) {
-                        subjects = subjectsObj.subjects;
-                    }
-                }
-                d.resolve(subjects);
+            $http.get('http://www.afterclass.org/json/grades.json').success(function(data) {
+                data.push($translate.instant('OTHER'));
+                d.resolve(data);
             });
             return d.promise;
         };

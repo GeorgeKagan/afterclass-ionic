@@ -7,7 +7,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     var posts       = $firebaseArray(ref);
     var add_img_url = null;
 
-    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute, $rootScope.user.degree).then(function (data) {
+    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(function (data) {
         $scope.subjects = data;
     });
 
