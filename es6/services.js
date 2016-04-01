@@ -66,31 +66,10 @@ angular.module('afterclass.services', [])
         var showPopup = function() {
             var scope = $rootScope.$new();
             $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-                scope.hash              = {selInstitute: 0, selDegree: 0};
+                scope.hash              = {selInstitute: 0};
                 scope.institutes        = data;
                 scope.institutes[$translate.instant('OTHER')] = $translate.instant('OTHER');
-                scope.selectInstitute   = function() {
-                    var institute = angular.element('#popup-institute :selected').attr('label');
-                    scope.hash.selDegree = 0;
-                    if (institute !== undefined && institute !== $translate.instant('OTHER')) {
-                        scope.degrees       = _.uniq(data[institute], 'name');
-                        scope.degrees.push({name: $translate.instant('OTHER')});
-                        scope.showDegrees   = true;
-                    } else if (institute === $translate.instant('OTHER')) {
-                        var all_degrees = [];
-                        angular.forEach(data, function(dataInstitute) {
-                            angular.forEach(dataInstitute, function(degree) {
-                                if (dataInstitute === $translate.instant('OTHER')) { return; }
-                                all_degrees.push(degree);
-                            });
-                        });
-                        scope.degrees       = _.uniq(all_degrees, 'name');
-                        scope.degrees.push({name: $translate.instant('OTHER')});
-                        scope.showDegrees   = true;
-                    } else {
-                        scope.showDegrees   = false;
-                    }
-                };
+                scope.selectInstitute   = function() {};
                 $timeout(function() {
                     $ionicPopup.show({
                         templateUrl : 'templates/partials/institute-popup.html',
@@ -100,10 +79,9 @@ angular.module('afterclass.services', [])
                                 text: '<span>' + $translate.instant('SAVE') + '</span>',
                                 type: 'button-positive',
                                 onTap: function (e) {
-                                    var institute = angular.element('#popup-institute :selected').attr('label'),
-                                        degree = angular.element('#popup-degree :selected').attr('label');
-                                    if (institute !== undefined && degree !== undefined) {
-                                        User.updateUser({institute: institute, degree: degree});
+                                    var institute = angular.element('#popup-institute :selected').attr('label');
+                                    if (institute !== undefined) {
+                                        User.updateUser({institute: institute});
                                     } else {
                                         angular.element('#pi-err').show();
                                         e.preventDefault();
@@ -114,10 +92,9 @@ angular.module('afterclass.services', [])
                     });
                     $timeout(() => {
                         // If already got data (edit mode), auto-fill the selects
-                        if ($rootScope.user.institute && $rootScope.user.degree) {
+                        if ($rootScope.user.institute) {
                             angular.element(`#popup-institute [label="${$rootScope.user.institute}"]`).attr('selected', true);
                             scope.selectInstitute();
-                            $timeout(() => angular.element(`#popup-degree [label="${$rootScope.user.degree}"]`).attr('selected', true));
                         }
                     });
                     $ionicLoading.hide();
@@ -125,7 +102,7 @@ angular.module('afterclass.services', [])
             }).
             error(function() {
                 $ionicLoading.hide();
-                console.log('Failed to get institutes-degrees json');
+                console.log('Failed to get grades json');
             });
         };
         return {
