@@ -65,10 +65,9 @@ angular.module('afterclass.services', [])
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
-            $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
+            $http.get('http://www.afterclass.org/json/grades.json').success(function(data) {
                 scope.hash              = {selInstitute: 0};
                 scope.institutes        = data;
-                scope.institutes[$translate.instant('OTHER')] = $translate.instant('OTHER');
                 scope.selectInstitute   = function() {};
                 $timeout(function() {
                     $ionicPopup.show({
