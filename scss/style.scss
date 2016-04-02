@@ -102,9 +102,9 @@ textarea {
 }
 
 select, textarea, input[type="text"] {
-  font-size: 15px;
+  font-size: 14px;
   color: $gray2 !important;
-  font-weight: 300;
+  font-weight: normal;
 }
 select {
   color: inherit;
@@ -188,6 +188,10 @@ select {
 .spinner svg {
   stroke: $blue;
   fill: $blue;
+}
+
+.bg-trans {
+  background: transparent !important;
 }
 
 .b-0 {

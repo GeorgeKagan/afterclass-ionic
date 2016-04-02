@@ -20,9 +20,9 @@ angular.module('afterclass.directives').directive('starIcons', () => {
             scope.starIcon = function(index) {
                 let rating = (scope.rating ? Math.round(scope.rating) : false) || scope.ratingObj.getRating();
                 if (index <= rating) {
-                    return '../img/star-full.png';
+                    return 'img/star-full.png';
                 } else {
-                    return '../img/star-empty.png';
+                    return 'img/star-empty.png';
                 }
             };
         }
