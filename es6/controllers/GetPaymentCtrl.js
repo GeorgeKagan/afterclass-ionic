@@ -9,7 +9,10 @@ angular.module('afterclass.controllers').controller('GetPaymentCtrl', function (
         $scope.payment = data;
     });
 
-    $scope.withdraw = function () {
+    /* DEBUG FEATURE*/
+    //Payment._debugCreatePayment();
+
+    /*$scope.withdraw = function () {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
@@ -42,7 +45,6 @@ angular.module('afterclass.controllers').controller('GetPaymentCtrl', function (
                 });
             }, 1000);
         });
-    };
+    };*/
 
-    //Payment._debugCreatePayment();
 });
