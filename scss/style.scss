@@ -13,6 +13,11 @@
   margin: 4px 18px
 }
 
+.platform-browser .view-container{
+  max-width:40%;
+  left:30%;
+}
+
 .view-container .pane {
   @include RadialGradient;
   &.has-tabs {
