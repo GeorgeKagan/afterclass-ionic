@@ -19,9 +19,18 @@ angular.module('afterclass.directives', [])
             '<div class="ask-q-area calm-bg text-center">' +
                 '<button class="button aqa-btn" ng-click="btnClick()">' +
                     '<div class="ab-icon {{icon}}"></div>' +
-                    '<div class="ab-text">{{btnText}}</div>' +
+                    '<div class="ab-text" ng-if="btnText===\'payment\'">{{"GET_PAYMENT"|translate}}</div>' +
+                    '<div class="ab-text" ng-if="btnText===\'ask\'">{{"ASK_A_TEACHER"|translate}}</div>' +
+                    '<div class="ab-text" ng-if="btnText===\'points\'">{{"GET_POINTS"|translate}}</div>' +
                 '</button>' +
-                '<div class="light text-center padding" dir="auto" ng-bind-html="subtitle"></div>' +
+                '<div class="light text-center padding" dir="auto" ng-if="$root.user.is_teacher">' +
+                    '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
+                        '{{"GET_PAYMENT_SUBTITLE"|translate:translationData}}' +
+                    '</span>' +
+                '</div>' +
+                '<div class="light text-center padding" dir="auto" ng-if="!$root.user.is_teacher">' +
+                    '{{"ASK_QUESTION_REMAINING"|translate:translationData}}' +
+                '</div>' +
             '</div>',
             scope: {},
             link: function (scope) {
@@ -29,25 +38,24 @@ angular.module('afterclass.directives', [])
                     // Payments will be updated only on app relaunch (state cache)
                     Payment.getPaymentsSum().then(function (sum) {
                         scope.teacherTotalPayments  = sum;
-                        scope.subtitle              = '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
-                            $translate.instant('GET_PAYMENT_SUBTITLE', {sum: scope.teacherTotalPayments}) + '</span>';
                     });
+                    scope.translationData = {sum: teacherTotalPayments};
                     scope.icon      = 'ab-icon-currency';
-                    scope.btnText   = $translate.instant('GET_PAYMENT');
+                    scope.btnText   = 'payment';
                     scope.btnClick  = function () {
                         $state.go('getPayment');
                     };
                 } else {
                     scope.$watch('$root.user.credits', function() {
                         var pointsLeft  = Coupon.getPointsLeft();
-                        scope.btnText   = $translate.instant(pointsLeft > 0 ? 'ASK_A_TEACHER' : 'GET_POINTS');
+                        scope.translationData = {count: pointsLeft};
+                        scope.btnText   = pointsLeft > 0 ? 'ask' : 'points';
                         scope.btnClick  = function () {
                             if (window.cordova && !$cordovaNetwork.isOnline()) {
                                 return alert($translate.instant('CHECK_INTERNET'));
                             }
                             $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCreditManual');
                         };
-                        scope.subtitle = $translate.instant('ASK_QUESTION_REMAINING', {count: pointsLeft});
                     }, true);
                 }
             }
