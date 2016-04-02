@@ -12,6 +12,12 @@
 .ac-content-padding {
   margin: 4px 18px
 }
+.platform-browser .show-only-on-mobile{
+  display: none;
+}
+.platform-android,.platform-ios .show-only-on-web{
+  display: none;
+}
 
 .platform-browser .view-container{
   max-width:40%;
