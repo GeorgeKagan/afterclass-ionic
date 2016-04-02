@@ -61,13 +61,14 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User) {
+    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User, AppConfig) {
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
-            $http.get('http://www.afterclass.org/json/grades.json').success(function(data) {
+            AppConfig.loadConfig().then(() => {
+                let grades              = AppConfig.getConfig().grades;
                 scope.hash              = {selInstitute: 0};
-                scope.institutes        = data;
+                scope.institutes        = grades;
                 scope.selectInstitute   = function() {};
                 $timeout(function() {
                     $ionicPopup.show({
@@ -75,18 +76,18 @@ angular.module('afterclass.services', [])
                         scope       : scope,
                         title       : $translate.instant('SEL_INSTITUTE'),
                         buttons     : [{
-                                text: '<span>' + $translate.instant('SAVE') + '</span>',
-                                type: 'button-positive',
-                                onTap: function (e) {
-                                    var institute = angular.element('#popup-institute :selected').attr('label');
-                                    if (institute !== undefined) {
-                                        User.updateUser({institute: institute});
-                                    } else {
-                                        angular.element('#pi-err').show();
-                                        e.preventDefault();
-                                    }
+                            text: '<span>' + $translate.instant('SAVE') + '</span>',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                var institute = angular.element('#popup-institute :selected').attr('label');
+                                if (institute !== undefined) {
+                                    User.updateUser({institute: institute});
+                                } else {
+                                    angular.element('#pi-err').show();
+                                    e.preventDefault();
                                 }
                             }
+                        }
                         ]
                     });
                     $timeout(() => {
@@ -98,10 +99,7 @@ angular.module('afterclass.services', [])
                     });
                     $ionicLoading.hide();
                 }, 500);
-            }).
-            error(function() {
-                $ionicLoading.hide();
-                console.log('Failed to get grades json');
+                return grades;
             });
         };
         return {
@@ -109,19 +107,18 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('Institutes', function($q, $rootScope, $http, $translate) {
+    .factory('Institutes', function($q, $rootScope, $http, $translate, AppConfig) {
         var obj = {};
         obj.getSubjectsByInstituteAndDegree = function (institute) {
-            var d = $q.defer();
             if (!institute) {
                 console.error('Ask question: no institute in user data!');
                 return;
             }
-            $http.get('http://www.afterclass.org/json/grades.json').success(function(data) {
-                data.push($translate.instant('OTHER'));
-                d.resolve(data);
+            return AppConfig.loadConfig().then(() => {
+                let subjects = AppConfig.getConfig().subjects;
+                subjects.push($translate.instant('OTHER'));
+                return subjects;
             });
-            return d.promise;
         };
         return obj;
     })
