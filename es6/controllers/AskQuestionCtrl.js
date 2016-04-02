@@ -79,6 +79,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
             persist_post();
         }
     };
+    $scope.$watch('fileread', function() {
+        alert('fileread has changed! '+$scope.fileread);
+    });
 
     /**
      * Focus body text area
@@ -114,34 +117,37 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      */
     $scope.choosePicture = function () {
         if (!window.cordova) {
+
+
             return alert('Only works on a real device!');
-        }
-        MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
-            if (!result.is_image) {
-                $scope.removeAttachment();
-                return $ionicPopup.alert({
-                    title   : $translate.instant('ERROR'),
-                    template: $translate.instant('FORM.ONLY_IMG'),
-                    okText  : $translate.instant('OK')
-                });
-            }
-            add_img_url = result.imageURI;
-            $timeout(function() {
-                $scope.hasAttachment = true;
-                img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
-                    angular.element(this).fadeIn();
-                    $ionicScrollDelegate.scrollBottom();
-                }).error(function() {
-                    reportError('Failed to load user image on ask question: ' + result.imageURI);
+        }else{
+            MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
+                if (!result.is_image) {
                     $scope.removeAttachment();
-                    $ionicPopup.alert({
+                    return $ionicPopup.alert({
                         title   : $translate.instant('ERROR'),
-                        template: $translate.instant('FORM.BAD_IMG'),
+                        template: $translate.instant('FORM.ONLY_IMG'),
                         okText  : $translate.instant('OK')
                     });
-                });
-            }, 1000);
-        }, function () { });
+                }
+                add_img_url = result.imageURI;
+                $timeout(function() {
+                    $scope.hasAttachment = true;
+                    img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
+                        angular.element(this).fadeIn();
+                        $ionicScrollDelegate.scrollBottom();
+                    }).error(function() {
+                        reportError('Failed to load user image on ask question: ' + result.imageURI);
+                        $scope.removeAttachment();
+                        $ionicPopup.alert({
+                            title   : $translate.instant('ERROR'),
+                            template: $translate.instant('FORM.BAD_IMG'),
+                            okText  : $translate.instant('OK')
+                        });
+                    });
+                }, 1000);
+            }, function () { });
+        }
     };
 
     /**
