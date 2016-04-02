@@ -2,7 +2,7 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i ui-sref="home" class="icon ion-chevron-left calm"></i>
-            <span class="back-btn" ui-sref="home">{{::"BACK"|translate}}</span>
+            <span class="back-btn" ui-sref="home">{{"BACK"|translate}}</span>
             <span class="date" ng-bind-html="post.create_date | moment"></span>
         </h1>
     </div>
@@ -29,16 +29,16 @@
                     <img class="post-img"
                          image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_50,w_50/{{reply.img_id}}.jpg"
                          width="50" height="50">
-                    <small>{{::'CLICK_TO_ENLARGE'|translate}}</small>
+                    <small>{{'CLICK_TO_ENLARGE'|translate}}</small>
                 </div>
             </div>
         </div>
 
         <div class="padding text-center" ng-class="{'report-big-footer': showRating}">
-            <div ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</div>
+            <div ng-if="!post.replies" dir="auto">{{'POST.NOREPLIES'|translate}}</div>
             <button ng-click="reportConversation()" ng-class="{'icon-right': $root.uiLang==='he', 'icon-left': $root.uiLang!=='he'}"
                     class="button button-clear button-assertive ion-alert-circled">
-                {{::'REPORT_QUESTION'|translate}}
+                {{'REPORT_QUESTION'|translate}}
             </button>
         </div>
     </ion-content>
@@ -48,7 +48,7 @@
         <div id="rating-area">
             <div class="item item-avatar pt-10" avatar user-id="rating.getRatedTutor().$id" size="60">
                 <small style="margin: 0 10px;display: inline-block;">
-                    {{::'RATING.SATISFACTION_RATE'|translate}}
+                    {{'RATING.SATISFACTION_RATE'|translate}}
                 </small>
                 <star-icons rating-obj="rating" rate-answer="rateAnswer"></star-icons>
             </div>
@@ -62,7 +62,7 @@
     <!-- Acceptance option -->
     <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
         <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
-            {{::'POST.ACCEPT_QUESTION'|translate}}
+            {{'POST.ACCEPT_QUESTION'|translate}}
         </button>
     </div>
     <!-- /Acceptance option -->
@@ -71,10 +71,10 @@
     <div class="bar bar-footer bar-light" id="comment-bar" ng-show="showReplyForm">
         <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}">{{$rootScope.user.is_teacher}}</textarea>
+        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{'POST.REPLY..'|translate}}">{{$rootScope.user.is_teacher}}</textarea>
         <div class="buttons pull-right">
-            <button class="button button-outline button-assertive push-right" ng-if="!isTutor" ng-click="toggleReply()">{{::'POST.CANCEL'|translate}}</button>
-            <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
+            <button class="button button-outline button-assertive push-right" ng-if="!isTutor" ng-click="toggleReply()">{{'POST.CANCEL'|translate}}</button>
+            <button class="button button-outline button-calm" ng-click="addReply()">{{'POST.SEND'|translate}}</button>
 
         </div>
     </div>

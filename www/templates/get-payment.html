@@ -2,31 +2,31 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ui-sref="home"></i>
-            <span class="back-btn dark" ui-sref="home">{{::"BACK"|translate}}</span>
+            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header has-footer ac-content-padding" has-bouncing="false" dir="auto">
         <div class="m-20 gp-balance text-center">
-            {{::'PAYMENT.OUTSTANDING'|translate}}
+            {{'PAYMENT.OUTSTANDING'|translate}}
             <br>
             <div class="gp-balance-inner">
                 <strong id="gp-balance">{{payment.balance ? payment.balance : 0 | number}}</strong> <span>&#8362;</span>
             </div>
         </div>
         <button class="button button-block button-outline button-balanced" ng-disabled="!payment.balance" ng-click="withdraw()">
-            {{::'PAYMENT.WITHDRAW'|translate}}
+            {{'PAYMENT.WITHDRAW'|translate}}
         </button>
-        <h4 class="padding-top padding-bottom text-center">{{::'PAYMENT.PREV_PAYMENTS'|translate}}</h4>
+        <h4 class="padding-top padding-bottom text-center">{{'PAYMENT.PREV_PAYMENTS'|translate}}</h4>
         <ul class="list" ng-show="filteredPayments.length">
             <li class="item highlight" ng-repeat="item in filteredPayments = (payment.previous | filter:{status: '!current'} | orderBy:'-status_date')">
                 <div class="row row-no-padding">
-                    <div class="col"><strong>{{::item.amount | number}}</strong> &#8362;</div>
+                    <div class="col"><strong>{{item.amount | number}}</strong> &#8362;</div>
                     <div class="col text-center">
                         <small ng-bind-html="item.status_date | moment"></small>
                     </div>
                     <div class="col">
                         <span class="item-note" ng-class="{'balanced': item.status==='paid', 'bold': item.status==='pending'}">
-                            {{::'STATUS.' + item.status.toUpperCase()|translate}}
+                            {{'STATUS.' + item.status.toUpperCase()|translate}}
                         </span>
                     </div>
                 </div>

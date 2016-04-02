@@ -2,26 +2,26 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ng-click="backToHomeConfirm()"></i>
-            <span class="back-btn dark" ng-click="backToHomeConfirm()">{{::"BACK"|translate}}</span>
+            <span class="back-btn dark" ng-click="backToHomeConfirm()">{{"BACK"|translate}}</span>
         </h1>
-        <button ng-click="addPost()" class="button button-outline button-calm">&nbsp;{{::'POST.SEND'|translate}}&nbsp;</button>
+        <button ng-click="addPost()" class="button button-outline button-calm">&nbsp;{{'POST.SEND'|translate}}&nbsp;</button>
     </div>
     <ion-content class="has-header has-footer" has-bouncing="false">
         <div class="list">
             <label for="aq-subject" class="item item-input item-stacked-label">
-                <span class="input-label"><span class="ion-university calm"></span> {{::'POST.CHOOSESUBJECT'|translate}}</span>
+                <span class="input-label"><span class="ion-university calm"></span> {{'POST.CHOOSESUBJECT'|translate}}</span>
                 <select id="aq-subject" ng-options="subject for subject in subjects track by subject" ng-model="subject" ng-change="subjectChanged()">
-                    <option value="">{{::'POST.CHOOSE..'|translate}}</option>
+                    <option value="">{{'POST.CHOOSE..'|translate}}</option>
                 </select>
             </label>
             <label for="aq-body" class="item item-input item-stacked-label">
-                <span class="input-label"><span class="ion-android-textsms calm"></span> {{::'POST.YOUTQUESTION'|translate}}</span>
-                <textarea msd-elastic="\n" id="aq-body" ng-model="body.val" placeholder="{{::'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
+                <span class="input-label"><span class="ion-android-textsms calm"></span> {{'POST.YOUTQUESTION'|translate}}</span>
+                <textarea msd-elastic="\n" id="aq-body" ng-model="body.val" placeholder="{{'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
             </label>
         </div>
         <div id="aq-img-wrapper" class="ng-hide" ng-show="hasAttachment">
             <div class="item item-divider">
-                {{::'POST.ADDED_ATTACHMENT'|translate}}
+                {{'POST.ADDED_ATTACHMENT'|translate}}
             </div>
             <div class="item item-text-wrap">
                 <div id="aq-img"></div>
