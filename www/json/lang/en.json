@@ -125,12 +125,13 @@
         "OPENING_PRICE": "Opening price",
         "CALL": "Call Now",
         "FEATURES": {
-            "UNLIMITED": "עזרה והכוונה ללא הגבלה וגם 5 פתרונות מלאים מתנה",
-            "MANY_SUBJECTS": "מגוון רבח וגם הולך וגדל של מקצועות ומורים פרטיים",
-            "CHEAP_PRICING": "עזרה ללא הגלבה ובכל זמן במחיר של שיעור וחצי עם מורה פרטי",
-            "EXP_TUTORS": "מורים פרטיים בדוקים ומוסים עם ניסיון של שנים רבות בהכנה לבגרויות"
+            "UNLIMITED": "Unlimited assistance plus 5 full solutions for free",
+            "MANY_SUBJECTS": "Fast growing teacher base and new subject are constantly added",
+            "CHEAP_PRICING": "Personal assistance, any time with for a price of less then two private lessons",
+            "EXP_TUTORS": "Experienced teachers provide tailored help for every student"
         },
-        "PRICE": "179NIS a month"
+        "PRICE": "179NIS a month",
+        "CALL_CENTER": "Call center:"
     },
     "RATING": {
         "SATISFACTION_RATE": "How much are you satisfied with the answer?"
