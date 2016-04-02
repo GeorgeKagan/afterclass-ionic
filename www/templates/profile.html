@@ -40,14 +40,14 @@
                         </div>
                         <div class="item">
                             <h2>{{"INSTITUTES"|translate}}</h2>
-                            <span ng-repeat="(institute, val) in ::user.target_institutes">
-                                {{institute}}<span ng-if="!$last">, </span>
-                            </span>
+                            <div ng-repeat="(institute, val) in user.target_institutes">
+                                <i class="ion-ios-minus-empty"></i> <strong>{{institute}}</strong>
+                            </div>
                         </div>
                         <div class="item">
                             <h2>{{"DEGREES"|translate}}</h2>
-                            <div ng-repeat="(institute, degrees) in ::user.target_institutes" ng-if="$index===0">
-                                <p ng-repeat="(degree, courses) in degrees">{{degree}}</p>
+                            <div ng-repeat="grade in targetGrades">
+                                <i class="ion-ios-minus-empty"></i> {{grade}}
                             </div>
                         </div>
                         <!--<div class="item">-->

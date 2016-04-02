@@ -11,10 +11,22 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
     var ref = MyFirebase.getRef();
 
     $ionicTabsDelegate.select(0);
-    $scope.account = {oldPassword: '', newPassword: ''};
+
+    // PROFILE
+
+    if ($rootScope.user.is_teacher) {
+        $scope.$watch('user.target_institutes', () => {
+            $scope.targetGrades = [];
+            _.map($rootScope.user.target_institutes, item => $scope.targetGrades = $scope.targetGrades.concat(Object.keys(item)));
+            $scope.targetGrades = _.uniq($scope.targetGrades);
+        });
+    } else {
+
+    }
 
     // CHANGE PASSWORD
 
+    $scope.account = {oldPassword: '', newPassword: ''};
     $scope.canChangePassword = () => $scope.account.oldPassword.trim() && $scope.account.newPassword.trim();
 
     $scope.changePassword = () => {
