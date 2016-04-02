@@ -2,22 +2,22 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ui-sref="home"></i>
-            <span class="back-btn dark" ui-sref="home">{{::"BACK"|translate}}</span>
+            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header has-footer padding-top" has-bouncing="false">
         <div class="content-section">
-            <h4 class="text-center">{{::"PAGES.CONTACT.TITLE"|translate}}</h4>
-            <p class="m-15 text-center">{{::"PAGES.CONTACT.CONTENT"|translate}}</p>
+            <h4 class="text-center">{{"PAGES.CONTACT.TITLE"|translate}}</h4>
+            <p class="m-15 text-center">{{"PAGES.CONTACT.CONTENT"|translate}}</p>
             <a href="mailto:support@afterclass.co.il" class="button button-block button-outline button-balanced icon-right ion-ios-email">
                 support@afterclass.co.il
             </a>
-            <a href="tel:058-5552141" class="button button-block button-outline button-royal icon-right ion-android-call">
-                058-5552141
+            <a href="tel:{{config.phone}}" class="button button-block button-outline button-royal icon-right ion-android-call">
+                {{config.phone}}
             </a>
             <a onclick="window.open('http://www.facebook.com/AppAfterClass', '_blank', 'location=yes')"
                class="button button-block button-outline button-positive icon-right ion-social-facebook">
-                {{::"FACEBOOK_PAGE"|translate}}
+                {{"FACEBOOK_PAGE"|translate}}
             </a>
         </div>
     </ion-content>

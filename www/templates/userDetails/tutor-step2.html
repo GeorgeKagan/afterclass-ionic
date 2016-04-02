@@ -2,21 +2,21 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i ui-sref="userDetails_tutorStep1" class="icon ion-chevron-left calm"></i>
-            <span ui-sref="userDetails_tutorStep1({isEdit: $state.params.isEdit})">{{::"BACK"|translate}}</span>
+            <span ui-sref="userDetails_tutorStep1({isEdit: $state.params.isEdit})">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false">
-        <h4 class="m-15 text-center">{{::'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</h4>
+        <h4 class="m-15 text-center">{{'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</h4>
         <form>
             <div class="padding-bottom" ng-repeat="(name, instituteDegrees) in degrees">
-                <h5 class="m-15 text-center">{{::'USER_DETAILS.TUTOR.THE_INST'|translate}} {{name}}</h5>
+                <h5 class="m-15 text-center">{{'USER_DETAILS.TUTOR.THE_INST'|translate}} {{name}}</h5>
                 <ion-checkbox ng-model="selDegrees[name + '|||' + degree.name]" ng-repeat="degree in instituteDegrees">{{degree.name}}</ion-checkbox>
             </div>
         </form>
     </ion-content>
     <ion-footer-bar class="bf-big">
         <button class="button button-block button-outline button-calm" ng-click="submitTutorStep2()" ng-disabled="isChecked(selDegrees)">
-            {{::'NEXT'|translate}}
+            {{'NEXT'|translate}}
         </button>
     </ion-footer-bar>
 </ion-view>

@@ -61,71 +61,45 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User) {
+    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User, AppConfig) {
         'use strict';
         var showPopup = function() {
             var scope = $rootScope.$new();
-            $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-                scope.hash              = {selInstitute: 0, selDegree: 0};
-                scope.institutes        = data;
-                scope.institutes[$translate.instant('OTHER')] = $translate.instant('OTHER');
-                scope.selectInstitute   = function() {
-                    var institute = angular.element('#popup-institute :selected').attr('label');
-                    scope.hash.selDegree = 0;
-                    if (institute !== undefined && institute !== $translate.instant('OTHER')) {
-                        scope.degrees       = _.uniq(data[institute], 'name');
-                        scope.degrees.push({name: $translate.instant('OTHER')});
-                        scope.showDegrees   = true;
-                    } else if (institute === $translate.instant('OTHER')) {
-                        var all_degrees = [];
-                        angular.forEach(data, function(dataInstitute) {
-                            angular.forEach(dataInstitute, function(degree) {
-                                if (dataInstitute === $translate.instant('OTHER')) { return; }
-                                all_degrees.push(degree);
-                            });
-                        });
-                        scope.degrees       = _.uniq(all_degrees, 'name');
-                        scope.degrees.push({name: $translate.instant('OTHER')});
-                        scope.showDegrees   = true;
-                    } else {
-                        scope.showDegrees   = false;
-                    }
-                };
+            AppConfig.loadConfig().then(() => {
+                let grades              = AppConfig.getConfig().grades;
+                scope.hash              = {selInstitute: 0};
+                scope.institutes        = grades;
+                scope.selectInstitute   = function() {};
                 $timeout(function() {
                     $ionicPopup.show({
                         templateUrl : 'templates/partials/institute-popup.html',
                         scope       : scope,
                         title       : $translate.instant('SEL_INSTITUTE'),
                         buttons     : [{
-                                text: '<span>' + $translate.instant('SAVE') + '</span>',
-                                type: 'button-positive',
-                                onTap: function (e) {
-                                    var institute = angular.element('#popup-institute :selected').attr('label'),
-                                        degree = angular.element('#popup-degree :selected').attr('label');
-                                    if (institute !== undefined && degree !== undefined) {
-                                        User.updateUser({institute: institute, degree: degree});
-                                    } else {
-                                        angular.element('#pi-err').show();
-                                        e.preventDefault();
-                                    }
+                            text: '<span>' + $translate.instant('SAVE') + '</span>',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                var institute = angular.element('#popup-institute :selected').attr('label');
+                                if (institute !== undefined) {
+                                    User.updateUser({institute: institute});
+                                } else {
+                                    angular.element('#pi-err').show();
+                                    e.preventDefault();
                                 }
                             }
+                        }
                         ]
                     });
                     $timeout(() => {
                         // If already got data (edit mode), auto-fill the selects
-                        if ($rootScope.user.institute && $rootScope.user.degree) {
+                        if ($rootScope.user.institute) {
                             angular.element(`#popup-institute [label="${$rootScope.user.institute}"]`).attr('selected', true);
                             scope.selectInstitute();
-                            $timeout(() => angular.element(`#popup-degree [label="${$rootScope.user.degree}"]`).attr('selected', true));
                         }
                     });
                     $ionicLoading.hide();
                 }, 500);
-            }).
-            error(function() {
-                $ionicLoading.hide();
-                console.log('Failed to get institutes-degrees json');
+                return grades;
             });
         };
         return {
@@ -133,25 +107,20 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('Institutes', function($q, $rootScope, $http, $translate) {
+    .factory('Institutes', function($q, $rootScope, $http, $translate, AppConfig) {
         var obj = {};
-        obj.getSubjectsByInstituteAndDegree = function (institute, degree) {
-            var d = $q.defer();
-            if (!institute && !degree) {
-                console.error('Ask question: no institute and degree in user data!');
+        obj.getSubjectsByInstituteAndDegree = function (institute) {
+            if (!institute) {
+                console.error('Ask question: no institute in user data!');
                 return;
             }
-            $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-                var subjects = [$translate.instant('OTHER')];
-                if (data[institute]) {
-                    var subjectsObj = _.find(data[institute], {name: degree});
-                    if (subjectsObj) {
-                        subjects = subjectsObj.subjects;
-                    }
+            return AppConfig.loadConfig().then(() => {
+                let subjects = AppConfig.getConfig().subjects;
+                if (_.indexOf(subjects, $translate.instant('OTHER')) === -1) {
+                    subjects.push($translate.instant('OTHER'));
                 }
-                d.resolve(subjects);
+                return subjects;
             });
-            return d.promise;
         };
         return obj;
     })

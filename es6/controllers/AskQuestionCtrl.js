@@ -7,7 +7,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     var posts       = $firebaseArray(ref);
     var add_img_url = null;
 
-    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute, $rootScope.user.degree).then(function (data) {
+    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(function (data) {
         $scope.subjects = data;
     });
 
@@ -52,11 +52,24 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                             var unanswered = 0;
                             $ionicLoading.hide();
                             $ionicTabsDelegate.select(unanswered);
-                            $ionicPopup.alert({
-                                title   : $translate.instant('FORM.Q_SENT_TITLE'),
-                                template: $translate.instant('FORM.Q_SENT'),
-                                okText  : $translate.instant('OK')
+
+                            // Popup with button to like us on Facebook
+                            let popupScope = $rootScope.$new();
+                            popupScope.close = () => popup.close();
+                            let popup = $ionicPopup.alert({
+                                title: $translate.instant('FORM.Q_SENT_TITLE'),
+                                template:
+                                `<div class="text-center">` +
+                                    $translate.instant('FORM.Q_SENT') +
+                                    `<hr class="m-10" style="border:0;border-top:1px solid #f0f0f0;">
+                                     <p class="text-center pb-5"><small>` + $translate.instant('LIKE_US') + `</small></p>
+                                     <facebook-like></facebook-like>
+                                     <div class="text-center pt-10 pb-5" ng-click="close()">` + $translate.instant('NEXT_TIME') + `</div>
+                                </div>`,
+                                buttons: [],
+                                scope: popupScope
                             });
+
                             Utils.triggerServerSync();
                         }, 1000);
                     });
@@ -163,7 +176,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     /**
      * Confirm back if body filled
      */
-    $scope.backToHome = function () {
+    $scope.backToHomeConfirm = function () {
         if ($scope.body.val.trim() !== '') {
             var confirmPopup = $ionicPopup.confirm({
                 title: $translate.instant('FORM.DATA_FILLED'),

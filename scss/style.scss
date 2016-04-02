@@ -30,6 +30,17 @@
   display: none;
 }
 
+body.platform-browser {
+  .scroll-bar-v {
+    width: 15px;
+    right: 0;
+  }
+  .scroll-bar-indicator {
+    display: block;
+    width: 15px;
+  }
+}
+
 .popover {
   &.popover-4-items {
     height: 216px;
@@ -60,6 +71,22 @@
     width: 100%;
     margin: 10px 0;
   }
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.va-top {
+  vertical-align: top;
 }
 
 strong {
@@ -110,7 +137,7 @@ select {
       margin: 15px 0;
     }
     img {
-      margin: 0 0 0 10px;
+      margin: 0 15px;
       border-radius: 2px;
       display: inline-block;
       vertical-align: middle;
@@ -163,12 +190,28 @@ select {
   fill: $blue;
 }
 
+.b-0 {
+  border: 0 !important;
+}
+
+.pt-10 {
+  padding-top: 10px !important;
+}
+
+.pb-5 {
+  padding-bottom: 5px !important;
+}
+
 .m-0 {
   margin: 0 !important;
 }
 
 .m-10 {
   margin: 10px 0 !important;
+}
+
+.m-10-h {
+  margin: 0 10px !important;
 }
 
 .m-15 {
@@ -198,7 +241,6 @@ select {
       padding: 0 12px 0 5px;
     }
     .back-btn {
-      float: right;
       min-width: 50px;
       text-align: center;
     }
@@ -221,6 +263,13 @@ select {
     &.item:last-child {
       border: 0;
     }
+  }
+}
+
+// Form
+.item.item-input {
+  i.icon {
+    margin: 0 11px 2px 2px;
   }
 }
 

@@ -49,14 +49,16 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
         updateUser: function (data) {
             var sync = ref.child('users/' + $rootScope.user.uid),
                 user = $firebaseObject(sync);
-            user.$loaded().then(function (user) {
-                data.update_date    = Firebase.ServerValue.TIMESTAMP;
-                user                = angular.element.extend(user, data);
-                user.$save(0);
-            });
+
             // Don't wait for async call
             $rootScope.user = angular.element.extend($rootScope.user, data);
             Utils.triggerServerSync();
+
+            return user.$loaded().then(function (user) {
+                data.update_date    = Firebase.ServerValue.TIMESTAMP;
+                user                = angular.element.extend(user, data);
+                return user.$save(0);
+            });
         },
         /**
          * Makes sure any mandatory fields, that previously failed to be set, are set
@@ -87,6 +89,7 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
         },
         /**
          * Populate rootScope with user data from localStorage
+         * @returns {Promise}
          */
         getFromUsersCollection: function () {
             var q = $q.defer();
@@ -95,14 +98,36 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
                 return q.promise;
             }
             var authData = ref.getAuth(),
-                sync    = ref.child('users/' + authData.uid),
-                user    = $firebaseObject(sync);
+                sync     = ref.child('users/' + authData.uid),
+                user     = $firebaseObject(sync);
             user.$loaded().then(function () {
                 // Use up to date fb data, but merge in custom properties set via firebase
                 $rootScope.user = angular.element.extend(authData, user);
                 q.resolve($rootScope.user);
             });
             return q.promise;
+        },
+        /**
+         * Get user by Firebase ID
+         * @param firebaseUserId
+         * @returns {Promise}
+         */
+        getFromUsersCollectionById: function (firebaseUserId = null) {
+            if (!firebaseUserId) { console.error('No firebase user id supplied'); }
+            return $firebaseObject(ref.child('users/' + firebaseUserId)).$loaded();
+        },
+        /**
+         * Delete a Firebase user
+         */
+        deleteUser: function () {
+            var sync = ref.child('users/' + $rootScope.user.uid),
+                user = $firebaseObject(sync);
+            AmazonSNS.deleteEndpoint($rootScope.user.amazon_endpoint_arn);
+            user.$remove().then(function (ref) {
+                // data has been deleted locally and in the database
+            }, function (error) {
+                console.log("Error:", error);
+            });
         }
     };
 

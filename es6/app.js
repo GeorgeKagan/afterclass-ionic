@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers', ['ui.router']);
 
-angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
+angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
     'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
     .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) {
@@ -17,8 +17,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             } else {
                 $rootScope.appVersion = 'available_on_device';
             }
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
             if (window.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             }
@@ -30,7 +29,7 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
     })
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
-        var appLang = 'he';
+        var appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : '';
 
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, "v2.5");
@@ -42,17 +41,19 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
         $ionicConfigProvider.views.transition('none');
 
         //Translation
+        $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        //$translateProvider.fallbackLanguage('he');
         $translateProvider.useStaticFilesLoader({
             prefix: 'json/lang/',
             suffix: '.json'
         });
-        $translateProvider.preferredLanguage(appLang);
-        $translateProvider.registerAvailableLanguageKeys(['en', 'he']);
-        $translateProvider.useSanitizeValueStrategy('escaped');
-        //$translateProvider.fallbackLanguage('he');
-        //$translateProvider.determinePreferredLanguage();
-
-        moment.locale(appLang);
+        if (appLang) {
+            $translateProvider.preferredLanguage(appLang);
+        } else {
+            // Decide if 'en' or 'he' according to environment
+            $translateProvider.determinePreferredLanguage();
+        }
 
         $stateProvider
             .state('login', {
@@ -116,9 +117,15 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 cache: false,
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
-            .state('getCredit', {
+            /*.state('getCredit', { //Disabled in favor of the new "manual" credit page
                 url: "/getCredit",
                 templateUrl: "templates/get-credit.html",
+                controller: 'GetCreditCtrl',
+                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+            })*/
+            .state('getCreditManual', {
+                url: "/getCreditManual",
+                templateUrl: "templates/get-credit-manual.html",
                 controller: 'GetCreditCtrl',
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
@@ -141,10 +148,19 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('profile', {
-                url: "/profile",
+                url: "/profile/:firebase_user_id",
                 templateUrl: "templates/profile.html",
                 controller: "ProfileCtrl",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: {
+                    user: function(User) { return User.getFromUsersCollection() },
+                    otherUser: function($stateParams, User) {
+                        if ($stateParams.firebase_user_id) {
+                            return User.getFromUsersCollectionById($stateParams.firebase_user_id);
+                        }
+                        return angular.noop();
+                    }
+                },
+                params: { firebase_user_id: null }
             })
             .state('about', {
                 url: "/about",
@@ -153,8 +169,9 @@ angular.module('afterclass', ['ionic', 'afterclass.controllers', 'afterclass.dir
             })
             .state('contact', {
                 url: "/contact",
+                controller: "ContactCtrl",
                 templateUrl: "templates/contact.html",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: function(User) { return User.getFromUsersCollection(); }, appConfig: function(AppConfig) { return AppConfig.loadConfig(); } }
             })
             .state('impersonate', {
                 url: "/impersonate",

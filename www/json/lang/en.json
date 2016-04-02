@@ -1,15 +1,197 @@
 {
+    "LANG": {
+        "HE": "Hebrew",
+        "EN": "English"
+    },
+    "USER_DETAILS": {
+        "CHOOSE_TITLE": "Who are you?",
+        "IS_STUDENT": "I'm a student",
+        "IS_TUTOR": "I'm a teacher",
+        "SELECTED_STUDENT": "You chose student",
+        "TUTOR": {
+            "STEP1_TITLE": "Please choose institutes",
+            "STEP2_TITLE": "Please choose degree subjects",
+            "STEP3_TITLE": "Please choose courses",
+            "THE_INST": "Institute:",
+            "THE_DEGREE": "Degree:"
+        }
+    },
+    "POST": {
+        "ACCEPT_QUESTION": "Answer question",
+        "UNACCEPT_QUESTION": "Decline question",
+        "SEND": "Send",
+        "REPLY..": "Send reply..",
+        "NOREPLIES": "No answers... yet!",
+        "UNANSWERED": "Awaiting answer",
+        "ANSWERED": "Answered",
+        "STUDENT": {
+            "NOUNANSWERED": "You don't have unanswered questions",
+            "NOANSWERED": "You don't have answered questions yet"
+        },
+        "TEACHER": {
+            "NOUNANSWERED": "You currently don't have questions awaiting you",
+            "NOANSWERED": "No questions were answered by you yet"
+        },
+        "FULLRESOLUTION": "Full resolution view",
+        "ASKQUESTION": "Ask question",
+        "CHOOSE..": "Choose..",
+        "YOUTQUESTION": "Your question",
+        "TYPEQUESTION": "Type your question..",
+        "CHOOSESUBJECT": "Choose subject",
+        "ADDED_ATTACHMENT": "Attachment image"
+    },
+    "FORM": {
+        "REQUIRED": "Please fill out all required fields",
+        "MISSING": "Missing fields",
+        "Q_SENT": "Your question was sent to our teachers, you will get an answer very soon!",
+        "Q_SENT_TITLE": "Question sent!",
+        "GOT_IT": "OK",
+        "ONLY_IMG": "Only images are supported",
+        "BAD_IMG": "Unsupported image format",
+        "SURE": "Are you sure?",
+        "DEL_Q": "Delete question",
+        "DATA_FILLED": "Changes will be lost",
+        "BACK_ANYWAY": "Do you want to go back?",
+        "PW_CHANGED": "Password was successfully changed",
+        "BAD_OLD_PW": "Old password is incorrect",
+        "CHANGE_PW": "Change password",
+        "CHANGE_PW_NOW": "Change password",
+        "OLD_PW": "Old password",
+        "NEW_PW": "New password",
+        "ALREADY_REGGED": "Already registered?",
+        "NEW_USER": "New user?",
+        "CREATE_NEW_USER": "Create new account",
+        "FORGOT_PW": "Forgot password? Click here to reset",
+        "PW_DONT_MATCH": "Passwords don't match",
+        "REG": "Register",
+        "SAVE_SETTINGS": "Save settings",
+        "UI_LANG": "Language"
+    },
+    "POPUPS": {
+        "ACC_NOT_FOUND": "An account with provided credentials was not found",
+        "INPUT_EMAIL": "Please type an email",
+        "RESET_PW_SENT": "A mail with a temporary password was sent to you",
+        "EMAIL_NOT_FOUND": "Provided email doesn't exist in our system"
+    },
     "PAGES": {
         "LOGIN": {
-            "TITLE": "Login"
+            "TITLE": "Please login"
         },
         "ABOUT": {
+            "MENU": "About",
             "TITLE": "About AfterClass",
-            "CONTENT": "We are AWESOME!!"
+            "CONTENT": ""
+        },
+        "PROFILE": {
+            "MENU": "Profile",
+            "TITLE": "Profile"
         },
         "TOS": {
-            "TITLE": "Terms of service",
-            "CONTENT": "as awesome as it get!"
+            "TITLE": "Terms of Service",
+            "CONTENT": ""
+        },
+        "CONTACT": {
+            "MENU": "Contact us",
+            "TITLE": "Contact us",
+            "CONTENT": "All the ways of getting in touch"
         }
-    }
+    },
+    "NOTIFICATIONS": {
+        "TUTOR_REPLIED": "A teacher answered your question"
+    },
+    "UPLOADS": {
+        "PROGRESS": "Uploading...",
+        "COMPLETE": "Upload complete",
+        "FAIL": "Upload failed"
+    },
+    "STATUS": {
+        "PENDING": "Pending",
+        "PAID": "Paid"
+    },
+    "PAYMENT": {
+        "OUTSTANDING": "Your current balance is",
+        "WITHDRAW": "Withdraw",
+        "PREV_PAYMENTS": "Previous payments",
+        "GET_MONEY": "Get paid"
+    },
+    "GET_CREDIT": {
+        "TITLE": "Choose one of the plans below",
+        "PLAN_1": "1 question / 2$",
+        "PLAN_2": "10 questions / 10$",
+        "PLAN_3": "20 questions / 20$",
+        "BUY": "Buy now",
+        "RECOMMENDED": "Hot!",
+        "INTRO": "Enjoy a private tutor in you'r pocket with UNLIMITED number of enquiries!",
+        "OPENING_PRICE": "Opening price",
+        "CALL": "Call Now",
+        "FEATURES": {
+            "UNLIMITED": "עזרה והכוונה ללא הגבלה וגם 5 פתרונות מלאים מתנה",
+            "MANY_SUBJECTS": "מגוון רבח וגם הולך וגדל של מקצועות ומורים פרטיים",
+            "CHEAP_PRICING": "עזרה ללא הגלבה ובכל זמן במחיר של שיעור וחצי עם מורה פרטי",
+            "EXP_TUTORS": "מורים פרטיים בדוקים ומוסים עם ניסיון של שנים רבות בהכנה לבגרויות"
+        },
+        "PRICE": "179NIS a month"
+    },
+    "RATING": {
+        "SATISFACTION_RATE": "How much are you satisfied with the answer?"
+    },
+    "BACK": "Back",
+    "OK": "OK",
+    "ERROR": "Error",
+    "SUCCESS": "Success",
+    "DELETE": "Delete",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "CAMERA": "Camera",
+    "REMOVE": "Remove",
+    "DOCUMENTS": "Documents",
+    "SEL_SOURCE": "Select source",
+    "SEL_INSTITUTE": "Please choose a grade",
+    "PLS_TYPE": "Please type a reply!",
+    "CHOOSEINSTITUE": "Choose a grade",
+    "OTHER": "Other",
+    "CHOOSEDEGREE": "Choose degree subject",
+    "CHOOSE_INST_AND_DEGREE": "Please choose an institute and degree subject",
+    "HI": "Hi",
+    "LOGOUT": "Logout",
+    "REPLY": "Send reply",
+    "ACCEPT_AND_ANSWER": "Answer question",
+    "ASK_QUESTION_REMAINING": "You have {{count}} questions left",
+    "ASK_A_TEACHER": "Send question",
+    "GET_POINTS": "Get credits",
+    "GET_PAYMENT": "Get payment",
+    "GET_PAYMENT_SUBTITLE": "So far you've earned <strong>{{sum}}</strong> &#8362;",
+    "NEXT": "Next",
+    "REPORT_QUESTION": "Report this conversation",
+    "REPORT_PLACEHOLDER": "What is the problem?",
+    "REPORT_SENT": "Report was sent, we'll get back to you as soon as possible",
+    "SEND": "Send",
+    "COMMENT_AGREEMENT": "Please note that replying at this stage is for finalizing the answer only, not for asking a new question",
+    "CHECK_INTERNET": "Please check your internet connection!",
+    "CORRECT_SELECTION": "Is this the right choice?",
+    "FACEBOOK_PAGE": "Our Facebook page",
+    "USING_FACEBOOK": "Using Facebook",
+    "USING_EMAIL_PW": "Using email and password",
+    "GENERAL_INFO": "General Info",
+    "INSTITUTE": "Institute",
+    "INSTITUTES": "Institutes",
+    "DEGREES": "Degree subjects",
+    "PROF": "Course",
+    "PROFS": "Courses",
+    "QUESTIONS_REMAINING": "Questions remaining",
+    "SETTINGS": "Settings",
+    "PASSWORD": "Password",
+    "PASSWORD_AGAIN": "Password againt",
+    "FIRST_NAME": "First name",
+    "LAST_NAME": "Last name",
+    "PROFILE": "Profile",
+    "EMAIL": "Email",
+    "LOGIN": "Login",
+    "CLICK_TO_ENLARGE": "Click to enlarge",
+    "ABOUT_ME": "About me",
+    "LIKE_US": "Show your support, like us on Facebook!",
+    "NEXT_TIME": "No thanks, next time",
+    "OR": "OR",
+    "CHOOSE": "Choose",
+    "GRADE": "Grade"
 }

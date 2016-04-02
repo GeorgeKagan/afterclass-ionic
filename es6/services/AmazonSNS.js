@@ -99,11 +99,17 @@ angular.module('afterclass.services').factory('AmazonSNS', function ($rootScope,
                     console.log('Sent message:', data);
                 }
             });
+        },
+        deleteEndpoint: endpoint => {
+            sns.deleteEndpoint({
+                EndpointArn: endpoint
+            });
         }
     };
 
     return {
         registerDevice  : obj.registerDevice,
-        publish         : obj.publish
+        publish         : obj.publish,
+        deleteEndpoint  : obj.deleteEndpoint
     };
 });

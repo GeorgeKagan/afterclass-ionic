@@ -2,87 +2,87 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ui-sref="login"></i>
-            <span class="back-btn dark" ui-sref="login">{{::"BACK"|translate}}</span>
+            <span class="back-btn dark" ui-sref="login">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header padding-top" has-bouncing="false">
         <div class="content-section" dir="auto">
 
             <!-- LOGIN -->
-            <h4 class="text-center m-20">{{::'FORM.ALREADY_REGGED'|translate}}</h4>
+            <h4 class="text-center m-20">{{'FORM.ALREADY_REGGED'|translate}}</h4>
             <button class="fade button button-block button-outline button-calm" ng-click="showLogin()" ng-if="show==='register'">
-                כניסה
+                {{'LOGIN'|translate}}
             </button>
             <div class="fade" ng-if="show==='login'">
                 <!-- Email -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-email-outline placeholder-icon"
-                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.email" type="email" placeholder="{{::'EMAIL'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.email" type="email" placeholder="{{'EMAIL'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Password -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-locked-outline placeholder-icon"
-                       style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.password" type="password" placeholder="{{::'PASSWORD'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.password" type="password" placeholder="{{'PASSWORD'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <div class="text-center" ng-if="!resetEmailSent" ng-click="sendResetEmail()">
-                    {{::'FORM.FORGOT_PW'|translate}}
+                    {{'FORM.FORGOT_PW'|translate}}
                 </div>
                 <button class="button button-block button-outline button-calm" ng-click="login()" ng-disabled="!canLogin()">
-                    {{::'LOGIN'|translate}}
+                    {{'LOGIN'|translate}}
                 </button>
             </div>
 
             <br>
             <!-- REGISTRATION -->
-            <h4 class="text-center m-20">{{::'FORM.NEW_USER'|translate}}</h4>
+            <h4 class="text-center m-20">{{'FORM.NEW_USER'|translate}}</h4>
             <button class="fade button button-block button-outline button-calm" ng-click="showRegister()" ng-if="show==='login'">
-                {{::'FORM.CREATE_NEW_USER'|translate}}
+                {{'FORM.CREATE_NEW_USER'|translate}}
             </button>
             <div class="fade" ng-if="show==='register'">
                 <!-- First Name -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-person-outline placeholder-icon"
-                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.firstName" type="text" placeholder="{{::'FIRST_NAME'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.firstName" type="text" placeholder="{{'FIRST_NAME'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Last Name -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-people-outline placeholder-icon"
-                       style="margin: 0 -3px 0 8px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.lastName" type="text" placeholder="{{::'LAST_NAME'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.lastName" type="text" placeholder="{{'LAST_NAME'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Email -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-email-outline placeholder-icon"
-                       style="margin: 0 0 0 10px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.email" type="email" placeholder="{{::'EMAIL'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.email" type="email" placeholder="{{'EMAIL'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Password -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-locked-outline placeholder-icon"
-                       style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.password" type="password" placeholder="{{::'PASSWORD'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.password" type="password" placeholder="{{'PASSWORD'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <!-- Password Again -->
                 <label class="m-10 item item-input">
                     <i class="icon ion-ios-locked-outline placeholder-icon"
-                       style="margin: 0 2px 2px 11px;font-size: 25px; padding: 0"></i>
-                    <input ng-model="account.passwordAgain" type="password" placeholder="{{::'PASSWORD_AGAIN'|translate}}"
+                       style="font-size: 25px; padding: 0"></i>
+                    <input ng-model="account.passwordAgain" type="password" placeholder="{{'PASSWORD_AGAIN'|translate}}"
                            style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                 </label>
                 <div class="assertive m-20 fade" ng-if="!isPasswordsSame()">
-                    {{::'FORM.PW_DONT_MATCH'|translate}}
+                    {{'FORM.PW_DONT_MATCH'|translate}}
                 </div>
                 <button class="button button-block button-outline button-calm" ng-click="register()" ng-disabled="!canRegister()">
-                    {{::'FORM.REG'|translate}}
+                    {{'FORM.REG'|translate}}
                 </button>
             </div>
 

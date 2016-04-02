@@ -1,11 +1,12 @@
 <ion-view id="view-question-page" view-title="Post view">
     <div class="bar bar-header">
         <h1 class="title no-logo">
-            <i ng-click="backToHome()" class="icon ion-chevron-left calm"></i>
-            <span class="back-btn" ng-click="backToHome()">{{::"BACK"|translate}}</span>
-            <span class="date">{{ post.create_date | moment }}</span>
+            <i ui-sref="home" class="icon ion-chevron-left calm"></i>
+            <span class="back-btn" ui-sref="home">{{"BACK"|translate}}</span>
+            <span class="date" ng-bind-html="post.create_date | moment"></span>
         </h1>
     </div>
+
     <ion-content lazy-scroll class="has-header has-footer" has-bouncing="false">
         <div class="post-question">
             <div dir="auto" ng-bind-html="post.body | nl2br"></div>
@@ -15,44 +16,68 @@
              image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg"
              ng-click="viewFullImage(post.img_id)"
              height="250">
+
         <div ng-repeat="reply in post.replies" class="post-comment-main">
-            <div class="item item-avatar">
-                <img ng-if="reply.user.indexOf('facebook') > -1" ng-src="http://graph.facebook.com/{{::reply.user.replace('facebook:', '')}}/picture?type=square"
-                     width="40" height="40">
-                <img ng-if="reply.user.indexOf('facebook') === -1" ng-src="https://secure.gravatar.com/avatar/{{::reply.user}}?d=identicon" width="40" height="40">
+            <div class="item item-avatar" avatar user-id="reply.user" size="40" ui-sref="profile({firebase_user_id: reply.user})">
                 {{reply.first_name}} {{reply.last_name | limitTo:1}}<br>
-                <small class="date">{{reply.create_date | moment}}</small>
+                <small class="date" ng-bind-html="reply.create_date | moment"></small>
             </div>
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
-                <div class="pci-wrapper text-right" ng-click="viewFullImage(reply.img_id)" ng-if="reply.img_id">
-                    <small>{{::'CLICK_TO_ENLRAGE'|translate}}</small>
+                <div class="pci-wrapper" dir="auto" ng-class="{'text-right': $root.uiLang==='he'}"
+                     ng-click="viewFullImage(reply.img_id)" ng-if="reply.img_id">
                     <img class="post-img"
                          image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_50,w_50/{{reply.img_id}}.jpg"
                          width="50" height="50">
+                    <small>{{'CLICK_TO_ENLARGE'|translate}}</small>
                 </div>
             </div>
         </div>
-        <div class="padding text-center">
-            <div ng-if="!post.replies" dir="auto">{{::'POST.NOREPLIES'|translate}}</div>
-            <button ng-click="reportConversation()" class="button button-clear button-assertive icon-right ion-alert-circled">
-                {{::'REPORT_QUESTION'|translate}}
+
+        <div class="padding text-center" ng-class="{'report-big-footer': showRating}">
+            <div ng-if="!post.replies" dir="auto">{{'POST.NOREPLIES'|translate}}</div>
+            <button ng-click="reportConversation()" ng-class="{'icon-right': $root.uiLang==='he', 'icon-left': $root.uiLang!=='he'}"
+                    class="button button-clear button-assertive ion-alert-circled">
+                {{'REPORT_QUESTION'|translate}}
             </button>
         </div>
     </ion-content>
 
-    <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
-        <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
-            {{::'POST.ACCEPT_QUESTION'|translate}}
-        </button>
-    </div>
-
-    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="allowReply">
-        <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
-        <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
-        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{::'POST.REPLY..'|translate}}"></textarea>
-        <div class="buttons pull-right">
-            <button class="button button-outline button-calm" ng-click="addReply()">{{::'POST.SEND'|translate}}</button>
+    <!-- Rating -->
+    <div class="bar bar-footer bar-light" id="rating-bar" ng-if="post.replies" ng-show="showRating">
+        <div id="rating-area">
+            <div class="item item-avatar pt-10" avatar user-id="rating.getRatedTutor().$id" size="60">
+                <small style="margin: 0 10px;display: inline-block;">
+                    {{'RATING.SATISFACTION_RATE'|translate}}
+                </small>
+                <star-icons rating-obj="rating" rate-answer="rateAnswer"></star-icons>
+            </div>
+        </div>
+        <div class="buttons" ng-class="{'pull-left': uiLang==='en', 'pull-right': uiLang==='he'}" ng-click="toggleReply()" ng-show="allowReply">
+            <button class="button button-clear button-calm icon ion-android-chat">&nbsp;</button>
         </div>
     </div>
+    <!-- /Rating -->
+
+    <!-- Acceptance option -->
+    <div class="bar bar-footer transparent-footer" id="accept-bar" ng-show="showAcceptQuestion">
+        <button class="button button-block button-outline button-balanced" ng-click="acceptQuestion()">
+            {{'POST.ACCEPT_QUESTION'|translate}}
+        </button>
+    </div>
+    <!-- /Acceptance option -->
+
+    <!-- Comment form -->
+    <div class="bar bar-footer bar-light" id="comment-bar" ng-show="showReplyForm">
+        <a class="icon-camera" ng-click="addImage()" ng-hide="add_img_preview"></a>
+        <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
+        <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{'POST.REPLY..'|translate}}">{{$rootScope.user.is_teacher}}</textarea>
+        <div class="buttons pull-right">
+            <button class="button button-outline button-assertive push-right" ng-if="!isTutor" ng-click="toggleReply()">{{'POST.CANCEL'|translate}}</button>
+            <button class="button button-outline button-calm" ng-click="addReply()">{{'POST.SEND'|translate}}</button>
+
+        </div>
+    </div>
+    <!-- /Comment form -->
+
 </ion-view>

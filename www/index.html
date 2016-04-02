@@ -17,6 +17,7 @@
     <link href="css/page-post-view.css" rel="stylesheet">
     <link href="css/rtl.css" rel="stylesheet">
     <link href="css/animations.css" rel="stylesheet">
+    <link href="css/components/rating-bar.css" rel="stylesheet">
 
     <script src="http://d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js"
             data-apikey="d4a2cff3e58487b1a2a6b8a881d65811">
@@ -54,7 +55,7 @@
     <script src="lib/moment/min/moment.min.js"></script>
     <script src="lib/moment/locale/he.js"></script>
     <script src="lib/angular-elastic/elastic.js"></script>
-    <script src="lib/lodash/lodash.min.js"></script>
+    <script src="lib/lodash/lodash.js"></script>
     <script src="lib/angular-translate/angular-translate.min.js"></script>
     <script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
     <script src="lib/ion-image-lazy-load/ionic-image-lazy-load.js"></script>
@@ -64,6 +65,7 @@
     <script src="js/directives.js"></script>
     <script src="js/services.js"></script>
     <script src="js/filters.js"></script>
+    <script src="js/constants.js"></script>
     <script src="js/controllers/AppCtrl.js"></script>
     <script src="js/controllers/FacebookLoginCtrl.js"></script>
     <script src="js/controllers/EmailLoginCtrl.js"></script>
@@ -71,22 +73,29 @@
     <script src="js/controllers/HomeCtrl.js"></script>
     <script src="js/controllers/AskQuestionCtrl.js"></script>
     <script src="js/controllers/GetCreditCtrl.js"></script>
+    <script src="js/controllers/GetCreditCtrlManual.js"></script>
     <script src="js/controllers/GetPaymentCtrl.js"></script>
     <script src="js/controllers/ViewQuestionCtrl.js"></script>
     <script src="js/controllers/FullImageCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/UserDetailsCtrl.js"></script>
     <script src="js/controllers/ImpersonateCtrl.js"></script>
+    <script src="js/controllers/ContactCtrl.js"></script>
     <script src="js/services/User.js"></script>
     <script src="js/services/UserDetails.js"></script>
     <script src="js/services/Post.js"></script>
     <script src="js/services/Coupon.js"></script>
+    <script src="js/services/Rating.js"></script>
     <script src="js/services/Payment.js"></script>
     <script src="js/services/PayPal.js"></script>
     <script src="js/services/AmazonSNS.js"></script>
     <script src="js/services/CloudinaryUpload.js"></script>
     <script src="js/services/HttpInterceptor.js"></script>
     <script src="js/services/Utils.js"></script>
+    <script src="js/services/Config.js"></script>
+    <script src="js/directives/avatar.js"></script>
+    <script src="js/directives/starIcons.js"></script>
+    <script src="js/directives/facebookLike.js"></script>
     <script src="js/lib/angular-ios9-uiwebview.patch.js"></script>
 </body>
 </html>

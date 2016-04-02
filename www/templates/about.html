@@ -2,23 +2,19 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ui-sref="home"></i>
-            <span class="back-btn dark" ui-sref="home">{{::"BACK"|translate}}</span>
+            <span class="back-btn dark" ui-sref="home">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header padding-top" has-bouncing="false">
-        <div class="content-section">
-            <h4 class="text-center m-20">{{::"PAGES.ABOUT.TITLE"|translate}}</h4>
-            <p>המורה הפרטי שלך לסמסטר ולתקופת המבחנים, דרך הסמארטפון!</p>
+        <div class="content-section" ng-if="$root.uiLang==='he'">
+            <h4 class="text-center m-20">{{"PAGES.ABOUT.TITLE"|translate}}</h4>
+            <p>המורה הפרטי שלך לשיעורי הבית והמבחנים, דרך הסמארטפון!</p>
+            <p>נתקלת בבעיה בחומר הלימוד, בשיעורי הבית או בלמידה למבחן? שלח שאלה לשירות שלנו דרך האפליקציה וקבל תשובה אמינה ממורה פרטי מקצועי במהירות.</p>
+            <p>את המורים שלנו בחרנו בקפידה, כך שהשאלה שלך תגיע אל המורה שמלמד ומכיר את המקצוע ברמה הגבוהה ביותר, כך שתוכל להיות בטוח באמינות התשובה.</p>
+            <p>צוות השירות של אפטרקלאס תמיד זמין לכל שאלה או בעיה - פשוט בחר בתפריט האפליקציה בצור קשר.</p>
+            <p>בהצלחה לכל התלמידים ברחבי הארץ!</p>
 
-            <p>נתקלת בבעיה בחומר הלימוד, בשיעורי הבית או בלמידה למבחן? שלח שאלה באפליקציה וקבל תשובה אקדמית במהירות.</p>
-
-            <p>את המורים שלנו בחרנו בקפידה, כך שהשאלה שלך תגיע אל המורה שמכיר את הסילבוס והקורס שלך בצורה הטובה ביותר - ובמרבית המקרים אף למד והצטיין בו או תירגל אותו, מה שאומר שתוכל להיות בטוח שהתשובה שתקבל תכין אותך לחומר ולמבחן בהצלחה.</p>
-
-            <p>הצוות שלנו זמין תמיד לכל שאלה או בעיה - פשוט בחר בתפריט האפליקציה בצור קשר.</p>
-
-            <p>בהצלחה לכל הסטודנטים ברחבי הארץ!</p>
-
-            <h4 class="m-20 text-center">{{::"PAGES.TOS.TITLE"|translate}}</h4>
+            <h4 class="m-20 text-center">{{"PAGES.TOS.TITLE"|translate}}</h4>
             <p>השימוש בשירות אפטרקלאס הוא ביוזמת המשתמש ובאחריותו שלו בלבד.</p>
             <ul style="list-style: outside;padding: 0 20px 0 0;">
             <li>אפטרקלאס אינה אחראית על כל נזק ישיר או עקיף שעלול להגרם כתוצאה משימוש בשירות או באפליקציה.</li>
@@ -88,7 +84,23 @@
             בברכה,<br>
             AfterClass<br><br>
             גרסה
-            {{::$root.appVersion}}
+            {{$root.appVersion}}
+        </div>
+
+        <div class="content-section" ng-if="$root.uiLang==='en'">
+            <h4 class="text-center m-20">{{"PAGES.ABOUT.TITLE"|translate}}</h4>
+
+            <p>Your private tutor for homework and exams, on your smartphone!</p>
+
+            <p>Stumbled into a tough math problem or any other issue in class, before an exam or while doing your homework?</p>
+
+            <p>Easily send a question via the AfterClass app and receive a professional answer from our tutors, in no time!</p>
+
+            <p>Our tutors have been chosen carefully so you will get a quality answer from a certified and professional tutor who has deep knowledge in the material.</p>
+
+            <p>Our customer service team is always available for any questions or issues.</p>
+
+            <p>Good luck to all students!</p>
         </div>
     </ion-content>
 </ion-view>
