@@ -115,8 +115,10 @@ angular.module('afterclass.services', [])
                 return;
             }
             return AppConfig.loadConfig().then(() => {
-                let subjects = AppConfig.getConfig().subjects;
-                subjects.push($translate.instant('OTHER'));
+                let subjects = angular.copy(AppConfig.getConfig().subjects);
+                if (_.indexOf(subjects, $translate.instant('OTHER')) === -1) {
+                    subjects.push($translate.instant('OTHER'));
+                }
                 return subjects;
             });
         };

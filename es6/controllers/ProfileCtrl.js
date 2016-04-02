@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ProfileCtrl', (
-    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, MyFirebase, User, otherUser) => {
+    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, $timeout, MyFirebase, User, otherUser) => {
 
     // If viewing someone else and that someone is not the session user
     if (otherUser && $rootScope.user.id !== otherUser.id) {
@@ -47,19 +47,33 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
 
     // SETTINGS
 
-    $scope.languages = [
-        {id: 'he', name: $translate.instant('LANG.HE')},
-        {id: 'en', name: $translate.instant('LANG.EN')}
-    ];
+    let buildLangArr = () => {
+        $scope.languages = [
+            {id: 'he', name: $translate.instant('LANG.HE')},
+            {id: 'en', name: $translate.instant('LANG.EN')}
+        ];
+    };
+    buildLangArr();
     $scope.settings = {language: $rootScope.user.ui_lang ? $rootScope.user.ui_lang : ''};
 
     $scope.canSaveSettings = () => $scope.settings.language;
 
     $scope.saveSettings = () => {
+        let lang = $scope.settings.language;
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-        localStorage.setItem('uiLang', $scope.settings.language);
-        User.updateUser({ui_lang: $scope.settings.language}).then(() => {
-            window.location.reload();
+        localStorage.setItem('uiLang', lang);
+        User.updateUser({ui_lang: lang}).then(() => {
+            let body = angular.element('body');
+            if (lang === 'he' && !body.hasClass('rtl')) {
+                body.addClass('rtl');
+            } else if (lang !== 'he') {
+                body.removeClass('rtl');
+            }
+            $translate.use(lang);
+            moment.locale(lang);
+            $rootScope.uiLang = lang;
+            $timeout(() => buildLangArr(), 100);
+            $ionicLoading.hide();
         });
     };
 });

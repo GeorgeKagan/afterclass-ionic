@@ -108,6 +108,7 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
                 url: "/home",
                 templateUrl: "templates/home.html",
                 controller: 'HomeCtrl',
+                cache: false,
                 resolve: { user: function(User) { return User.getFromUsersCollection(); } }
             })
             .state('askQuestion', {

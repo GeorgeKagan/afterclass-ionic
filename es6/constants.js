@@ -27,6 +27,67 @@ angular.module('afterclass.constants', []).constant('defaultConfig',{
         "מתמטיקה",
         "אנגלית",
         "לשון"
-    ]
-
+    ],
+    gradesSubjects: {
+        "א": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ב": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ג": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ד": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ה": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ו": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ז": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ח": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "ט": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "י": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "יא": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ],
+        "יב": [
+            {"name": "מתמטיקה", "subjects": []},
+            {"name": "אנגלית","subjects": []},
+            {"name": "לשון","subjects": []}
+        ]
+    }
 });

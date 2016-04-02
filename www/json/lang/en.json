@@ -9,10 +9,10 @@
         "IS_TUTOR": "I'm a teacher",
         "SELECTED_STUDENT": "You chose student",
         "TUTOR": {
-            "STEP1_TITLE": "Please choose institutes",
-            "STEP2_TITLE": "Please choose degree subjects",
+            "STEP1_TITLE": "Please choose grades",
+            "STEP2_TITLE": "Please choose subjects",
             "STEP3_TITLE": "Please choose courses",
-            "THE_INST": "Institute:",
+            "THE_INST": "Grade",
             "THE_DEGREE": "Degree:"
         }
     },
@@ -160,7 +160,7 @@
     "ASK_A_TEACHER": "Send question",
     "GET_POINTS": "Get credits",
     "GET_PAYMENT": "Get payment",
-    "GET_PAYMENT_SUBTITLE": "So far you've earned <strong>{{sum}}</strong> &#8362;",
+    "GET_PAYMENT_SUBTITLE": "So far you've earned {{sum}}",
     "NEXT": "Next",
     "REPORT_QUESTION": "Report this conversation",
     "REPORT_PLACEHOLDER": "What is the problem?",
@@ -174,14 +174,14 @@
     "USING_EMAIL_PW": "Using email and password",
     "GENERAL_INFO": "General Info",
     "INSTITUTE": "Institute",
-    "INSTITUTES": "Institutes",
-    "DEGREES": "Degree subjects",
+    "INSTITUTES": "Grades",
+    "DEGREES": "Subjects",
     "PROF": "Course",
     "PROFS": "Courses",
     "QUESTIONS_REMAINING": "Questions remaining",
     "SETTINGS": "Settings",
     "PASSWORD": "Password",
-    "PASSWORD_AGAIN": "Password againt",
+    "PASSWORD_AGAIN": "Password again",
     "FIRST_NAME": "First name",
     "LAST_NAME": "Last name",
     "PROFILE": "Profile",
@@ -191,5 +191,7 @@
     "ABOUT_ME": "About me",
     "LIKE_US": "Show your support, like us on Facebook!",
     "NEXT_TIME": "No thanks, next time",
-    "OR": "OR"
+    "OR": "OR",
+    "CHOOSE": "Choose",
+    "GRADE": "Grade"
 }

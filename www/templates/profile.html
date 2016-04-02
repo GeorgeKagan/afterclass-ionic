@@ -2,12 +2,12 @@
     <div class="bar bar-header">
         <h1 class="title no-logo">
             <i class="icon ion-chevron-left calm" ng-click="myGoBack()"></i>
-            <span class="back-btn dark" ng-click="myGoBack()">{{::"BACK"|translate}}</span>
+            <span class="back-btn dark" ng-click="myGoBack()">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-tabs class="tabs-striped tabs-background-dark tabs-color-calm tabs-icon-top">
 
-        <ion-tab title="{{::'PROFILE'|translate}}" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
+        <ion-tab title="{{'PROFILE'|translate}}" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">
@@ -16,15 +16,11 @@
                     <!-- STUDENT -->
                     <div class="m-0 list list-inset" ng-if="!user.is_teacher">
                         <div class="item">
-                            <h2>{{::"INSTITUTE"|translate}}</h2>
+                            <h2>{{"GRADE"|translate}}</h2>
                             <p>{{user.institute}}</p>
                         </div>
                         <div class="item">
-                            <h2>{{::"PROF"|translate}}</h2>
-                            <p>{{user.degree}}</p>
-                        </div>
-                        <div class="item">
-                            <h2>{{::"QUESTIONS_REMAINING"|translate}}</h2>
+                            <h2>{{"QUESTIONS_REMAINING"|translate}}</h2>
                             <p>{{user.credits}}</p>
                         </div>
                     </div>
@@ -43,69 +39,71 @@
                             </div>
                         </div>
                         <div class="item">
-                            <h2>{{::"INSTITUTES"|translate}}</h2>
-                            <p ng-repeat="(institute, val) in ::user.target_institutes">{{::institute}}</p>
+                            <h2>{{"INSTITUTES"|translate}}</h2>
+                            <span ng-repeat="(institute, val) in ::user.target_institutes">
+                                {{institute}}<span ng-if="!$last">, </span>
+                            </span>
                         </div>
                         <div class="item">
-                            <h2>{{::"DEGREES"|translate}}</h2>
-                            <div ng-repeat="(institute, degrees) in ::user.target_institutes">
-                                <p ng-repeat="(degree, courses) in degrees">{{::degree}}</p>
+                            <h2>{{"DEGREES"|translate}}</h2>
+                            <div ng-repeat="(institute, degrees) in ::user.target_institutes" ng-if="$index===0">
+                                <p ng-repeat="(degree, courses) in degrees">{{degree}}</p>
                             </div>
                         </div>
-                        <div class="item">
-                            <h2>{{::"PROFS"|translate}}</h2>
-                            <div ng-repeat="(institute, degrees) in ::user.target_institutes">
-                                <div ng-repeat="(degree, courses) in degrees">
-                                    <p ng-repeat="(key, course) in courses">{{::course}}</p>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="item">-->
+                            <!--<h2>{{"PROFS"|translate}}</h2>-->
+                            <!--<div ng-repeat="(institute, degrees) in ::user.target_institutes">-->
+                                <!--<div ng-repeat="(degree, courses) in degrees">-->
+                                    <!--<p ng-repeat="(key, course) in courses">{{course}}</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="{{::'PASSWORD'|translate}}" icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline"
+        <ion-tab title="{{'PASSWORD'|translate}}" icon-on="ion-ios-locked" icon-off="ion-ios-locked-outline"
                  ng-if="!viewingSomeoneElse && user.provider==='password'">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
-                    <h4 class="text-center m-20">{{::"FORM.CHANGE_PW"|translate}}</h4>
+                    <h4 class="text-center m-20">{{"FORM.CHANGE_PW"|translate}}</h4>
                     <!-- Old Password -->
                     <label class="m-10 item item-input">
                         <i class="icon ion-ios-locked-outline placeholder-icon"
                            style="font-size: 25px; padding: 0"></i>
-                        <input ng-model="account.oldPassword" type="password" placeholder="{{::'FORM.OLD_PW'|translate}}"
+                        <input ng-model="account.oldPassword" type="password" placeholder="{{'FORM.OLD_PW'|translate}}"
                                style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                     </label>
                     <!-- New Password -->
                     <label class="m-10 item item-input">
                         <i class="icon ion-ios-locked placeholder-icon"
                            style="font-size: 25px; padding: 0"></i>
-                        <input ng-model="account.newPassword" type="password" placeholder="{{::'FORM.NEW_PW'|translate}}"
+                        <input ng-model="account.newPassword" type="password" placeholder="{{'FORM.NEW_PW'|translate}}"
                                style="line-height: 20px; padding: 0; margin: 0 0 1px;">
                     </label>
                     <button class="button button-block button-outline button-calm" ng-click="changePassword()" ng-disabled="!canChangePassword()">
-                        {{::"FORM.CHANGE_PW_NOW"|translate}}
+                        {{"FORM.CHANGE_PW_NOW"|translate}}
                     </button>
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="{{::'SETTINGS'|translate}}" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline"
+        <ion-tab title="{{'SETTINGS'|translate}}" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline"
                  ng-if="!viewingSomeoneElse">
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
-                    <h4 class="text-center m-20">{{::"SETTINGS"|translate}}</h4>
+                    <h4 class="text-center m-20">{{"SETTINGS"|translate}}</h4>
                     <label class="m-10 item item-input">
                         <i class="icon ion-android-globe placeholder-icon"
                            style="font-size: 25px; padding: 0"></i>
-                        <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{::'FORM.UI_LANG'|translate}}</span>
-                        <select class="b-0" style="margin: 0 0 2px 0" ng-model="settings.language" ng-options="x.id as x.name for x in languages">
-                            <option value="">Choose</option>
+                        <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{'FORM.UI_LANG'|translate}}</span>
+                        <select class="b-0 bg-trans" style="margin: 0 0 2px 0" ng-model="settings.language" ng-options="x.id as x.name for x in languages">
+                            <option value="">{{'CHOOSE'|translate}}</option>
                         </select>
                     </label>
                     <button class="button button-block button-outline button-calm" ng-click="saveSettings()" ng-disabled="!canSaveSettings()">
-                        {{::'FORM.SAVE_SETTINGS'|translate}}
+                        {{'FORM.SAVE_SETTINGS'|translate}}
                     </button>
                 </ion-content>
             </ion-nav-view>

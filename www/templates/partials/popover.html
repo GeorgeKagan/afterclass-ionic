@@ -2,14 +2,14 @@
     <ion-content has-bouncing="false" scroll="false">
         <div class="list">
             <span class="item">
-                {{::'HI'|translate}}, {{user.name}}
+                {{'HI'|translate}}, {{user.name}}
             </span>
-            <a class="item {{::link.classes}}" ng-repeat="link in links" ui-sref="{{link.sref}}"
+            <a class="item {{link.classes}}" ng-repeat="link in links" ui-sref="{{link.sref}}"
                ng-click="link.onclick ? link.onclick($event) : hidePopover()">
                 {{link.text|translate}}
             </a>
             <a class="item" ng-click="logout()">
-                {{::'LOGOUT'|translate}}
+                {{'LOGOUT'|translate}}
             </a>
         </div>
     </ion-content>
