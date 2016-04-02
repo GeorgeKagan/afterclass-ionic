@@ -314,7 +314,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                         AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
                     }
                     post.$save();
-                    Utils.triggerServerSync();
                 });
             }, function (error) {
                 $ionicLoading.hide();
