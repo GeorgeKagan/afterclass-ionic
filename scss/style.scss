@@ -30,6 +30,17 @@
   display: none;
 }
 
+body.platform-browser {
+  .scroll-bar-v {
+    width: 15px;
+    right: 0;
+  }
+  .scroll-bar-indicator {
+    display: block;
+    width: 15px;
+  }
+}
+
 .popover {
   &.popover-4-items {
     height: 216px;
