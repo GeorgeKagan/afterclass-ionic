@@ -69,8 +69,6 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                                 buttons: [],
                                 scope: popupScope
                             });
-
-                            Utils.triggerServerSync();
                         }, 1000);
                     });
                 }, 1000);

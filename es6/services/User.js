@@ -52,7 +52,6 @@ angular.module('afterclass.services').factory('User', function ($rootScope, $q, 
 
             // Don't wait for async call
             $rootScope.user = angular.element.extend($rootScope.user, data);
-            Utils.triggerServerSync();
 
             return user.$loaded().then(function (user) {
                 data.update_date    = Firebase.ServerValue.TIMESTAMP;
