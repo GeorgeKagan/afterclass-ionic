@@ -94,6 +94,16 @@
             <ion-nav-view>
                 <ion-content class="ac-content-padding has-header has-tabs">
                     <h4 class="text-center m-20">{{"SETTINGS"|translate}}</h4>
+                    <!-- Grade -->
+                    <label class="m-10 item item-input" ng-if="!user.is_teacher">
+                        <i class="icon ion-university placeholder-icon"
+                           style="font-size: 25px; padding: 0"></i>
+                        <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{'GRADE'|translate}}</span>
+                        <select class="b-0 bg-trans" style="margin: 0 0 2px 0" ng-model="settings.grade" ng-options="x as x for x in grades">
+                            <option value="">{{'CHOOSE'|translate}}</option>
+                        </select>
+                    </label>
+                    <!-- Language -->
                     <label class="m-10 item item-input">
                         <i class="icon ion-android-globe placeholder-icon"
                            style="font-size: 25px; padding: 0"></i>

@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ProfileCtrl', (
-    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, $timeout, MyFirebase, User, otherUser) => {
+    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, $timeout, MyFirebase, User, otherUser, AppConfig) => {
 
     // If viewing someone else and that someone is not the session user
     if (otherUser && $rootScope.user.id !== otherUser.id) {
@@ -54,15 +54,36 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
         ];
     };
     buildLangArr();
-    $scope.settings = {language: $rootScope.user.ui_lang ? $rootScope.user.ui_lang : ''};
 
     $scope.canSaveSettings = () => $scope.settings.language;
+    $scope.settings = {
+        language: $rootScope.user.ui_lang ? $rootScope.user.ui_lang : $translate.use()
+    };
+
+    // Pre-fill form + init collection by user type
+    if ($rootScope.user.is_teacher) {
+
+    } else {
+        $scope.settings.grade = $rootScope.user.institute;
+        AppConfig.loadConfig().then(() => $scope.grades = AppConfig.getConfig().grades);
+    }
 
     $scope.saveSettings = () => {
-        let lang = $scope.settings.language;
+        let lang = $scope.settings.language,
+            payload = {ui_lang: lang};
+
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         localStorage.setItem('uiLang', lang);
-        User.updateUser({ui_lang: lang}).then(() => {
+
+        // Set payload by user type
+        if ($rootScope.user.is_teacher) {
+
+        } else {
+            payload.institute = $scope.settings.grade;
+        }
+
+        User.updateUser(payload).then(() => {
+            // Change current UI lang real-time
             let body = angular.element('body');
             if (lang === 'he' && !body.hasClass('rtl')) {
                 body.addClass('rtl');
@@ -73,6 +94,7 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
             moment.locale(lang);
             $rootScope.uiLang = lang;
             $timeout(() => buildLangArr(), 100);
+            //
             $ionicLoading.hide();
         });
     };

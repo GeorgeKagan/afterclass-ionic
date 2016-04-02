@@ -70,6 +70,8 @@ body.platform-browser {
   select {
     width: 100%;
     margin: 10px 0;
+    border: 0;
+    text-align-last: center;
   }
 }
 
@@ -107,6 +109,7 @@ select, textarea, input[type="text"] {
   font-weight: normal;
 }
 select {
+  -webkit-appearance: none;
   color: inherit;
 }
 
