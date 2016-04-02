@@ -17,10 +17,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.report               = {content: '', customMessage: ''};
 
     //Init functions
-    $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(data){
+    $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(){
 
-        initFooter(post);
-        initRating(replies);
+        initRating(replies).then(()=>{
+            initFooter(post);
+        });
 
     });
 
@@ -45,9 +46,15 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
 
             $scope.showAcceptQuestion   = false; //Tutor only
 
-            $scope.allowReply = false;
-            $scope.showRating = true;
-            $scope.showReplyForm = false;
+            //$scope.allowReply = false;
+
+            if($scope.rating.hasRepliesToRate()) {
+                $scope.showRating = true;
+                $scope.showReplyForm = false;
+            } else {
+                $scope.showRating = false;
+                $scope.showReplyForm = true;
+            }
 
         }
 
@@ -67,6 +74,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 $scope.reportConversation($translate.instant('RATING.RATING_TOO_LOW'));
             }
         };
+
+        return $scope.rating.loaded;
     }
 
     $scope.toggleReply = function() {
@@ -196,7 +205,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     if (!$scope.report.content.trim()) {
                         return;
                     }
-                    $scope.post.$loaded().then(function (post) {
+                    $scope.post.$loaded().then(function () {
                         var complaints = $firebaseArray(ref.child('complaints'));
                         complaints.$loaded().then(function(post) {
                             complaints.$add({

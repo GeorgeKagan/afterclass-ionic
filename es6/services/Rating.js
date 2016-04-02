@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('Rating', function($rootScope, $firebaseArray, $firebaseObject, MyFirebase) {
+angular.module('afterclass.services').factory('Rating', function($rootScope, $q, $firebaseArray, $firebaseObject, MyFirebase) {
     'use strict';
 
     var Rating = function(replies) {
@@ -9,6 +9,9 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
         this.rateReplyIndex = null;
         this.rating = 0;
         this.ratedTutor = null;
+
+        this._deferred = $q.defer();
+        this.loaded = this._deferred.promise; //A promise to tell when the rating service was properly loaded
 
         //Find the last tutor reply and it's index
         _.forEachRight(this.replies, (reply, i) => {
@@ -32,8 +35,11 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
             let tutorRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load tutor for updating his score
             $firebaseObject(tutorRef).$loaded().then((tutor) => {
                 this._setTutor(tutor);
+                this._deferred.resolve();
             });
 
+        } else {
+            this._deferred.resolve();
         }
 
     };
@@ -56,6 +62,22 @@ angular.module('afterclass.services').factory('Rating', function($rootScope, $fi
 
     Rating.prototype.getRatedTutor = function() {
         return this.ratedTutor;
+    };
+
+    Rating.prototype.getRatedTutorId = function() {
+
+        if(this.ratedTutor) {
+            return this.ratedTutor.$id;
+        } else {
+            return '';
+        }
+
+    };
+
+    Rating.prototype.hasRepliesToRate = function() {
+
+        return (this.ratedTutor !== null);
+
     };
 
     //Methods
