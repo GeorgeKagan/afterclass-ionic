@@ -12,15 +12,15 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.post                 = $firebaseObject(post);
     $scope.replyBody            = '';
     $scope.add_img_preview      = false;
-    $scope.showReplyForm           = false;
+    $scope.showReplyForm        = false;
     $scope.showAcceptQuestion   = false;
-    $scope.report               = {content: '', customMessage: ''};
+    $scope.report               = { content: '', customMessage: '' };
 
     //Init functions
     $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(){
 
         initRating(replies).then(()=>{
-            initFooter(post);
+            initFooter($scope.post);
         });
 
     });
