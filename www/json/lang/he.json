@@ -9,10 +9,10 @@
         "IS_TUTOR": "אני מורה",
         "SELECTED_STUDENT": "בחרת בסטודנט",
         "TUTOR": {
-            "STEP1_TITLE": "אנא בחר מוסדות לימודים",
-            "STEP2_TITLE": "אנא בחר תארים",
+            "STEP1_TITLE": "אנא בחר כיתות",
+            "STEP2_TITLE": "אנא בחר נושאים",
             "STEP3_TITLE": "אנא בחר מקצועות",
-            "THE_INST": "המוסד:",
+            "THE_INST": "כיתה",
             "THE_DEGREE": "התואר:"
         }
     },
@@ -164,7 +164,7 @@
     "ASK_A_TEACHER": "שלח שאלה",
     "GET_POINTS": "קבל נקודות",
     "GET_PAYMENT": "קבל תשלום",
-    "GET_PAYMENT_SUBTITLE": "עד כה הרווחת <strong>{{sum}}</strong> &#8362;",
+    "GET_PAYMENT_SUBTITLE": "עד כה הרווחת {{sum}}",
     "NEXT": "המשך",
     "REPORT_QUESTION": "דווח על התכתבות זו",
     "REPORT_PLACEHOLDER": "פירוט הבעיה",

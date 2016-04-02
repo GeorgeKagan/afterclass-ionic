@@ -25,7 +25,7 @@ angular.module('afterclass.directives', [])
                 '</button>' +
                 '<div class="light text-center padding" dir="auto" ng-if="$root.user.is_teacher">' +
                     '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
-                        '{{"GET_PAYMENT_SUBTITLE"|translate:translationData}}' +
+                        '{{"GET_PAYMENT_SUBTITLE"|translate:translationData}}' + ' &#8362' +
                     '</span>' +
                 '</div>' +
                 '<div class="light text-center padding" dir="auto" ng-if="!$root.user.is_teacher">' +
@@ -37,9 +37,9 @@ angular.module('afterclass.directives', [])
                 if ($rootScope.user.is_teacher) {
                     // Payments will be updated only on app relaunch (state cache)
                     Payment.getPaymentsSum().then(function (sum) {
-                        scope.teacherTotalPayments  = sum;
+                        scope.teacherTotalPayments = sum;
                     });
-                    scope.translationData = {sum: teacherTotalPayments};
+                    scope.translationData = {sum: scope.teacherTotalPayments || 0};
                     scope.icon      = 'ab-icon-currency';
                     scope.btnText   = 'payment';
                     scope.btnClick  = function () {
