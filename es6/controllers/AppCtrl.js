@@ -58,7 +58,7 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         if (!$rootScope.user.id) {
             throw new Error('User has no ID. ' + JSON.stringify($rootScope.user));
         }
-        else if (isDevUser || _.indexOf(devUsers, $rootScope.user.id) > -1 || $rootScope.user.id.indexOf('6375') > -1) {
+        else if (isDevUser || _.indexOf(devUsers, $rootScope.user.id) > -1 ) {
             localStorage.setItem('isDevUser', true);
             $rootScope.isDevUser = true;
             // Switch Firebase env
