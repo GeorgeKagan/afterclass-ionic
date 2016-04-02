@@ -23,7 +23,7 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep1Ctrl', function ($rootScope, $scope, $state, $http, TutorDetails) {
+    controller('UserDetailsTutorStep1Ctrl', function ($rootScope, $scope, $state, $http, TutorDetails, AppConfig) {
         $scope.selInstitutes = {};
 
         // If edit mode - mark chosen institutes as selected
@@ -35,8 +35,8 @@ angular.module('afterclass.controllers').
             });
         }
 
-        $http.get('http://www.afterclass.org/json/institutes-degrees.json').success(function(data) {
-            $scope.institutes = data;
+        AppConfig.loadConfig().then(() => {
+            $scope.institutes = angular.copy(AppConfig.getConfig().gradesSubjects);
         });
         $scope.submitTutorStep1 = function () {
             var degrees = TutorDetails.getDegreesBySelectedInstitutes($scope.selInstitutes, $scope.institutes);
@@ -49,7 +49,7 @@ angular.module('afterclass.controllers').
         };
     }).
 
-    controller('UserDetailsTutorStep2Ctrl', function ($rootScope, $scope, $state, TutorDetails) {
+    controller('UserDetailsTutorStep2Ctrl', function ($rootScope, $scope, $state, $ionicHistory, TutorDetails) {
         $scope.selDegrees   = {};
         $scope.degrees      = TutorDetails.getDegrees();
 
@@ -69,6 +69,12 @@ angular.module('afterclass.controllers').
             TutorDetails.setPayloadDegrees($scope.selDegrees);
             TutorDetails.setCourses(courses);
             $state.go('userDetails_tutorStep3', {isEdit: $state.params.isEdit});
+        };
+        $scope.submitTutorStep2Last = function () {
+            TutorDetails.setPayloadDegrees($scope.selDegrees, true);
+            TutorDetails.saveSelectedData();
+            $state.go('home');
+            $ionicHistory.nextViewOptions({disableBack: true});
         };
         $scope.isChecked = function(entities) {
             return TutorDetails.isChecked(entities);

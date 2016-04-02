@@ -85,13 +85,13 @@ angular.module('afterclass.services').factory('TutorDetails', function(User) {
         payload.institutes = hash;
     };
 
-    obj.setPayloadDegrees = function (degrees) {
+    obj.setPayloadDegrees = function (degrees, dummy3rdLevel = false) {
         angular.forEach(degrees, function (isSelected, degree) {
             if (!isSelected) { return; }
             var institute   = degree.split('|||')[0],
                 degree_name = degree.split('|||')[1];
             if (payload.institutes[institute]) {
-                payload.institutes[institute][degree_name] = [];
+                payload.institutes[institute][degree_name] = dummy3rdLevel ? ["dummy"] : [];
             }
         });
     };
