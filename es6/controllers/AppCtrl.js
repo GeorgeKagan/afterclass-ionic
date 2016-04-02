@@ -43,8 +43,8 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         }
         // Add dev actions
         var devUsers = [
-                '1591285834446649',
-                '1518736295015643',
+                '1591285834446649',  //AfterClass facebook
+                '1518736295015643',  // Vitaly
                 '10205593403011749', // Gosha
                 '10206625622492055', // Katya
                 '10205364847174667', // Gitlin
