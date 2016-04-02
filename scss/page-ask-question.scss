@@ -2,87 +2,87 @@
 @import "misc/mixins";
 
 #ask-question-page {
-  .bar-header {
-    border: 0;
-  }
-  label {
-    font-weight: 400;
-    padding: 6px 16px 5px 16px;
-  }
-  .item-stacked-label {
-    border: 0;
-    margin: 10px 0 0 0;
-  }
-  .body-wrapper {
-    border-top: 1px solid $light_gray;
-    border-bottom: 0;
-  }
-  select {
-    width: 100%;
-    border: 0;
-    margin: 0;
-    display: block;
-    background: transparent;
-    -webkit-appearance: none;
-    position: relative;
-    left: -4px;
-    padding: 0 0 15px 0;
-  }
-  textarea {
-    resize: none;
-    line-height: 20px;
-  }
-  .aq-delete {
-    background: url(../img/close.png) no-repeat;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    position: absolute;
-    top: -30px;
-    right: 10px;
-    opacity: 0.9;
-    background-size: 100%;
-    &:active {
-      opacity: 1;
-    }
-  }
-  #aq-img-wrapper {
-    .item-divider {
-      background-color: #fff;
-    }
-    .item-text-wrap {
-      border: 0;
-    }
-    #aq-img {
-      img {
-        max-width: 100%;
-        border-radius: 3px;
-      }
-    }
-  }
-  .tabs-icon-only {
-    border: 0;
-    .icon-camera {
-      background: url(../img/take-picture-icon.png) center 9px no-repeat;
-      background-size: 36px 24px;
-      border-right: 1px solid #666;
-    }
-    .icon-attachment {
-      background: url(../img/documnet-attachment.png) center 8px no-repeat;
-      background-size: 21px 26px;
-    }
-    .icon-camera, .icon-attachment {
-      &:active {
-        background-color: $dark_gray;
-      }
-    }
-  }
+	.bar-header {
+		border: 0;
+	}
+	label {
+		font-weight: 400;
+		padding: 6px 16px 5px 16px;
+	}
+	.item-stacked-label {
+		border: 0;
+		margin: 10px 0 0 0;
+	}
+	.body-wrapper {
+		border-top: 1px solid $light_gray;
+		border-bottom: 0;
+	}
+	select {
+		width: 100%;
+		border: 0;
+		margin: 0;
+		display: block;
+		background: transparent;
+		-webkit-appearance: none;
+		position: relative;
+		left: -4px;
+		padding: 0 0 15px 0;
+	}
+	textarea {
+		resize: none;
+		line-height: 20px;
+	}
+	.aq-delete {
+		background: url(../img/close.png) no-repeat;
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+		position: absolute;
+		top: -30px;
+		right: 10px;
+		opacity: 0.9;
+		background-size: 100%;
+		&:active {
+			opacity: 1;
+		}
+	}
+	#aq-img-wrapper {
+		.item-divider {
+			background-color: #fff;
+		}
+		.item-text-wrap {
+			border: 0;
+		}
+		#aq-img {
+			img {
+				max-width: 100%;
+				border-radius: 3px;
+			}
+		}
+	}
+	.tabs-icon-only {
+		border: 0;
+		.icon-camera {
+			background: url(../img/take-picture-icon.png) center 9px no-repeat;
+			background-size: 36px 24px;
+			border-right: 1px solid #666;
+		}
+		.icon-attachment {
+			background: url(../img/documnet-attachment.png) center 8px no-repeat;
+			background-size: 21px 26px;
+		}
+		.icon-camera, .icon-attachment {
+			&:active {
+				background-color: $dark_gray;
+			}
+		}
+	}
 }
 
 body.platform-ios {
-  #ask-question-page {
-    select {
-      padding: 15px 5px;
-    }
-  }
+	#ask-question-page {
+		select {
+			padding: 15px 5px;
+		}
+	}
 }
