@@ -21,6 +21,7 @@ gulp.task('build', ['javascript', 'babel', 'sass']);
 gulp.task('javascript', function () {
   return gulp.src(paths.js)
       .pipe(plumber())
+      .pipe(concat('lib.js'))
       .pipe(gulp.dest('./www/js'));
 });
 
@@ -30,18 +31,21 @@ gulp.task('babel', function () {
       .pipe(babel({
         presets: ['es2015']
       }))
+      .pipe(concat('app.js'))
       .pipe(gulp.dest('./www/js'));
 });
 
 gulp.task('sass', function(done) {
   return gulp.src(paths.sass)
-    .pipe(sass())
-    //.pipe(gulp.dest('./www/css/'))
-    //.pipe(minifyCss({
-    //  keepSpecialComments: 0
-    //}))
-    //.pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'));
+      .pipe(plumber())
+      .pipe(sass())
+      //.pipe(gulp.dest('./www/css/'))
+      //.pipe(minifyCss({
+      //  keepSpecialComments: 0
+      //}))
+      //.pipe(rename({ extname: '.min.css' }))
+      .pipe(concat('app.css'))
+      .pipe(gulp.dest('./www/css/'));
 });
 
 gulp.task('watch', function() {

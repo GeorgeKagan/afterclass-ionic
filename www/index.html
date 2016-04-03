@@ -7,22 +7,15 @@
     <title>AfterClass</title>
     <link rel="shortcut icon" href="img/favicon.ico">
 
+    <!-- css -->
     <link href='http://fonts.googleapis.com/earlyaccess/opensanshebrew.css' rel='stylesheet' type='text/css'>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/page-home.css" rel="stylesheet">
-    <link href="css/page-ask-question.css" rel="stylesheet">
-    <link href="css/page-get-credit.css" rel="stylesheet">
-    <link href="css/page-get-payment.css" rel="stylesheet">
-    <link href="css/page-post-view.css" rel="stylesheet">
-    <link href="css/rtl.css" rel="stylesheet">
-    <link href="css/animations.css" rel="stylesheet">
-    <link href="css/components/rating-bar.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
 
+    <!-- error reporting -->
     <script src="http://d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js"
             data-apikey="d4a2cff3e58487b1a2a6b8a881d65811">
     </script>
-
     <script>
         var dd = function () {
             return console.log.apply(console, arguments);
@@ -39,10 +32,6 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script src="js/lib/facebook-sdk.js"></script>
-    <script src="js/lib/facebookConnectPlugin.js"></script>
-    <script src="js/lib/paypal-mobile-js-helper.js"></script>
-    <script src="js/lib/aws-sdk-2.1.22.min.js"></script>
 
     <!-- ionic/angularjs js -->
     <script src="lib/jquery/dist/jquery.min.js"></script>
@@ -62,40 +51,6 @@
 
     <!-- app js -->
     <script src="js/app.js"></script>
-    <script src="js/directives.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/constants.js"></script>
-    <script src="js/controllers/AppCtrl.js"></script>
-    <script src="js/controllers/FacebookLoginCtrl.js"></script>
-    <script src="js/controllers/EmailLoginCtrl.js"></script>
-    <script src="js/controllers/OnBoardingCtrl.js"></script>
-    <script src="js/controllers/HomeCtrl.js"></script>
-    <script src="js/controllers/AskQuestionCtrl.js"></script>
-    <script src="js/controllers/GetCreditCtrl.js"></script>
-    <script src="js/controllers/GetCreditCtrlManual.js"></script>
-    <script src="js/controllers/GetPaymentCtrl.js"></script>
-    <script src="js/controllers/ViewQuestionCtrl.js"></script>
-    <script src="js/controllers/FullImageCtrl.js"></script>
-    <script src="js/controllers/ProfileCtrl.js"></script>
-    <script src="js/controllers/UserDetailsCtrl.js"></script>
-    <script src="js/controllers/ImpersonateCtrl.js"></script>
-    <script src="js/controllers/ContactCtrl.js"></script>
-    <script src="js/services/User.js"></script>
-    <script src="js/services/UserDetails.js"></script>
-    <script src="js/services/Post.js"></script>
-    <script src="js/services/Coupon.js"></script>
-    <script src="js/services/Rating.js"></script>
-    <script src="js/services/Payment.js"></script>
-    <script src="js/services/PayPal.js"></script>
-    <script src="js/services/AmazonSNS.js"></script>
-    <script src="js/services/CloudinaryUpload.js"></script>
-    <script src="js/services/HttpInterceptor.js"></script>
-    <script src="js/services/Utils.js"></script>
-    <script src="js/services/Config.js"></script>
-    <script src="js/directives/avatar.js"></script>
-    <script src="js/directives/starIcons.js"></script>
-    <script src="js/directives/facebookLike.js"></script>
-    <script src="js/lib/angular-ios9-uiwebview.patch.js"></script>
+    <script src="js/lib.js"></script>
 </body>
 </html>
