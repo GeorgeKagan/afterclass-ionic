@@ -10,7 +10,7 @@
         <div class="list">
             <label for="aq-subject" class="item item-input item-stacked-label">
                 <span class="input-label"><span class="ion-university calm"></span> {{'POST.CHOOSESUBJECT'|translate}}</span>
-                <select id="aq-subject" ng-options="subject for subject in subjects track by subject" ng-model="subject" ng-change="subjectChanged()">
+                <select id="aq-subject" ng-options="subject for subject in subjects track by subject" ng-model="subject">
                     <option value="">{{'POST.CHOOSE..'|translate}}</option>
                 </select>
             </label>

@@ -2,9 +2,7 @@ angular.module('afterclass.controllers').controller('ImpersonateCtrl', ($rootSco
 
     let ref = MyFirebase.getRef().child('users');
 
-    $firebaseArray(ref).$loaded().then(data => {
-        $scope.users = data;
-    });
+    $firebaseArray(ref).$loaded().then(data => $scope.users = data);
 
     $scope.doImpersonation = user => {
         if (!user.firebaseAuthToken) {

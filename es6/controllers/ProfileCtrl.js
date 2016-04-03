@@ -8,7 +8,7 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
         return;
     }
 
-    var ref = MyFirebase.getRef();
+    let ref = MyFirebase.getRef();
 
     $ionicTabsDelegate.select(0);
 
@@ -44,14 +44,14 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
                     template: $translate.instant('FORM.PW_CHANGED'),
                     okText  : $translate.instant('OK')
                 });
-                console.log("Password changed successfully");
+                console.log('Password changed successfully');
             } else {
                 $ionicPopup.alert({
                     title   : $translate.instant('ERROR'),
                     template: $translate.instant('FORM.BAD_OLD_PW'),
                     okText  : $translate.instant('OK')
                 });
-                console.log("Error changing password:", error);
+                console.log('Error changing password: ', error);
             }
             $ionicLoading.hide();
         });

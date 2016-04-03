@@ -1,5 +1,3 @@
-angular.module('afterclass.controllers').controller('GetCreditCtrl', function ($rootScope, $scope, $state, $ionicHistory, User, AppConfig) {
-
+angular.module('afterclass.controllers').controller('GetCreditCtrl', ($scope, AppConfig) => {
     $scope.config = AppConfig.getConfig().payments;
-
 });

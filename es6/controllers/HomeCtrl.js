@@ -1,14 +1,14 @@
-angular.module('afterclass.controllers').controller('HomeCtrl', function (
-    $rootScope, $scope, $ionicScrollDelegate, $state, $timeout, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) {
+angular.module('afterclass.controllers').controller('HomeCtrl', (
+    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) => {
     'use strict';
 
     // If for some reason student doesn't have grade selected, prompt him to choose
-    if (!$rootScope.user.is_teacher && (!$rootScope.user.institute)) {
+    if (!$rootScope.user.is_teacher && !$rootScope.user.institute) {
         InstitutePopup.show();
     }
 
     // Load all user's questions from firebase
-    var ref = MyFirebase.getRef().child('posts'),
+    let ref = MyFirebase.getRef().child('posts'),
         sync, sync3, posts, posts_tutor_answered,
 		tabs_top_pos = $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 260 : 230;
 
@@ -17,46 +17,34 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
         $scope.posts_tutor_unanswered = $firebaseArray(ref);
-        $scope.ifPotentialTutor = function (post) {
-            if (post.acceptedBy && post.acceptedBy !== $rootScope.user.uid) {
-                return false;
-            }
-            var tutor_ids = [];
+        $scope.ifPotentialTutor = post => {
+            if (post.acceptedBy && post.acceptedBy !== $rootScope.user.uid) { return false; }
+            let tutor_ids = [];
             if (post.potential_tutors) {
-                _.each(post.potential_tutors, function (item, id) {
-                    tutor_ids.push(id);
-                });
+                _.each(post.potential_tutors, (item, id) => tutor_ids.push(id));
             }
             return angular.element.inArray($rootScope.user.uid, tutor_ids) > -1;
         };
         // Answered posts by tutor (last_tutor_id = this tutor's id)
-        sync3                   = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
-        posts_tutor_answered    = $firebaseArray(sync3);
-        posts_tutor_answered.$loaded().then(function () {
-            $scope.posts_tutor_answered = posts_tutor_answered;
-        });
+        sync3                = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
+        posts_tutor_answered = $firebaseArray(sync3);
+        posts_tutor_answered.$loaded().then(() => $scope.posts_tutor_answered = posts_tutor_answered);
     }
     // Student home
     else {
-        sync    = ref.orderByChild('user').equalTo($rootScope.user.uid);
-        posts   = $firebaseArray(sync);
-        posts.$loaded().then(function () {
-            $scope.posts = posts;
-        });
-        $scope.ifUserUnanswered = function (post) {
-            return post.status === 'unanswered' || post.status === 'assigned';
-        };
+        sync  = ref.orderByChild('user').equalTo($rootScope.user.uid);
+        posts = $firebaseArray(sync);
+        posts.$loaded().then(() => $scope.posts = posts);
+        $scope.ifUserUnanswered = post => post.status === 'unanswered' || post.status === 'assigned';
     }
 
-    $scope.viewPost = function (firebase_id) {
-        $state.go('viewPost', {firebase_id: firebase_id});
-    };
+    $scope.viewPost = firebase_id => $state.go('viewPost', {firebase_id});
 
-    $scope.deletePost = function ($event, firebase_id) {
+    $scope.deletePost = ($event, firebase_id) => {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
-        var confirmPopup = $ionicPopup.confirm({
+        let confirmPopup = $ionicPopup.confirm({
             title       : $translate.instant('FORM.DEL_Q'),
             template    : $translate.instant('FORM.SURE'),
             cancelText  : $translate.instant('CANCEL'),
@@ -71,26 +59,22 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         $event.stopPropagation();
     };
 
-    $scope.toggleAcceptance = function (firebase_id) {
+    $scope.toggleAcceptance = firebase_id => {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
         Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
 
-    $scope.getHeaderSize = function() {
-        if (ionic.Platform.isIOS()) {
-            return 64;
-        } else {
-            return 44;
-        }
-    };
+    $scope.getHeaderSize = () => ionic.Platform.isIOS() ? 64 : 44;
 
-    var tabs = angular.element('#ac-tabs-inner > .tabs');
-    $scope.gotScrolled = function () {
-        var scrollDiv = angular.element('#ac-tabs-inner .scroll:visible');
+    let tabs = angular.element('#ac-tabs-inner > .tabs');
+
+    $scope.gotScrolled = () => {
+        let scrollDiv = angular.element('#ac-tabs-inner .scroll:visible');
+        let y         = scrollDiv.offset().top;
+
         if (!scrollDiv.length) { return; }
-        var y = scrollDiv.offset().top;
 
         if (y <= -186) {
             // Tabs sticky on top
@@ -103,7 +87,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', function (
         }
     };
 
-    $scope.scrollToTop = function () {
+    $scope.scrollToTop = () => {
         $ionicScrollDelegate.scrollTop(true);
         angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
         return true;

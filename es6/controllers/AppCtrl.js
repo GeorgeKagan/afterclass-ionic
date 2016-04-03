@@ -1,13 +1,13 @@
-angular.module('afterclass.controllers').controller('AppCtrl', function (
-    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, $translate, MyFirebase, User, InstitutePopup) {
+angular.module('afterclass.controllers').controller('AppCtrl', (
+    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, $translate, MyFirebase, User, InstitutePopup) => {
 
-    $rootScope.env = localStorage.getItem('env');
+    $rootScope.env    = localStorage.getItem('env');
     $rootScope.$state = $state;
 
     // Logout user
-    $scope.logout = function () {
-        var ref = MyFirebase.getRef();
-        facebookConnectPlugin.logout(function() {});
+    $scope.logout = () => {
+        let ref = MyFirebase.getRef();
+        facebookConnectPlugin.logout(angular.noop);
         ref.unauth();
         $ionicHistory.nextViewOptions({disableBack: true});
         $scope.popover.hide();
@@ -15,19 +15,17 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         $state.go('login');
         if (localStorage.getItem('isDevUser') === 'true') {
             localStorage.setItem('isImpersonating', false);
-            window.location.reload(true);
+            $window.location.reload(true);
         }
     };
 
-    $rootScope.$watch('user', function () {
-        if (!$rootScope.user) {
-            return;
-        }
+    $rootScope.$watch('user', () => {
+        if (!$rootScope.user) { return; }
 
         // If user changed language and local storage was cleared
         if ($rootScope.user.ui_lang && !localStorage.getItem(('uiLang'))) {
             localStorage.setItem('uiLang', $rootScope.user.ui_lang);
-            window.location.reload();
+            $window.location.reload(true);
         }
         moment.locale($translate.use());
         $rootScope.uiLang = $translate.use();
@@ -38,12 +36,13 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
             {sref: 'about', text: 'PAGES.ABOUT.MENU'},
             {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
         ];
-        if ($rootScope.user.is_teacher !== undefined && !$rootScope.user.is_teacher) {
+        if (!$rootScope.user.is_teacher) {
             $scope.links.push({sref: 'getCreditManual', text: 'GET_POINTS'});
         }
+
         // Add dev actions
-        var devUsers = [
-                '1591285834446649',  //AfterClass facebook
+        let devUsers = [
+                '1591285834446649',  // AfterClass facebook
                 '1518736295015643',  // Vitaly
                 '10205593403011749', // Gosha
                 '10206625622492055', // Katya
@@ -53,30 +52,33 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 '104530943234576'    // Helen Denth
             ],
             isDevUser = localStorage.getItem('isDevUser') === 'true',
-            env = localStorage.getItem('env');
+            env       = localStorage.getItem('env');
 
         if (!$rootScope.user.id) {
             throw new Error('User has no ID. ' + JSON.stringify($rootScope.user));
         }
-        else if (isDevUser || _.indexOf(devUsers, $rootScope.user.id) > -1 ) {
+        else if (isDevUser || _.indexOf(devUsers, $rootScope.user.id) > -1) {
             localStorage.setItem('isDevUser', true);
             $rootScope.isDevUser = true;
+
             // Switch Firebase env
-            $scope.links.push({onclick: function ($event) {
+            $scope.links.push({onclick: $event => {
                 localStorage.setItem('env', env === 'dev' ? 'prod' : 'dev');
                 $scope.logout();
                 $event.preventDefault();
-                $timeout(function() { window.location.reload(true); }, 1000);
+                $timeout(() => $window.location.reload(true), 1000);
             }, sref: 'dummy', classes: 'red', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
+
             // Delete Firebase user
-            $scope.links.push({onclick: function ($event) {
+            $scope.links.push({onclick: $event => {
                 User.deleteUser();
                 $scope.logout();
                 $event.preventDefault();
-                $timeout(function() { window.location.reload(true); }, 1000);
+                $timeout(() => $window.location.reload(true), 1000);
             }, sref: 'dummy', classes: 'red', text: 'Delete Firebase User'});
+
             // Change Institution
-            $scope.links.push({onclick: function ($event) {
+            $scope.links.push({onclick: $event => {
                 if ($rootScope.user.is_teacher) {
                     $state.go('userDetails_tutorStep1', {isEdit: 1});
                 } else {
@@ -86,8 +88,9 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
                 $scope.hidePopover();
                 $event.preventDefault();
             }, sref: 'dummy', classes: 'red', text: 'Change Institution'});
+
             // Impersonate
-            $scope.links.push({onclick: function ($event) {
+            $scope.links.push({onclick: $event => {
                 $state.go('impersonate');
                 $scope.hidePopover();
                 $event.preventDefault();
@@ -95,13 +98,10 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
         }
     });
 
-    $scope.hidePopover = function() {
-        $scope.popover.hide();
-    };
-
+    $scope.hidePopover = () => $scope.popover.hide();
     $scope.backToHome = () => $window.history.back();
 
-    $scope.myGoBack = function () {
+    $scope.myGoBack = () => {
         let wentBack = $ionicHistory.goBack();
         if (!wentBack) {
             $scope.backToHome();
@@ -111,7 +111,5 @@ angular.module('afterclass.controllers').controller('AppCtrl', function (
     // Header bar popover
     $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {
         scope: $scope
-    }).then(function (popover) {
-        $scope.popover = popover;
-    });
+    }).then(popover => $scope.popover = popover);
 });

@@ -1,23 +1,21 @@
-angular.module('afterclass.controllers').controller('AskQuestionCtrl', function (
-    $rootScope, $scope, $http, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon, Utils) {
+angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
+    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
+    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) => {
 
-    var img         = angular.element('#aq-img');
-    var ref         = MyFirebase.getRef().child('posts');
-    var posts       = $firebaseArray(ref);
-    var add_img_url = null;
+    let img         = angular.element('#aq-img'),
+        ref         = MyFirebase.getRef().child('posts'),
+        posts       = $firebaseArray(ref),
+        add_img_url = null;
 
-    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(function (data) {
-        $scope.subjects = data;
-    });
+    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(data => $scope.subjects = data);
 
-    $scope.body = {val: ''};
+    $scope.body          = {val: ''};
     $scope.hasAttachment = false;
 
     /**
      * Save question to Firebase
      */
-    $scope.addPost = function () {
+    $scope.addPost = () => {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
@@ -29,33 +27,39 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
             });
             return false;
         }
-        var persist_post = function (img_id) {
+
+        /**
+         *
+         * @param img_id
+         */
+        let persistPost = img_id => {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             posts.$add({
-                user                   : $rootScope.user.uid,
-                subject                : angular.element('#aq-subject').val(),
-                body                   : angular.element('#aq-body').val(),
-                img_id                 : img_id || '',
-                status                 : 'unanswered',
-                create_date            : Firebase.ServerValue.TIMESTAMP,
-                update_date            : Firebase.ServerValue.TIMESTAMP,
-                potential_tutors       : null,
-                replies                : '',
-                last_tutor_id          : '',
-                amazon_endpoint_arn    : $rootScope.user.amazon_endpoint_arn ? $rootScope.user.amazon_endpoint_arn : ''
-            }).then(function () {
+                user                : $rootScope.user.uid,
+                subject             : angular.element('#aq-subject').val(),
+                body                : angular.element('#aq-body').val(),
+                img_id              : img_id || '',
+                status              : 'unanswered',
+                create_date         : Firebase.ServerValue.TIMESTAMP,
+                update_date         : Firebase.ServerValue.TIMESTAMP,
+                potential_tutors    : null,
+                replies             : '',
+                last_tutor_id       : '',
+                amazon_endpoint_arn : $rootScope.user.amazon_endpoint_arn ? $rootScope.user.amazon_endpoint_arn : ''
+            }).then(() => {
                 Coupon.deductCredits(1);
-                $timeout(function () {
+                $timeout(() => {
                     add_img_url = null;
-                    $state.go('home').then(function() {
-                        $timeout(function() {
-                            var unanswered = 0;
+                    $state.go('home').then(() => {
+                        $timeout(() => {
+                            let unanswered = 0;
                             $ionicLoading.hide();
                             $ionicTabsDelegate.select(unanswered);
 
                             // Popup with button to like us on Facebook
-                            let popupScope = $rootScope.$new();
+                            let popupScope   = $rootScope.$new();
                             popupScope.close = () => popup.close();
+
                             let popup = $ionicPopup.alert({
                                 title: $translate.instant('FORM.Q_SENT_TITLE'),
                                 template:
@@ -72,7 +76,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                         }, 1000);
                     });
                 }, 1000);
-            }, function (error) {
+            }, error => {
                 $ionicLoading.hide();
                 console.log('Error: ', error);
             });
@@ -80,36 +84,29 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
         if (add_img_url) {
             CloudinaryUpload.uploadImage(add_img_url).then(
                 function (result) {
-                    persist_post(result.public_id);
+                    persistPost(result.public_id);
                 },
                 function (err) {
 
                 }
             );
         } else {
-            persist_post();
+            persistPost();
         }
-    };
-
-    /**
-     * Focus body text area
-     */
-    $scope.subjectChanged = function () {
-        //angular.element('#aq-body')[0].focus();
     };
 
     /**
      * Take picture with camera
      */
-    $scope.takePicture = function () {
+    $scope.takePicture = () => {
         if (!window.cordova) {
             return alert('Only works on a real device!');
         }
-        MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
+        MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(result => {
             add_img_url = result.imageURI;
-            $timeout(function() {
+            $timeout(() => {
                 $scope.hasAttachment = true;
-                img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
+                img.html(`<img src="${result.imageURI}">`).find('img').hide().load(function() {
                     angular.element(this).fadeIn();
                     $ionicScrollDelegate.scrollTop();
                 }).error(() => {
@@ -117,17 +114,17 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                     $scope.removeAttachment();
                 });
             }, 1000);
-        }, function () { });
+        }, () => {});
     };
 
     /**
      * Choose picture from gallery
      */
-    $scope.choosePicture = function () {
+    $scope.choosePicture = () => {
         if (!window.cordova) {
             return alert('Only works on a real device!');
         }
-        MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
+        MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(result => {
             if (!result.is_image) {
                 $scope.removeAttachment();
                 return $ionicPopup.alert({
@@ -137,12 +134,12 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                 });
             }
             add_img_url = result.imageURI;
-            $timeout(function() {
+            $timeout(() => {
                 $scope.hasAttachment = true;
-                img.html('<img src="' + result.imageURI + '">').find('img').hide().load(function() {
+                img.html(`<img src="${result.imageURI}">`).find('img').hide().load(function() {
                     angular.element(this).fadeIn();
                     $ionicScrollDelegate.scrollBottom();
-                }).error(function() {
+                }).error(() => {
                     reportError('Failed to load user image on ask question: ' + result.imageURI);
                     $scope.removeAttachment();
                     $ionicPopup.alert({
@@ -152,15 +149,15 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
                     });
                 });
             }, 1000);
-        }, function () { });
+        }, () => {});
     };
 
     /**
      * Remove picture from question
      */
-    $scope.removeAttachment = function () {
-        add_img_url             = null;
-        $scope.hasAttachment    = false;
+    $scope.removeAttachment = () => {
+        add_img_url          = null;
+        $scope.hasAttachment = false;
         img.html('');
         $ionicScrollDelegate.scrollTop();
     };
@@ -168,15 +165,15 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
     /**
      * Confirm back if body filled
      */
-    $scope.backToHomeConfirm = function () {
+    $scope.backToHomeConfirm = () => {
         if ($scope.body.val.trim() !== '') {
-            var confirmPopup = $ionicPopup.confirm({
+            let confirmPopup = $ionicPopup.confirm({
                 title: $translate.instant('FORM.DATA_FILLED'),
                 template: $translate.instant('FORM.BACK_ANYWAY'),
                 cancelText: $translate.instant('CANCEL'),
                 okText: $translate.instant('OK')
             });
-            confirmPopup.then(function(res) {
+            confirmPopup.then(res => {
                 if (!res) { return; }
                 $window.history.back();
             });

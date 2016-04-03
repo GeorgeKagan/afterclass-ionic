@@ -1,9 +1,9 @@
-angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function (
-    $rootScope, $scope, $http, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
-    $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Utils, Rating) {
+angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
+    $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
+    $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Rating) => {
     'use strict';
 
-    var ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
+    let ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
         post        = ref,
         replies     = $firebaseArray(ref.child('replies')),
         add_img_url = null;
@@ -16,111 +16,92 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
     $scope.showAcceptQuestion   = false;
     $scope.report               = { content: '', customMessage: '' };
 
-    //Init functions
-    $q.all([$scope.post.$loaded(), replies.$loaded()]).then(function(){
+    // Init functions
+    $q.all([$scope.post.$loaded(), replies.$loaded()]).then(() => initRating(replies).then(() => initFooter($scope.post)));
 
-        initRating(replies).then(()=>{
-            initFooter($scope.post);
-        });
-
-    });
-
+    /**
+     *
+     * @param post
+     */
     function initFooter(post) {
-
         $scope.isTutor = $rootScope.user.is_teacher;
 
         if ($scope.isTutor) { 
-
             $scope.showRating = false; //Student only
 
             // Tutor - Show accept button for assigned tutors
-            var acceptingTutors = _.filter(post.potential_tutors, {post_status: 'accepted'});
+            let acceptingTutors = _.filter(post.potential_tutors, {post_status: 'accepted'});
+
             if ($scope.isTutor && post.status === 'assigned' && acceptingTutors.length === 0) {
-                $scope.showReplyForm        = false;
-                $scope.showAcceptQuestion   = true;
+                $scope.showReplyForm      = false;
+                $scope.showAcceptQuestion = true;
             } else {
-                $scope.showReplyForm        = true;
-                $scope.showAcceptQuestion   = false;
+                $scope.showReplyForm      = true;
+                $scope.showAcceptQuestion = false;
             }
         } else {
-
-            $scope.showAcceptQuestion   = false; //Tutor only
-
-            //$scope.allowReply = false;
+            $scope.showAcceptQuestion = false; //Tutor only
 
             if($scope.rating.hasRepliesToRate()) {
-                $scope.showRating = true;
+                $scope.showRating    = true;
                 $scope.showReplyForm = false;
             } else {
-                $scope.showRating = false;
+                $scope.showRating    = false;
                 $scope.showReplyForm = true;
             }
-
         }
-
     }
 
+    /**
+     *
+     * @param replies
+     * @returns {boolean|*}
+     */
     function initRating(replies) {
         $scope.rating = Rating.getInstance(replies);
 
-        if($scope.rating.getRating() === 0) {
+        if ($scope.rating.getRating() === 0) {
             $scope.allowReply = true;
         }
-
         $scope.rateAnswer = function(stars) {
             $scope.rating.rate(stars);
-
-            if(stars <= 3) {
+            if (stars <= 3) {
                 $scope.reportConversation($translate.instant('RATING.RATING_TOO_LOW'));
             }
         };
-
         return $scope.rating.loaded;
     }
 
-    $scope.toggleReply = function() {
-
-        if($scope.showRating) { //Hide rating, show comment
-            $scope.showRating = false;
-            $scope.showReplyForm = true;
-        } else { //Hide comment, show rating
-            $scope.showRating = true;
-            $scope.showReplyForm = false;
-        }
-
-    };
-
+    /**
+     *
+     */
     function imageUpload() {
         $ionicActionSheet.show({
             buttons         : [{text: $translate.instant('CAMERA')}, {text: $translate.instant('DOCUMENTS')}],
             destructiveText : $scope.add_img_preview ? $translate.instant('REMOVE') : '',
             titleText       : $translate.instant('SEL_SOURCE'),
             cancelText      : $translate.instant('CANCEL'),
-            destructiveButtonClicked: function () {
+            destructiveButtonClicked: () => {
                 $scope.add_img_preview  = false;
                 add_img_url             = null;
                 return true;
             },
-            buttonClicked: function (index) {
-
+            buttonClicked: index => {
                 if (!window.cordova) {
                     return alert('Only works on a real device!');
                 }
-
                 if (index === 0) {
                     // Camera
-                    MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(function (result) {
+                    MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(result => {
                         add_img_url = result.imageURI;
                         angular.element('.img-preview')
                             .error(() => reportError('Failed to load user image on view question: ' + result.imageURI))
                             .attr('src', result.imageURI);
                         $scope.add_img_preview = true;
-                    }, function () {
-                        $scope.add_img_preview = false;
-                    });
+                    }, () => $scope.add_img_preview = false);
                 } else {
                     // Gallery
-                    MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
+                    MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(result => {
                         if (!result.is_image) {
                             return $ionicPopup.alert({
                                 title   : $translate.instant('ERROR'),
@@ -133,17 +114,20 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                             .error(() => reportError('Failed to load user image on view question: ' + result.imageURI))
                             .attr('src', result.imageURI);
                         $scope.add_img_preview = true;
-                    }, function () {
-                        $scope.add_img_preview = false;
-                    });
+                    }, () => $scope.add_img_preview = false);
                 }
                 return true;
             }
         });
     }
 
+    /**
+     *
+     * @param callback
+     */
     function showAgreement(callback) {
-        var replyingTutors = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
+        let replyingTutors = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
+
         if (replyingTutors.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
             // Alert the uses regarding the rules
             $ionicPopup.show({
@@ -163,33 +147,47 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 ]
             });
         } else {
-            // Don't alert the user - he replies to him self
+            // Don't alert the user - he replies to himself
             if (typeof callback === 'function') {
                 callback();
             }
         }
     }
 
-    $scope.acceptQuestion = function() {
+    /**
+     *
+     */
+    $scope.toggleReply = () => {
+        if ($scope.showRating) { //Hide rating, show comment
+            $scope.showRating    = false;
+            $scope.showReplyForm = true;
+        } else { //Hide comment, show rating
+            $scope.showRating    = true;
+            $scope.showReplyForm = false;
+        }
+    };
+
+    /**
+     *
+     */
+    $scope.acceptQuestion = () => {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert('Please check that you are connected to the internet');
         }
         Post.toggleAcceptance($stateParams.firebase_id, $rootScope.user.uid);
-        $scope.showReplyForm           = true;
-        $scope.showAcceptQuestion   = false;
+        $scope.showReplyForm      = true;
+        $scope.showAcceptQuestion = false;
     };
 
-    $scope.reportConversation = function(customMessage) {
-
+    /**
+     *
+     * @param customMessage
+     */
+    $scope.reportConversation = customMessage => {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
-
-        if(typeof customMessage !== 'undefined') {
-            $scope.report.customMessage = customMessage;
-        } else {
-            $scope.report.customMessage = '';
-        }
+        $scope.report.customMessage = typeof customMessage !== 'undefined' ? customMessage : '';
 
         $ionicPopup.show({
             templateUrl : 'templates/partials/conversation-report-popup.html',
@@ -201,13 +199,13 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             }, {
                 text: '<span>' + $translate.instant('SEND') + '</span>',
                 type: 'button-positive button-block',
-                onTap: function () {
+                onTap: () => {
                     if (!$scope.report.content.trim()) {
                         return;
                     }
-                    $scope.post.$loaded().then(function () {
-                        var complaints = $firebaseArray(ref.child('complaints'));
-                        complaints.$loaded().then(function(post) {
+                    $scope.post.$loaded().then(() => {
+                        let complaints = $firebaseArray(ref.child('complaints'));
+                        complaints.$loaded().then(post => {
                             complaints.$add({
                                 user                : $rootScope.user.name,
                                 body                : $scope.report.content,
@@ -217,7 +215,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                             });
                             $scope.report.content = '';
                             post.$save();
-                            $timeout(function() {
+                            $timeout(() => {
                                 $ionicPopup.alert({
                                     title   : '',
                                     template: $translate.instant('REPORT_SENT'),
@@ -232,18 +230,16 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
         });
     };
 
-    $scope.addImage = function () {
-        showAgreement(imageUpload);
-    };
+    $scope.addImage = () => showAgreement(imageUpload);
 
-    $scope.showAgreement = function() {
-        showAgreement(function() {
-            //TODO: Find a way to make this work (which will allow the removal of $scope.shouldShowAgreement)
-            $('#commentInput').focus();
-        });
-    };
+    //TODO: Find a way to make this work (which will allow the removal of $scope.shouldShowAgreement)
+    $scope.showAgreement = () => showAgreement(() => angular.element('#commentInput').focus());
 
-    $scope.addReply = function () {
+    /**
+     *
+     * @returns {boolean}
+     */
+    $scope.addReply = () => {
         if (window.cordova && !$cordovaNetwork.isOnline()) {
             return alert($translate.instant('CHECK_INTERNET'));
         }
@@ -257,10 +253,14 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             return false;
         }
 
-        var persist_reply = function (img_id) {
+        /**
+         * 
+         * @param img_id
+         */
+        let persist_reply = img_id => {
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
 
-            var replyData = {
+            let replyData = {
                 user                : $rootScope.user.uid,
                 first_name          : $rootScope.user.first_name,
                 last_name           : $rootScope.user.last_name,
@@ -272,7 +272,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
             };
 
             if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
-                var currPotTutor = $scope.post.potential_tutors[$rootScope.user.$id];
+                let currPotTutor = $scope.post.potential_tutors[$rootScope.user.$id];
                 // Another try, returned field might change on the server
                 if (!currPotTutor) {
                     currPotTutor = $scope.post.potential_tutors[$rootScope.user.id];
@@ -284,16 +284,17 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                 replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
             }
 
-            replies.$add(replyData).then(function () {
+            replies.$add(replyData).then(() => {
                 $ionicLoading.hide();
                 $scope.add_img_preview  = false;
                 $scope.replyBody        = '';
                 add_img_url             = null;
                 $ionicScrollDelegate.scrollBottom(true);
+
                 // Change question's status according to last comment's user type
                 // + update update_date so it would go up in feed
                 // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
-                $scope.post.$loaded().then(function (post) {
+                $scope.post.$loaded().then(post => {
                     post.update_date    = Firebase.ServerValue.TIMESTAMP;
                     post.last_tutor_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
                     // If teacher replied, mark q as answered
@@ -315,23 +316,21 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', function
                     }
                     post.$save();
                 });
-            }, function (error) {
+            }, error => {
                 $ionicLoading.hide();
                 console.log('Error: ', error);
             });
         };
         if (add_img_url) {
-            CloudinaryUpload.uploadImage(add_img_url).then(function (result) { persist_reply(result.public_id); });
+            CloudinaryUpload.uploadImage(add_img_url).then(result => persist_reply(result.public_id));
         } else {
             persist_reply();
         }
     };
 
-    $scope.viewFullImage = function (img_id) {
-        $state.go('fullImage', {img_id: img_id});
-    };
+    $scope.viewFullImage = img_id => $state.go('fullImage', {img_id: img_id});
 
-    $timeout(function() {
+    $timeout(() => {
         if ($state.current.name === 'viewPost') {
             $ionicScrollDelegate.scrollBottom(true);
         }

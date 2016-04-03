@@ -1,13 +1,11 @@
-angular.module('afterclass.controllers').controller('GetPaymentCtrl', function ($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, $translate, $cordovaNetwork, Payment) {
+angular.module('afterclass.controllers').controller('GetPaymentCtrl', ($rootScope, $scope, $timeout, $ionicLoading, $ionicPopup, $translate, $cordovaNetwork, Payment) => {
     if (!$rootScope.user.is_teacher) {
         return false;
     }
 
     $scope.PaymentService = Payment;
 
-    Payment.getPayments().then(function (data) {
-        $scope.payment = data;
-    });
+    Payment.getPayments().then(data => $scope.payment = data);
 
     /* DEBUG FEATURE*/
     //Payment._debugCreatePayment();
