@@ -1,33 +1,31 @@
-angular.module('afterclass.services').factory('TutorDetails', function(User) {
-    var obj = {}, degrees, courses, payload = {};
+angular.module('afterclass.services').factory('TutorDetails', User => {
+    let obj = {}, degrees, courses, payload = {};
 
-    obj.getDegreesBySelectedInstitutes = function (selInstitutes, institutes) {
-        var data = {};
-        angular.forEach(selInstitutes, function (isSelected, institute) {
-            var degrees = [];
+    obj.getDegreesBySelectedInstitutes = (selInstitutes, institutes) => {
+        let data = {};
+        angular.forEach(selInstitutes, (isSelected, institute) => {
+            let degrees = [];
             if (!isSelected) { return; }
-            angular.forEach(institutes[institute], function (degree) {
-                degrees.push(degree);
-            });
+
+            angular.forEach(institutes[institute], degree => degrees.push(degree));
             degrees         = _.uniq(degrees, 'name');
             data[institute] = degrees;
         });
         return data;
     };
 
-    obj.getCoursesBySelectedDegrees = function (selDegrees, degrees) {
-        var data = {};
-        angular.forEach(selDegrees, function (isSelected, selDegree) {
-            var selInstitute = selDegree.split('|||')[0];
+    obj.getCoursesBySelectedDegrees = (selDegrees, degrees) => {
+        let data = {};
+        angular.forEach(selDegrees, (isSelected, selDegree) => {
+            let selInstitute = selDegree.split('|||')[0];
             selDegree = selDegree.split('|||')[1];
             if (!isSelected) { return; }
-            angular.forEach(degrees, function (degreeGroup, instituteName) {
-                var courses = [];
-                angular.forEach(degreeGroup, function (degree) {
+
+            angular.forEach(degrees, (degreeGroup, instituteName) => {
+                let courses = [];
+                angular.forEach(degreeGroup, degree => {
                     if (degree.name === selDegree && instituteName === selInstitute) {
-                        angular.forEach(degree.subjects, function (course) {
-                            courses.push(course);
-                        });
+                        angular.forEach(degree.subjects, course => courses.push(course));
                     }
                 });
                 if (courses.length) {
@@ -38,46 +36,34 @@ angular.module('afterclass.services').factory('TutorDetails', function(User) {
         return data;
     };
 
-    obj.saveSelectedData = function () {
+    obj.saveSelectedData = () => {
         console.log('Save tutor details payload', payload);
         User.updateUser({
-            is_choose_type_finished : true,
-            is_teacher              : true,
-            degree                  : null,
-            institute               : null,
-            target_institutes       : payload.institutes
+            is_choose_type_finished: true,
+            is_teacher             : true,
+            degree                 : null,
+            institute              : null,
+            target_institutes      : payload.institutes
         });
     };
 
-    obj.isChecked = function (entities) {
-        var notChecked = true;
-        angular.forEach(entities, function (isChecked) {
-            if (isChecked) {
-                notChecked = false;
-            }
-        });
+    obj.isChecked = entities => {
+        let notChecked = true;
+        angular.forEach(entities, isChecked => notChecked = isChecked ? false : true);
         return notChecked;
     };
 
-    obj.setDegrees = function (_degrees) {
-        degrees = _degrees;
-    };
+    obj.setDegrees = _degrees => degrees = _degrees;
 
-    obj.getDegrees = function () {
-        return degrees;
-    };
+    obj.getDegrees = () => degrees;
 
-    obj.setCourses = function (_courses) {
-        courses = _courses;
-    };
+    obj.setCourses = _courses => courses = _courses;
 
-    obj.getCourses = function () {
-        return courses;
-    };
+    obj.getCourses = () => courses;
 
-    obj.setPayloadInstitutes = function (institutes) {
-        var hash = {};
-        angular.forEach(_.keys(institutes), function (institute) {
+    obj.setPayloadInstitutes = institutes => {
+        let hash = {};
+        angular.forEach(_.keys(institutes), institute => {
             if (institutes[institute]) {
                 hash[institute] = {};
             }
@@ -85,21 +71,21 @@ angular.module('afterclass.services').factory('TutorDetails', function(User) {
         payload.institutes = hash;
     };
 
-    obj.setPayloadDegrees = function (degrees, dummy3rdLevel = false) {
-        angular.forEach(degrees, function (isSelected, degree) {
+    obj.setPayloadDegrees = (degrees, dummy3rdLevel = false) => {
+        angular.forEach(degrees, (isSelected, degree) => {
             if (!isSelected) { return; }
-            var institute   = degree.split('|||')[0],
+            let institute   = degree.split('|||')[0],
                 degree_name = degree.split('|||')[1];
             if (payload.institutes[institute]) {
-                payload.institutes[institute][degree_name] = dummy3rdLevel ? ["dummy"] : [];
+                payload.institutes[institute][degree_name] = dummy3rdLevel ? ['dummy'] : [];
             }
         });
     };
 
-    obj.setPayloadCourses = function (courses) {
-        angular.forEach(courses, function (isSelected, course) {
+    obj.setPayloadCourses = courses => {
+        angular.forEach(courses, (isSelected, course) => {
             if (!isSelected) { return; }
-            var institute   = course.split('|||')[0],
+            let institute   = course.split('|||')[0],
                 degree      = course.split('|||')[1],
                 course_name = course.split('|||')[2];
             if (payload.institutes[institute] && payload.institutes[institute][degree]) {

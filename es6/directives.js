@@ -1,9 +1,9 @@
 angular.module('afterclass.directives', [])
 
-    .directive('acGeneral', function($translate) {
+    .directive('acGeneral', $translate => {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: () => {
                 if ($translate.preferredLanguage() === 'he') {
                     angular.element('body').addClass('rtl');
                 }
@@ -11,7 +11,7 @@ angular.module('afterclass.directives', [])
         }
     })
 
-    .directive('askQuestionArea', function($rootScope, $translate, $filter, $state, $cordovaNetwork, Payment, Coupon) {
+    .directive('askQuestionArea', ($rootScope, $translate, $state, $cordovaNetwork, Payment, StudentCredit) => {
         return {
             restrict: 'E',
             replace : 'true',
@@ -33,24 +33,20 @@ angular.module('afterclass.directives', [])
                 '</div>' +
             '</div>',
             scope: {},
-            link: function (scope) {
+            link: scope => {
                 if ($rootScope.user.is_teacher) {
                     // Payments will be updated only on app relaunch (state cache)
-                    Payment.getPaymentsSum().then(function (sum) {
-                        scope.teacherTotalPayments = sum;
-                    });
+                    Payment.getPaymentsSum().then(sum => scope.teacherTotalPayments = sum);
                     scope.translationData = {sum: scope.teacherTotalPayments || 0};
-                    scope.icon      = 'ab-icon-currency';
-                    scope.btnText   = 'payment';
-                    scope.btnClick  = function () {
-                        $state.go('getPayment');
-                    };
+                    scope.icon            = 'ab-icon-currency';
+                    scope.btnText         = 'payment';
+                    scope.btnClick        = () => $state.go('getPayment');
                 } else {
-                    scope.$watch('$root.user.credits', function() {
-                        var pointsLeft  = Coupon.getPointsLeft();
+                    scope.$watch('$root.user.credits', () => {
+                        let pointsLeft        = StudentCredit.getCreditBalance();
                         scope.translationData = {count: pointsLeft};
-                        scope.btnText   = pointsLeft > 0 ? 'ask' : 'points';
-                        scope.btnClick  = function () {
+                        scope.btnText         = pointsLeft > 0 ? 'ask' : 'points';
+                        scope.btnClick        = () => {
                             if (window.cordova && !$cordovaNetwork.isOnline()) {
                                 return alert($translate.instant('CHECK_INTERNET'));
                             }
@@ -62,7 +58,7 @@ angular.module('afterclass.directives', [])
         };
     })
 
-    .directive('question', function() {
+    .directive('question', () => {
         return {
             scope: {
                 post            : '=',
@@ -76,11 +72,11 @@ angular.module('afterclass.directives', [])
             restrict    : 'E',
             replace     : 'true',
             templateUrl : 'templates/partials/question.html',
-            controller  : function($rootScope, $scope) {
+            controller  : ($rootScope, $scope) => {
                 $scope.allowReply = true;
 
                 if ($scope.post.status === 'answered') {
-                    var lastActivity = $scope.post.create_date;
+                    let lastActivity = $scope.post.create_date;
 
                     if (Array.isArray($scope.post.replies)) {
                         lastActivity = Math.max($scope.post.replies[$scope.post.replies-1].create_date, lastActivity);
@@ -91,8 +87,8 @@ angular.module('afterclass.directives', [])
                     }
                 }
 
-                $scope.isPostAccepted = function(post) {
-                    var acceptingTutorsForPost = _.filter(post.potential_tutors, {post_status: 'accepted'}),
+                $scope.isPostAccepted = post => {
+                    let acceptingTutorsForPost = _.filter(post.potential_tutors, {post_status: 'accepted'}),
                         acceptingTutors = _.map(acceptingTutorsForPost, 'user_id');
                     // Try another field as it (the user id field) tends to change on the server.
                     if (!acceptingTutors || !acceptingTutors[0]) {
@@ -106,23 +102,21 @@ angular.module('afterclass.directives', [])
                     }
                 };
 
-                $scope.isPostHasTutorThatAccepted = function(post) {
-                    return _.filter(post.potential_tutors, {post_status: 'accepted'}).length;
-                };
+                $scope.isPostHasTutorThatAccepted = post => _.filter(post.potential_tutors, {post_status: 'accepted'}).length;
             },
-            link: function (scope, element, attrs) {
-                scope.is_teacher    = scope.$root.user.is_teacher;
-                scope.header_bg     = attrs.headerBg;
+            link: (scope, element, attrs) => {
+                scope.is_teacher = scope.$root.user.is_teacher;
+                scope.header_bg  = attrs.headerBg;
             }
         };
     })
 
-    .directive('questionTabs', function($rootScope, $ionicTabsDelegate) {
+    .directive('questionTabs', ($rootScope, $ionicTabsDelegate) => {
         return {
             restrict: 'A',
-            link: function() {
-                var is_teacher   = $rootScope.user.is_teacher,
-                    tabs         = {unanswered: 0, answered: 1};
+            link: () => {
+                let is_teacher = $rootScope.user.is_teacher,
+                    tabs       = {unanswered: 0, answered: 1};
                 $ionicTabsDelegate.select(is_teacher ? tabs.unanswered : tabs.answered);
             }
         };

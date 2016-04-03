@@ -1,7 +1,9 @@
-angular.module('afterclass.services').factory('Utils', $http => {
+angular.module('afterclass.services').factory('Utils', () => {
     'use strict';
-    let Utils = {
+    
+    let Utils = {};
 
-    };
+
+
     return Utils;
 });

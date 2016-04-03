@@ -1,9 +1,10 @@
 angular.module('afterclass.services', [])
 
-    .factory('MyFirebase', function () {
-        var env = localStorage.getItem('env'),
+    .factory('MyFirebase', () => {
+        let env = localStorage.getItem('env'),
             obj = {},
             ref = null;
+
         if (env && env === 'dev') {
             ref = new Firebase('https://spankin-butts.firebaseio.com/');
             console.info('Firebase env: DEV');
@@ -11,17 +12,15 @@ angular.module('afterclass.services', [])
             ref = new Firebase('https://torrid-torch-3186.firebaseio.com/');
             console.warn('Firebase env: PROD');
         }
-        obj.getRef = function () {
-            return ref;
-        };
+        obj.getRef = () => ref;
         return obj;
     })
 
-    .factory('MyCamera', function($q, $window) {
+    .factory('MyCamera', ($q, $window) => {
         'use strict';
         return {
-            getPicture: function(options) {
-                var q = $q.defer();
+            getPicture: options => {
+                let q = $q.defer();
                 options = angular.element.extend({
                     quality             : 90,
                     destinationType     : Camera.DestinationType.FILE_URI,
@@ -31,28 +30,25 @@ angular.module('afterclass.services', [])
                     targetWidth         : 2000,
                     targetHeight        : 2000
                 }, options);
-                navigator.camera.getPicture(function(result) {
-                    $window.resolveLocalFileSystemURL(result, function (fileEntry) {
-                        fileEntry.file(function (fileObj) {
+
+                navigator.camera.getPicture(result => {
+                    $window.resolveLocalFileSystemURL(result, fileEntry => {
+                        fileEntry.file(fileObj => {
                             // On some versions, gallery attachment url is bad, so let's fix it!
                             if (result.substring(0, 21) === 'content://com.android') {
-                                var photo_split = result.split('%3A');
+                                let photo_split = result.split('%3A');
                                 result = 'content://media/external/images/media/' + photo_split[1];
                             }
-                            var fileType = result.substring(result.lastIndexOf('.') + 1);
-                            var is_image = true;
+                            let fileType = result.substring(result.lastIndexOf('.') + 1);
+                            let is_image = true;
+
                             if (fileType != 'png' && fileType != 'jpg' && fileType != 'gif' && fileType != 'bmp') {
                                 is_image = angular.element.inArray(fileObj.type, ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']) > -1;
                             }
-                            q.resolve({
-                                imageURI: result,
-                                is_image: is_image
-                            });
+                            q.resolve({imageURI: result, is_image});
                         });
-                    }, function(error) {
-                        reportError('Failed resolveLocalFileSystemURL: ' + error);
-                    });
-                }, function(err) {
+                    }, error => reportError('Failed resolveLocalFileSystemURL: ' + error));
+                }, err => {
                     reportError('Failed camera.getPicture: ' + err);
                     q.reject(err);
                 }, options);
@@ -61,16 +57,16 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('InstitutePopup', function($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User, AppConfig) {
+    .factory('InstitutePopup', ($rootScope, $http, $timeout, $ionicPopup, $translate, $ionicLoading, User, AppConfig) => {
         'use strict';
-        var showPopup = function() {
-            var scope = $rootScope.$new();
+        let showPopup = () => {
+            let scope = $rootScope.$new();
             AppConfig.loadConfig().then(() => {
-                let grades              = AppConfig.getConfig().grades;
-                scope.hash              = {selInstitute: 0};
-                scope.institutes        = grades;
-                scope.selectInstitute   = function() {};
-                $timeout(function() {
+                let grades            = AppConfig.getConfig().grades;
+                scope.hash            = {selInstitute: 0};
+                scope.institutes      = grades;
+                scope.selectInstitute = () => {};
+                $timeout(() => {
                     $ionicPopup.show({
                         templateUrl : 'templates/partials/institute-popup.html',
                         scope       : scope,
@@ -78,17 +74,16 @@ angular.module('afterclass.services', [])
                         buttons     : [{
                             text: '<span>' + $translate.instant('SAVE') + '</span>',
                             type: 'button-positive',
-                            onTap: function (e) {
-                                var institute = angular.element('#popup-institute :selected').attr('label');
+                            onTap: e => {
+                                let institute = angular.element('#popup-institute :selected').attr('label');
                                 if (institute !== undefined) {
-                                    User.updateUser({institute: institute});
+                                    User.updateUser({institute});
                                 } else {
                                     angular.element('#pi-err').show();
                                     e.preventDefault();
                                 }
                             }
-                        }
-                        ]
+                        }]
                     });
                     $timeout(() => {
                         // If already got data (edit mode), auto-fill the selects
@@ -107,12 +102,11 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('Institutes', function($q, $rootScope, $http, $translate, AppConfig) {
-        var obj = {};
-        obj.getSubjectsByInstituteAndDegree = function (institute) {
+    .factory('Institutes', ($q, $rootScope, $http, $translate, AppConfig) => {
+        let obj = {};
+        obj.getSubjectsByInstituteAndDegree = institute => {
             if (!institute) {
-                console.error('Ask question: no institute in user data!');
-                return;
+                return console.error('Ask question: no institute in user data!');
             }
             return AppConfig.loadConfig().then(() => {
                 let subjects = angular.copy(AppConfig.getConfig().subjects);

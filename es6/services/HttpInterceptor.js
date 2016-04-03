@@ -1,9 +1,9 @@
-angular.module('afterclass.services').factory('HttpInterceptor', function() {
+angular.module('afterclass.services').factory('HttpInterceptor', () => {
     return {
-        request: function(config) {
+        request: config => {
             return config;
         },
-        response: function(response) {
+        response: response => {
             return response;
         }
     };

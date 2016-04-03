@@ -1,23 +1,20 @@
-/**
- * Payments for teachers
- */
-angular.module('afterclass.services').factory('PayPal', function ($q, $ionicPlatform, $filter, $timeout) {
-    var init_defer;
+angular.module('afterclass.services').factory('PayPal', ($q, $ionicPlatform, $filter, $timeout) => {
+    let q;
 
     /**
      * Initializes the paypal ui with certain environments.
      * @returns {object} Promise paypal ui init done
      */
     function initPaymentUI() {
-        init_defer = $q.defer();
-        $ionicPlatform.ready().then(function () {
-            var clientIDs = {
-                PayPalEnvironmentProduction : 'AUU7N18uMHDSO7h2q9Zo9YydU1R2QD_YK80Liy6pnyioZSHGTUpq4i2fYuL9emdZ9mblcjFRkEE6wbCi',
-                PayPalEnvironmentSandbox    : 'AYL2z2pUvjGMhgBqGm3dHMpsLWvNwYnF6lO61xkNZwLuoZVV9JwlL9QzMPMfXDX7NGbnl1pbJ_9rQf6I'
+        q = $q.defer();
+        $ionicPlatform.ready().then(() => {
+            let clientIDs = {
+                PayPalEnvironmentProduction: 'AUU7N18uMHDSO7h2q9Zo9YydU1R2QD_YK80Liy6pnyioZSHGTUpq4i2fYuL9emdZ9mblcjFRkEE6wbCi',
+                PayPalEnvironmentSandbox   : 'AYL2z2pUvjGMhgBqGm3dHMpsLWvNwYnF6lO61xkNZwLuoZVV9JwlL9QzMPMfXDX7NGbnl1pbJ_9rQf6I'
             };
             PayPalMobile.init(clientIDs, onPayPalMobileInit);
         });
-        return init_defer.promise;
+        return q.promise;
     }
 
     /**
@@ -27,7 +24,7 @@ angular.module('afterclass.services').factory('PayPal', function ($q, $ionicPlat
      * @returns {object} PayPalPaymentObject
      */
     function createPayment(total, name) {
-        return new PayPalPayment('' + total, 'USD', '' + name, 'Sale', {});
+        return new PayPalPayment(`${total}`, 'USD', `${name}`, 'Sale', {});
     }
 
     /**
@@ -43,16 +40,18 @@ angular.module('afterclass.services').factory('PayPal', function ($q, $ionicPlat
         });
     }
 
+    /**
+     *
+     */
     function onPayPalMobileInit() {
-        $ionicPlatform.ready().then(function () {
+        $ionicPlatform.ready().then(() => {
             // must be called
             // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
-            var env_app = localStorage.getItem('env');
-            var env = env_app && env_app === 'dev' ? 'PayPalEnvironmentSandbox' : 'PayPalEnvironmentProduction';
-            PayPalMobile.prepareToRender(env, configuration(), function () {
-                $timeout(function () {
-                    init_defer.resolve();
-                });
+            let env_app = localStorage.getItem('env'),
+                env = env_app && env_app === 'dev' ? 'PayPalEnvironmentSandbox' : 'PayPalEnvironmentProduction';
+
+            PayPalMobile.prepareToRender(env, configuration(), () => {
+                $timeout(() => q.resolve());
             });
         });
     }
@@ -64,27 +63,23 @@ angular.module('afterclass.services').factory('PayPal', function ($q, $ionicPlat
      * @returns {object} Promise gets resolved on successful payment, rejected on error
      */
     function makePayment(total, name) {
-        var defer = $q.defer();
+        let q = $q.defer();
+
         total = $filter('number')(total, 2);
-        $ionicPlatform.ready().then(function () {
-            PayPalMobile.renderSinglePaymentUI(createPayment(total, name), function (result) {
-                $timeout(function () {
-                    defer.resolve(result);
-                });
-            }, function (error) {
-                $timeout(function () {
-                    defer.reject(error);
-                });
-            });
+        $ionicPlatform.ready().then(() => {
+            PayPalMobile.renderSinglePaymentUI(createPayment(total, name), result => {
+                $timeout(() => q.resolve(result));
+            }, error => $timeout(() => q.reject(error)));
         });
-        return defer.promise;
+
+        return q.promise;
     }
 
     return {
-        initPaymentUI       : initPaymentUI,
-        createPayment       : createPayment,
-        configuration       : configuration,
-        onPayPalMobileInit  : onPayPalMobileInit,
-        makePayment         : makePayment
+        initPaymentUI     : initPaymentUI,
+        createPayment     : createPayment,
+        configuration     : configuration,
+        onPayPalMobileInit: onPayPalMobileInit,
+        makePayment       : makePayment
     };
 });

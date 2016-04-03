@@ -1,20 +1,30 @@
-angular.module('afterclass.services').factory('Post', function ($firebaseObject, $firebaseArray, $state, MyFirebase) {
-    var obj = {};
+angular.module('afterclass.services').factory('Post', ($firebaseObject, $firebaseArray, $state, MyFirebase) => {
+    let obj = {};
 
-    obj.delete = function (firebase_id) {
-        var ref     = MyFirebase.getRef().child('posts/' + firebase_id),
-            post    = $firebaseObject(ref);
+    /**
+     *
+     * @param firebase_id
+     * @returns {*|a}
+     */
+    obj.delete = firebase_id => {
+        let ref  = MyFirebase.getRef().child('posts/' + firebase_id),
+            post = $firebaseObject(ref);
         return post.$remove();
     };
 
-    obj.toggleAcceptance = function (firebase_id, user_id) {
-        var ref                 = MyFirebase.getRef().child('posts/' + firebase_id),
-            acceptedByField     = ref.child('acceptedBy'),
-            post                = $firebaseObject(ref),
-            potential_tutors    = $firebaseArray(ref.child('potential_tutors'));
+    /**
+     *
+     * @param firebase_id
+     * @param user_id
+     */
+    obj.toggleAcceptance = (firebase_id, user_id) => {
+        let ref              = MyFirebase.getRef().child('posts/' + firebase_id),
+            acceptedByField  = ref.child('acceptedBy'),
+            post             = $firebaseObject(ref),
+            potential_tutors = $firebaseArray(ref.child('potential_tutors'));
 
-        potential_tutors.$loaded().then(function (potentialTutors) {
-            var currentTutorIndex = _.findIndex(potentialTutors, {user_id: user_id});
+        potential_tutors.$loaded().then(potentialTutors => {
+            let currentTutorIndex = _.findIndex(potentialTutors, {user_id: user_id});
             // Another try, returned field might change on the server
             if (currentTutorIndex === -1) {
                 currentTutorIndex = _.findIndex(potentialTutors, {$id: user_id});

@@ -1,10 +1,9 @@
-angular.module('afterclass.controllers', ['ui.router']);
+angular.module('afterclass', [
+    'ionic', 'afterclass.constants', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
+    'ui.router', 'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
-angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
-    'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
-
-    .run(function ($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) {
-        $ionicPlatform.ready(function () {
+    .run(($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) => {
+        $ionicPlatform.ready(() => {
             if (window.cordova) {
                 // Check online status
                 if (!$cordovaNetwork.isOnline()) {
@@ -28,11 +27,11 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
         });
     })
 
-    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) {
-        var appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : '';
+    .config(($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) => {
+        let appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : '';
 
         if (!window.cordova) {
-            $cordovaFacebookProvider.browserInit(776966842380887, "v2.5");
+            $cordovaFacebookProvider.browserInit(776966842380887, 'v2.5');
         }
 
         $httpProvider.interceptors.push('HttpInterceptor');
@@ -58,18 +57,18 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
         $stateProvider
             .state('login', {
                 cache: false,
-                url: "/login",
-                templateUrl: "templates/login.html",
+                url: '/login',
+                templateUrl: 'templates/login.html',
                 controller: 'FacebookLoginCtrl'
             })
             .state('registerOrLogin', {
-                url: "/registerOrLogin",
-                templateUrl: "templates/register-or-login.html",
+                url: '/registerOrLogin',
+                templateUrl: 'templates/register-or-login.html',
                 controller: 'EmailLoginCtrl'
             })
             .state('onBoarding', {
-                url: "/onBoarding",
-                templateUrl: "templates/on-boarding.html",
+                url: '/onBoarding',
+                templateUrl: 'templates/on-boarding.html',
                 controller: 'OnBoardingCtrl'
             })
             // User details wizard
@@ -77,14 +76,14 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
                 url: '/chooseType',
                 templateUrl: 'templates/userDetails/choose-type.html',
                 controller: 'UserDetailsChooseTypeCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('userDetails_tutorStep1', {
                 cache: false,
                 url: '/tutorStep1/:isEdit',
                 templateUrl: 'templates/userDetails/tutor-step1.html',
                 controller: 'UserDetailsTutorStep1Ctrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } },
+                resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
             .state('userDetails_tutorStep2', {
@@ -92,7 +91,7 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
                 url: '/tutorStep2/:isEdit',
                 templateUrl: 'templates/userDetails/tutor-step2.html',
                 controller: 'UserDetailsTutorStep2Ctrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } },
+                resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
             .state('userDetails_tutorStep3', {
@@ -100,61 +99,55 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
                 url: '/tutorStep3/:isEdit',
                 templateUrl: 'templates/userDetails/tutor-step3.html',
                 controller: 'UserDetailsTutorStep3Ctrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } },
+                resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
             // end User details wizard
             .state('home', {
-                url: "/home",
-                templateUrl: "templates/home.html",
+                url: '/home',
+                templateUrl: 'templates/home.html',
                 controller: 'HomeCtrl',
                 cache: false,
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('askQuestion', {
-                url: "/askQuestion",
-                templateUrl: "templates/ask-question.html",
+                url: '/askQuestion',
+                templateUrl: 'templates/ask-question.html',
                 controller: 'AskQuestionCtrl',
                 cache: false,
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
-            /*.state('getCredit', { //Disabled in favor of the new "manual" credit page
-                url: "/getCredit",
-                templateUrl: "templates/get-credit.html",
-                controller: 'GetCreditCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
-            })*/
             .state('getCreditManual', {
-                url: "/getCreditManual",
-                templateUrl: "templates/get-credit-manual.html",
+                url: '/getCreditManual',
+                templateUrl: 'templates/get-credit-manual.html',
                 controller: 'GetCreditCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('getPayment', {
-                url: "/getPayment",
-                templateUrl: "templates/get-payment.html",
+                url: '/getPayment',
+                templateUrl: 'templates/get-payment.html',
                 controller: 'GetPaymentCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('viewPost', {
-                url: "/viewPost/:firebase_id",
-                templateUrl: "templates/view-question.html",
+                url: '/viewPost/:firebase_id',
+                templateUrl: 'templates/view-question.html',
                 controller: 'ViewQuestionCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('fullImage', {
-                url: "/fullImage/:img_id",
-                templateUrl: "templates/full-image.html",
+                url: '/fullImage/:img_id',
+                templateUrl: 'templates/full-image.html',
                 controller: 'FullImageCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('profile', {
-                url: "/profile/:firebase_user_id",
-                templateUrl: "templates/profile.html",
-                controller: "ProfileCtrl",
+                url: '/profile/:firebase_user_id',
+                templateUrl: 'templates/profile.html',
+                controller: 'ProfileCtrl',
                 resolve: {
-                    user: function(User) { return User.getFromUsersCollection() },
-                    otherUser: function($stateParams, User) {
+                    user: User => User.getFromUsersCollection(),
+                    otherUser: ($stateParams, User) => {
                         if ($stateParams.firebase_user_id) {
                             return User.getFromUsersCollectionById($stateParams.firebase_user_id);
                         }
@@ -164,21 +157,21 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
                 params: { firebase_user_id: null }
             })
             .state('about', {
-                url: "/about",
-                templateUrl: "templates/about.html",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                url: '/about',
+                templateUrl: 'templates/about.html',
+                resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('contact', {
-                url: "/contact",
-                controller: "ContactCtrl",
-                templateUrl: "templates/contact.html",
-                resolve: { user: function(User) { return User.getFromUsersCollection(); }, appConfig: function(AppConfig) { return AppConfig.loadConfig(); } }
+                url: '/contact',
+                controller: 'ContactCtrl',
+                templateUrl: 'templates/contact.html',
+                resolve: { user: User => User.getFromUsersCollection(), appConfig: AppConfig => AppConfig.loadConfig() }
             })
             .state('impersonate', {
-                url: "/impersonate",
-                templateUrl: "templates/impersonate.html",
+                url: '/impersonate',
+                templateUrl: 'templates/impersonate.html',
                 controller: 'ImpersonateCtrl',
-                resolve: { user: function(User) { return User.getFromUsersCollection(); } }
+                resolve: { user: User => User.getFromUsersCollection() }
             })
         ;
 
@@ -186,9 +179,9 @@ angular.module('afterclass', ['ionic', 'afterclass.constants', 'afterclass.contr
         $urlRouterProvider.otherwise('/login');
     })
 
-    .factory('$exceptionHandler', function ($log) {
+    .factory('$exceptionHandler', $log => {
         let env = localStorage.getItem('env');
-        return function (exception, cause) {
+        return (exception, cause) => {
             $log.error('Exception: ' , exception);
             $log.error('Cause: ', cause);
             if (env !== 'dev') {

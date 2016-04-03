@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
     $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Coupon) => {
+    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, StudentCredit) => {
 
     let img         = angular.element('#aq-img'),
         ref         = MyFirebase.getRef().child('posts'),
@@ -47,7 +47,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
                 last_tutor_id       : '',
                 amazon_endpoint_arn : $rootScope.user.amazon_endpoint_arn ? $rootScope.user.amazon_endpoint_arn : ''
             }).then(() => {
-                Coupon.deductCredits(1);
+                StudentCredit.deductCredits(1);
                 $timeout(() => {
                     add_img_url = null;
                     $state.go('home').then(() => {

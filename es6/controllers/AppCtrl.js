@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('AppCtrl', (
+angular.module('afterclass.controllers', []).controller('AppCtrl', (
     $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, $translate, MyFirebase, User, InstitutePopup) => {
 
     $rootScope.env    = localStorage.getItem('env');
