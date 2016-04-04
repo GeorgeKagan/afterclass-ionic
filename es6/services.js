@@ -109,11 +109,7 @@ angular.module('afterclass.services', [])
                 return console.error('Ask question: no institute in user data!');
             }
             return AppConfig.loadConfig().then(() => {
-                let subjects = angular.copy(AppConfig.getConfig().subjects);
-                if (_.indexOf(subjects, $translate.instant('OTHER')) === -1) {
-                    subjects.push($translate.instant('OTHER'));
-                }
-                return subjects;
+                return angular.copy(AppConfig.getConfig().subjects);
             });
         };
         return obj;
