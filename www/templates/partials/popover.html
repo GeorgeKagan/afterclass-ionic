@@ -1,16 +1,26 @@
-<ion-popover-view ng-class="'popover-' + (links.length + 2) + '-items'">
+<ion-popover-view ng-class="$root.getPopoverHeight()">
     <ion-content has-bouncing="false" scroll="false">
         <div class="list">
             <span class="item">
                 {{'HI'|translate}}, {{user.name}}
             </span>
-            <a class="item {{link.classes}}" ng-repeat="link in links" ui-sref="{{link.sref}}"
-               ng-click="link.onclick ? link.onclick($event) : hidePopover()">
-                {{link.text|translate}}
-            </a>
+
+            <a class="item" ui-sref="profile" ng-click="popover.hide()">{{'PAGES.PROFILE.MENU'|translate}}</a>
+            <a class="item" ui-sref="about" ng-click="popover.hide()">{{'PAGES.ABOUT.MENU'|translate}}</a>
+            <a class="item" ui-sref="contact" ng-click="popover.hide()">{{'PAGES.CONTACT.MENU'|translate}}</a>
+            <a class="item" ui-sref="getCreditManual" ng-click="popover.hide()" ng-if="$root.user.is_teacher===false">{{'GET_POINTS'|translate}}</a>
+
+            <!-- Dev actions -->
+            <a class="item red" ng-click="switchFirebaseEnv($event)" ng-if="$root.isDevUser">Switch to Firebase {{$root.env === 'dev' ? 'PROD' : 'DEV'}}</a>
+            <a class="item red" ng-click="deleteFirebaseUser($event)" ng-if="$root.isDevUser">Delete Firebase User</a>
+            <a class="item red" ng-click="changeInstitution($event)" ng-if="$root.isDevUser">Change Institution</a>
+            <a class="item red" ng-click="impersonateUser($event)" ng-if="$root.isDevUser">Impersonate</a>
+
             <a class="item" ng-click="logout()">
                 {{'LOGOUT'|translate}}
             </a>
         </div>
     </ion-content>
 </ion-popover-view>
+
+

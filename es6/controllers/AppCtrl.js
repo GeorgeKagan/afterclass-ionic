@@ -30,16 +30,6 @@ angular.module('afterclass.controllers', []).controller('AppCtrl', (
         moment.locale($translate.use());
         $rootScope.uiLang = $translate.use();
 
-        // Popover side menu
-        $scope.links = [
-            {sref: 'profile', text: 'PAGES.PROFILE.MENU'},
-            {sref: 'about', text: 'PAGES.ABOUT.MENU'},
-            {sref: 'contact', text: 'PAGES.CONTACT.MENU'}
-        ];
-        if (!$rootScope.user.is_teacher) {
-            $scope.links.push({sref: 'getCreditManual', text: 'GET_POINTS'});
-        }
-
         // Add dev actions
         let devUsers = [
                 '1591285834446649',  // AfterClass facebook
@@ -62,23 +52,23 @@ angular.module('afterclass.controllers', []).controller('AppCtrl', (
             $rootScope.isDevUser = true;
 
             // Switch Firebase env
-            $scope.links.push({onclick: $event => {
+            $rootScope.switchFirebaseEnv = $event => {
                 localStorage.setItem('env', env === 'dev' ? 'prod' : 'dev');
                 $scope.logout();
                 $event.preventDefault();
                 $timeout(() => $window.location.reload(true), 1000);
-            }, sref: 'dummy', classes: 'red', text: 'Switch to Firebase ' + (env === 'dev' ? 'PROD' : 'DEV')});
+            };
 
             // Delete Firebase user
-            $scope.links.push({onclick: $event => {
+            $rootScope.deleteFirebaseUser = $event => {
                 User.deleteUser();
                 $scope.logout();
                 $event.preventDefault();
                 $timeout(() => $window.location.reload(true), 1000);
-            }, sref: 'dummy', classes: 'red', text: 'Delete Firebase User'});
+            };
 
             // Change Institution
-            $scope.links.push({onclick: $event => {
+            $rootScope.changeInstitution = $event => {
                 if ($rootScope.user.is_teacher) {
                     $state.go('userDetails_tutorStep1', {isEdit: 1});
                 } else {
@@ -87,18 +77,19 @@ angular.module('afterclass.controllers', []).controller('AppCtrl', (
                 }
                 $scope.hidePopover();
                 $event.preventDefault();
-            }, sref: 'dummy', classes: 'red', text: 'Change Institution'});
+            };
 
             // Impersonate
-            $scope.links.push({onclick: $event => {
+            $rootScope.impersonateUser = $event => {
                 $state.go('impersonate');
                 $scope.hidePopover();
                 $event.preventDefault();
-            }, sref: 'dummy', classes: 'red', text: 'Impersonate'});
+            };
         }
     });
 
-    $scope.hidePopover = () => $scope.popover.hide();
+    // In app back btn
+
     $scope.backToHome = () => $window.history.back();
 
     $scope.myGoBack = () => {
@@ -109,7 +100,15 @@ angular.module('afterclass.controllers', []).controller('AppCtrl', (
     };
 
     // Header bar popover
+
     $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {
         scope: $scope
     }).then(popover => $scope.popover = popover);
+
+    $rootScope.hidePopover = () => $scope.popover.hide();
+
+    $rootScope.getPopoverHeight = () => {
+        let itemCount = angular.element('ion-popover-view .list a').length + 1;
+        return `popover-${itemCount}-items`;
+    };
 });
