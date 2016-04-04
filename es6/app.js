@@ -2,7 +2,7 @@ angular.module('afterclass', [
     'ionic', 'afterclass.constants', 'afterclass.controllers', 'afterclass.directives', 'afterclass.services', 'afterclass.filters',
     'ui.router', 'ngAnimate', 'firebase', 'ngCordova', 'monospaced.elastic', 'pascalprecht.translate', 'ionicLazyLoad', 'ngIOS9UIWebViewPatch'])
 
-    .run(($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion) => {
+    .run(($rootScope, $ionicPlatform, $cordovaNetwork, $cordovaAppVersion, Device) => {
         $ionicPlatform.ready(() => {
             if (window.cordova) {
                 // Check online status
@@ -25,6 +25,7 @@ angular.module('afterclass', [
                 StatusBar.styleDefault();
             }
         });
+        Device.confirmOnExitApp();
     })
 
     .config(($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) => {
