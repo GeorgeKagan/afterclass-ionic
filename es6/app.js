@@ -29,7 +29,7 @@ angular.module('afterclass', [
     })
 
     .config(($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) => {
-        let appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : '';
+        let appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : 'he'; // remove 'he' to make it detect device lang automatically
 
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, 'v2.5');
