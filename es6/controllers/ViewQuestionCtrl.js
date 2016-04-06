@@ -262,8 +262,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
 
             let replyData = {
                 user                : $rootScope.user.uid,
-                first_name          : $rootScope.user.first_name,
-                last_name           : $rootScope.user.last_name,
+                first_name          : $rootScope.user.first_name || $rootScope.user.first_name,
+                last_name           : $rootScope.user.last_name || '',
                 body                : $scope.replyBody,
                 img_id              : img_id || '',
                 create_date         : Firebase.ServerValue.TIMESTAMP,
