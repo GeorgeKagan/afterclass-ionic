@@ -120,7 +120,7 @@
         "TUTOR_REPLIED": "A teacher answered your question"
     },
     "UPLOADS": {
-        "PROGRESS": "Uploading...",
+        "PROGRESS": "Uploading... ",
         "COMPLETE": "Upload complete",
         "FAIL": "Upload failed"
     },

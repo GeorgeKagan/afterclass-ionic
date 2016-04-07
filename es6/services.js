@@ -77,7 +77,7 @@ angular.module('afterclass.services', [])
                             type: 'button-positive',
                             onTap: e => {
                                 let institute = angular.element('#popup-institute :selected').val();
-                                if (institute !== undefined) {
+                                if (institute) {
                                     User.updateUser({institute});
                                 } else {
                                     angular.element('#pi-err').show();

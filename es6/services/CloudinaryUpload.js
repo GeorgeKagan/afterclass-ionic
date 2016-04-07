@@ -29,13 +29,13 @@ angular.module('afterclass.services').factory('CloudinaryUpload', ($q, $ionicLoa
             $cordovaFileTransfer
                 .upload(cloudinary_url, imageURI, uploadOptions)
                 .then(result => {
-                    $ionicLoading.show({template: $translate.instant('UPLOADS.COMPLETE'), duration: 1000});
                     // FYI: The result will also have URLs for any new images generated with eager transformations
                     let response = JSON.parse(decodeURIComponent(result.response));
+                    $ionicLoading.hide();
                     q.resolve(response);
                 }, err => {
                     reportError('Failed to upload image to cloudinary: ' + err);
-                    $ionicLoading.show({template: $translate.instant('UPLOADS.FAIL'), duration: 3000});
+                    $ionicLoading.hide();
                     q.reject(err);
                 }, progress => {
                     percentage = Math.min(Math.floor(progress.loaded / fileSize * 100), 100);

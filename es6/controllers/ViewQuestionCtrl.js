@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
-    $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicLoading, $ionicActionSheet,
+    $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicActionSheet,
     $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Rating) => {
     'use strict';
 
@@ -258,8 +258,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
          * @param img_id
          */
         let persist_reply = img_id => {
-            $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-
             let replyData = {
                 user                : $rootScope.user.uid,
                 first_name          : $rootScope.user.first_name || $rootScope.user.first_name,
@@ -285,7 +283,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
             }
 
             replies.$add(replyData).then(() => {
-                $ionicLoading.hide();
                 $scope.add_img_preview  = false;
                 $scope.replyBody        = '';
                 add_img_url             = null;
@@ -317,7 +314,6 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                     post.$save();
                 });
             }, error => {
-                $ionicLoading.hide();
                 console.log('Error: ', error);
             });
         };
