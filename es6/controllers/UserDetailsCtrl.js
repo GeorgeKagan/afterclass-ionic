@@ -35,14 +35,27 @@ angular.module('afterclass.controllers').
 
         AppConfig.loadConfig().then(() => {
             $scope.institutes = angular.copy(AppConfig.getConfig().gradesSubjects);
+            $scope.updateAllSelectedBtn();
         });
+
+        // Select All
+        $scope.choice = {allSelected: false};
+        $scope.$watch('selInstitutes', () => $scope.updateAllSelectedBtn(), true);
+        $scope.selectAll = () => {
+            Object.keys($scope.institutes).forEach(inst => $scope.selInstitutes[inst] = $scope.choice.allSelected);
+        };
+        $scope.updateAllSelectedBtn = () => {
+            $scope.choice.allSelected = Object.keys($scope.institutes).length === _.filter($scope.selInstitutes).length;
+        };
+
         $scope.submitTutorStep1 = () => {
             let degrees = TutorDetails.getDegreesBySelectedInstitutes($scope.selInstitutes, $scope.institutes);
             TutorDetails.setPayloadInstitutes($scope.selInstitutes);
             TutorDetails.setDegrees(degrees);
             $state.go('userDetails_tutorStep2', {isEdit: $state.params.isEdit});
         };
-        $scope.isChecked = entities => TutorDetails.isChecked(entities);
+
+        $scope.canSubmit = () => _.filter($scope.selInstitutes).length > 0;
     }).
 
     controller('UserDetailsTutorStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TutorDetails) => {
@@ -60,6 +73,24 @@ angular.module('afterclass.controllers').
             });
         }
 
+        // Select All
+        $scope.choice = {allSelected: false};
+        $scope.$watch('selDegrees', () => {
+            $scope.updateAllSelectedBtn();
+        }, true);
+        $scope.selectAll = () => {
+            Object.keys($scope.degrees).forEach(grade => {
+                $scope.degrees[grade].forEach(subject => {
+                    $scope.selDegrees[grade + '|||' + subject.name] = $scope.choice.allSelected
+                });
+            });
+        };
+        $scope.updateAllSelectedBtn = () => {
+            let count = 0;
+            Object.keys($scope.degrees).forEach(item => count += $scope.degrees[item].length);
+            $scope.choice.allSelected = count === _.filter($scope.selDegrees).length;
+        };
+
         $scope.submitTutorStep2 = () => {
             let courses = TutorDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
             TutorDetails.setPayloadDegrees($scope.selDegrees);
@@ -72,7 +103,7 @@ angular.module('afterclass.controllers').
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
         };
-        $scope.isChecked = entities => TutorDetails.isChecked(entities);
+        $scope.canSubmit = () => _.filter($scope.selDegrees).length > 0;
     }).
 
     controller('UserDetailsTutorStep3Ctrl', ($rootScope, $scope, $state, $ionicHistory, TutorDetails) => {
