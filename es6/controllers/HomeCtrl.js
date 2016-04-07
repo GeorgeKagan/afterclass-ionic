@@ -18,11 +18,13 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
         // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
         $scope.posts_tutor_unanswered = $firebaseArray(ref);
         $scope.ifPotentialTutor = post => {
+            // If post accepted by teacher and not by current teacher, exclude post
             if (post.acceptedBy && post.acceptedBy !== $rootScope.user.uid) { return false; }
             let tutor_ids = [];
             if (post.potential_tutors) {
                 _.each(post.potential_tutors, (item, id) => tutor_ids.push(id));
             }
+            // If current teacher present in potential teachers
             return angular.element.inArray($rootScope.user.uid, tutor_ids) > -1;
         };
         // Answered posts by tutor (last_tutor_id = this tutor's id)
