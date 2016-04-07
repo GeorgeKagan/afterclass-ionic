@@ -59,6 +59,7 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
 
     // SETTINGS
 
+    // Languages
     let buildLangArr = () => {
         $scope.languages = [
             {id: 'he', name: $translate.instant('LANG.HE')},
@@ -66,6 +67,14 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
         ];
     };
     buildLangArr();
+
+    // Grades
+    let buildGradesArr = () => {
+        $scope.grades = [];
+        AppConfig.loadConfig().then(() => {
+            AppConfig.getConfig().grades.forEach(item => $scope.grades.push({id: item, name: $translate.instant('GRADES.' + item)}));
+        });
+    };
 
     $scope.canSaveSettings = () => $scope.settings.language;
     $scope.settings = {
@@ -76,8 +85,8 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
     if ($rootScope.user.is_teacher) {
 
     } else {
-        $scope.settings.grade = $rootScope.user.institute;
-        AppConfig.loadConfig().then(() => $scope.grades = AppConfig.getConfig().grades);
+        $scope.$watch('user.institute', () => $scope.settings.grade = $rootScope.user.institute);
+        buildGradesArr();
     }
 
     $scope.saveSettings = () => {
@@ -105,7 +114,14 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
             $translate.use(lang);
             moment.locale(lang);
             $rootScope.uiLang = lang;
-            $timeout(() => buildLangArr(), 100);
+            $timeout(() => {
+                buildLangArr();
+                if ($rootScope.user.is_teacher) {
+
+                } else {
+                    buildGradesArr();
+                }
+            }, 100);
             //
             $ionicLoading.hide();
         });

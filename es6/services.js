@@ -62,10 +62,11 @@ angular.module('afterclass.services', [])
         let showPopup = () => {
             let scope = $rootScope.$new();
             AppConfig.loadConfig().then(() => {
-                let grades            = AppConfig.getConfig().grades;
+                let grades            = [];
                 scope.hash            = {selInstitute: 0};
                 scope.institutes      = grades;
                 scope.selectInstitute = () => {};
+                _.map(AppConfig.getConfig().grades.forEach(item => grades.push({key: item, value: $translate.instant('GRADES.' + item)})));
                 $timeout(() => {
                     $ionicPopup.show({
                         templateUrl : 'templates/partials/institute-popup.html',
@@ -75,7 +76,7 @@ angular.module('afterclass.services', [])
                             text: '<span>' + $translate.instant('SAVE') + '</span>',
                             type: 'button-positive',
                             onTap: e => {
-                                let institute = angular.element('#popup-institute :selected').attr('label');
+                                let institute = angular.element('#popup-institute :selected').val();
                                 if (institute !== undefined) {
                                     User.updateUser({institute});
                                 } else {
@@ -88,7 +89,7 @@ angular.module('afterclass.services', [])
                     $timeout(() => {
                         // If already got data (edit mode), auto-fill the selects
                         if ($rootScope.user.institute) {
-                            angular.element(`#popup-institute [label="${$rootScope.user.institute}"]`).attr('selected', true);
+                            angular.element(`#popup-institute [value="${$rootScope.user.institute}"]`).attr('selected', true);
                             scope.selectInstitute();
                         }
                     });
@@ -109,7 +110,9 @@ angular.module('afterclass.services', [])
                 return console.error('Ask question: no institute in user data!');
             }
             return AppConfig.loadConfig().then(() => {
-                return angular.copy(AppConfig.getConfig().subjects);
+                let subjects = [];
+                AppConfig.getConfig().subjects.forEach(item => subjects.push({key: item, value: $translate.instant('SUBJECTS.' + item)}));
+                return angular.copy(subjects);
             });
         };
         return obj;

@@ -17,7 +17,7 @@
                     <div class="m-0 list list-inset" ng-if="!user.is_teacher">
                         <div class="item">
                             <h2>{{"GRADE"|translate}}</h2>
-                            <p>{{user.institute}}</p>
+                            <p>{{"GRADES." + user.institute|translate}}</p>
                         </div>
                         <div class="item">
                             <h2>{{"QUESTIONS_REMAINING"|translate}}</h2>
@@ -39,16 +39,14 @@
                             </div>
                         </div>
                         <div class="item">
-                            <h2>{{"INSTITUTES"|translate}}</h2>
-                            <div ng-repeat="(institute, val) in user.target_institutes">
-                                <i class="ion-ios-minus-empty"></i> <strong>{{institute}}</strong>
-                            </div>
+                            <h2 class="mb-10">{{"INSTITUTES"|translate}}</h2>
+                            <span class="badge badge-positive ac-badge"
+                                  ng-repeat="(institute, val) in user.target_institutes">{{"GRADES." + institute|translate}}</span>
                         </div>
                         <div class="item">
-                            <h2>{{"DEGREES"|translate}}</h2>
-                            <div ng-repeat="grade in targetGrades">
-                                <i class="ion-ios-minus-empty"></i> {{grade}}
-                            </div>
+                            <h2 class="mb-10">{{"DEGREES"|translate}}</h2>
+                            <span class="badge badge-positive ac-badge"
+                                  ng-repeat="grade in targetGrades">{{"SUBJECTS." + grade|translate}}</span>
                         </div>
                         <!--<div class="item">-->
                             <!--<h2>{{"PROFS"|translate}}</h2>-->
@@ -99,7 +97,7 @@
                         <i class="icon ion-university placeholder-icon"
                            style="font-size: 25px; padding: 0"></i>
                         <span class="input-label" style="font-size:14px;color:#aaa;padding:0;margin: 0 0 2px 0">{{'GRADE'|translate}}</span>
-                        <select class="b-0 bg-trans" style="margin: 0 0 2px 0" ng-model="settings.grade" ng-options="x as x for x in grades">
+                        <select class="b-0 bg-trans" style="margin: 0 0 2px 0" ng-model="settings.grade" ng-options="x.id as x.name for x in grades">
                             <option value="">{{'CHOOSE'|translate}}</option>
                         </select>
                     </label>

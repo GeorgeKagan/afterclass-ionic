@@ -217,6 +217,9 @@ select {
 .m-10 {
   margin: 10px 0 !important;
 }
+.mb-10 {
+  margin-bottom: 10px !important;
+}
 
 .m-10-h {
   margin: 0 10px !important;
@@ -300,4 +303,20 @@ select {
 // Contact page
 #contact-page {
 
+}
+
+// Badge
+.badge.ac-badge {
+  position: relative;
+  top: 0;
+  right: 0;
+  margin: 3px 5px 3px 0;
+  padding: 3px 10px;
+  float: left;
+  border-radius: 8px;
+  body.rtl & {
+    float: right;
+    margin-right: 0;
+    margin-left: 5px;
+  }
 }

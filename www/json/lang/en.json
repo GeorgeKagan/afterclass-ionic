@@ -3,6 +3,26 @@
         "HE": "Hebrew",
         "EN": "English"
     },
+    "GRADES": {
+        "כיתה א": "Grade 1",
+        "כיתה ב": "Grade 2",
+        "כיתה ג": "Grade 3",
+        "כיתה ד": "Grade 4",
+        "כיתה ה": "Grade 5",
+        "כיתה ו": "Grade 6",
+        "כיתה ז": "Grade 7",
+        "כיתה ח": "Grade 8",
+        "כיתה ט": "Grade 9",
+        "כיתה י": "Grade 10",
+        "כיתה יא": "Grade 11",
+        "כיתה יב": "Grade 12"
+    },
+    "SUBJECTS": {
+        "מתמטיקה": "Mathematics",
+        "אנגלית": "English",
+        "לשון": "Hebrew Grammar",
+        "מחשבים": "Computers"
+    },
     "USER_DETAILS": {
         "CHOOSE_TITLE": "Who are you?",
         "IS_STUDENT": "I'm a student",
