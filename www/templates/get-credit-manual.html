@@ -6,15 +6,11 @@
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false" dir="auto">
-        <h4 class="text-center">
-            {{"GET_CREDIT.INTRO"|translate}}
-        </h4>
         <div class="padding clearfix">
-
             <div class="pricing-table clearfix wide calm-border">
-                <div class="header">
+                <!--<div class="header">
                     <div class="ph-subject light">{{"GET_CREDIT.OPENING_PRICE"|translate}}</div>
-                </div>
+                </div>-->
 
                 <div class="row">
                     <div class="col">
@@ -49,9 +45,26 @@
 
                 <div class="footer">
                     <button class="button button-positive" ng-bind-html="config.price"></button>
-                    <!-- 'GET_CREDIT.PRICE'|translate -->
                 </div>
             </div>
+
+            <!-- Pay as you go -->
+            <div class="padding clearfix">
+                <div class="pricing-table clearfix wide calm-border">
+                   <!-- <div class="header">
+                        <div class="ph-subject light">{{"GET_CREDIT.OPENING_PRICE"|translate}}</div>
+                    </div>-->
+
+                    <div class="row">
+                        <div class="col-20"><i class="icon ion-android-star placeholder-icon" style="color: #54B5E2;"></i></div>
+                        <div class="col-80" ng-bind-html="'GET_CREDIT.FEATURES.PAY_AS_YOU_GO'|translate"></div>
+                    </div>
+
+                    <div class="footer">
+                        <button class="button button-positive" ng-bind-html="config.intro_price"></button>
+                    </div>
+                </div>
+            <!-- /Pay as you go -->
 
             <div class="call-center">
                 <h3>

@@ -4,7 +4,8 @@ angular.module('afterclass.constants', []).constant('defaultConfig', {
     },
     payments: {
         phone: '054-8006370',
-        price: '&#8362;179 לחודש'
+        price: '&#8362;179 לחודש',
+        intro_price: '&#8362;39'
     },
     grades: [
         "כיתה א",
