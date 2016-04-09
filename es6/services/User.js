@@ -51,17 +51,11 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
      * @returns {*}
      */
     obj.updateUser = data => {
-        let sync = ref.child('users/' + $rootScope.user.uid),
-            user = $firebaseObject(sync);
-
-        // Don't wait for async call
-        $rootScope.user = angular.element.extend($rootScope.user, data);
-
-        return user.$loaded().then(user => {
-            data.update_date = Firebase.ServerValue.TIMESTAMP;
-            user             = angular.element.extend(user, data);
-            return user.$save(0);
-        });
+        let q = $q.defer();
+        angular.element.extend($rootScope.user, data);
+        $rootScope.user.update_date = Firebase.ServerValue.TIMESTAMP;
+        q.resolve();
+        return q.promise;
     };
 
     /**
@@ -109,7 +103,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
 
         user.$loaded().then(() => {
             // Use up to date fb data, but merge in custom properties set via firebase
-            $rootScope.user = angular.element.extend(authData, user);
+            angular.element.extend(user, authData).$bindTo($rootScope, 'user');
             q.resolve($rootScope.user);
         });
         return q.promise;
