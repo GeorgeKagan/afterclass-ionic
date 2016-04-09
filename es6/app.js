@@ -48,6 +48,7 @@ angular.module('afterclass', [
             prefix: 'json/lang/',
             suffix: '.json'
         });
+
         if (appLang) {
             $translateProvider.preferredLanguage(appLang);
         } else {
@@ -179,7 +180,6 @@ angular.module('afterclass', [
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
     })
-
     .factory('$exceptionHandler', $log => {
         let env = localStorage.getItem('env');
         return (exception, cause) => {
