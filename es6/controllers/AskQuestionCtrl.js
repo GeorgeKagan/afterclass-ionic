@@ -7,7 +7,10 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
         posts       = $firebaseArray(ref),
         add_img_url = null;
 
-    Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(data => $scope.subjects = data);
+    // Listen to Firebase config collection change and rebuild the subjects array
+    let populateScopeWithSubjects = () => Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(data => $scope.subjects = data);
+    $scope.$on('configUpdated', populateScopeWithSubjects);
+    populateScopeWithSubjects();
 
     $scope.body          = {val: ''};
     $scope.hasAttachment = false;

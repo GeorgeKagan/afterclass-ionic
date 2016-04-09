@@ -86,6 +86,7 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
 
     } else {
         $scope.$watch('user.institute', () => $scope.settings.grade = $rootScope.user.institute);
+        $scope.$on('configUpdated', buildGradesArr);
         buildGradesArr();
     }
 
