@@ -28,7 +28,7 @@ angular.module('afterclass.directives', [])
                         '{{"GET_PAYMENT_SUBTITLE"|translate:translationData}}' + ' &#8362' +
                     '</span>' +
                 '</div>' +
-                '<div class="light text-center padding" dir="auto" ng-if="!$root.user.is_teacher">' +
+                '<div class="light text-center padding" dir="auto" ng-if="!$root.user.is_teacher && showCreditCount">' +
                     '{{"ASK_QUESTION_REMAINING"|translate:translationData}}' +
                 '</div>' +
             '</div>',
@@ -43,14 +43,35 @@ angular.module('afterclass.directives', [])
                     scope.btnClick        = () => $state.go('getPayment');
                 } else {
                     scope.$watch('$root.user.credits', () => {
-                        let pointsLeft        = StudentCredit.getCreditBalance();
+                        //Get credit balance
+                        let pointsLeft = StudentCredit.getCreditBalance();
+                        if(pointsLeft === 'unlimited') {
+                            scope.showCreditCount = false;
+                        } else {
+                            scope.showCreditCount = true;
+                        }
+
                         scope.translationData = {count: pointsLeft};
-                        scope.btnText         = pointsLeft > 0 ? 'ask' : 'points';
+
+                        //Set main button text
+                        if(pointsLeft === 'unlimited' || pointsLeft > 0) {
+                            scope.btnText = 'ask';
+                        } else {
+                            scope.btnText = 'points';
+                        }
+
                         scope.btnClick        = () => {
                             if (window.cordova && !$cordovaNetwork.isOnline()) {
                                 return alert($translate.instant('CHECK_INTERNET'));
                             }
-                            $state.go(pointsLeft > 0 ? 'askQuestion' : 'getCreditManual');
+
+                            //Open correct tab
+                            if(pointsLeft === 'unlimited' || pointsLeft > 0) {
+                                $state.go('askQuestion');
+                            } else {
+                                $state.go('getCreditManual');
+                            }
+
                         };
                     }, true);
                 }
