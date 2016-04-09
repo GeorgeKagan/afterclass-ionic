@@ -73,8 +73,8 @@ angular.module('afterclass.directives', [])
             replace     : 'true',
             templateUrl : 'templates/partials/question.html',
             controller  : ($rootScope, $scope) => {
-                $scope.allowReply = true;
 
+                /*$scope.allowReply = true;
                 if ($scope.post.status === 'answered') {
                     let lastActivity = $scope.post.create_date;
 
@@ -85,7 +85,7 @@ angular.module('afterclass.directives', [])
                         // Allow replies within 32 hours from last activity
                         $scope.allowReply = false;
                     }
-                }
+                }*/
 
                 $scope.isPostAccepted = post => {
                     let acceptingTutorsForPost = _.filter(post.potential_tutors, {post_status: 'accepted'}),
