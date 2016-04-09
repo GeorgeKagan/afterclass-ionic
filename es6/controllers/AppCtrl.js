@@ -11,7 +11,6 @@ angular.module('afterclass.controllers', []).controller('AppCtrl', (
         ref.unauth();
         $ionicHistory.nextViewOptions({disableBack: true});
         $scope.popover.hide();
-        $rootScope.user = null;
         $state.go('login');
         if (localStorage.getItem('isDevUser') === 'true') {
             localStorage.setItem('isImpersonating', false);

@@ -33,10 +33,14 @@ angular.module('afterclass.controllers').
             });
         }
 
-        AppConfig.loadConfig().then(() => {
-            $scope.institutes = angular.copy(AppConfig.getConfig().gradesSubjects);
-            $scope.updateAllSelectedBtn();
-        });
+        let populateScopeWithInstitutes = () => {
+            AppConfig.loadConfig().then(() => {
+                $scope.institutes = angular.copy(AppConfig.getConfig().gradesSubjects);
+                $scope.updateAllSelectedBtn();
+            });
+        };
+        $scope.$on('configUpdated', populateScopeWithInstitutes);
+        populateScopeWithInstitutes();
 
         // Select All
         $scope.choice = {allSelected: false};
