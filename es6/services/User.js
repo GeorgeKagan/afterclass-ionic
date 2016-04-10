@@ -104,7 +104,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
         user.$loaded().then(() => {
             // Use up to date fb data, but merge in custom properties set via firebase
             angular.element.extend(user, authData).$bindTo($rootScope, 'user');
-            q.resolve($rootScope.user);
+            q.resolve(user);
         });
         return q.promise;
     };
