@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $state, $ionicLoading, $ionicHistory, $ionicPopup, $translate, MyFirebase, User) => {
+angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $state, $ionicLoading, $ionicHistory, $ionicPopup, $translate, $log, MyFirebase, User) => {
     'use strict';
     let ref = MyFirebase.getRef(), authData;
 
@@ -46,14 +46,14 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $
                     template: $translate.instant('POPUPS.ACC_NOT_FOUND'),
                     okText  : $translate.instant('OK')
                 });
-                console.log('Firebase login failed!', error);
+                $log.log('Firebase login failed!', error);
             } else {
                 User.saveToUsersCollection(authData).then(function (user) {
                     postLoginOps(user, authData);
                     $ionicLoading.hide();
                     doRedirect(user);
                 });
-                console.log('Logged in successfully with payload:', authData);
+                $log.log('Logged in successfully with payload:', authData);
             }
         });
     };
@@ -81,14 +81,14 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $
                     template: $translate.instant('RESET_PW_SENT'),
                     okText  : $translate.instant('OK')
                 });
-                console.log('Password reset email sent successfully');
+                $log.log('Password reset email sent successfully');
             } else {
                 $ionicPopup.alert({
                     title   : $translate.instant('ERROR'),
                     template: $translate.instant('EMAIL_NOT_FOUND'),
                     okText  : $translate.instant('OK')
                 });
-                console.log('Error sending password reset email: ', error);
+                $log.log('Error sending password reset email: ', error);
             }
             $ionicLoading.hide();
             $scope.$apply();
@@ -111,7 +111,7 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $
                     template: error,
                     okText  : $translate.instant('OK')
                 });
-                console.log('Firebase register failed!', error);
+                $log.log('Firebase register failed!', error);
             } else {
                 ref.authWithPassword({
                     email   : $scope.account.email,
@@ -126,7 +126,7 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $
                         $ionicLoading.hide();
                         doRedirect(user);
                     });
-                    console.log('Registered successfully with payload:', authData);
+                    $log.log('Registered successfully with payload:', authData);
                 });
             }
         });

@@ -1,7 +1,7 @@
 /**
  * Push notifications
  */
-angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordovaPush, $q) => {
+angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordovaPush, $q, $log) => {
     'use strict';
 
     let sns = new AWS.SNS({
@@ -18,7 +18,7 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
      */
     obj.registerDevice = () => {
         if (!window.cordova) {
-            return console.warn('Cannot register with GCM. Must run on a real device!');
+            return $log.warn('Cannot register with GCM. Must run on a real device!');
         }
         let q = $q.defer();
 
@@ -30,7 +30,7 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
             };
             $cordovaPush.register(iosConfig).then(deviceToken => {
                 // Success -- send deviceToken to server, and store for future use
-                console.log('deviceToken: ' + deviceToken);
+                $log.log('deviceToken: ' + deviceToken);
                 //$http.post('http://server.co/', {user: 'Bob', tokenID: deviceToken})
                 let params = {
                     //PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/APNS_SANDBOX/afterclass_dev',
@@ -38,10 +38,10 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
                     Token                 : deviceToken
                 };
                 sns.createPlatformEndpoint(params, (err, data) => {
-                    console.log('got amazon APNS ' + data + ',' + err);
+                    $log.log('got amazon APNS ' + data + ',' + err);
                     q.resolve(data.EndpointArn);
                 });
-            }, err => console.log('can\'t get APNS ' + err));
+            }, err => $log.log('can\'t get APNS ' + err));
         }
         else if (ionic.Platform.isAndroid()) {
             let androidConfig = {
@@ -55,27 +55,27 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
             switch(notification.event) {
                 case 'registered':
                     if (notification.regid.length > 0) {
-                        console.log('registration ID = ' + notification.regid);
+                        $log.log('registration ID = ' + notification.regid);
                         // CREATE ENDPOINT
                         let params = {
                             PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/GCM/afterclass-android',
                             Token                 : notification.regid
                         };
                         sns.createPlatformEndpoint(params, (err, data) => {
-                            console.log('EndpointArn', data.EndpointArn);
+                            $log.log('EndpointArn', data.EndpointArn);
                             q.resolve(data.EndpointArn);
                         });
                     }
                     break;
                 case 'message':
                     // This is the actual push notification. Its format depends on the data model from the push server
-                    console.log('message', notification);
+                    $log.log('message', notification);
                     break;
                 case 'error':
-                    console.log('GCM error = ' + notification.msg);
+                    $log.log('GCM error = ' + notification.msg);
                     break;
                 default:
-                    console.log('An unknown GCM event has occurred');
+                    $log.log('An unknown GCM event has occurred');
                     break;
             }
         });
@@ -99,10 +99,10 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
         };
         sns.publish(params, (err, data) => {
             if (err) {
-                console.log('Error sending a message', err);
-                console.log('endpoint_arn', endpoint_arn);
+                $log.log('Error sending a message', err);
+                $log.log('endpoint_arn', endpoint_arn);
             } else {
-                console.log('Sent message:', data);
+                $log.log('Sent message:', data);
             }
         });
     };

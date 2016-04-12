@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('FacebookLoginCtrl', ($scope, $state, $ionicLoading, $ionicHistory, MyFirebase, User) => {
+angular.module('afterclass.controllers').controller('FacebookLoginCtrl', ($scope, $state, $ionicLoading, $ionicHistory, $log, MyFirebase, User) => {
     'use strict';
 
     if (!localStorage.getItem('finished_on_boarding') && angular.element.inArray('browser', ionic.Platform.platforms) === -1) {
@@ -31,20 +31,20 @@ angular.module('afterclass.controllers').controller('FacebookLoginCtrl', ($scope
                 // Authenticate with Facebook using an existing OAuth 2.0 access token
                 ref.authWithOAuthToken('facebook', token, (error, authData) => {
                     if (error) {
-                        console.log('Firebase login failed!', error);
+                        $log.log('Firebase login failed!', error);
                     } else {
                         User.saveToUsersCollection(authData).then(user => {
                             postLoginOps(user, authData);
                             doRedirect(user);
                         });
-                        console.log('Authenticated successfully with payload:', authData);
+                        $log.log('Authenticated successfully with payload:', authData);
                     }
                 });
             }, error => {
-                console.log('Could not get access token', error);
+                $log.log('Could not get access token', error);
             });
         }, error => {
-            console.log('An error occurred logging the user in', error);
+            $log.log('An error occurred logging the user in', error);
         });
     };
 

@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('ImpersonateCtrl', ($rootScope, $scope, $state, $firebaseArray, $firebaseObject, MyFirebase) => {
+angular.module('afterclass.controllers').controller('ImpersonateCtrl', ($rootScope, $scope, $state, $firebaseArray, $firebaseObject, $log, MyFirebase) => {
 
     let ref = MyFirebase.getRef().child('users');
 
@@ -12,7 +12,7 @@ angular.module('afterclass.controllers').controller('ImpersonateCtrl', ($rootSco
 
         ref.authWithCustomToken(user.firebaseAuthToken, error => {
             if (error) {
-                console.log("Authentication Failed!", error);
+                $log.log("Authentication Failed!", error);
             } else {
                 localStorage.setItem('isImpersonating', true);
                 window.location.reload(true);

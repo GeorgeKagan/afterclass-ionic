@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('Utils', ($rootScope, $http) => {
+angular.module('afterclass.services').factory('Utils', ($rootScope, $http, $log) => {
     'use strict';
     
     let Utils = {};
@@ -8,7 +8,7 @@ angular.module('afterclass.services').factory('Utils', ($rootScope, $http) => {
             ts = Math.floor(Date.now() / 1000);
         $http.get(
             `http://afterclass-966.appspot.com/StartAlgorithm?userId=${userId}&timestamp=${ts}`,
-            data => console.info(data)
+            data => $log.info(data)
         );
     };
 

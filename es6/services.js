@@ -1,16 +1,16 @@
 angular.module('afterclass.services', [])
 
-    .factory('MyFirebase', () => {
+    .factory('MyFirebase', ($log) => {
         let env = localStorage.getItem('env'),
             obj = {},
             ref = null;
 
         if (env && env === 'dev') {
             ref = new Firebase('https://spankin-butts.firebaseio.com/');
-            console.info('Firebase env: DEV');
+            $log.info('Firebase env: DEV');
         } else {
             ref = new Firebase('https://torrid-torch-3186.firebaseio.com/');
-            console.warn('Firebase env: PROD');
+            $log.warn('Firebase env: PROD');
         }
         obj.getRef = () => ref;
         return obj;
@@ -114,11 +114,11 @@ angular.module('afterclass.services', [])
         };
     })
 
-    .factory('Institutes', ($q, $rootScope, $http, $translate, AppConfig) => {
+    .factory('Institutes', ($q, $rootScope, $http, $translate, $log, AppConfig) => {
         let obj = {};
         obj.getSubjectsByInstituteAndDegree = institute => {
             if (!institute) {
-                return console.error('Ask question: no institute in user data!');
+                return $log.error('Ask question: no institute in user data!');
             }
             return AppConfig.loadConfig().then(() => {
                 let subjects = [];

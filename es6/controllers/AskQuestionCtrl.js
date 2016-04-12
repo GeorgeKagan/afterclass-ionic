@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
     $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, MyFirebase, StudentCredit, Utils) => {
+    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, $log, MyCamera, CloudinaryUpload, Institutes, MyFirebase, StudentCredit, Utils) => {
 
     let img         = angular.element('#aq-img'),
         ref         = MyFirebase.getRef().child('posts'),
@@ -83,7 +83,7 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
                 }, 1000);
             }, error => {
                 $ionicLoading.hide();
-                console.log('Error: ', error);
+                $log.log('Error: ', error);
             });
         };
         if (add_img_url) {

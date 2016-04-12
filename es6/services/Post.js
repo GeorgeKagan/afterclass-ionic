@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('Post', ($firebaseObject, $firebaseArray, $state, MyFirebase) => {
+angular.module('afterclass.services').factory('Post', ($firebaseObject, $firebaseArray, $state, $log, MyFirebase) => {
     let obj = {};
 
     /**
@@ -47,8 +47,8 @@ angular.module('afterclass.services').factory('Post', ($firebaseObject, $firebas
                 potential_tutors.$save(currentTutorIndex); // Index of modified thing
             } else {
                 // Error
-                console.log('Error: tutor [' + user_id + '] was not found is potential tutors array');
-                console.log('potentialTutors', potentialTutors);
+                $log.log('Error: tutor [' + user_id + '] was not found is potential tutors array');
+                $log.log('potentialTutors', potentialTutors);
             }
         });
     };

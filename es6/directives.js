@@ -24,7 +24,7 @@ angular.module('afterclass.directives', [])
                     '<div class="ab-text" ng-if="btnText===\'points\'">{{"GET_POINTS"|translate}}</div>' +
                 '</button>' +
                 '<div class="light text-center padding" dir="auto" ng-if="$root.user.is_teacher">' +
-                    '<span ng-show="teacherTotalPayments||teacherTotalPayments==0">' +
+                    '<span ng-if="teacherTotalPayments||teacherTotalPayments==0">' +
                         '{{"GET_PAYMENT_SUBTITLE"|translate:translationData}}' + ' &#8362' +
                     '</span>' +
                 '</div>' +

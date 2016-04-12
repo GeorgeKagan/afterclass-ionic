@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
     $rootScope, $scope, $timeout, $ionicScrollDelegate, $state, $stateParams, $firebaseObject, $firebaseArray, $ionicActionSheet,
-    $translate, $ionicPopup, $cordovaNetwork, $q, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Rating, Utils) => {
+    $translate, $ionicPopup, $cordovaNetwork, $q, $log, MyCamera, CloudinaryUpload, AmazonSNS, Post, MyFirebase, Rating, Utils) => {
     'use strict';
 
     let ref         = MyFirebase.getRef().child('/posts/' + $stateParams.firebase_id),
@@ -315,7 +315,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                     Utils.triggerAlgorithm();
                 });
             }, error => {
-                console.log('Error: ', error);
+                $log.log('Error: ', error);
             });
         };
         if (add_img_url) {

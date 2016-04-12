@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('OnBoardingCtrl', ($scope, $state, $ionicHistory, $cordovaPush, $ionicSlideBoxDelegate) => {
+angular.module('afterclass.controllers').controller('OnBoardingCtrl', ($scope, $state, $ionicHistory, $cordovaPush, $ionicSlideBoxDelegate, $log) => {
     'use strict';
 
     $scope.next = () => {
@@ -19,7 +19,7 @@ angular.module('afterclass.controllers').controller('OnBoardingCtrl', ($scope, $
 
         $cordovaPush.register(iosConfig).then(function(deviceToken) {
             // Success -- send deviceToken to server, and store for future use
-            console.log("deviceToken: " + deviceToken);
+            $log.log("deviceToken: " + deviceToken);
             alert("deviceToken: " + deviceToken);
             //$http.post("http://server.co/", {user: "Bob", tokenID: deviceToken})
             var params = {

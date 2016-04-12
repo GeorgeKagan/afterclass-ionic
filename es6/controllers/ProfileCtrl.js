@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('ProfileCtrl', (
-    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, $timeout, MyFirebase, User, otherUser, AppConfig) => {
+    $rootScope, $scope, $ionicTabsDelegate, $ionicPopup, $translate, $ionicLoading, $timeout, $log, MyFirebase, User, otherUser, AppConfig) => {
 
     // If viewing someone else and that someone is not the session user
     if (otherUser && $rootScope.user.id !== otherUser.id) {
@@ -44,14 +44,14 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
                     template: $translate.instant('FORM.PW_CHANGED'),
                     okText  : $translate.instant('OK')
                 });
-                console.log('Password changed successfully');
+                $log.log('Password changed successfully');
             } else {
                 $ionicPopup.alert({
                     title   : $translate.instant('ERROR'),
                     template: $translate.instant('FORM.BAD_OLD_PW'),
                     okText  : $translate.instant('OK')
                 });
-                console.log('Error changing password: ', error);
+                $log.log('Error changing password: ', error);
             }
             $ionicLoading.hide();
         });

@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebaseObject, $timeout, AmazonSNS, MyFirebase) => {
+angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebaseObject, $timeout, $log, AmazonSNS, MyFirebase) => {
     'use strict';
 
     let ref             = MyFirebase.getRef(),
@@ -41,7 +41,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
             }
             user = angular.element.extend(user, data);
 
-            return user.$save().then(() => user, error => console.log('Error saving user: ', error));
+            return user.$save().then(() => user, error => $log.log('Error saving user: ', error));
         });
     };
 
@@ -78,10 +78,10 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
             try {
                 AmazonSNS.registerDevice().then(endpoint_arn => {
                     obj.updateUser({amazon_endpoint_arn: endpoint_arn});
-                    console.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
+                    $log.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
                 });
             } catch (e) {
-                console.error('Fail Amazon SNS get endpoint ARN: ', e);
+                $log.error('Fail Amazon SNS get endpoint ARN: ', e);
             }
         }
     };
@@ -115,7 +115,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
      * @returns {Promise}
      */
     obj.getFromUsersCollectionById = (firebaseUserId = null) => {
-        if (!firebaseUserId) { console.error('No firebase user id supplied'); }
+        if (!firebaseUserId) { $log.error('No firebase user id supplied'); }
         return $firebaseObject(ref.child('users/' + firebaseUserId)).$loaded();
     };
 
@@ -127,7 +127,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
             user = $firebaseObject(sync);
 
         AmazonSNS.deleteEndpoint($rootScope.user.amazon_endpoint_arn);
-        user.$remove().then(ref => {}, error => console.log('Error: ', error));
+        user.$remove().then(ref => {}, error => $log.log('Error: ', error));
     };
 
     return obj;
