@@ -28,12 +28,16 @@ angular.module('afterclass', [
         Device.confirmOnExitApp();
     })
 
-    .config(($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider) => {
+    .config(($stateProvider, $httpProvider, $urlRouterProvider, $cordovaFacebookProvider, $translateProvider, $ionicConfigProvider, $logProvider, $compileProvider) => {
         let appLang = localStorage.getItem('uiLang') ? localStorage.getItem('uiLang') : 'he'; // remove 'he' to make it detect device lang automatically
 
         if (!window.cordova) {
             $cordovaFacebookProvider.browserInit(776966842380887, 'v2.5');
         }
+
+        // Better performance
+        $logProvider.debugEnabled(false);
+        $compileProvider.debugInfoEnabled(true);
 
         $httpProvider.interceptors.push('HttpInterceptor');
         $ionicConfigProvider.scrolling.jsScrolling(true);
@@ -109,7 +113,7 @@ angular.module('afterclass', [
                 url: '/home',
                 templateUrl: 'templates/home.html',
                 controller: 'HomeCtrl',
-                cache: false,
+                cache: true,
                 resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('askQuestion', {
