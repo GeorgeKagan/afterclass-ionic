@@ -1,10 +1,8 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
     $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, $log, MyCamera, CloudinaryUpload, Institutes, MyFirebase, StudentCredit, Utils) => {
+    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, $log, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Post) => {
 
     let img         = angular.element('#aq-img'),
-        ref         = MyFirebase.getRef().child('posts'),
-        posts       = $firebaseArray(ref),
         add_img_url = null;
 
     // Listen to Firebase config collection change and rebuild the subjects array
@@ -31,72 +29,13 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
             return false;
         }
 
-        /**
-         *
-         * @param img_id
-         */
-        let persistPost = img_id => {
-            $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-            posts.$add({
-                user                : $rootScope.user.uid,
-                subject             : angular.element('#aq-subject').val(),
-                body                : angular.element('#aq-body').val(),
-                img_id              : img_id || '',
-                status              : 'unanswered',
-                create_date         : Firebase.ServerValue.TIMESTAMP,
-                update_date         : Firebase.ServerValue.TIMESTAMP,
-                potential_tutors    : null,
-                replies             : '',
-                last_tutor_id       : '',
-                amazon_endpoint_arn : $rootScope.user.amazon_endpoint_arn ? $rootScope.user.amazon_endpoint_arn : ''
-            }).then(() => {
-                StudentCredit.deductCredits(1);
-                $timeout(() => {
-                    add_img_url = null;
-                    $state.go('home').then(() => {
-                        $timeout(() => {
-                            let unanswered = 0;
-                            $ionicLoading.hide();
-                            $ionicTabsDelegate.select(unanswered);
-
-                            // Popup with button to like us on Facebook
-                            let popupScope   = $rootScope.$new();
-                            popupScope.close = () => popup.close();
-
-                            let popup = $ionicPopup.alert({
-                                title: $translate.instant('FORM.Q_SENT_TITLE'),
-                                template:
-                                `<div class="text-center">` +
-                                    $translate.instant('FORM.Q_SENT') +
-                                    `<hr class="m-10" style="border:0;border-top:1px solid #f0f0f0;">
-                                     <p class="text-center pb-5"><small>` + $translate.instant('LIKE_US') + `</small></p>
-                                     <facebook-like></facebook-like>
-                                     <div class="text-center pt-10 pb-5" ng-click="close()">` + $translate.instant('NEXT_TIME') + `</div>
-                                </div>`,
-                                buttons: [],
-                                scope: popupScope
-                            });
-
-                            Utils.triggerAlgorithm();
-                        }, 1000);
-                    });
-                }, 1000);
-            }, error => {
-                $ionicLoading.hide();
-                $log.log('Error: ', error);
-            });
-        };
         if (add_img_url) {
             CloudinaryUpload.uploadImage(add_img_url).then(
-                function (result) {
-                    persistPost(result.public_id);
-                },
-                function (err) {
-
-                }
+                result => Post.persist(result.public_id).then(() => add_img_url = null),
+                err => {}
             );
         } else {
-            persistPost();
+            Post.persist().then(() => add_img_url = null);
         }
     };
 
