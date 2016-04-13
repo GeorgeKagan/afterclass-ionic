@@ -1,22 +1,11 @@
 angular.module('afterclass.controllers', []).controller('AppCtrl', (
-    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, $translate, MyFirebase, User, InstitutePopup) => {
+    $scope, $rootScope, $ionicPopover, $state, $ionicHistory, $window, $timeout, $ionicLoading, $translate, MyFirebase, User, InstitutePopup, Auth) => {
 
     $rootScope.env    = localStorage.getItem('env');
     $rootScope.$state = $state;
 
     // Logout user
-    $scope.logout = () => {
-        let ref = MyFirebase.getRef();
-        facebookConnectPlugin.logout(angular.noop);
-        ref.unauth();
-        $ionicHistory.nextViewOptions({disableBack: true});
-        $scope.popover.hide();
-        $state.go('login');
-        if (localStorage.getItem('isDevUser') === 'true') {
-            localStorage.setItem('isImpersonating', false);
-            $window.location.reload(true);
-        }
-    };
+    $scope.logout = () => Auth.logout($scope.popover);
 
     $rootScope.$watch('user', () => {
         if (!$rootScope.user) { return; }
