@@ -1,5 +1,6 @@
 angular.module('afterclass.services').factory('Post', (
     $rootScope, $firebaseObject, $firebaseArray, $ionicLoading, $ionicTabsDelegate, $ionicPopup, $state, $timeout, $log, $translate, MyFirebase, StudentCredit, Utils) => {
+    
     let Post = {};
 
     Post.persist = (img_id = null) => {

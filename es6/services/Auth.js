@@ -36,7 +36,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
                 });
                 $log.log('Firebase login failed!', error);
             } else {
-                User.saveToUsersCollection(authData).then(function (user) {
+                User.saveToFirebase(authData).then(function (user) {
                     Auth.postLoginOps(user, authData);
                     $ionicLoading.hide();
                     Auth.doRedirect(user);
@@ -55,7 +55,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
                     if (error) {
                         $log.log('Firebase login failed!', error);
                     } else {
-                        User.saveToUsersCollection(authData).then(user => {
+                        User.saveToFirebase(authData).then(user => {
                             Auth.postLoginOps(user, authData);
                             Auth.doRedirect(user);
                         });
@@ -138,7 +138,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
                         first_name: account.firstName,
                         last_name : account.lastName
                     });
-                    User.saveToUsersCollection(authData).then(function (user) {
+                    User.saveToFirebase(authData).then(function (user) {
                         Auth.postLoginOps(user, authData);
                         $ionicLoading.hide();
                         Auth.doRedirect(user);

@@ -3,14 +3,14 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
 
     let ref             = MyFirebase.getRef(),
         INITIAL_CREDITS = 2,
-        obj             = {};
+        User            = {};
 
     /**
      *
      * @param authData
      * @returns {*}
      */
-    obj.saveToUsersCollection = authData => {
+    User.saveToFirebase = authData => {
         let sync = ref.child('users/' + authData.uid),
             user = $firebaseObject(sync);
 
@@ -50,7 +50,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
      * @param data
      * @returns {*}
      */
-    obj.updateUser = data => {
+    User.updateUser = data => {
         let q = $q.defer();
         angular.element.extend($rootScope.user, data);
         $rootScope.user.update_date = Firebase.ServerValue.TIMESTAMP;
@@ -63,12 +63,12 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
      * @param user
      * @param authData
      */
-    obj.fillMandatoryFields = (user, authData) => {
+    User.fillMandatoryFields = (user, authData) => {
         let isImpersonating = localStorage.getItem('isImpersonating') === 'true';
         if (isImpersonating) { return; }
 
         $timeout(() => {
-            obj.updateUser({
+            User.updateUser({
                 firebaseAuthToken: authData.token,
                 last_used_device : window.device ? `${device.model} ${device.platform} ${device.version}` : 'device-plugin-not-found'
             });
@@ -77,7 +77,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
         if (window.cordova) {
             try {
                 AmazonSNS.registerDevice().then(endpoint_arn => {
-                    obj.updateUser({amazon_endpoint_arn: endpoint_arn});
+                    User.updateUser({amazon_endpoint_arn: endpoint_arn});
                     $log.log('Got Amazon SNS endpoint ARN: ', endpoint_arn);
                 });
             } catch (e) {
@@ -90,7 +90,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
      * Populate rootScope with user data from localStorage
      * @returns {Promise}
      */
-    obj.getFromUsersCollection = () => {
+    User.getFromUsersCollection = () => {
         let q = $q.defer();
 
         if ($rootScope.user) {
@@ -114,7 +114,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
      * @param firebaseUserId
      * @returns {Promise}
      */
-    obj.getFromUsersCollectionById = (firebaseUserId = null) => {
+    User.getFromUsersCollectionById = (firebaseUserId = null) => {
         if (!firebaseUserId) { $log.error('No firebase user id supplied'); }
         return $firebaseObject(ref.child('users/' + firebaseUserId)).$loaded();
     };
@@ -122,7 +122,7 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
     /**
      * Delete a Firebase user
      */
-    obj.deleteUser = () => {
+    User.deleteUser = () => {
         let sync = ref.child('users/' + $rootScope.user.uid),
             user = $firebaseObject(sync);
 
@@ -130,5 +130,5 @@ angular.module('afterclass.services').factory('User', ($rootScope, $q, $firebase
         user.$remove().then(ref => {}, error => $log.log('Error: ', error));
     };
 
-    return obj;
+    return User;
 });

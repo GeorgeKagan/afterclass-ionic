@@ -1,9 +1,9 @@
 angular.module('afterclass.services').factory('StudentCredit', ($rootScope, User) => {
     'use strict';
 
-    let obj = {};
+    let Credit = {};
 
-    obj.getCreditBalance = () => {
+    Credit.getCreditBalance = () => {
         if($rootScope.user) {
             if(typeof $rootScope.user.credits !== 'undefined') {
                 return $rootScope.user.credits;
@@ -15,7 +15,7 @@ angular.module('afterclass.services').factory('StudentCredit', ($rootScope, User
         }
     };
 
-    obj.deductCredits = amount => User.updateUser({credits: $rootScope.user.credits - amount});
+    Credit.deductCredits = amount => User.updateUser({credits: $rootScope.user.credits - amount});
 
-    return obj;
+    return Credit;
 });

@@ -10,13 +10,13 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
         secretAccessKey: '6G1KGRt56wE8i+RTKydOcC0sKvLKdv5b5Z7Ie1SP'
     });
 
-    let obj = {};
+    let Amazon = {};
 
     /**
      *
      * @returns {Promise}
      */
-    obj.registerDevice = () => {
+    Amazon.registerDevice = () => {
         if (!window.cordova) {
             return $log.warn('Cannot register with GCM. Must run on a real device!');
         }
@@ -87,7 +87,7 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
      * @param endpoint_arn
      * @param msg
      */
-    obj.publish = (endpoint_arn, msg) => {
+    Amazon.publish = (endpoint_arn, msg) => {
         // PUBLISH TO ENDPOINT
         let params = {
             MessageStructure: 'json',
@@ -107,7 +107,7 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
         });
     };
 
-    obj.deleteEndpoint = endpoint => sns.deleteEndpoint({EndpointArn: endpoint});
+    Amazon.deleteEndpoint = endpoint => sns.deleteEndpoint({EndpointArn: endpoint});
 
-    return obj;
+    return Amazon;
 });

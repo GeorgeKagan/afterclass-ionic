@@ -2,14 +2,14 @@
  * Payments for teachers
  */
 angular.module('afterclass.services').factory('Payment', ($rootScope, $firebaseArray, $firebaseObject, MyFirebase) => {
-    let obj = {},
+    let Payment = {},
         ref = MyFirebase.getRef();
 
     /**
      *
      * @returns {*}
      */
-    obj.getPayments = () => {
+    Payment.getPayments = () => {
         let payment      = {},
             prevPayments = $firebaseArray(ref.child('payments/' + $rootScope.user.uid));
 
@@ -29,8 +29,8 @@ angular.module('afterclass.services').factory('Payment', ($rootScope, $firebaseA
      *
      * @returns Promise
      */
-    obj.getPaymentsSum = () => {
-        return obj.getPayments().then(payments => {
+    Payment.getPaymentsSum = () => {
+        return Payment.getPayments().then(payments => {
             let sum = 0;
             _.forEach(payments.previous, item => sum += parseFloat(item.amount));
             return sum;
@@ -42,7 +42,7 @@ angular.module('afterclass.services').factory('Payment', ($rootScope, $firebaseA
      * @param payment_id
      * @returns {*}
      */
-    obj.withdraw = payment_id => {
+    Payment.withdraw = payment_id => {
         let sync    = ref.child('payments/' + $rootScope.user.uid + '/' + payment_id),
             payment = $firebaseObject(sync);
 
@@ -57,7 +57,7 @@ angular.module('afterclass.services').factory('Payment', ($rootScope, $firebaseA
      *
      * @private
      */
-    obj._debugCreatePayment = () => {
+    Payment._debugCreatePayment = () => {
         let payments = $firebaseArray(ref.child('payments/' + $rootScope.user.uid));
 
         payments.$add({
@@ -71,5 +71,5 @@ angular.module('afterclass.services').factory('Payment', ($rootScope, $firebaseA
         }).then(() => {}, error => {});
     };
 
-    return obj;
+    return Payment;
 });

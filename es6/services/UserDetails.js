@@ -1,7 +1,7 @@
 angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
-    let obj = {}, degrees, courses, payload = {};
+    let UserDetails = {}, degrees, courses, payload = {};
 
-    obj.getDegreesBySelectedInstitutes = (selInstitutes, institutes) => {
+    UserDetails.getDegreesBySelectedInstitutes = (selInstitutes, institutes) => {
         let data = {};
         angular.forEach(selInstitutes, (isSelected, institute) => {
             let degrees = [];
@@ -14,7 +14,7 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
         return data;
     };
 
-    obj.getCoursesBySelectedDegrees = (selDegrees, degrees) => {
+    UserDetails.getCoursesBySelectedDegrees = (selDegrees, degrees) => {
         let data = {};
         angular.forEach(selDegrees, (isSelected, selDegree) => {
             let selInstitute = selDegree.split('|||')[0];
@@ -36,7 +36,7 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
         return data;
     };
 
-    obj.saveSelectedData = () => {
+    UserDetails.saveSelectedData = () => {
         $log.log('Save tutor details payload', payload);
         User.updateUser({
             is_choose_type_finished: true,
@@ -47,21 +47,21 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
         });
     };
 
-    obj.isChecked = entities => {
+    UserDetails.isChecked = entities => {
         let notChecked = true;
         angular.forEach(entities, isChecked => notChecked = isChecked ? false : true);
         return notChecked;
     };
 
-    obj.setDegrees = _degrees => degrees = _degrees;
+    UserDetails.setDegrees = _degrees => degrees = _degrees;
 
-    obj.getDegrees = () => degrees;
+    UserDetails.getDegrees = () => degrees;
 
-    obj.setCourses = _courses => courses = _courses;
+    UserDetails.setCourses = _courses => courses = _courses;
 
-    obj.getCourses = () => courses;
+    UserDetails.getCourses = () => courses;
 
-    obj.setPayloadInstitutes = institutes => {
+    UserDetails.setPayloadInstitutes = institutes => {
         let hash = {};
         angular.forEach(_.keys(institutes), institute => {
             if (institutes[institute]) {
@@ -71,7 +71,7 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
         payload.institutes = hash;
     };
 
-    obj.setPayloadDegrees = (degrees, dummy3rdLevel = false) => {
+    UserDetails.setPayloadDegrees = (degrees, dummy3rdLevel = false) => {
         angular.forEach(degrees, (isSelected, degree) => {
             if (!isSelected) { return; }
             let institute   = degree.split('|||')[0],
@@ -82,7 +82,7 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
         });
     };
 
-    obj.setPayloadCourses = courses => {
+    UserDetails.setPayloadCourses = courses => {
         angular.forEach(courses, (isSelected, course) => {
             if (!isSelected) { return; }
             let institute   = course.split('|||')[0],
@@ -94,5 +94,5 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
         });
     };
 
-    return obj;
+    return UserDetails;
 });

@@ -3,14 +3,14 @@ angular.module('afterclass.services').factory('CloudinaryUpload', ($q, $ionicLoa
 
     let cloudinary_url = 'https://api.cloudinary.com/v1_1/daayssulc/image/upload',
         upload_preset  = 'gpyif5y5',
-        obj            = {};
+        Cloudinary     = {};
 
     /**
      * 
      * @param imageURI
      * @returns {Promise}
      */
-    obj.uploadImage = imageURI => {
+    Cloudinary.uploadImage = imageURI => {
         let q = $q.defer(), fileSize, percentage;
 
         // Find out how big the original file is
@@ -46,5 +46,5 @@ angular.module('afterclass.services').factory('CloudinaryUpload', ($q, $ionicLoa
         return q.promise;
     };
 
-    return obj;
+    return Cloudinary;
 });
