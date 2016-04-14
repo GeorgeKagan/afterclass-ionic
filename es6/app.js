@@ -113,14 +113,12 @@ angular.module('afterclass', [
                 url: '/home',
                 templateUrl: 'templates/home.html',
                 controller: 'HomeCtrl',
-                cache: true,
                 resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('askQuestion', {
                 url: '/askQuestion',
                 templateUrl: 'templates/ask-question.html',
                 controller: 'AskQuestionCtrl',
-                cache: false,
                 resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('getCreditManual', {
