@@ -4,13 +4,13 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
     let Auth = {};
 
     Auth.ref      = MyFirebase.getRef();
-    Auth.authData = Auth.ref.getAuth();
 
     Auth.autoLoginIfGotSession = (scope = null) => {
+        let authData = Auth.ref.getAuth();
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
-        if (Auth.authData) {
+        if (authData) {
             User.getFromUsersCollection().then(user => {
-                Auth.postLoginOps(user, Auth.authData);
+                Auth.postLoginOps(user, authData);
                 Auth.doRedirect(user);
             });
         } else {
