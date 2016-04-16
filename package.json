@@ -23,7 +23,24 @@
     "node-gyp": "^3.2.0",
     "shelljs": "^0.3.0"
   },
-  "cordovaPlugins": [],
+  "cordovaPlugins": [
+    {
+      "variables": {
+        "SENDER_ID": "580333274108"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    },
+    "cordova-plugin-whitelist",
+    "cordova-plugin-camera",
+    "cordova-plugin-file",
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "com.ionic.keyboard",
+    "cordova-plugin-appavailability"
+  ],
   "cordovaPlatforms": [
     "android"
   ]

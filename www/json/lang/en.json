@@ -117,7 +117,7 @@
         }
     },
     "NOTIFICATIONS": {
-        "TUTOR_REPLIED": "A teacher answered your question"
+        "TUTOR_REPLIED_TITLE": "A teacher answered your question"
     },
     "UPLOADS": {
         "PROGRESS": "Uploading... ",
@@ -148,10 +148,12 @@
             "UNLIMITED": "Unlimited assistance right inside your smartphone",
             "MANY_SUBJECTS": "Fast growing teacher base and new subject are constantly added",
             "CHEAP_PRICING": "Best value for money! UNLIMITED help for less than the price of two private lessons",
-            "EXP_TUTORS": "Experienced teachers provide tailored help for every student"
+            "EXP_TUTORS": "Experienced teachers provide tailored help for every student",
+            "PAY_AS_YOU_GO": "Trial membership with 5 solutions! <br /> No commitment, no monthly payments"
         },
-        "PRICE": "179NIS a month",
-        "CALL_CENTER": "Call center:"
+        "CALL_CENTER": "Call center:",
+        "MONTHLY_PRICE": "NIS {{price}} per month",
+        "ONE_TIME_PRICE": "NIS {{price}}"
     },
     "RATING": {
         "SATISFACTION_RATE": "How much are you satisfied with the answer?"
@@ -181,7 +183,7 @@
     "ASK_A_TEACHER": "Send question",
     "GET_POINTS": "Buy membership",
     "GET_PAYMENT": "Get payment",
-    "GET_PAYMENT_SUBTITLE": "So far you've earned {{sum}}",
+    "GET_PAYMENT_SUBTITLE": "So far you've earned &#36;{{sum}}",
     "NEXT": "Next",
     "REPORT_QUESTION": "Report this conversation",
     "REPORT_PLACEHOLDER": "What is the problem?",

@@ -4,8 +4,8 @@ angular.module('afterclass.constants', []).constant('defaultConfig', {
     },
     payments: {
         phone: '054-8006370',
-        price: '&#8362;179 לחודש',
-        intro_price: '&#8362;39'
+        monthly_price: '179',
+        one_time_price: '39'
     },
     grades: [
         "כיתה א",
@@ -24,7 +24,8 @@ angular.module('afterclass.constants', []).constant('defaultConfig', {
     subjects: [
         "מתמטיקה",
         "אנגלית",
-        "לשון"
+        "לשון",
+        "מחשבים"
     ],
     gradesSubjects: {
         "כיתה א": [
