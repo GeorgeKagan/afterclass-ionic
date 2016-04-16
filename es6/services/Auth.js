@@ -75,10 +75,9 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
         Auth.ref.unauth();
         $ionicHistory.nextViewOptions({disableBack: true});
         popover.hide();
-        $state.go('login');
+        $state.go('login').then(() => $window.location.reload(true));
         if (localStorage.getItem('isDevUser') === 'true') {
             localStorage.setItem('isImpersonating', false);
-            $window.location.reload(true);
         }
     };
 
