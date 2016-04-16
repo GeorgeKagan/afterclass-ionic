@@ -309,7 +309,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                         post.potential_tutors = null;
                     }
                     if ($rootScope.user.is_teacher && post.amazon_endpoint_arn) {
-                        AmazonSNS.publish(post.amazon_endpoint_arn, $translate.instant('NOTIFICATIONS.TUTOR_REPLIED'));
+                        AmazonSNS.publish(
+                            post.amazon_endpoint_arn,
+                            $translate.instant('NOTIFICATIONS.TUTOR_REPLIED_TITLE'),
+                            replyData.body
+                        );
                     }
                     post.$save();
                     Utils.triggerAlgorithm();
