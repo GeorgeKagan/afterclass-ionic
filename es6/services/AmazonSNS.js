@@ -46,9 +46,8 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
         else if (ionic.Platform.isAndroid()) {
             let push = PushNotification.init({
                 android: {
-                    senderID: "580333274108",
-                    //todo: put an icon
-                    icon: ""
+                    senderID: '580333274108',
+                    icon: 'outline'
                 }
             });
 
