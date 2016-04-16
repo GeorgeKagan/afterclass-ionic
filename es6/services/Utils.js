@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('Utils', ($rootScope, $http, $log) => {
+angular.module('afterclass.services').factory('Utils', ($rootScope) => {
     'use strict';
     
     let Utils = {};
@@ -9,7 +9,7 @@ angular.module('afterclass.services').factory('Utils', ($rootScope, $http, $log)
         angular.element.ajax({
             type: "GET",
             dataType: 'jsonp',
-            url: `http://afterclass-966.appspot.com/StartAlgorithm?userId=${userId}&timestamp=${ts}`
+            url: `http://afterclass-966.appspot.com/StartAlgorithm?userId=${userId}&timestamp=${ts}` + ($rootScope.env === 'dev' ? '&dev' : '')
         });
     };
 
