@@ -184,7 +184,7 @@
     "ASK_A_TEACHER": "שלח שאלה",
     "GET_POINTS": "רכוש מנוי",
     "GET_PAYMENT": "קבל תשלום",
-    "GET_PAYMENT_SUBTITLE": "עד כה הרווחת {{sum}}",
+    "GET_PAYMENT_SUBTITLE": "עד כה הרווחת &#8362;{{sum}}",
     "NEXT": "המשך",
     "REPORT_QUESTION": "דווח על התכתבות זו",
     "REPORT_PLACEHOLDER": "פירוט הבעיה",
