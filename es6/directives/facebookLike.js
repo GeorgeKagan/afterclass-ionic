@@ -1,4 +1,4 @@
-angular.module('afterclass.directives').directive('facebookLike', () => {
+angular.module('afterclass.directives').directive('facebookLike', (Social) => {
     return {
         restrict: 'E',
         replace: true,
@@ -12,9 +12,7 @@ angular.module('afterclass.directives').directive('facebookLike', () => {
 
         },
         link: scope => {
-            scope.likeClicked = () => {
-                window.open('http://www.facebook.com/AppAfterClass', '_blank', 'location=yes');
-            };
+            scope.likeClicked = () => Social.openFacebookAppPage();
         }
     };
 });

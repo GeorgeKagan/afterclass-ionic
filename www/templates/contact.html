@@ -15,7 +15,7 @@
             <a href="tel:{{config.phone}}" class="button button-block button-outline button-royal icon-right ion-android-call">
                 {{config.phone}}
             </a>
-            <a onclick="window.open('http://www.facebook.com/AppAfterClass', '_blank', 'location=yes')"
+            <a ng-click="openFacebookApp()"
                class="button button-block button-outline button-positive icon-right ion-social-facebook">
                 {{"FACEBOOK_PAGE"|translate}}
             </a>
