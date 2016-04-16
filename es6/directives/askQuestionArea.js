@@ -11,13 +11,9 @@ angular.module('afterclass.directives').directive('askQuestionArea', ($rootScope
                 '<div class="ab-text" ng-if="btnText===\'points\'">{{"GET_POINTS"|translate}}</div>' +
             '</button>' +
             '<div class="light text-center padding" dir="auto" ng-if="$root.user.is_teacher">' +
-                '<span ng-if="teacherTotalPayments||teacherTotalPayments==0">' +
-                '{{"GET_PAYMENT_SUBTITLE"|translate:translationData}}' + ' &#8362' +
-                '</span>' +
+                '<span ng-if="teacherTotalPayments||teacherTotalPayments==0" ng-bind-html="\'GET_PAYMENT_SUBTITLE\'|translate:translationData"></span>' +
             '</div>' +
-            '<div class="light text-center padding" dir="auto" ng-if="!$root.user.is_teacher && showCreditCount">' +
-                '{{"ASK_QUESTION_REMAINING"|translate:translationData}}' +
-            '</div>' +
+            '<div class="light text-center padding" dir="auto" ng-if="!$root.user.is_teacher && showCreditCount" ng-bind-html="\'ASK_QUESTION_REMAINING\'|translate:translationData"></div>' +
         '</div>',
         scope: {},
         link: scope => {
