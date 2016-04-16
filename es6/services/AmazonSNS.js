@@ -44,56 +44,68 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
             }, err => $log.log('can\'t get APNS ' + err));
         }
         else if (ionic.Platform.isAndroid()) {
-            let androidConfig = {
-                // Google project ID
-                senderID: '580333274108'
-            };
-            $cordovaPush.register(androidConfig).then(result => {}, err => {});
+            let push = PushNotification.init({
+                android: {
+                    senderID: "580333274108",
+                    //todo: put an icon
+                    icon: ""
+                }
+            });
+
+            push.on('registration', function(notification) {
+                if (notification.registrationId.length > 0) {
+                    $log.log('registration ID = ' + notification.registrationId);
+                    // CREATE ENDPOINT
+                    let params = {
+                        PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/GCM/afterclass-android',
+                        Token                 : notification.registrationId
+                    };
+                    sns.createPlatformEndpoint(params, (err, data) => {
+                        $log.log('EndpointArn', data.EndpointArn);
+                        q.resolve(data.EndpointArn);
+                    });
+                }
+            });
+
+            push.on('notification', function(data) {
+                // data.message,
+                // data.title,
+                // data.count,
+                // data.sound,
+                // data.image,
+                // data.additionalData
+                //This is the actual push notification. Its format depends on the data model from the push server
+                $log.log('message', data);
+            });
+
+            push.on('error', function(e) {
+                // e.message
+                $log.log('GCM error = ' + e.message);
+            });
         }
 
-        $rootScope.$on('$cordovaPush:notificationReceived', (event, notification) => {
-            switch(notification.event) {
-                case 'registered':
-                    if (notification.regid.length > 0) {
-                        $log.log('registration ID = ' + notification.regid);
-                        // CREATE ENDPOINT
-                        let params = {
-                            PlatformApplicationArn: 'arn:aws:sns:us-west-2:859437719678:app/GCM/afterclass-android',
-                            Token                 : notification.regid
-                        };
-                        sns.createPlatformEndpoint(params, (err, data) => {
-                            $log.log('EndpointArn', data.EndpointArn);
-                            q.resolve(data.EndpointArn);
-                        });
-                    }
-                    break;
-                case 'message':
-                    // This is the actual push notification. Its format depends on the data model from the push server
-                    $log.log('message', notification);
-                    break;
-                case 'error':
-                    $log.log('GCM error = ' + notification.msg);
-                    break;
-                default:
-                    $log.log('An unknown GCM event has occurred');
-                    break;
-            }
-        });
         return q.promise;
     };
 
     /**
      *
      * @param endpoint_arn
+     * @param title
      * @param msg
      */
-    Amazon.publish = (endpoint_arn, msg) => {
+    Amazon.publish = (endpoint_arn, title, msg = '') => {
+        msg = msg.length > 20 ? msg.substr(0, 20) + '...' : msg;
         // PUBLISH TO ENDPOINT
         let params = {
             MessageStructure: 'json',
             Message         : JSON.stringify({
                 'default'   : msg,
-                'GCM'       : "{ \"data\": { \"message\": \"" + msg + "\" } }"
+                'GCM'       : `{ "data": { 
+                                    "title": "${title}", 
+                                    "message": "${msg}", 
+                                    "style": "inbox",
+                                    "ledColor": [100, 149, 237, 0]
+                               } }`
             }),
             TargetArn       : endpoint_arn
         };

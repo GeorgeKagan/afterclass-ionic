@@ -117,7 +117,7 @@
         }
     },
     "NOTIFICATIONS": {
-        "TUTOR_REPLIED": "A teacher answered your question"
+        "TUTOR_REPLIED_TITLE": "A teacher answered your question"
     },
     "UPLOADS": {
         "PROGRESS": "Uploading... ",

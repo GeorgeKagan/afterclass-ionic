@@ -118,7 +118,7 @@
         }
     },
     "NOTIFICATIONS": {
-        "TUTOR_REPLIED": "מורה הגיב לשאלה שלך"
+        "TUTOR_REPLIED_TITLE": "מורה הגיב לשאלה שלך"
     },
     "UPLOADS": {
         "PROGRESS": "מעלה... ",
