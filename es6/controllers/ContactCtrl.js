@@ -1,3 +1,5 @@
-angular.module('afterclass.controllers').controller('ContactCtrl', ($scope, AppConfig) => {
+angular.module('afterclass.controllers').controller('ContactCtrl', ($scope, AppConfig, Social) => {
     $scope.config = AppConfig.getConfig().contact;
+
+    $scope.openFacebookApp = () => Social.openFacebookAppPage();
 });
