@@ -128,13 +128,28 @@ angular.module('afterclass.directives', [])
         };
     })
 
-    .directive("fileread", [function () {
+    .directive("fileUploader", [function () {
         return {
             scope: {
                 fileread: "="
             },
             link: function (scope, element, attributes) {
-                element.bind("change", function (changeEvent) {
+				let lastClick=0;
+				//alert("fileUploader init, "+element);
+				$(element).click(function () {
+					let now=new Date().getTime();
+					if(now-lastClick>1000){
+						lastClick=now;
+						var elem = $(element).parent().find("input.file-upload")[0]
+				      	var evt = document.createEvent("MouseEvents");
+						evt.initEvent("click", true, false);
+						elem.dispatchEvent(evt);
+					}
+				});
+
+
+
+                $(element).parent().find("input.file-upload").bind("change", function (changeEvent) {
                     var reader = new FileReader();
                     reader.onload = function (loadEvent) {
                         scope.$apply(function () {

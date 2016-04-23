@@ -30,8 +30,9 @@
         </div>
     </ion-content>
     <div class="bar footer-bar tabs tabs-icon-only tabs-dark tabs-color-light">
-        <input type="file" class="tab-item icon-attachment" fileread="vm.uploadme"/>
-        <a ng-click="takePicture()" class="tab-item icon-camera"></a>
-        <a ng-click="choosePicture()" class="tab-item icon-attachment"></a>
+        <div class="tab-item show-only-on-web icon-attachment" file-uploader fileread="path"/>
+		<input type="file" class="file-upload" />
+        <a ng-click="takePicture()" class="tab-item icon-camera show-only-on-mobile"></a>
+        <a ng-click="choosePicture()" class="tab-item icon-attachment show-only-on-mobile"></a>
     </div>
 </ion-view>

@@ -12,13 +12,20 @@ angular.module('afterclass.services').factory('CloudinaryUpload', function ($q, 
         var deferred = $q.defer(), fileSize, percentage;
 
         // Find out how big the original file is
-        $window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
-            fileEntry.file(function (fileObj) {
-                fileSize = fileObj.size;
-                $ionicLoading.show({template: $translate.instant('UPLOADS.PROGRESS') + 0 + '%'});
-                uploadFile();
-            });
-        });
+		if($window.resolveLocalFileSystemURL){
+	        $window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+	            fileEntry.file(function (fileObj) {
+	                fileSize = fileObj.size;
+	                $ionicLoading.show({template: $translate.instant('UPLOADS.PROGRESS') + 0 + '%'});
+	                uploadFile();
+	            });
+	        });
+		}else{
+			fileSize = imageURI.length;
+			$ionicLoading.show({template: $translate.instant('UPLOADS.PROGRESS') + 0 + '%'});
+			uploadFile();
+
+		}
 
         function uploadFile() {
             // Add the Cloudinary "upload preset" name to the headers

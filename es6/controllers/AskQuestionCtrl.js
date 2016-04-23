@@ -92,8 +92,9 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
             persist_post();
         }
     };
-    $scope.$watch('fileread', function() {
-        alert('fileread has changed! '+$scope.fileread);
+    $scope.$watch('path', function() {
+		$scope.hasAttachment = true;
+		add_img_url = $scope.path;
     });
 
     /**
@@ -130,8 +131,6 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', function 
      */
     $scope.choosePicture = function () {
         if (!window.cordova) {
-
-
             return alert('Only works on a real device!');
         }else{
             MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(function (result) {
