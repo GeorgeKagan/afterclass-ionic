@@ -3,7 +3,7 @@ angular.module('afterclass.controllers').controller('FacebookLoginCtrl', ($scope
 
     if (!localStorage.getItem('finished_on_boarding') && angular.element.inArray('browser', ionic.Platform.platforms) === -1) {
         $ionicHistory.nextViewOptions({disableBack: true});
-        $state.go('onBoarding').then(navigator.splashscreen.hide);
+        $state.go('onBoarding').then(() => navigator.splashscreen && navigator.splashscreen.hide());
         return;
     }
 

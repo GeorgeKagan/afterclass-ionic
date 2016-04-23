@@ -13,7 +13,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
                 Auth.doRedirect(user);
             });
         } else {
-            navigator.splashscreen.hide();
+            navigator.splashscreen && navigator.splashscreen.hide();
         }
     };
 
@@ -150,7 +150,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
         let state = user.is_choose_type_finished ? 'home' : 'userDetails_chooseType';
         $state.go(state).then(() => {
             $ionicLoading.hide();
-            $timeout(navigator.splashscreen.hide, 500);
+            $timeout(() => navigator.splashscreen && navigator.splashscreen.hide(), 500);
         });
         $ionicHistory.nextViewOptions({disableBack: true});
     };
