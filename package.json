@@ -37,7 +37,6 @@
     "cordova-plugin-file-transfer",
     "cordova-plugin-inappbrowser",
     "cordova-plugin-statusbar",
-    "com.ionic.keyboard",
     "cordova-plugin-appavailability",
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard"
