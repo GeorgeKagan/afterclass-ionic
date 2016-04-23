@@ -3,6 +3,10 @@
   .item-avatar > img:first-child {
     max-width: 50px;
     max-height: 50px;
+    @media (max-width: 359px) {
+      max-width: 30px;
+      max-height: 30px;
+    }
   }
   .buttons {
     display: flex;
@@ -13,6 +17,11 @@
   #rating-area {
     position: absolute;
     right: 0;
+    .item-avatar {
+      @media (max-width: 359px) {
+        padding-right: 42px;
+      }
+    }
   }
   #rating-area > * {
     float: left;
