@@ -62,6 +62,7 @@ angular.module('afterclass', [
 
         $stateProvider
             .state('login', {
+                cache: false,
                 url: '/login',
                 templateUrl: 'templates/login.html',
                 controller: 'FacebookLoginCtrl'

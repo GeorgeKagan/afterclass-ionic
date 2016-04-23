@@ -36,10 +36,11 @@
     "cordova-plugin-file",
     "cordova-plugin-file-transfer",
     "cordova-plugin-inappbrowser",
-    "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "com.ionic.keyboard",
-    "cordova-plugin-appavailability"
+    "cordova-plugin-appavailability",
+    "cordova-plugin-splashscreen",
+    "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "android"
