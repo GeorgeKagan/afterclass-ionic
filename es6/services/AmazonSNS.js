@@ -20,7 +20,8 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
         if (!window.cordova) {
             return $log.warn('Cannot register with GCM. Must run on a real device!');
         }
-        let q = $q.defer();
+        let q = $q.defer(),
+            foregroundPopup = null;
 
         let push = PushNotification.init({
             android: {
@@ -58,7 +59,8 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
             // data.additionalData
             //This is the actual push notification. Its format depends on the data model from the push server
             $log.log('message', data);
-            $ionicPopup.alert({
+            foregroundPopup && foregroundPopup.close();
+            foregroundPopup = $ionicPopup.alert({
                 title   : data.title,
                 template: data.message,
                 okText  : $translate.instant('OK')
