@@ -9,7 +9,7 @@
         <h4 class="m-15 text-center">{{'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</h4>
         <form>
             <ion-checkbox ng-model="choice.allSelected" ng-click="selectAll()">{{'SELECT_ALL'|translate}}</ion-checkbox>
-            <div class="padding-bottom" ng-repeat="(name, instituteDegrees) in degrees | orderBy:'name'">
+            <div class="padding-bottom" ng-repeat="(name, instituteDegrees) in degrees">
                 <h5 class="m-15 text-center">{{"GRADES." + name|translate}}</h5>
                 <ion-checkbox ng-model="selDegrees[name + '|||' + degree.name]" ng-repeat="degree in instituteDegrees">{{"SUBJECTS." + degree.name|translate}}</ion-checkbox>
             </div>
