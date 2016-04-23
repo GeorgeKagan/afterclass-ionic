@@ -1,23 +1,19 @@
-angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory, $ionicPopup, $ionicLoading, $translate, $state, $window, $log, MyFirebase, User) => {
+angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory, $ionicPopup, $ionicLoading, $timeout, $translate, $state, $window, $log, MyFirebase, User) => {
     'use strict';
     
     let Auth = {};
 
-    Auth.ref      = MyFirebase.getRef();
+    Auth.ref = MyFirebase.getRef();
 
-    Auth.autoLoginIfGotSession = (scope = null) => {
+    Auth.autoLoginIfGotSession = () => {
         let authData = Auth.ref.getAuth();
-        $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         if (authData) {
             User.getFromUsersCollection().then(user => {
                 Auth.postLoginOps(user, authData);
                 Auth.doRedirect(user);
             });
         } else {
-            $ionicLoading.hide();
-            if (scope) {
-                scope.sessionChecked = true;
-            }
+            navigator.splashscreen.hide();
         }
     };
 
@@ -151,11 +147,11 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
     Auth.postLoginOps = (user, authData) => User.fillMandatoryFields(user, authData);
 
     Auth.doRedirect = user => {
-        if (user.is_choose_type_finished) {
-            $state.go('home').then(() => $ionicLoading.hide());
-        } else {
-            $state.go('userDetails_chooseType').then(() => $ionicLoading.hide());
-        }
+        let state = user.is_choose_type_finished ? 'home' : 'userDetails_chooseType';
+        $state.go(state).then(() => {
+            $ionicLoading.hide();
+            $timeout(navigator.splashscreen.hide, 500);
+        });
         $ionicHistory.nextViewOptions({disableBack: true});
     };
 
