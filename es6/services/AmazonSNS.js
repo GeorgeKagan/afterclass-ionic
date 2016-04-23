@@ -1,7 +1,7 @@
 /**
  * Push notifications
  */
-angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordovaPush, $q, $log) => {
+angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordovaPush, $q, $log, $ionicPopup, $translate) => {
     'use strict';
 
     let sns = new AWS.SNS({
@@ -75,6 +75,11 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
                 // data.additionalData
                 //This is the actual push notification. Its format depends on the data model from the push server
                 $log.log('message', data);
+                $ionicPopup.alert({
+                    title   : data.title,
+                    template: data.message,
+                    okText  : $translate.instant('OK')
+                });
             });
 
             push.on('error', function(e) {
