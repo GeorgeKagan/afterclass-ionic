@@ -353,10 +353,16 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                         );
                     }
 
-                    tutorTaggingForm(post,() => {
+                    // Done, ask TEACHER for labels
+                    if($rootScope.user.is_teacher) {
+                        tutorTaggingForm(post,() => {
+                            post.$save();
+                            Utils.triggerAlgorithm();
+                        });
+                    } else {
                         post.$save();
                         Utils.triggerAlgorithm();
-                    });
+                    }
 
                 });
             }, error => {
