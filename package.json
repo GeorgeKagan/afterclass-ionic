@@ -9,10 +9,10 @@
   "license": "SEE LICENSE IN <filename>",
   "dependencies": {
     "gulp": "^3.9.0",
-    "gulp-sass": "^2.1.0",
+    "gulp-clean-css": "^2.0.6",
     "gulp-concat": "^2.2.0",
-    "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.1.0"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
@@ -37,7 +37,6 @@
     "cordova-plugin-file-transfer",
     "cordova-plugin-inappbrowser",
     "cordova-plugin-statusbar",
-    "com.ionic.keyboard",
     "cordova-plugin-appavailability",
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard"

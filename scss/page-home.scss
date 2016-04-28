@@ -43,12 +43,13 @@ body.platform-ios {
 .ask-q-area {
   background: url(../img/bg3.jpg) center center;
   background-size: 200%;
-  @include TextShadow;
+  //@include TextShadow;
   margin: 0 0 0 0;
   padding: 80px 0 25px 0;
   min-height: 278px;
   .aqa-btn {
-    box-shadow: -1px 3px 7px rgba(0, 0, 0, 0.2);
+    //box-shadow: -1px 3px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
     background: $pale_blue;
     color: $light_gray;
     border: 0;
@@ -105,7 +106,10 @@ body.platform-ios {
 .card {
   margin: 20px 20px;
   padding: 0;
-  box-shadow: 0 2px 7px #CCC;
+  //box-shadow: 0 2px 7px #CCC;
+  box-shadow: none;
+  border: 1px solid #ddd;
+  min-height: 100px;
   &:first-child {
     margin-top: 0;
   }
@@ -113,7 +117,7 @@ body.platform-ios {
     margin-bottom: 16px;
   }
   .post-gradient {
-    @include VerticalGradient;
+    //@include VerticalGradient;
     .post-question {
       background: transparent;
     }

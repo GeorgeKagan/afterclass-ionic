@@ -14,7 +14,8 @@
 }
 
 .view-container .pane {
-  @include RadialGradient;
+  background: #f6f6f6;
+  //@include RadialGradient;
   &.has-tabs {
     bottom: 0;
   }
