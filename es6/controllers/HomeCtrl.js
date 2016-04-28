@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('HomeCtrl', (
-    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User) => {
+    $rootScope, $scope, $ionicScrollDelegate, $state, $firebaseArray, $ionicPopup, $translate, $cordovaNetwork, Post, MyFirebase, InstitutePopup, User, Dom) => {
     'use strict';
 
     // If for some reason student doesn't have grade selected, prompt him to choose
@@ -9,8 +9,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
 
     // Load all user's questions from firebase
     let ref = MyFirebase.getRef().child('posts'),
-        sync, sync3, posts, posts_tutor_answered,
-		tabs_top_pos = $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 260 : 230;
+        sync, sync3, posts, posts_tutor_answered;
 
     // Teacher home
     if ($rootScope.user.is_teacher) {
@@ -68,30 +67,6 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
         Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
 
-    $scope.getHeaderSize = () => ionic.Platform.isIOS() ? 64 : 44;
-
-    let tabs = angular.element('#ac-tabs-inner > .tabs');
-
-    $scope.gotScrolled = () => {
-        let scrollDiv = angular.element('#ac-tabs-inner .scroll:visible');
-        let y         = scrollDiv.offset().top;
-
-        if (!scrollDiv.length) { return; }
-
-        if (y <= -186) {
-            // Tabs sticky on top
-            angular.element('.bar-header').addClass('scrolled');
-            tabs.css('top', $scope.getHeaderSize());
-        } else {
-            // Tabs following scroll
-            angular.element('.bar-header').removeClass('scrolled');
-            tabs.css('top', tabs_top_pos - Math.abs(y));
-        }
-    };
-
-    $scope.scrollToTop = () => {
-        $ionicScrollDelegate.scrollTop(true);
-        angular.element('#ac-tabs-inner .tabs').css('top', tabs_top_pos);
-        return true;
-    };
+    $scope.homepageScrolled = Dom.homepageTabs.gotScrolled;
+    $scope.scrollToTop      = Dom.homepageTabs.scrollToTop;
 });

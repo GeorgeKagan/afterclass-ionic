@@ -11,7 +11,7 @@
     </div>
     <ion-tabs dir="auto" id="ac-tabs-inner" class="tabs-striped tabs-background-dark tabs-color-calm tabs-icon-left" question-tabs>
         <ion-tab title="{{'POST.UNANSWERED'|translate}}" icon-on="ion-ios-help" icon-off="ion-ios-help-outline" on-select="scrollToTop()">
-            <ion-content on-scroll="gotScrolled()" has-bouncing="false">
+            <ion-content on-scroll="homepageScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
                 <div ng-if="!posts && !posts_tutor_unanswered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
@@ -48,7 +48,7 @@
             </ion-content>
         </ion-tab>
         <ion-tab title="{{'POST.ANSWERED'|translate}}" icon-on="ion-ios-checkmark" icon-off="ion-ios-checkmark-outline" on-select="scrollToTop()">
-            <ion-content on-scroll="gotScrolled()" has-bouncing="false">
+            <ion-content on-scroll="homepageScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
                 <div ng-if="!posts && !posts_tutor_answered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
