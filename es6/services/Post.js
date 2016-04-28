@@ -3,13 +3,13 @@ angular.module('afterclass.services').factory('Post', (
     
     let Post = {};
 
-    Post.persist = (img_id = null) => {
+    Post.persist = (question, img_id = null) => {
         let posts = $firebaseArray(MyFirebase.getRef().child('posts'));
         $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
         return posts.$add({
             user                : $rootScope.user.uid,
-            subject             : angular.element('#aq-subject').val(),
-            body                : angular.element('#aq-body').val(),
+            subject             : question.subject,
+            body                : question.body,
             img_id              : img_id || '',
             status              : 'unanswered',
             create_date         : Firebase.ServerValue.TIMESTAMP,
