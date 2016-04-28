@@ -11,7 +11,7 @@ angular.module('afterclass.services').factory('MyCamera', ($q, $window) => {
                 correctOrientation  : true,
                 targetWidth         : 2000,
                 targetHeight        : 2000,
-                allowEdit           : true
+                allowEdit           : false
             }, options);
 
             navigator.camera.getPicture(result => {

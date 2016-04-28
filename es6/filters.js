@@ -17,7 +17,7 @@ angular.module('afterclass.filters', [])
             // Subtract 10 seconds (to fix 'in x seconds' bug
             let timeAgo = moment(timestamp - (10 * 1000)).fromNow();
             // If within the past hour, emphasize it
-            return (Date.now()) - timestamp < 3600000 ? `<span class="bold">${timeAgo}</span>` : timeAgo;
+            return `<span class="text-small">` + (Date.now() - timestamp < 3600000 ? `<span class="bold">${timeAgo}</span>` : timeAgo) + `</span>`;
         };
     })
 ;
