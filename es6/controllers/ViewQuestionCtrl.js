@@ -128,50 +128,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
     function showAgreement(callback) {
         let replyingTutors = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
 
-        if(!$rootScope.user.is_teacher) { // A tutor is replying, ask for question labels
-
-            //CONTINUE HERE: Make the popup save the label
-            $ionicPopup.show({
-                templateUrl : 'templates/partials/conversation-label-popup.html',
-                scope       : $scope,
-                title       : $translate.instant('REPORT_QUESTION'),
-                buttons     : [{
-                    text: '<span>' + $translate.instant('CANCEL') + '</span>',
-                    type: 'button-default button-block'
-                }, {
-                    text: '<span>' + $translate.instant('SEND') + '</span>',
-                    type: 'button-positive button-block',
-                    onTap: () => {
-                        if (!$scope.report.content.trim()) {
-                            return;
-                        }
-                        $scope.post.$loaded().then(() => {
-                            let complaints = $firebaseArray(ref.child('complaints'));
-                            complaints.$loaded().then(post => {
-                                complaints.$add({
-                                    user                : $rootScope.user.name,
-                                    body                : $scope.report.content,
-                                    create_date         : Firebase.ServerValue.TIMESTAMP,
-                                    create_date_human   : moment().format('D/M/YY H:mm:ss'),
-                                    is_teacher          : $rootScope.user.is_teacher
-                                });
-                                $scope.report.content = '';
-                                post.$save();
-                                $timeout(() => {
-                                    $ionicPopup.alert({
-                                        title   : '',
-                                        template: $translate.instant('REPORT_SENT'),
-                                        okText  : $translate.instant('OK')
-                                    });
-                                }, 0);
-                            });
-                        });
-                    }
-                }
-                ]
-            });
-
-        } else if (replyingTutors.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
+        if (replyingTutors.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
             // Alert the uses regarding the rules
             $ionicPopup.show({
                 template: $translate.instant('COMMENT_AGREEMENT'),
@@ -195,6 +152,43 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                 callback();
             }
         }
+    }
+
+    function tutorTaggingForm(post, callback) {
+        let popupScope = $scope.$new(true);
+        popupScope.label = {
+            content: ''
+        };
+
+        if(typeof post.labels !== 'undefined' && _.isArray(post.labels)) {
+            popupScope.label.content = post.labels.join(', ');
+        }
+
+        $ionicPopup.show({
+            templateUrl : 'templates/partials/conversation-label-popup.html',
+            scope       : popupScope,
+            title       : $translate.instant('LABELING.TITLE'),
+            buttons     : [{
+                text: '<span>' + $translate.instant('SAVE') + '</span>',
+                type: 'button-positive button-block',
+                onTap: (e) => {
+                    if (popupScope.label.content.trim() === '') {
+                        e.preventDefault();
+                        //TODO: Add a validation message
+                    }
+                    if(typeof post.labels === 'undefined') {
+                        post.labels = [];
+                    }
+                    post.labels = _.filter(_.uniq(post.labels.concat(_.map(popupScope.label.content.split(','), _.trim))),(label) => {
+                        return label !== '';
+                    });
+                    console.log('Final labels are:' + post.labels);
+
+                    callback();
+                }
+            }
+            ]
+        });
     }
 
     /**
@@ -358,8 +352,12 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                             replyData.body
                         );
                     }
-                    post.$save();
-                    Utils.triggerAlgorithm();
+
+                    tutorTaggingForm(post,() => {
+                        post.$save();
+                        Utils.triggerAlgorithm();
+                    });
+
                 });
             }, error => {
                 $log.log('Error: ', error);
