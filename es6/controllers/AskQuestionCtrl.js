@@ -1,15 +1,14 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
-    $rootScope, $scope, $ionicScrollDelegate, $ionicTabsDelegate, $state, $firebaseArray, $ionicLoading,
-    $ionicPopup, $timeout, $translate, $window, $cordovaNetwork, $log, MyCamera, CloudinaryUpload, Institutes, MyFirebase, Post) => {
+    $rootScope, $scope, $ionicScrollDelegate, $ionicPopup, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, Post) => {
 
     // Listen to Firebase config collection change and rebuild the subjects array
-    let populateScopeWithSubjects = () => Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute).then(data => $scope.subjects = data);
+    let populateScopeWithSubjects = () => Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute)
+        .then(data => $scope.subjects = data);
     $scope.$on('configUpdated', populateScopeWithSubjects);
     populateScopeWithSubjects();
 
     let initQuestion = () => $scope.question = {subject: '', body: '', image: ''};
     initQuestion();
-    $scope.hasAttachment = false;
 
     /**
      * Save question to Firebase
@@ -45,7 +44,6 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
             return alert('Only works on a real device!');
         }
         MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(result => {
-            $scope.hasAttachment = true;
             $scope.question.image = result.imageURI;
         }, () => {});
     };
@@ -66,7 +64,6 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
                     okText  : $translate.instant('OK')
                 });
             }
-            $scope.hasAttachment = true;
             $scope.question.image = result.imageURI;
         }, () => {});
     };
@@ -75,7 +72,6 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
      * Remove picture from question
      */
     $scope.removeAttachment = () => {
-        $scope.hasAttachment  = false;
         $scope.question.image = '';
         $ionicScrollDelegate.scrollTop();
     };

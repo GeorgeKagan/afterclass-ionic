@@ -19,7 +19,7 @@
                 <textarea msd-elastic="\n" ng-model="question.body" placeholder="{{'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
             </label>
         </div>
-        <div id="aq-img-wrapper" class="fade" ng-if="hasAttachment">
+        <div id="aq-img-wrapper" class="fade" ng-if="question.image">
             <div class="item item-text-wrap">
                 <img ng-src="{{question.image}}">
                 <div class="aq-delete" ng-click="removeAttachment()"></div>
