@@ -154,6 +154,43 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
         }
     }
 
+    function tutorTaggingForm(post, callback) {
+        let popupScope = $scope.$new(true);
+        popupScope.label = {
+            content: ''
+        };
+
+        if(typeof post.labels !== 'undefined' && _.isArray(post.labels)) {
+            popupScope.label.content = post.labels.join(', ');
+        }
+
+        $ionicPopup.show({
+            templateUrl : 'templates/partials/conversation-label-popup.html',
+            scope       : popupScope,
+            title       : $translate.instant('LABELING.TITLE'),
+            buttons     : [{
+                text: '<span>' + $translate.instant('SAVE') + '</span>',
+                type: 'button-positive button-block',
+                onTap: (e) => {
+                    if (popupScope.label.content.trim() === '') {
+                        e.preventDefault();
+                        //TODO: Add a validation message
+                    }
+                    if(typeof post.labels === 'undefined') {
+                        post.labels = [];
+                    }
+                    post.labels = _.filter(_.uniq(post.labels.concat(_.map(popupScope.label.content.split(','), _.trim))),(label) => {
+                        return label !== '';
+                    });
+                    console.log('Final labels are:' + post.labels);
+
+                    callback();
+                }
+            }
+            ]
+        });
+    }
+
     /**
      *
      */
@@ -315,8 +352,18 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                             replyData.body
                         );
                     }
-                    post.$save();
-                    Utils.triggerAlgorithm();
+
+                    // Done, ask TEACHER for labels
+                    if($rootScope.user.is_teacher) {
+                        tutorTaggingForm(post,() => {
+                            post.$save();
+                            Utils.triggerAlgorithm();
+                        });
+                    } else {
+                        post.$save();
+                        Utils.triggerAlgorithm();
+                    }
+
                 });
             }, error => {
                 $log.log('Error: ', error);

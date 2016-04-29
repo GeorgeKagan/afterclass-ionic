@@ -158,6 +158,11 @@
     "RATING": {
         "SATISFACTION_RATE": "How much are you satisfied with the answer?"
     },
+    "LABELING": {
+        "TITLE": "Labels",
+        "EXPLANATION": "Please add some labels to describe the question and the answer",
+        "INPUT_PLACEHOLDER": "Separate labels with commas, e.g.: trigonometry, distance, area"
+    },
     "BACK": "Back",
     "OK": "OK",
     "ERROR": "Error",
