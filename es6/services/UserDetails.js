@@ -1,4 +1,4 @@
-angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
+angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => {
     let UserDetails = {}, degrees, courses, payload = {};
 
     UserDetails.getDegreesBySelectedInstitutes = (selInstitutes, institutes) => {
@@ -37,7 +37,7 @@ angular.module('afterclass.services').factory('TutorDetails', ($log, User) => {
     };
 
     UserDetails.saveSelectedData = () => {
-        $log.log('Save tutor details payload', payload);
+        $log.log('Save teacher details payload', payload);
         User.updateUser({
             is_choose_type_finished: true,
             is_teacher             : true,

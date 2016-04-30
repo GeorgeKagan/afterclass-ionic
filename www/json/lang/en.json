@@ -26,9 +26,9 @@
     "USER_DETAILS": {
         "CHOOSE_TITLE": "Who are you?",
         "IS_STUDENT": "I'm a student",
-        "IS_TUTOR": "I'm a teacher",
+        "IS_TEACHER": "I'm a teacher",
         "SELECTED_STUDENT": "You chose student",
-        "TUTOR": {
+        "TEACHER": {
             "STEP1_TITLE": "Please choose grades",
             "STEP2_TITLE": "Please choose subjects",
             "STEP3_TITLE": "Please choose courses",
@@ -58,7 +58,7 @@
         "YOUTQUESTION": "Your question",
         "TYPEQUESTION": "Type your question..",
         "CHOOSESUBJECT": "Choose subject",
-        "ADDED_ATTACHMENT": "Attachment image"
+        "ADDED_ATTACHMENT": "Attachment"
     },
     "FORM": {
         "REQUIRED": "Please fill out all required fields",
@@ -117,7 +117,7 @@
         }
     },
     "NOTIFICATIONS": {
-        "TUTOR_REPLIED_TITLE": "A teacher answered your question"
+        "TEACHER_REPLIED_TITLE": "A teacher answered your question"
     },
     "UPLOADS": {
         "PROGRESS": "Uploading... ",
@@ -141,14 +141,14 @@
         "PLAN_3": "20 questions / 20$",
         "BUY": "Buy now",
         "RECOMMENDED": "Hot!",
-        "INTRO": "Enjoy a private tutor in you'r pocket with UNLIMITED number of enquiries!",
+        "INTRO": "Enjoy a private teacher in you'r pocket with UNLIMITED number of enquiries!",
         "OPENING_PRICE": "Opening price",
         "CALL": "Call Now",
         "FEATURES": {
             "UNLIMITED": "Unlimited assistance right inside your smartphone",
             "MANY_SUBJECTS": "Fast growing teacher base and new subject are constantly added",
             "CHEAP_PRICING": "Best value for money! UNLIMITED help for less than the price of two private lessons",
-            "EXP_TUTORS": "Experienced teachers provide tailored help for every student",
+            "EXP_TEACHERS": "Experienced teachers provide tailored help for every student",
             "PAY_AS_YOU_GO": "Trial membership with 5 solutions! <br /> No commitment, no monthly payments"
         },
         "CALL_CENTER": "Call center:",
@@ -157,6 +157,11 @@
     },
     "RATING": {
         "SATISFACTION_RATE": "How much are you satisfied with the answer?"
+    },
+    "LABELING": {
+        "TITLE": "Labels",
+        "EXPLANATION": "Please add some labels to describe the question and the answer",
+        "INPUT_PLACEHOLDER": "Separate labels with commas, e.g.: trigonometry, distance, area"
     },
     "BACK": "Back",
     "OK": "OK",

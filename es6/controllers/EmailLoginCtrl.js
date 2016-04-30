@@ -1,9 +1,6 @@
 angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, Auth) => {
     'use strict';
-
-    // Check if got active session
-    Auth.autoLoginIfGotSession();
-
+    
     // Init model and default action (login)
     $scope.account = {firstName: '', lastName: '', email: '', password: '', passwordAgain: ''};
     $scope.show    = 'login';

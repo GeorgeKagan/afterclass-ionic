@@ -18,10 +18,10 @@ angular.module('afterclass.controllers').
                 $ionicHistory.nextViewOptions({disableBack: true});
             });
         };
-        $scope.tutor = () => $state.go('userDetails_tutorStep1');
+        $scope.teacher = () => $state.go('userDetails_teacherStep1');
     }).
 
-    controller('UserDetailsTutorStep1Ctrl', ($rootScope, $scope, $state, $http, TutorDetails, AppConfig) => {
+    controller('UserDetailsTeacherStep1Ctrl', ($rootScope, $scope, $state, $http, TeacherDetails, AppConfig) => {
         $scope.selInstitutes = {};
 
         // If edit mode - mark chosen institutes as selected
@@ -52,19 +52,19 @@ angular.module('afterclass.controllers').
             $scope.choice.allSelected = Object.keys($scope.institutes).length === _.filter($scope.selInstitutes).length;
         };
 
-        $scope.submitTutorStep1 = () => {
-            let degrees = TutorDetails.getDegreesBySelectedInstitutes($scope.selInstitutes, $scope.institutes);
-            TutorDetails.setPayloadInstitutes($scope.selInstitutes);
-            TutorDetails.setDegrees(degrees);
-            $state.go('userDetails_tutorStep2', {isEdit: $state.params.isEdit});
+        $scope.submitTeacherStep1 = () => {
+            let degrees = TeacherDetails.getDegreesBySelectedInstitutes($scope.selInstitutes, $scope.institutes);
+            TeacherDetails.setPayloadInstitutes($scope.selInstitutes);
+            TeacherDetails.setDegrees(degrees);
+            $state.go('userDetails_teacherStep2', {isEdit: $state.params.isEdit});
         };
 
         $scope.canSubmit = () => _.filter($scope.selInstitutes).length > 0;
     }).
 
-    controller('UserDetailsTutorStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TutorDetails) => {
+    controller('UserDetailsTeacherStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherDetails) => {
         $scope.selDegrees = {};
-        $scope.degrees    = TutorDetails.getDegrees();
+        $scope.degrees    = TeacherDetails.getDegrees();
 
         // If edit mode - mark chosen degrees as selected
         if ($rootScope.user.target_institutes) {
@@ -95,24 +95,24 @@ angular.module('afterclass.controllers').
             $scope.choice.allSelected = count === _.filter($scope.selDegrees).length;
         };
 
-        $scope.submitTutorStep2 = () => {
-            let courses = TutorDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
-            TutorDetails.setPayloadDegrees($scope.selDegrees);
-            TutorDetails.setCourses(courses);
-            $state.go('userDetails_tutorStep3', {isEdit: $state.params.isEdit});
+        $scope.submitTeacherStep2 = () => {
+            let courses = TeacherDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
+            TeacherDetails.setPayloadDegrees($scope.selDegrees);
+            TeacherDetails.setCourses(courses);
+            $state.go('userDetails_teacherStep3', {isEdit: $state.params.isEdit});
         };
-        $scope.submitTutorStep2Last = () => {
-            TutorDetails.setPayloadDegrees($scope.selDegrees, true);
-            TutorDetails.saveSelectedData();
+        $scope.submitTeacherStep2Last = () => {
+            TeacherDetails.setPayloadDegrees($scope.selDegrees, true);
+            TeacherDetails.saveSelectedData();
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
         };
         $scope.canSubmit = () => _.filter($scope.selDegrees).length > 0;
     }).
 
-    controller('UserDetailsTutorStep3Ctrl', ($rootScope, $scope, $state, $ionicHistory, TutorDetails) => {
+    controller('UserDetailsTeacherStep3Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherDetails) => {
         $scope.selCourses = {};
-        $scope.courses    = TutorDetails.getCourses();
+        $scope.courses    = TeacherDetails.getCourses();
 
         // If edit mode - mark chosen courses as selected
         if ($rootScope.user.target_institutes) {
@@ -125,11 +125,11 @@ angular.module('afterclass.controllers').
             });
         }
 
-        $scope.submitTutorStep3 = () => {
-            TutorDetails.setPayloadCourses($scope.selCourses);
-            TutorDetails.saveSelectedData();
+        $scope.submitTeacherStep3 = () => {
+            TeacherDetails.setPayloadCourses($scope.selCourses);
+            TeacherDetails.saveSelectedData();
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
         };
-        $scope.isChecked = entities => TutorDetails.isChecked(entities);
+        $scope.isChecked = entities => TeacherDetails.isChecked(entities);
     });

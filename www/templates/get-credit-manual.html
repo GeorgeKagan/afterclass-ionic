@@ -39,13 +39,14 @@
                         <div class="col">
                             <i class="icon ion-ios-people placeholder-icon" style="color: #FF9D69;"></i>
                             <br />
-                            {{"GET_CREDIT.FEATURES.EXP_TUTORS"|translate}}
+                            {{"GET_CREDIT.FEATURES.EXP_TEACHERS"|translate}}
                         </div>
                     </div>
                 </div>
 
                 <div class="footer">
-                    <button class="button button-positive" ng-bind-html="'GET_CREDIT.MONTHLY_PRICE'|translate:monthlyPrice"></button>
+                    <!--<button class="button button-positive" ng-bind-html="'GET_CREDIT.MONTHLY_PRICE'|translate:monthlyPrice"></button>-->
+                    <a href="tel:{{config.phone}}" class="button button-positive button-block" ng-bind-html="'GET_CREDIT.MONTHLY_PRICE'|translate:monthlyPrice"></a>
                 </div>
             </div>
             <!-- /Monthly plan -->
@@ -62,7 +63,8 @@
                 </div>
 
                 <div class="footer">
-                    <button class="button button-positive" ng-bind-html="'GET_CREDIT.ONE_TIME_PRICE'|translate:onetimePrice"></button>
+                    <!--<button class="button button-positive" ng-bind-html="'GET_CREDIT.ONE_TIME_PRICE'|translate:onetimePrice"></button>-->
+                    <a href="tel:{{config.phone}}" class="button button-positive button-block" ng-bind-html="'GET_CREDIT.ONE_TIME_PRICE'|translate:onetimePrice"></a>
                 </div>
             </div>
             <!-- /Pay as you go -->

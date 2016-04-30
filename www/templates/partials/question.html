@@ -3,7 +3,7 @@
         <div class="post-gradient">
             <div class="post-header item">
                 <div class="ph-subject {{::header_bg}} light">{{"SUBJECTS." + post.subject|translate}}</div>
-                <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-if="!post.replies && !is_teacher && !isPostHasTutorThatAccepted(post)"></div>
+                <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-if="!post.replies && !is_teacher && !isPostHasTeacherThatAccepted(post)"></div>
                 <div class="ph-date" ng-bind-html="post.create_date | moment"></div>
             </div>
             <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>

@@ -7,10 +7,11 @@ angular.module('afterclass.services').factory('MyCamera', ($q, $window) => {
                 quality             : 90,
                 destinationType     : Camera.DestinationType.FILE_URI,
                 mediaType           : Camera.MediaType.PICTURE,
-                encodingType        : Camera.EncodingType.JPEG,
+                encodingType        : Camera.EncodingType.PNG,
                 correctOrientation  : true,
                 targetWidth         : 2000,
-                targetHeight        : 2000
+                targetHeight        : 2000,
+                allowEdit           : false
             }, options);
 
             navigator.camera.getPicture(result => {

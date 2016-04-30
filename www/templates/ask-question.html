@@ -8,23 +8,20 @@
     </div>
     <ion-content class="has-header has-footer" has-bouncing="false">
         <div class="list">
-            <label for="aq-subject" class="item item-input item-stacked-label">
+            <label class="item item-input item-stacked-label">
                 <span class="input-label"><span class="ion-university calm"></span> {{'POST.CHOOSESUBJECT'|translate}}</span>
-                <select id="aq-subject" ng-options="subject.key as subject.value for subject in subjects track by subject.key" ng-model="subject">
+                <select ng-options="subject.key as subject.value for subject in subjects track by subject.key" ng-model="question.subject">
                     <option value="">{{'POST.CHOOSE..'|translate}}</option>
                 </select>
             </label>
-            <label for="aq-body" class="item item-input item-stacked-label">
+            <label class="item item-input item-stacked-label">
                 <span class="input-label"><span class="ion-android-textsms calm"></span> {{'POST.YOUTQUESTION'|translate}}</span>
-                <textarea msd-elastic="\n" id="aq-body" ng-model="body.val" placeholder="{{'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
+                <textarea msd-elastic="\n" ng-model="question.body" placeholder="{{'POST.TYPEQUESTION'|translate}}" dir="auto"></textarea>
             </label>
         </div>
-        <div id="aq-img-wrapper" class="ng-hide" ng-show="hasAttachment">
-            <div class="item item-divider">
-                {{'POST.ADDED_ATTACHMENT'|translate}}
-            </div>
+        <div id="aq-img-wrapper" class="fade" ng-if="question.image">
             <div class="item item-text-wrap">
-                <div id="aq-img"></div>
+                <img ng-src="{{question.image}}">
                 <div class="aq-delete" ng-click="removeAttachment()"></div>
             </div>
         </div>

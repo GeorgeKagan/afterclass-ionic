@@ -14,7 +14,8 @@
 }
 
 .view-container .pane {
-  @include RadialGradient;
+  background: #f6f6f6;
+  //@include RadialGradient;
   &.has-tabs {
     bottom: 0;
   }
@@ -220,6 +221,10 @@ select {
 
 .m-20 {
   margin: 20px 0 !important;
+}
+
+.text-small {
+  font-size: 12px;
 }
 
 // Animations

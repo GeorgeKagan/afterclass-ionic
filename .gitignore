@@ -11,3 +11,5 @@ engine/
 #www/css/*/*.css
 www/js/
 www/css/
+resources/android/
+resources/ios/
