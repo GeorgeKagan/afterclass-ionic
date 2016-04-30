@@ -24,15 +24,15 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
      * @param post
      */
     function initFooter(post) {
-        $scope.isTutor = $rootScope.user.is_teacher;
+        $scope.isTeacher = $rootScope.user.is_teacher;
 
-        if ($scope.isTutor) { 
+        if ($scope.isTeacher) {
             $scope.showRating = false; //Student only
 
-            // Tutor - Show accept button for assigned tutors
-            let acceptingTutors = _.filter(post.potential_tutors, {post_status: 'accepted'});
+            // Teacher - Show accept button for assigned teachers
+            let acceptingTeachers = _.filter(post.potential_teachers, {post_status: 'accepted'});
 
-            if ($scope.isTutor && post.status === 'assigned' && acceptingTutors.length === 0) {
+            if ($scope.isTeacher && post.status === 'assigned' && acceptingTeachers.length === 0) {
                 $scope.showReplyForm      = false;
                 $scope.showAcceptQuestion = true;
             } else {
@@ -40,7 +40,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                 $scope.showAcceptQuestion = false;
             }
         } else {
-            $scope.showAcceptQuestion = false; //Tutor only
+            $scope.showAcceptQuestion = false; // Teacher only
 
             if($scope.rating.hasRepliesToRate()) {
                 $scope.showRating    = true;
@@ -126,9 +126,9 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
      * @param callback
      */
     function showAgreement(callback) {
-        let replyingTutors = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
+        let replyingTeachers = _.map(_.filter(replies, { 'is_teacher': true }), 'name');
 
-        if (replyingTutors.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
+        if (replyingTeachers.length > 0 && $scope.shouldShowAgreement && !$rootScope.user.is_teacher) {
             // Alert the uses regarding the rules
             $ionicPopup.show({
                 template: $translate.instant('COMMENT_AGREEMENT'),
@@ -154,7 +154,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
         }
     }
 
-    function tutorTaggingForm(post, callback) {
+    function teacherTaggingForm(post, callback) {
         let popupScope = $scope.$new(true);
         popupScope.label = {
             content: ''
@@ -306,14 +306,14 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                 is_teacher          : $rootScope.user.is_teacher
             };
 
-            if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
-                let currPotTutor = $scope.post.potential_tutors[$rootScope.user.$id];
+            if ($rootScope.user.is_teacher && $scope.post.potential_teachers) {
+                let currPotTeacher = $scope.post.potential_teachers[$rootScope.user.$id];
                 // Another try, returned field might change on the server
-                if (!currPotTutor) {
-                    currPotTutor = $scope.post.potential_tutors[$rootScope.user.id];
+                if (!currPotTeacher) {
+                    currPotTeacher = $scope.post.potential_teachers[$rootScope.user.id];
                 }
                 // Get the timestamp when teacher accepted question and save it on the reply
-                replyData.accept_date       = currPotTutor ? currPotTutor.status_update_date : null;
+                replyData.accept_date       = currPotTeacher ? currPotTeacher.status_update_date : null;
                 // toggleAcceptance wasn't clicked somehow, so set it to current timestamp (accept by time of reply)
                 replyData.accept_date       = replyData.accept_date || Firebase.ServerValue.TIMESTAMP;
                 replyData.accept_date_human = moment(replyData.accept_date).format('D/M/YY H:mm:ss')
@@ -327,35 +327,35 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
 
                 // Change question's status according to last comment's user type
                 // + update update_date so it would go up in feed
-                // + update last_tutor_id (if reply author is tutor), otherwise blank it so it's available to all
+                // + update last_teacher_id (if reply author is teacher), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(post => {
                     post.update_date    = Firebase.ServerValue.TIMESTAMP;
-                    post.last_tutor_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
+                    post.last_teacher_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {
                         post.status = 'answered';
                     }
                     // If student replied and status is answered, mark q as unanswered
-                    // and remove acceptedBy field (so would be available to all potential tutors)
+                    // and remove acceptedBy field (so would be available to all potential teachers)
                     else if (post.status === 'answered') {
                         post.status = 'unanswered';
                         post.acceptedBy = null;
                     }
-                    // If last reply was by tutor, reset potential tutors
-                    if (post.last_tutor_id) {
-                        post.potential_tutors = null;
+                    // If last reply was by teacher, reset potential teachers
+                    if (post.last_teacher_id) {
+                        post.potential_teachers = null;
                     }
                     if ($rootScope.user.is_teacher && post.amazon_endpoint_arn) {
                         AmazonSNS.publish(
                             post.amazon_endpoint_arn,
-                            $translate.instant('NOTIFICATIONS.TUTOR_REPLIED_TITLE'),
+                            $translate.instant('NOTIFICATIONS.TEACHER_REPLIED_TITLE'),
                             replyData.body
                         );
                     }
 
                     // Done, ask TEACHER for labels
                     if($rootScope.user.is_teacher) {
-                        tutorTaggingForm(post,() => {
+                        teacherTaggingForm(post,() => {
                             post.$save();
                             Utils.triggerAlgorithm();
                         });

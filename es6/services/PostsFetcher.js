@@ -7,25 +7,25 @@ angular.module('afterclass.services').factory('PostsFetcher', ($rootScope, $fire
 
         // Teacher
         getForTeacher: scope => {
-            let sync, postsTutorAnswered;
-            // Unanswered posts for tutor (status = unanswered and local filter [if in potential tutors array])
-            // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TUTORS)
-            scope.posts_tutor_unanswered = $firebaseArray(ref);
+            let sync, postsTeacherAnswered;
+            // Unanswered posts for teacher (status = unanswered and local filter [if in potential teachers array])
+            // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TEACHERS)
+            scope.posts_teacher_unanswered = $firebaseArray(ref);
 
-            // Answered posts by tutor (last_tutor_id = this tutor's id)
-            sync                = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
-            postsTutorAnswered = $firebaseArray(sync);
-            postsTutorAnswered.$loaded().then(() => scope.posts_tutor_answered = postsTutorAnswered);
+            // Answered posts by teacher (last_teacher_id = this teacher's id)
+            sync                = ref.orderByChild('last_teacher_id').equalTo($rootScope.user.uid);
+            postsTeacherAnswered = $firebaseArray(sync);
+            postsTeacherAnswered.$loaded().then(() => scope.posts_teacher_answered = postsTeacherAnswered);
         },
-        ifPotentialTutor: post => {
+        ifPotentialTeacher: post => {
             // If post accepted by teacher and not by current teacher, exclude post
             if (post.acceptedBy && post.acceptedBy !== $rootScope.user.uid) { return false; }
-            let tutor_ids = [];
-            if (post.potential_tutors) {
-                _.each(post.potential_tutors, (item, id) => tutor_ids.push(id));
+            let teacher_ids = [];
+            if (post.potential_teachers) {
+                _.each(post.potential_teachers, (item, id) => teacher_ids.push(id));
             }
             // If current teacher present in potential teachers
-            return angular.element.inArray($rootScope.user.uid, tutor_ids) > -1;
+            return angular.element.inArray($rootScope.user.uid, teacher_ids) > -1;
         },
 
         // Student

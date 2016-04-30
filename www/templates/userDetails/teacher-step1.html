@@ -1,4 +1,4 @@
-<ion-view view-title="Tutor details step 1">
+<ion-view view-title="Teacher details step 1">
     <div class="bar bar-header">
         <h1 class="title no-logo" ng-if="$state.params.isEdit=='0'">
             <i ui-sref="userDetails_chooseType" class="icon ion-chevron-left calm"></i>
@@ -10,14 +10,14 @@
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false">
-        <h4 class="m-15 text-center">{{'USER_DETAILS.TUTOR.STEP1_TITLE'|translate}}</h4>
+        <h4 class="m-15 text-center">{{'USER_DETAILS.TEACHER.STEP1_TITLE'|translate}}</h4>
         <form>
             <ion-checkbox ng-model="choice.allSelected" ng-click="selectAll()">{{'SELECT_ALL'|translate}}</ion-checkbox>
             <ion-checkbox ng-model="selInstitutes[name]" ng-repeat="(name, institute) in institutes">{{"GRADES." + name|translate}}</ion-checkbox>
         </form>
     </ion-content>
     <ion-footer-bar class="bf-big">
-        <button class="button button-block button-outline button-calm" ng-click="submitTutorStep1()" ng-disabled="!canSubmit()">
+        <button class="button button-block button-outline button-calm" ng-click="submitTeacherStep1()" ng-disabled="!canSubmit()">
             {{'NEXT'|translate}}
         </button>
     </ion-footer-bar>

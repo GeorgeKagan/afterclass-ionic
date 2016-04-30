@@ -9,7 +9,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
 
     if ($rootScope.user.is_teacher) {
         PostsFetcher.getForTeacher($scope);
-        $scope.ifPotentialTutor = PostsFetcher.ifPotentialTutor;
+        $scope.ifPotentialTeacher = PostsFetcher.ifPotentialTeacher;
     } else {
         PostsFetcher.getForStudent($scope);
         $scope.ifUserUnanswered = PostsFetcher.ifUserUnanswered;

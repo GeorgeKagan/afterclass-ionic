@@ -1,12 +1,12 @@
 <ion-view>
     <div class="bar bar-header">
         <h1 class="title no-logo">
-            <i ui-sref="userDetails_tutorStep1" class="icon ion-chevron-left calm"></i>
-            <span ui-sref="userDetails_tutorStep1({isEdit: $state.params.isEdit})">{{"BACK"|translate}}</span>
+            <i ui-sref="userDetails_teacherStep1" class="icon ion-chevron-left calm"></i>
+            <span ui-sref="userDetails_teacherStep1({isEdit: $state.params.isEdit})">{{"BACK"|translate}}</span>
         </h1>
     </div>
     <ion-content class="has-header padding" has-bouncing="false">
-        <h4 class="m-15 text-center">{{'USER_DETAILS.TUTOR.STEP2_TITLE'|translate}}</h4>
+        <h4 class="m-15 text-center">{{'USER_DETAILS.TEACHER.STEP2_TITLE'|translate}}</h4>
         <form>
             <ion-checkbox ng-model="choice.allSelected" ng-click="selectAll()">{{'SELECT_ALL'|translate}}</ion-checkbox>
             <div class="padding-bottom" ng-repeat="(name, instituteDegrees) in degrees">
@@ -16,7 +16,7 @@
         </form>
     </ion-content>
     <ion-footer-bar class="bf-big">
-        <button class="button button-block button-outline button-calm" ng-click="submitTutorStep2Last()" ng-disabled="!canSubmit()">
+        <button class="button button-block button-outline button-calm" ng-click="submitTeacherStep2Last()" ng-disabled="!canSubmit()">
             {{'SAVE'|translate}}
         </button>
     </ion-footer-bar>

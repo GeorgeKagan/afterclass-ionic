@@ -13,7 +13,7 @@
         <ion-tab title="{{'POST.UNANSWERED'|translate}}" icon-on="ion-ios-help" icon-off="ion-ios-help-outline" on-select="scrollToTop()">
             <ion-content on-scroll="homepageScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
-                <div ng-if="!posts && !posts_tutor_unanswered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
+                <div ng-if="!posts && !posts_teacher_unanswered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
                 <!-- Student -->
                 <div ng-if="!$root.user.is_teacher" class="posts content">
@@ -32,10 +32,10 @@
 
                 <!-- Teacher -->
                 <div ng-if="$root.user.is_teacher" class="posts content">
-                    <div ng-if="(posts_tutor_unanswered | filter:ifPotentialTutor:true).length===0" class="padding-left text-center">
+                    <div ng-if="(posts_teacher_unanswered | filter:ifPotentialTeacher:true).length===0" class="padding-left text-center">
                         {{'POST.TEACHER.NOUNANSWERED'|translate}}
                     </div>
-                    <div ng-repeat="post in posts_tutor_unanswered | filter:ifPotentialTutor:true | filter:{body: ''} | orderBy: '-create_date' track by post.$id" class="list card">
+                    <div ng-repeat="post in posts_teacher_unanswered | filter:ifPotentialTeacher:true | filter:{body: ''} | orderBy: '-create_date' track by post.$id" class="list card">
                         <question post="post"
                                   toggle-acceptance="toggleAcceptance"
                                   view-post="viewPost"
@@ -50,7 +50,7 @@
         <ion-tab title="{{'POST.ANSWERED'|translate}}" icon-on="ion-ios-checkmark" icon-off="ion-ios-checkmark-outline" on-select="scrollToTop()">
             <ion-content on-scroll="homepageScrolled()" has-bouncing="false">
                 <ask-question-area></ask-question-area>
-                <div ng-if="!posts && !posts_tutor_answered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
+                <div ng-if="!posts && !posts_teacher_answered" class="spinner-wrapper"><ion-spinner></ion-spinner></div>
 
                 <!-- Student -->
                 <div ng-if="!$root.user.is_teacher" class="posts content">
@@ -69,10 +69,10 @@
 
                 <!-- Teacher -->
                 <div ng-if="$root.user.is_teacher" class="posts content">
-                    <div ng-if="posts_tutor_answered.length===0" class="padding-left text-center">
+                    <div ng-if="posts_teacher_answered.length===0" class="padding-left text-center">
                         {{'POST.TEACHER.NOANSWERED'|translate}}
                     </div>
-                    <div ng-repeat="post in posts_tutor_answered | filter:{body: ''} | orderBy: '-create_date' track by post.$id" class="list card">
+                    <div ng-repeat="post in posts_teacher_answered | filter:{body: ''} | orderBy: '-create_date' track by post.$id" class="list card">
                         <question post="post"
                                   toggle-acceptance="toggleAcceptance"
                                   view-post="viewPost"

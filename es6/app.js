@@ -84,27 +84,27 @@ angular.module('afterclass', [
                 controller: 'UserDetailsChooseTypeCtrl',
                 resolve: { user: User => User.getFromUsersCollection() }
             })
-            .state('userDetails_tutorStep1', {
+            .state('userDetails_teacherStep1', {
                 cache: false,
-                url: '/tutorStep1/:isEdit',
-                templateUrl: 'templates/userDetails/tutor-step1.html',
-                controller: 'UserDetailsTutorStep1Ctrl',
+                url: '/teacherStep1/:isEdit',
+                templateUrl: 'templates/userDetails/teacher-step1.html',
+                controller: 'UserDetailsTeacherStep1Ctrl',
                 resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
-            .state('userDetails_tutorStep2', {
+            .state('userDetails_teacherStep2', {
                 cache: false,
-                url: '/tutorStep2/:isEdit',
-                templateUrl: 'templates/userDetails/tutor-step2.html',
-                controller: 'UserDetailsTutorStep2Ctrl',
+                url: '/teacherStep2/:isEdit',
+                templateUrl: 'templates/userDetails/teacher-step2.html',
+                controller: 'UserDetailsTeacherStep2Ctrl',
                 resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
-            .state('userDetails_tutorStep3', {
+            .state('userDetails_teacherStep3', {
                 cache: false,
-                url: '/tutorStep3/:isEdit',
-                templateUrl: 'templates/userDetails/tutor-step3.html',
-                controller: 'UserDetailsTutorStep3Ctrl',
+                url: '/teacherStep3/:isEdit',
+                templateUrl: 'templates/userDetails/teacher-step3.html',
+                controller: 'UserDetailsTeacherStep3Ctrl',
                 resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })

@@ -46,7 +46,7 @@
     <!-- Rating -->
     <div class="bar bar-footer bar-light" id="rating-bar" ng-if="post.replies" ng-show="showRating">
         <div id="rating-area">
-            <div class="item item-avatar pt-10" avatar user-id="rating.getRatedTutorId()" size="60">
+            <div class="item item-avatar pt-10" avatar user-id="rating.getRatedTeacherId()" size="60">
                 <small style="margin: 0 10px;display: inline-block;">
                     {{'RATING.SATISFACTION_RATE'|translate}}
                 </small>
@@ -73,7 +73,7 @@
         <img src="" class="img-preview" ng-click="addImage()" ng-show="add_img_preview">
         <textarea msd-elastic="\n" id="commentInput" ng-model="replyBody" ng-click="showAgreement()" placeholder="{{'POST.REPLY..'|translate}}">{{$rootScope.user.is_teacher}}</textarea>
         <div class="buttons pull-right">
-            <button class="button button-outline button-assertive push-right" ng-if="!isTutor && !showRating && rating.hasRepliesToRate()" ng-click="toggleReply()">{{'POST.CANCEL'|translate}}</button>
+            <button class="button button-outline button-assertive push-right" ng-if="!isTeacher && !showRating && rating.hasRepliesToRate()" ng-click="toggleReply()">{{'POST.CANCEL'|translate}}</button>
             <button class="button button-outline button-calm" ng-click="addReply()">{{'POST.SEND'|translate}}</button>
         </div>
     </div>

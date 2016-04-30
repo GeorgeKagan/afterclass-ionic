@@ -8,11 +8,11 @@ angular.module('afterclass.services').factory('Rating', ($rootScope, $q, $fireba
         this.ratedReply     = null;
         this.rateReplyIndex = null;
         this.rating         = 0;
-        this.ratedTutor     = null;
+        this.ratedTeacher     = null;
         this._deferred      = $q.defer();
         this.loaded         = this._deferred.promise; //A promise to tell when the rating service was properly loaded
 
-        //Find the last tutor reply and it's index
+        //Find the last teacher reply and it's index
         _.forEachRight(this.replies, (reply, i) => {
              if (reply.user !== $rootScope.user.$id) {
                 this.ratedReply = reply;
@@ -26,10 +26,10 @@ angular.module('afterclass.services').factory('Rating', ($rootScope, $q, $fireba
             if (typeof this.ratedReply.rating !== 'undefined') {
                 this.rating = this.ratedReply.rating;
             }
-            //Get the rated tutor
-            let tutorRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load tutor for updating his score
-            $firebaseObject(tutorRef).$loaded().then((tutor) => {
-                this._setTutor(tutor);
+            //Get the rated teacher
+            let teacherRef = MyFirebase.getRef().child('/users/' + this.ratedReply.user); //Load teacher for updating his score
+            $firebaseObject(teacherRef).$loaded().then((teacher) => {
+                this._setTeacher(teacher);
                 this._deferred.resolve();
             });
         } else {
@@ -38,11 +38,11 @@ angular.module('afterclass.services').factory('Rating', ($rootScope, $q, $fireba
     };
 
     //Properties
-    Rating.prototype._setTutor = function(tutor) {
-        this.ratedTutor = tutor;
+    Rating.prototype._setTeacher = function(teacher) {
+        this.ratedTeacher = teacher;
 
-        if (typeof this.ratedTutor.rating === 'undefined') {
-            this.ratedTutor.rating = {
+        if (typeof this.ratedTeacher.rating === 'undefined') {
+            this.ratedTeacher.rating = {
                 stars: 0,
                 ratedAnswers: 0
             };
@@ -53,36 +53,36 @@ angular.module('afterclass.services').factory('Rating', ($rootScope, $q, $fireba
         return this.rating;
     };
 
-    Rating.prototype.getRatedTutor = function() {
-        return this.ratedTutor;
+    Rating.prototype.getRatedTeacher = function() {
+        return this.ratedTeacher;
     };
 
-    Rating.prototype.getRatedTutorId = function() {
-        if (this.ratedTutor) {
-            return this.ratedTutor.$id;
+    Rating.prototype.getRatedTeacherId = function() {
+        if (this.ratedTeacher) {
+            return this.ratedTeacher.$id;
         } else {
             return '';
         }
     };
 
     Rating.prototype.hasRepliesToRate = function() {
-        return this.ratedTutor !== null;
+        return this.ratedTeacher !== null;
     };
 
     //Methods
     Rating.prototype.rate = function(stars) {
         this.rating = stars;
 
-        //Update tutors rating
+        //Update teachers rating
         if (typeof this.ratedReply.rating === 'undefined') { //Was this reply rated already?
-            //Add current rating to tutor
-            this.ratedTutor.rating.stars += stars;
-            this.ratedTutor.rating.ratedAnswers++;
-        } else { //Tutor already rated, update the amount of stars
+            //Add current rating to teacher
+            this.ratedTeacher.rating.stars += stars;
+            this.ratedTeacher.rating.ratedAnswers++;
+        } else { //Teacher already rated, update the amount of stars
             //Update previous rating with new one
-            this.ratedTutor.rating.stars = this.ratedTutor.rating.stars - this.ratedReply.rating + stars;
+            this.ratedTeacher.rating.stars = this.ratedTeacher.rating.stars - this.ratedReply.rating + stars;
         }
-        this.ratedTutor.$save(); //Done with tutor
+        this.ratedTeacher.$save(); //Done with teacher
 
         //Rate reply
         this.ratedReply.rating = stars;

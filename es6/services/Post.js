@@ -14,9 +14,9 @@ angular.module('afterclass.services').factory('Post', (
             status              : 'unanswered',
             create_date         : Firebase.ServerValue.TIMESTAMP,
             update_date         : Firebase.ServerValue.TIMESTAMP,
-            potential_tutors    : null,
+            potential_teachers    : null,
             replies             : '',
-            last_tutor_id       : '',
+            last_teacher_id       : '',
             amazon_endpoint_arn : $rootScope.user.amazon_endpoint_arn ? $rootScope.user.amazon_endpoint_arn : ''
         }).then(() => {
             StudentCredit.deductCredits(1);
@@ -75,34 +75,34 @@ angular.module('afterclass.services').factory('Post', (
         let ref              = MyFirebase.getRef().child('posts/' + firebase_id),
             acceptedByField  = ref.child('acceptedBy'),
             post             = $firebaseObject(ref),
-            potential_tutors = $firebaseArray(ref.child('potential_tutors'));
+            potential_teachers = $firebaseArray(ref.child('potential_teachers'));
 
-        potential_tutors.$loaded().then(potentialTutors => {
-            let currentTutorIndex = _.findIndex(potentialTutors, {user_id: user_id});
+        potential_teachers.$loaded().then(potentialTeachers => {
+            let currentTeacherIndex = _.findIndex(potentialTeachers, {user_id: user_id});
             // Another try, returned field might change on the server
-            if (currentTutorIndex === -1) {
-                currentTutorIndex = _.findIndex(potentialTutors, {$id: user_id});
+            if (currentTeacherIndex === -1) {
+                currentTeacherIndex = _.findIndex(potentialTeachers, {$id: user_id});
             }
-            if (currentTutorIndex > -1) {
-                // Tutor is found in potential tutors
-                potential_tutors[currentTutorIndex].status_update_date = Firebase.ServerValue.TIMESTAMP;
+            if (currentTeacherIndex > -1) {
+                // Teacher is found in potential teachers
+                potential_teachers[currentTeacherIndex].status_update_date = Firebase.ServerValue.TIMESTAMP;
 
-                if (typeof potential_tutors[currentTutorIndex].post_status !== 'undefined' &&
-                    potential_tutors[currentTutorIndex].post_status === 'accepted')
+                if (typeof potential_teachers[currentTeacherIndex].post_status !== 'undefined' &&
+                    potential_teachers[currentTeacherIndex].post_status === 'accepted')
                 {
-                    potential_tutors[currentTutorIndex].post_status = 'declined';
+                    potential_teachers[currentTeacherIndex].post_status = 'declined';
                     acceptedByField.remove();
                 } else {
-                    potential_tutors[currentTutorIndex].post_status = 'accepted';
+                    potential_teachers[currentTeacherIndex].post_status = 'accepted';
                     post.acceptedBy                                 = user_id;
                     post.$save();
                     $state.go('viewPost', {firebase_id: firebase_id});
                 }
-                potential_tutors.$save(currentTutorIndex); // Index of modified thing
+                potential_teachers.$save(currentTeacherIndex); // Index of modified thing
             } else {
                 // Error
-                $log.log('Error: tutor [' + user_id + '] was not found is potential tutors array');
-                $log.log('potentialTutors', potentialTutors);
+                $log.log('Error: teacher [' + user_id + '] was not found is potential teachers array');
+                $log.log('potentialTeachers', potentialTeachers);
             }
         });
     };

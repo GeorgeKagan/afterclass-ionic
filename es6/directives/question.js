@@ -28,21 +28,21 @@ angular.module('afterclass.directives').directive('question', () => {
              }*/
 
             $scope.isPostAccepted = post => {
-                let acceptingTutorsForPost = _.filter(post.potential_tutors, {post_status: 'accepted'}),
-                    acceptingTutors = _.map(acceptingTutorsForPost, 'user_id');
+                let acceptingTeachersForPost = _.filter(post.potential_teachers, {post_status: 'accepted'}),
+                    acceptingTeachers = _.map(acceptingTeachersForPost, 'user_id');
                 // Try another field as it (the user id field) tends to change on the server.
-                if (!acceptingTutors || !acceptingTutors[0]) {
-                    acceptingTutors = _.map(acceptingTutorsForPost, 'id');
+                if (!acceptingTeachers || !acceptingTeachers[0]) {
+                    acceptingTeachers = _.map(acceptingTeachersForPost, 'id');
                 }
-                if (acceptingTutors.length > 0) {
+                if (acceptingTeachers.length > 0) {
                     // uid=facebook:123456789 or id=123456789. The server may return either.
-                    return acceptingTutors[0] === $rootScope.user.uid || acceptingTutors[0] === $rootScope.user.id;
+                    return acceptingTeachers[0] === $rootScope.user.uid || acceptingTeachers[0] === $rootScope.user.id;
                 } else {
                     return false;
                 }
             };
 
-            $scope.isPostHasTutorThatAccepted = post => _.filter(post.potential_tutors, {post_status: 'accepted'}).length;
+            $scope.isPostHasTeacherThatAccepted = post => _.filter(post.potential_teachers, {post_status: 'accepted'}).length;
         },
         link: (scope, element, attrs) => {
             scope.is_teacher = scope.$root.user.is_teacher;
