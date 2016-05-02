@@ -13,11 +13,7 @@ angular.module('afterclass.controllers').controller('ProfileCtrl', (
     // PROFILE
 
     if ($rootScope.user.is_teacher) {
-        $scope.$watch('user.target_institutes', () => {
-            $scope.targetGrades = [];
-            _.map($rootScope.user.target_institutes, item => $scope.targetGrades = $scope.targetGrades.concat(Object.keys(item)));
-            $scope.targetGrades = _.uniq($scope.targetGrades);
-        });
+        $scope.$watch('user.target_institutes', () => $scope.targetGrades = Profile.buildTargetGradesArr());
     } else {
 
     }

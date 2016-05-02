@@ -84,6 +84,13 @@ angular.module('afterclass.services').factory('Profile', ($rootScope, $ionicLoad
         });
         return grades;
     };
+    
+    Profile.buildTargetGradesArr = () => {
+        let targetGrades = [];
+        _.map($rootScope.user.target_institutes, item => targetGrades = targetGrades.concat(Object.keys(item)));
+        targetGrades = _.uniq(targetGrades);
+        return targetGrades;
+    };
 
     return Profile
 });
