@@ -1,16 +1,14 @@
 <div>
     <div ng-click="viewPost(post.$id)">
-        <div class="post-gradient">
+        <div class="post-gradient clearfix">
             <div class="post-header item">
                 <div class="ph-subject {{::header_bg}} light">{{"SUBJECTS." + post.subject|translate}}</div>
                 <div class="ph-delete" ng-click="deletePost($event, post.$id)" ng-if="!post.replies && !is_teacher && !isPostHasTeacherThatAccepted(post)"></div>
                 <div class="ph-date" ng-bind-html="post.create_date | moment"></div>
             </div>
+            <img class="post-main-img" ng-if="post.img_id"
+                 ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_thumb,h_100,w_100/{{post.img_id}}.jpg">
             <div class="post-question item item-light item-body" dir="auto" ng-bind-html="post.body | nl2br"></div>
-        </div>
-        <div class="img-wrapper">
-            <img class="post-img" ng-if="post.img_id"
-                 ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_250,w_550/{{post.img_id}}.jpg">
         </div>
         <!-- replies -->
         <div ng-repeat="reply in post.replies | orderObjectBy:'create_date' | limitTo: -2" class="post-comment-main">
@@ -18,13 +16,11 @@
                 {{::reply.first_name}} {{::reply.last_name | limitTo:1}}<br>
                 <small class="date" ng-bind-html="reply.create_date | moment"></small>
             </div>
-            <div class="post-comment item item-body">
-                <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
-                <div class="pci-wrapper text-right">
-                    <img class="post-img" ng-if="reply.img_id"
-                         ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_fill,h_50,w_50/{{::reply.img_id}}.jpg"
-                         width="50" height="50">
-                </div>
+            <div class="post-comment item item-body clearfix">
+                <img class="post-img" ng-if="reply.img_id"
+                     ng-src="http://res.cloudinary.com/daayssulc/image/upload/c_thumb,h_100,w_100/{{::reply.img_id}}.jpg"
+                     width="50" height="50">
+                <div dir="auto" ng-bind-html="reply.body | nl2br"></div>
             </div>
         </div>
     </div>

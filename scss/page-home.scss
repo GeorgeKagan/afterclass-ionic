@@ -221,10 +221,12 @@ body.platform-ios {
       }
     }
   }
-  .img-wrapper {
-    background-color: #dbdbdb;
-    line-height: 0;
-    margin: 1px 0px 1px 0px;
+  .post-main-img {
+    margin: 10px 15px 15px 0;
+    float: right;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 3px;
   }
 }
 .ph-subject {

@@ -1,5 +1,5 @@
 angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
-    $rootScope, $scope, $ionicScrollDelegate, $ionicPopup, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, Post) => {
+    $rootScope, $scope, $timeout, $ionicScrollDelegate, $ionicPopup, $translate, $window, $cordovaNetwork, MyCamera, CloudinaryUpload, Institutes, Post) => {
 
     // Listen to Firebase config collection change and rebuild the subjects array
     let populateScopeWithSubjects = () => Institutes.getSubjectsByInstituteAndDegree($rootScope.user.institute)
@@ -28,11 +28,11 @@ angular.module('afterclass.controllers').controller('AskQuestionCtrl', (
 
         if ($scope.question.image) {
             CloudinaryUpload.uploadImage($scope.question.image).then(
-                result => Post.persist($scope.question, result.public_id).then(initQuestion),
+                result => Post.persist($scope.question, result.public_id).then(() => $timeout(initQuestion, 1000)),
                 err => {}
             );
         } else {
-            Post.persist($scope.question).then(initQuestion);
+            Post.persist($scope.question).then(() => $timeout(initQuestion, 1000));
         }
     };
 

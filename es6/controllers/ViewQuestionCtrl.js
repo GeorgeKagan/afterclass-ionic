@@ -254,7 +254,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                             post.$save();
                             $timeout(() => {
                                 $ionicPopup.alert({
-                                    title   : '',
+                                    title   : $translate.instant('SUCCESS'),
                                     template: $translate.instant('REPORT_SENT'),
                                     okText  : $translate.instant('OK')
                                 });

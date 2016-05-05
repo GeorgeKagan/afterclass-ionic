@@ -1,4 +1,4 @@
-angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, Auth) => {
+angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, $ionicScrollDelegate, Auth) => {
     'use strict';
     
     // Init model and default action (login)
@@ -6,8 +6,14 @@ angular.module('afterclass.controllers').controller('EmailLoginCtrl', ($scope, A
     $scope.show    = 'login';
 
     // Toggle between login and register
-    $scope.showLogin    = () => $scope.show = 'login';
-    $scope.showRegister = () => $scope.show = 'register';
+    $scope.showLogin    = () => {
+        $scope.show = 'login';
+        $ionicScrollDelegate.resize();
+    };
+    $scope.showRegister = () => {
+        $scope.show = 'register';
+        $ionicScrollDelegate.resize();
+    };
 
     // Flags
     $scope.isPasswordsSame = () => $scope.account.password === $scope.account.passwordAgain;

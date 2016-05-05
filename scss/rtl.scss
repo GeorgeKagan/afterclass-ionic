@@ -114,6 +114,10 @@ body.rtl {
     .button-bar button.button {
       direction: rtl;
     }
+    .post-main-img {
+      margin: 10px 0 15px 15px;
+      float: left;
+    }
   }
   .item-avatar {
     padding-right: 72px;
@@ -122,6 +126,15 @@ body.rtl {
     > img:first-child {
       left: auto;
       right: 16px;
+    }
+  }
+
+  .post-comment-main {
+    .post-comment {
+      img {
+        margin: 0 15px 0 0;
+        float: left;
+      }
     }
   }
 

@@ -10,11 +10,20 @@
     border-color: $light_gray !important;
     //@include VerticalGradient;
   }
-  .post-question + .post-img {
-    margin: -20px auto 20px auto;
+  .post-img-wrapper {
+    height: 100px;
+    line-height: 100px;
+    margin: 0 0 30px 0;
+    img {
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 3px;
+    }
   }
   .post-comment-main {
-    border-bottom: 1px solid #EEE;
+    border-top: 1px solid #e6e6e6;
     .post-comment {
       color: $dark_gray2;
       padding-top: 0;

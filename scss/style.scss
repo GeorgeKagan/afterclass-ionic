@@ -64,6 +64,11 @@
     text-align-last: center;
   }
 }
+.popup-buttons {
+  .button-default {
+    border: 1px solid #ddd;
+  }
+}
 
 .inline-block {
   display: inline-block;
@@ -113,7 +118,7 @@ select {
 }
 
 .post-comment-main {
-  border-bottom: 1px solid #EEE;
+  border-top: 1px solid #EEE;
   .item {
     background: transparent;
   }
@@ -129,12 +134,20 @@ select {
     }
     .pci-wrapper {
       margin: 15px 0;
+      img {
+        float: none !important;
+        margin: 0 !important;
+      }
+      small {
+        margin: 0 15px;
+      }
     }
     img {
-      margin: 0 15px;
+      margin: 0 0 0 15px;
       border-radius: 2px;
       display: inline-block;
       vertical-align: middle;
+      float: right;
     }
   }
 }
@@ -144,12 +157,6 @@ select {
 }
 .bar .date {
   float: right;
-}
-
-.post-img {
-  margin: 0 auto;
-  display: block;
-  max-width: 100%;
 }
 
 .spinner-wrapper {
