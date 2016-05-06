@@ -12,7 +12,7 @@ angular.module('afterclass.controllers').
                 User.updateUser({
                     is_choose_type_finished : true,
                     is_teacher              : false,
-                    target_institutes       : null
+                    target_institutes       : null // Should be "Classes"
                 });
                 $state.go('home');
                 $ionicHistory.nextViewOptions({disableBack: true});
@@ -96,9 +96,7 @@ angular.module('afterclass.controllers').
         };
 
         $scope.submitTeacherStep2 = () => {
-            let courses = TeacherDetails.getCoursesBySelectedSubjects($scope.selSubjects, $scope.subjects);
             TeacherDetails.setPayloadSubjects($scope.selSubjects);
-            TeacherDetails.setCourses(courses);
             $state.go('userDetails_teacherStep3', {isEdit: $state.params.isEdit});
         };
         $scope.submitTeacherStep2Last = () => {

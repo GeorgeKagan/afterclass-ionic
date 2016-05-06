@@ -1,5 +1,5 @@
 angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => {
-    let UserDetails = {}, subjects, courses, payload = {};
+    let UserDetails = {}, subjects, payload = {};
 
     UserDetails.getSubjectsBySelectedClasses = (selClasses, classes) => {
         let data = {};
@@ -14,35 +14,13 @@ angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => 
         return data;
     };
 
-    UserDetails.getCoursesBySelectedSubjects = (selSubjects, subjects) => {
-        let data = {};
-        angular.forEach(selSubjects, (isSelected, selSubject) => {
-            let selClass = selSubject.split('|||')[0];
-            selSubject = selSubject.split('|||')[1];
-            if (!isSelected) { return; }
-
-            angular.forEach(subjects, (subjectGroup, classLabel) => {
-                let courses = [];
-                angular.forEach(subjectGroup, subject => {
-                    if (subject.name === selSubject && classLabel === selClass) {
-                        angular.forEach(subject.subjects, course => courses.push(course));
-                    }
-                });
-                if (courses.length) {
-                    data[classLabel + '|||' + selSubject] = _.uniq(courses);
-                }
-            });
-        });
-        return data;
-    };
-
     UserDetails.saveSelectedData = () => {
         $log.log('Save teacher details payload', payload);
         User.updateUser({
             is_choose_type_finished: true,
             is_teacher             : true,
-            degree                 : null,
-            institute              : null,
+            degree                 : null, // Should be "Subject"
+            institute              : null, // Should be "Class"
             target_institutes      : payload.classes
         });
     };
@@ -50,8 +28,6 @@ angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => 
     UserDetails.setSubjects = _subjects => subjects = _subjects;
 
     UserDetails.getSubjects = () => subjects;
-
-    UserDetails.setCourses = _courses => courses = _courses;
 
     UserDetails.setPayloadClasses = classes => {
         let hash = {};
