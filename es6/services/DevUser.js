@@ -44,7 +44,7 @@ angular.module('afterclass.services').factory('DevUser', ($rootScope, $timeout, 
             // Change Institution
             $rootScope.changeInstitution = $event => {
                 if ($rootScope.user.is_teacher) {
-                    $state.go('userDetails_teacherStep1', {isEdit: 1});
+                    $state.go('userWizard_teacherStep1', {isEdit: 1});
                 } else {
                     $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
                     InstitutePopup.show();

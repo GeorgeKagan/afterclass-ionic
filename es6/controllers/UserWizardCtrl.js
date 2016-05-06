@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers').
 
-    controller('UserDetailsChooseTypeCtrl', ($scope, $state, $ionicHistory, $ionicPopup, $translate, User) => {
+    controller('UserWizardChooseTypeCtrl', ($scope, $state, $ionicHistory, $ionicPopup, $translate, User) => {
         $scope.student = () => {
             $ionicPopup.confirm({
                 title: $translate.instant('USER_DETAILS.SELECTED_STUDENT'),
@@ -18,10 +18,10 @@ angular.module('afterclass.controllers').
                 $ionicHistory.nextViewOptions({disableBack: true});
             });
         };
-        $scope.teacher = () => $state.go('userDetails_teacherStep1');
+        $scope.teacher = () => $state.go('userWizard_teacherStep1');
     }).
 
-    controller('UserDetailsTeacherStep1Ctrl', ($rootScope, $scope, $state, $http, TeacherDetails, AppConfig) => {
+    controller('UserWizardTeacherStep1Ctrl', ($rootScope, $scope, $state, $http, TeacherWizard, AppConfig) => {
         $scope.selClasses = {};
 
         // If edit mode - mark chosen classes as selected
@@ -53,18 +53,18 @@ angular.module('afterclass.controllers').
         };
 
         $scope.submitTeacherStep1 = () => {
-            let subjects = TeacherDetails.getSubjectsBySelectedClasses($scope.selClasses, $scope.classes);
-            TeacherDetails.setPayloadClasses($scope.selClasses);
-            TeacherDetails.setSubjects(subjects);
-            $state.go('userDetails_teacherStep2', {isEdit: $state.params.isEdit});
+            let subjects = TeacherWizard.getSubjectsBySelectedClasses($scope.selClasses, $scope.classes);
+            TeacherWizard.setPayloadClasses($scope.selClasses);
+            TeacherWizard.setSubjects(subjects);
+            $state.go('userWizard_teacherStep2', {isEdit: $state.params.isEdit});
         };
 
         $scope.canSubmit = () => _.filter($scope.selClasses).length > 0;
     }).
 
-    controller('UserDetailsTeacherStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherDetails) => {
+    controller('UserWizardTeacherStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherWizard) => {
         $scope.selSubjects = {};
-        $scope.subjects    = TeacherDetails.getSubjects();
+        $scope.subjects    = TeacherWizard.getSubjects();
 
         // If edit mode - mark chosen subjects as selected
         if ($rootScope.user.target_institutes) {
@@ -96,12 +96,12 @@ angular.module('afterclass.controllers').
         };
 
         $scope.submitTeacherStep2 = () => {
-            TeacherDetails.setPayloadSubjects($scope.selSubjects);
-            $state.go('userDetails_teacherStep3', {isEdit: $state.params.isEdit});
+            TeacherWizard.setPayloadSubjects($scope.selSubjects);
+            $state.go('userWizard_teacherStep3', {isEdit: $state.params.isEdit});
         };
         $scope.submitTeacherStep2Last = () => {
-            TeacherDetails.setPayloadSubjects($scope.selSubjects, true);
-            TeacherDetails.saveSelectedData();
+            TeacherWizard.setPayloadSubjects($scope.selSubjects, true);
+            TeacherWizard.saveSelectedData();
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
         };

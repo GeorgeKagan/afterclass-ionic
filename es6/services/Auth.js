@@ -147,7 +147,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
     Auth.postLoginOps = (user, authData) => User.fillMandatoryFields(user, authData);
 
     Auth.doRedirect = user => {
-        let state = user.is_choose_type_finished ? 'home' : 'userDetails_chooseType';
+        let state = user.is_choose_type_finished ? 'home' : 'userWizard_chooseType';
         $state.go(state).then(() => {
             $ionicLoading.hide();
             $timeout(() => navigator.splashscreen && navigator.splashscreen.hide(), 500);

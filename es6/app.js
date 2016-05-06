@@ -78,25 +78,25 @@ angular.module('afterclass', [
                 controller: 'OnBoardingCtrl'
             })
             // User details wizard
-            .state('userDetails_chooseType', {
+            .state('userWizard_chooseType', {
                 url: '/chooseType',
-                templateUrl: 'templates/userDetails/choose-type.html',
-                controller: 'UserDetailsChooseTypeCtrl',
+                templateUrl: 'templates/userWizard/choose-type.html',
+                controller: 'userWizardChooseTypeCtrl',
                 resolve: { user: User => User.getFromUsersCollection() }
             })
-            .state('userDetails_teacherStep1', {
+            .state('userWizard_teacherStep1', {
                 cache: false,
                 url: '/teacherStep1/:isEdit',
-                templateUrl: 'templates/userDetails/teacher-step1.html',
-                controller: 'UserDetailsTeacherStep1Ctrl',
+                templateUrl: 'templates/userWizard/teacher-step1.html',
+                controller: 'UserWizardTeacherStep1Ctrl',
                 resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
-            .state('userDetails_teacherStep2', {
+            .state('userWizard_teacherStep2', {
                 cache: false,
                 url: '/teacherStep2/:isEdit',
-                templateUrl: 'templates/userDetails/teacher-step2.html',
-                controller: 'UserDetailsTeacherStep2Ctrl',
+                templateUrl: 'templates/userWizard/teacher-step2.html',
+                controller: 'UserWizardTeacherStep2Ctrl',
                 resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
