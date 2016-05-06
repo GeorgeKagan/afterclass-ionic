@@ -30,7 +30,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
             $scope.showRating = false; //Student only
 
             // Teacher - Show accept button for assigned teachers
-            let acceptingTeachers = _.filter(post.potential_teachers, {post_status: 'accepted'});
+            let acceptingTeachers = _.filter(post.potential_tutors, {post_status: 'accepted'});
 
             if ($scope.isTeacher && post.status === 'assigned' && acceptingTeachers.length === 0) {
                 $scope.showReplyForm      = false;
@@ -306,11 +306,11 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                 is_teacher          : $rootScope.user.is_teacher
             };
 
-            if ($rootScope.user.is_teacher && $scope.post.potential_teachers) {
-                let currPotTeacher = $scope.post.potential_teachers[$rootScope.user.$id];
+            if ($rootScope.user.is_teacher && $scope.post.potential_tutors) {
+                let currPotTeacher = $scope.post.potential_tutors[$rootScope.user.$id];
                 // Another try, returned field might change on the server
                 if (!currPotTeacher) {
-                    currPotTeacher = $scope.post.potential_teachers[$rootScope.user.id];
+                    currPotTeacher = $scope.post.potential_tutors[$rootScope.user.id];
                 }
                 // Get the timestamp when teacher accepted question and save it on the reply
                 replyData.accept_date       = currPotTeacher ? currPotTeacher.status_update_date : null;
@@ -327,10 +327,10 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
 
                 // Change question's status according to last comment's user type
                 // + update update_date so it would go up in feed
-                // + update last_teacher_id (if reply author is teacher), otherwise blank it so it's available to all
+                // + update last_tutor_id (if reply author is teacher), otherwise blank it so it's available to all
                 $scope.post.$loaded().then(post => {
                     post.update_date    = Firebase.ServerValue.TIMESTAMP;
-                    post.last_teacher_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
+                    post.last_tutor_id  = $rootScope.user.is_teacher ? $rootScope.user.uid : '';
                     // If teacher replied, mark q as answered
                     if ($rootScope.user.is_teacher) {
                         post.status = 'answered';
@@ -342,8 +342,8 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
                         post.acceptedBy = null;
                     }
                     // If last reply was by teacher, reset potential teachers
-                    if (post.last_teacher_id) {
-                        post.potential_teachers = null;
+                    if (post.last_tutor_id) {
+                        post.potential_tutors = null;
                     }
                     if ($rootScope.user.is_teacher && post.amazon_endpoint_arn) {
                         AmazonSNS.publish(

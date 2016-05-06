@@ -12,8 +12,8 @@ angular.module('afterclass.services').factory('PostsFetcher', ($rootScope, $fire
             // TODO: HIGHLY UN-SCALABLE (THINK OF A WAY TO FETCH ONLY IF IN POTENTIAL TEACHERS)
             scope.posts_teacher_unanswered = $firebaseArray(ref);
 
-            // Answered posts by teacher (last_teacher_id = this teacher's id)
-            sync                = ref.orderByChild('last_teacher_id').equalTo($rootScope.user.uid);
+            // Answered posts by teacher (last_tutor_id = this teacher's id)
+            sync                = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
             postsTeacherAnswered = $firebaseArray(sync);
             postsTeacherAnswered.$loaded().then(() => scope.posts_teacher_answered = postsTeacherAnswered);
         },
@@ -21,8 +21,8 @@ angular.module('afterclass.services').factory('PostsFetcher', ($rootScope, $fire
             // If post accepted by teacher and not by current teacher, exclude post
             if (post.acceptedBy && post.acceptedBy !== $rootScope.user.uid) { return false; }
             let teacher_ids = [];
-            if (post.potential_teachers) {
-                _.each(post.potential_teachers, (item, id) => teacher_ids.push(id));
+            if (post.potential_tutors) {
+                _.each(post.potential_tutors, (item, id) => teacher_ids.push(id));
             }
             // If current teacher present in potential teachers
             return angular.element.inArray($rootScope.user.uid, teacher_ids) > -1;

@@ -28,7 +28,7 @@ angular.module('afterclass.directives').directive('question', () => {
              }*/
 
             $scope.isPostAccepted = post => {
-                let acceptingTeachersForPost = _.filter(post.potential_teachers, {post_status: 'accepted'}),
+                let acceptingTeachersForPost = _.filter(post.potential_tutors, {post_status: 'accepted'}),
                     acceptingTeachers = _.map(acceptingTeachersForPost, 'user_id');
                 // Try another field as it (the user id field) tends to change on the server.
                 if (!acceptingTeachers || !acceptingTeachers[0]) {
@@ -42,7 +42,7 @@ angular.module('afterclass.directives').directive('question', () => {
                 }
             };
 
-            $scope.isPostHasTeacherThatAccepted = post => _.filter(post.potential_teachers, {post_status: 'accepted'}).length;
+            $scope.isPostHasTeacherThatAccepted = post => _.filter(post.potential_tutors, {post_status: 'accepted'}).length;
         },
         link: (scope, element, attrs) => {
             scope.is_teacher = scope.$root.user.is_teacher;
