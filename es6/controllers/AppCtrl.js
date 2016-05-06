@@ -1,6 +1,6 @@
 angular.module('afterclass.controllers', []).controller('AppCtrl', ($scope, $rootScope, $ionicPopover, $state, Auth, Utils, DevUser, I18n) => {
 
-    $rootScope.env    = localStorage.getItem('env');
+    $rootScope.env    = localStorage.getItem('env') || 'prod';
     $rootScope.$state = $state;
 
     // Logout user

@@ -29,7 +29,7 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
         });
         confirmPopup.then(function(res) {
             if (res) {
-                Post.delete(firebase_id).then(() => $ionicScrollDelegate.scrollTop(false));
+                Post.delete(firebase_id).then(() => $ionicScrollDelegate.resize());
                 User.updateUser({credits: $rootScope.user.credits + 1});
             }
         });
@@ -45,4 +45,8 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
 
     $scope.homepageScrolled = Dom.homepageTabs.gotScrolled;
     $scope.scrollToTop      = Dom.homepageTabs.scrollToTop;
+
+    $scope.$on('$ionicView.enter', () => {
+        Dom.homepageTabs.gotScrolled();
+    })
 });

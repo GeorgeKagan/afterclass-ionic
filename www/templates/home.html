@@ -4,7 +4,7 @@
             <div style="margin: 0 60px 0 60px;"
                  ng-class="{'text-left': $root.uiLang==='he', 'text-right': $root.uiLang==='en'}"
                  ng-if="isDevUser">
-                <strong>{{env}} - {{user.is_teacher ? 'teacher' : 'student'}}</strong>
+                <strong class="text-medium">{{env}} - {{user.is_teacher ? 'teacher' : 'student'}}</strong>
             </div>
         </h1>
         <button class="button button-icon icon ion-android-more-horizontal" ng-click="popover.show($event)"></button>

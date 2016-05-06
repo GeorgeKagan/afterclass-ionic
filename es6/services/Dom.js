@@ -7,7 +7,7 @@ angular.module('afterclass.services').factory('Dom', ($rootScope, $ionicScrollDe
      * When scrolling the homepage, make the tabs follow
      */
     Dom.homepageTabs = {
-        tabs_top_pos: $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 260 : 230,
+        tabs_top_pos: $rootScope.user.is_teacher && ionic.Platform.isIOS() ? 240 : 210,
         gotScrolled: () => {
             let tabs         = angular.element('#ac-tabs-inner > .tabs'),
                 scrollDiv    = angular.element('#ac-tabs-inner .scroll:visible'),
@@ -15,18 +15,14 @@ angular.module('afterclass.services').factory('Dom', ($rootScope, $ionicScrollDe
 
             if (!scrollDiv.length) { return; }
 
-            if (y <= -186) {
-                // Tabs sticky on top
-                angular.element('.bar-header').addClass('scrolled');
-                tabs.css('top', Dom.homepageTabs.getHeaderSize());
-            } else {
-                // Tabs following scroll
-                angular.element('.bar-header').removeClass('scrolled');
-                tabs.css('top', Dom.homepageTabs.tabs_top_pos - Math.abs(y));
-            }
+            // Fade in or out header solid bg color
+            angular.element('.bar-header')[y <= -15 ? 'addClass' : 'removeClass']('scrolled');
+
+            // Tabs sticky on top or following scroll, respectively
+            tabs.css('top', y <= -167 ? Dom.homepageTabs.getHeaderSize() : Dom.homepageTabs.tabs_top_pos - Math.abs(y));
         },
         scrollToTop: () => {
-            $ionicScrollDelegate.scrollTop(true);
+            $ionicScrollDelegate.scrollTop();
             angular.element('#ac-tabs-inner .tabs').css('top', Dom.homepageTabs.tabs_top_pos);
             return true;
         },

@@ -11,9 +11,8 @@
         <div class="post-question">
             <div dir="auto" ng-bind-html="post.body | nl2br"></div>
         </div>
-        <div class="post-img-wrapper">
-            <img ng-if="post.img_id"
-                 image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_thumb,h_200/{{post.img_id}}.jpg"
+        <div class="post-img-wrapper" ng-if="post.img_id">
+            <img image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_thumb,h_200/{{post.img_id}}.jpg"
                  image-lazy-loader="crescent"
                  ng-click="viewFullImage(post.img_id)">
         </div>

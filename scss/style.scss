@@ -110,8 +110,8 @@ select {
 }
 
 .post-question {
-  font-size: 19px;
-  line-height: 27px;
+  font-size: 17px;
+  line-height: 25px;
   margin: 0 0 1px 0;
   padding-top: 5px;
   font-weight: 300;
@@ -234,6 +234,10 @@ select {
   font-size: 12px;
 }
 
+.text-medium {
+  font-size: 16px;
+}
+
 // Animations
 .fade-in {
   transition: 0.5s linear all;
@@ -262,7 +266,7 @@ select {
   }
   h1.title:not(.no-logo) {
     background: url(../img/logo.png) 0 center no-repeat;
-    background-size: 131px 21px;
+    background-size: 110px;
   }
 }
 
