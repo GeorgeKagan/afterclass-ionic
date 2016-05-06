@@ -108,28 +108,4 @@ angular.module('afterclass.controllers').
             $ionicHistory.nextViewOptions({disableBack: true});
         };
         $scope.canSubmit = () => _.filter($scope.selDegrees).length > 0;
-    }).
-
-    controller('UserDetailsTeacherStep3Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherDetails) => {
-        $scope.selCourses = {};
-        $scope.courses    = TeacherDetails.getCourses();
-
-        // If edit mode - mark chosen courses as selected
-        if ($rootScope.user.target_institutes) {
-            Object.keys($rootScope.user.target_institutes).forEach(inst => {
-                Object.keys($rootScope.user.target_institutes[inst]).forEach(degree => {
-                    $rootScope.user.target_institutes[inst][degree].forEach(course => {
-                        $scope.selCourses[inst + '|||' + degree + '|||' + course] = true;
-                    });
-                });
-            });
-        }
-
-        $scope.submitTeacherStep3 = () => {
-            TeacherDetails.setPayloadCourses($scope.selCourses);
-            TeacherDetails.saveSelectedData();
-            $state.go('home');
-            $ionicHistory.nextViewOptions({disableBack: true});
-        };
-        $scope.isChecked = entities => TeacherDetails.isChecked(entities);
     });

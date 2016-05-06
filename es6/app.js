@@ -100,14 +100,6 @@ angular.module('afterclass', [
                 resolve: { user: User => User.getFromUsersCollection() },
                 params: { isEdit: 0 }
             })
-            .state('userDetails_teacherStep3', {
-                cache: false,
-                url: '/teacherStep3/:isEdit',
-                templateUrl: 'templates/userDetails/teacher-step3.html',
-                controller: 'UserDetailsTeacherStep3Ctrl',
-                resolve: { user: User => User.getFromUsersCollection() },
-                params: { isEdit: 0 }
-            })
             // end User details wizard
             .state('home', {
                 url: '/home',

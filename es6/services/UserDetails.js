@@ -47,19 +47,11 @@ angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => 
         });
     };
 
-    UserDetails.isChecked = entities => {
-        let notChecked = true;
-        angular.forEach(entities, isChecked => notChecked = isChecked ? false : true);
-        return notChecked;
-    };
-
     UserDetails.setDegrees = _degrees => degrees = _degrees;
 
     UserDetails.getDegrees = () => degrees;
 
     UserDetails.setCourses = _courses => courses = _courses;
-
-    UserDetails.getCourses = () => courses;
 
     UserDetails.setPayloadInstitutes = institutes => {
         let hash = {};
@@ -78,18 +70,6 @@ angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => 
                 degree_name = degree.split('|||')[1];
             if (payload.institutes[institute]) {
                 payload.institutes[institute][degree_name] = dummy3rdLevel ? ['dummy'] : [];
-            }
-        });
-    };
-
-    UserDetails.setPayloadCourses = courses => {
-        angular.forEach(courses, (isSelected, course) => {
-            if (!isSelected) { return; }
-            let institute   = course.split('|||')[0],
-                degree      = course.split('|||')[1],
-                course_name = course.split('|||')[2];
-            if (payload.institutes[institute] && payload.institutes[institute][degree]) {
-                payload.institutes[institute][degree].push(course_name);
             }
         });
     };
