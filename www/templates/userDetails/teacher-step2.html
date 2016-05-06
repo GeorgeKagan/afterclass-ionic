@@ -9,9 +9,9 @@
         <h4 class="m-15 text-center">{{'USER_DETAILS.TEACHER.STEP2_TITLE'|translate}}</h4>
         <form>
             <ion-checkbox ng-model="choice.allSelected" ng-click="selectAll()">{{'SELECT_ALL'|translate}}</ion-checkbox>
-            <div class="padding-bottom" ng-repeat="(name, instituteDegrees) in degrees">
+            <div class="padding-bottom" ng-repeat="(name, classSubjects) in subjects">
                 <h5 class="m-15 text-center">{{"GRADES." + name|translate}}</h5>
-                <ion-checkbox ng-model="selDegrees[name + '|||' + degree.name]" ng-repeat="degree in instituteDegrees">{{"SUBJECTS." + degree.name|translate}}</ion-checkbox>
+                <ion-checkbox ng-model="selSubjects[name + '|||' + subject.name]" ng-repeat="subject in classSubjects">{{"SUBJECTS." + subject.name|translate}}</ion-checkbox>
             </div>
         </form>
     </ion-content>

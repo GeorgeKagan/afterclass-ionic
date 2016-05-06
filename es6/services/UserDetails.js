@@ -1,35 +1,35 @@
 angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => {
-    let UserDetails = {}, degrees, courses, payload = {};
+    let UserDetails = {}, subjects, courses, payload = {};
 
-    UserDetails.getDegreesBySelectedInstitutes = (selInstitutes, institutes) => {
+    UserDetails.getSubjectsBySelectedClasses = (selClasses, classes) => {
         let data = {};
-        angular.forEach(selInstitutes, (isSelected, institute) => {
-            let degrees = [];
+        angular.forEach(selClasses, (isSelected, classLabel) => {
+            let subjects = [];
             if (!isSelected) { return; }
 
-            angular.forEach(institutes[institute], degree => degrees.push(degree));
-            degrees         = _.uniq(degrees, 'name');
-            data[institute] = degrees;
+            angular.forEach(classes[classLabel], subject => subjects.push(subject));
+            subjects         = _.uniq(subjects, 'name');
+            data[classLabel] = subjects;
         });
         return data;
     };
 
-    UserDetails.getCoursesBySelectedDegrees = (selDegrees, degrees) => {
+    UserDetails.getCoursesBySelectedSubjects = (selSubjects, subjects) => {
         let data = {};
-        angular.forEach(selDegrees, (isSelected, selDegree) => {
-            let selInstitute = selDegree.split('|||')[0];
-            selDegree = selDegree.split('|||')[1];
+        angular.forEach(selSubjects, (isSelected, selSubject) => {
+            let selClass = selSubject.split('|||')[0];
+            selSubject = selSubject.split('|||')[1];
             if (!isSelected) { return; }
 
-            angular.forEach(degrees, (degreeGroup, instituteName) => {
+            angular.forEach(subjects, (subjectGroup, classLabel) => {
                 let courses = [];
-                angular.forEach(degreeGroup, degree => {
-                    if (degree.name === selDegree && instituteName === selInstitute) {
-                        angular.forEach(degree.subjects, course => courses.push(course));
+                angular.forEach(subjectGroup, subject => {
+                    if (subject.name === selSubject && classLabel === selClass) {
+                        angular.forEach(subject.subjects, course => courses.push(course));
                     }
                 });
                 if (courses.length) {
-                    data[instituteName + '|||' + selDegree] = _.uniq(courses);
+                    data[classLabel + '|||' + selSubject] = _.uniq(courses);
                 }
             });
         });
@@ -43,33 +43,33 @@ angular.module('afterclass.services').factory('TeacherDetails', ($log, User) => 
             is_teacher             : true,
             degree                 : null,
             institute              : null,
-            target_institutes      : payload.institutes
+            target_institutes      : payload.classes
         });
     };
 
-    UserDetails.setDegrees = _degrees => degrees = _degrees;
+    UserDetails.setSubjects = _subjects => subjects = _subjects;
 
-    UserDetails.getDegrees = () => degrees;
+    UserDetails.getSubjects = () => subjects;
 
     UserDetails.setCourses = _courses => courses = _courses;
 
-    UserDetails.setPayloadInstitutes = institutes => {
+    UserDetails.setPayloadClasses = classes => {
         let hash = {};
-        angular.forEach(_.keys(institutes), institute => {
-            if (institutes[institute]) {
-                hash[institute] = {};
+        angular.forEach(_.keys(classes), classLabel => {
+            if (classes[classLabel]) {
+                hash[classLabel] = {};
             }
         });
-        payload.institutes = hash;
+        payload.classes = hash;
     };
 
-    UserDetails.setPayloadDegrees = (degrees, dummy3rdLevel = false) => {
-        angular.forEach(degrees, (isSelected, degree) => {
+    UserDetails.setPayloadSubjects = (subjects, dummy3rdLevel = false) => {
+        angular.forEach(subjects, (isSelected, subject) => {
             if (!isSelected) { return; }
-            let institute   = degree.split('|||')[0],
-                degree_name = degree.split('|||')[1];
-            if (payload.institutes[institute]) {
-                payload.institutes[institute][degree_name] = dummy3rdLevel ? ['dummy'] : [];
+            let classLabel   = subject.split('|||')[0],
+                subjectName = subject.split('|||')[1];
+            if (payload.classes[classLabel]) {
+                payload.classes[classLabel][subjectName] = dummy3rdLevel ? ['dummy'] : [];
             }
         });
     };

@@ -22,56 +22,56 @@ angular.module('afterclass.controllers').
     }).
 
     controller('UserDetailsTeacherStep1Ctrl', ($rootScope, $scope, $state, $http, TeacherDetails, AppConfig) => {
-        $scope.selInstitutes = {};
+        $scope.selClasses = {};
 
-        // If edit mode - mark chosen institutes as selected
+        // If edit mode - mark chosen classes as selected
         if ($rootScope.user.target_institutes) {
             Object.keys($rootScope.user.target_institutes).forEach(inst => {
                 if (Object.keys($rootScope.user.target_institutes[inst]).length) {
-                    $scope.selInstitutes[inst] = true;
+                    $scope.selClasses[inst] = true;
                 }
             });
         }
 
-        let populateScopeWithInstitutes = () => {
+        let populateScopeWithClasses = () => {
             AppConfig.loadConfig().then(() => {
-                $scope.institutes = angular.copy(AppConfig.getConfig().gradesSubjects);
+                $scope.classes = angular.copy(AppConfig.getConfig().gradesSubjects);
                 $scope.updateAllSelectedBtn();
             });
         };
-        $scope.$on('configUpdated', populateScopeWithInstitutes);
-        populateScopeWithInstitutes();
+        $scope.$on('configUpdated', populateScopeWithClasses);
+        populateScopeWithClasses();
 
         // Select All
         $scope.choice = {allSelected: false};
-        $scope.$watch('selInstitutes', () => $scope.updateAllSelectedBtn(), true);
+        $scope.$watch('selClasses', () => $scope.updateAllSelectedBtn(), true);
         $scope.selectAll = () => {
-            Object.keys($scope.institutes).forEach(inst => $scope.selInstitutes[inst] = $scope.choice.allSelected);
+            Object.keys($scope.classes).forEach(inst => $scope.selClasses[inst] = $scope.choice.allSelected);
         };
         $scope.updateAllSelectedBtn = () => {
-            $scope.choice.allSelected = Object.keys($scope.institutes).length === _.filter($scope.selInstitutes).length;
+            $scope.choice.allSelected = Object.keys($scope.classes).length === _.filter($scope.selClasses).length;
         };
 
         $scope.submitTeacherStep1 = () => {
-            let degrees = TeacherDetails.getDegreesBySelectedInstitutes($scope.selInstitutes, $scope.institutes);
-            TeacherDetails.setPayloadInstitutes($scope.selInstitutes);
-            TeacherDetails.setDegrees(degrees);
+            let subjects = TeacherDetails.getSubjectsBySelectedClasses($scope.selClasses, $scope.classes);
+            TeacherDetails.setPayloadClasses($scope.selClasses);
+            TeacherDetails.setSubjects(subjects);
             $state.go('userDetails_teacherStep2', {isEdit: $state.params.isEdit});
         };
 
-        $scope.canSubmit = () => _.filter($scope.selInstitutes).length > 0;
+        $scope.canSubmit = () => _.filter($scope.selClasses).length > 0;
     }).
 
     controller('UserDetailsTeacherStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherDetails) => {
-        $scope.selDegrees = {};
-        $scope.degrees    = TeacherDetails.getDegrees();
+        $scope.selSubjects = {};
+        $scope.subjects    = TeacherDetails.getSubjects();
 
-        // If edit mode - mark chosen degrees as selected
+        // If edit mode - mark chosen subjects as selected
         if ($rootScope.user.target_institutes) {
             Object.keys($rootScope.user.target_institutes).forEach(inst => {
-                Object.keys($rootScope.user.target_institutes[inst]).forEach(degree => {
-                    if ($rootScope.user.target_institutes[inst][degree].length) {
-                        $scope.selDegrees[inst + '|||' + degree] = true;
+                Object.keys($rootScope.user.target_institutes[inst]).forEach(subject => {
+                    if ($rootScope.user.target_institutes[inst][subject].length) {
+                        $scope.selSubjects[inst + '|||' + subject] = true;
                     }
                 });
             });
@@ -79,33 +79,33 @@ angular.module('afterclass.controllers').
 
         // Select All
         $scope.choice = {allSelected: false};
-        $scope.$watch('selDegrees', () => {
+        $scope.$watch('selSubjects', () => {
             $scope.updateAllSelectedBtn();
         }, true);
         $scope.selectAll = () => {
-            Object.keys($scope.degrees).forEach(grade => {
-                $scope.degrees[grade].forEach(subject => {
-                    $scope.selDegrees[grade + '|||' + subject.name] = $scope.choice.allSelected
+            Object.keys($scope.subjects).forEach(grade => {
+                $scope.subjects[grade].forEach(subject => {
+                    $scope.selSubjects[grade + '|||' + subject.name] = $scope.choice.allSelected
                 });
             });
         };
         $scope.updateAllSelectedBtn = () => {
             let count = 0;
-            Object.keys($scope.degrees).forEach(item => count += $scope.degrees[item].length);
-            $scope.choice.allSelected = count === _.filter($scope.selDegrees).length;
+            Object.keys($scope.subjects).forEach(item => count += $scope.subjects[item].length);
+            $scope.choice.allSelected = count === _.filter($scope.selSubjects).length;
         };
 
         $scope.submitTeacherStep2 = () => {
-            let courses = TeacherDetails.getCoursesBySelectedDegrees($scope.selDegrees, $scope.degrees);
-            TeacherDetails.setPayloadDegrees($scope.selDegrees);
+            let courses = TeacherDetails.getCoursesBySelectedSubjects($scope.selSubjects, $scope.subjects);
+            TeacherDetails.setPayloadSubjects($scope.selSubjects);
             TeacherDetails.setCourses(courses);
             $state.go('userDetails_teacherStep3', {isEdit: $state.params.isEdit});
         };
         $scope.submitTeacherStep2Last = () => {
-            TeacherDetails.setPayloadDegrees($scope.selDegrees, true);
+            TeacherDetails.setPayloadSubjects($scope.selSubjects, true);
             TeacherDetails.saveSelectedData();
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
         };
-        $scope.canSubmit = () => _.filter($scope.selDegrees).length > 0;
+        $scope.canSubmit = () => _.filter($scope.selSubjects).length > 0;
     });
