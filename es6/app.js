@@ -180,7 +180,7 @@ angular.module('afterclass', [
             $log.error('Exception: ' , exception);
             $log.error('Cause: ', cause);
             if (env !== 'dev') {
-                Bugsnag.notifyException(exception, {diagnostics:{cause: cause}});
+                // Notify some error logging service...
             }
         };
     })

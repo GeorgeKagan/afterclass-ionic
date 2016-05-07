@@ -26,30 +26,18 @@ angular.module('afterclass.directives').directive('askQuestionArea', ($rootScope
                 scope.btnClick        = () => $state.go('getPayment');
             } else {
                 scope.$watch('$root.user.credits', () => {
-                    //Get credit balance
-                    let pointsLeft = StudentCredit.getCreditBalance();
+                    // Get credit balance
+                    let pointsLeft        = StudentCredit.getCreditBalance();
                     scope.showCreditCount = pointsLeft !== 'unlimited';
                     scope.translationData = {count: pointsLeft};
+                    scope.btnText         = pointsLeft === 'unlimited' || pointsLeft > 0 ? 'ask' : 'points';
 
-                    //Set main button text
-                    if(pointsLeft === 'unlimited' || pointsLeft > 0) {
-                        scope.btnText = 'ask';
-                    } else {
-                        scope.btnText = 'points';
-                    }
-
-                    scope.btnClick        = () => {
+                    scope.btnClick = () => {
                         if (window.cordova && !$cordovaNetwork.isOnline()) {
                             return alert($translate.instant('CHECK_INTERNET'));
                         }
-
-                        //Open correct tab
-                        if(pointsLeft === 'unlimited' || pointsLeft > 0) {
-                            $state.go('askQuestion');
-                        } else {
-                            $state.go('getCreditManual');
-                        }
-
+                        // Open correct tab
+                        $state.go(pointsLeft === 'unlimited' || pointsLeft > 0 ? 'askQuestion' : 'getCreditManual');
                     };
                 }, true);
             }

@@ -17,13 +17,9 @@ angular.module('afterclass.directives').directive('starIcons', () => {
             rating: '='
         },
         link: scope => {
-            scope.starIcon = function(index) {
+            scope.starIcon = index => {
                 let rating = (scope.rating ? Math.round(scope.rating) : false) || scope.ratingObj.getRating();
-                if (index <= rating) {
-                    return 'img/star-full.png';
-                } else {
-                    return 'img/star-empty.png';
-                }
+                return index <= rating ? 'img/star-full.png' : 'img/star-empty.png';
             };
         }
     };
