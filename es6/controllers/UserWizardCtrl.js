@@ -26,19 +26,22 @@ angular.module('afterclass.controllers').
         $scope.selClasses = {};
         $scope.choice     = {isAllBtnSelected: false};
 
-        AppConfig.loadConfig().then(() => {
-            $scope.classes = angular.copy(AppConfig.getConfig().gradesSubjects);
-            $scope.updateAllSelectedBtn();
-        });
+        let populateScopeWithClasses = () => {
+            AppConfig.loadConfig().then(() => {
+                $scope.classes = angular.copy(AppConfig.getConfig().gradesSubjects);
+                $scope.updateAllSelectedBtn();
+            });
+        };
+        $scope.$on('configUpdated', populateScopeWithClasses);
+        populateScopeWithClasses();
+
         TeacherWizard.ifEditSelectChosenClasses($scope.selClasses);
-        $scope.$on('configUpdated', () => TeacherWizard.loadClassesList($scope.classes, $scope.selClasses, $scope.choice));
 
         // Select All
         $scope.$watch('selClasses',   () => $scope.updateAllSelectedBtn(), true);
         $scope.selectAll            = () => TeacherWizard.selectAllClasses($scope.classes, $scope.selClasses, $scope.choice.isAllBtnSelected);
-        $scope.updateAllSelectedBtn = () => TeacherWizard.updateSelectAllBtnState($scope.classes, $scope.selClasses, $scope.choice);
-
-        $scope.canSubmit = () => _.filter($scope.selClasses).length > 0;
+        $scope.updateAllSelectedBtn = () => TeacherWizard.updateSelectAllClassesBtnState($scope.classes, $scope.selClasses, $scope.choice);
+        $scope.canSubmit            = () => _.filter($scope.selClasses).length > 0;
 
         $scope.submitTeacherStep1 = () => {
             let subjects = TeacherWizard.getSubjectsBySelectedClasses($scope.selClasses, $scope.classes);
@@ -51,47 +54,20 @@ angular.module('afterclass.controllers').
     controller('UserWizardTeacherStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherWizard) => {
         $scope.selSubjects = {};
         $scope.subjects    = TeacherWizard.getSubjects();
+        $scope.choice      = {isAllBtnSelected: false};
 
-        //todo: stopped here - refactor out to service...
-
-        // If edit mode - mark chosen subjects as selected
-        if ($rootScope.user.target_institutes) {
-            Object.keys($rootScope.user.target_institutes).forEach(inst => {
-                Object.keys($rootScope.user.target_institutes[inst]).forEach(subject => {
-                    if ($rootScope.user.target_institutes[inst][subject].length) {
-                        $scope.selSubjects[inst + '|||' + subject] = true;
-                    }
-                });
-            });
-        }
+        TeacherWizard.ifEditSelectChosenSubjects($scope.selSubjects);
 
         // Select All
-        $scope.choice = {isAllBtnSelected: false};
-        $scope.$watch('selSubjects', () => {
-            $scope.updateAllSelectedBtn();
-        }, true);
-        $scope.selectAll = () => {
-            Object.keys($scope.subjects).forEach(grade => {
-                $scope.subjects[grade].forEach(subject => {
-                    $scope.selSubjects[grade + '|||' + subject.name] = $scope.choice.isAllBtnSelected
-                });
-            });
-        };
-        $scope.updateAllSelectedBtn = () => {
-            let count = 0;
-            Object.keys($scope.subjects).forEach(item => count += $scope.subjects[item].length);
-            $scope.choice.isAllBtnSelected = count === _.filter($scope.selSubjects).length;
-        };
+        $scope.$watch('selSubjects',  () => $scope.updateAllSelectedBtn(), true);
+        $scope.selectAll            = () => TeacherWizard.selectAllSubjects($scope.subjects, $scope.selSubjects, $scope.choice.isAllBtnSelected);
+        $scope.updateAllSelectedBtn = () => TeacherWizard.updateSelectAllSubjectsBtnState($scope.subjects, $scope.selSubjects, $scope.choice);
+        $scope.canSubmit            = () => _.filter($scope.selSubjects).length > 0;
 
-        $scope.submitTeacherStep2 = () => {
-            TeacherWizard.setPayloadSubjects($scope.selSubjects);
-            $state.go('userWizard_teacherStep3', {isEdit: $state.params.isEdit});
-        };
         $scope.submitTeacherStep2Last = () => {
             TeacherWizard.setPayloadSubjects($scope.selSubjects, true);
             TeacherWizard.saveSelectedData();
             $state.go('home');
             $ionicHistory.nextViewOptions({disableBack: true});
         };
-        $scope.canSubmit = () => _.filter($scope.selSubjects).length > 0;
     });

@@ -17,7 +17,7 @@ angular.module('afterclass.services').factory('TeacherWizard', ($rootScope, $log
         Object.keys(classes).forEach(inst => selClasses[inst] = isAllBtnSelected);
     };
 
-    TeacherWizard.updateSelectAllBtnState = (classes, selClasses, allBtn) => {
+    TeacherWizard.updateSelectAllClassesBtnState = (classes, selClasses, allBtn) => {
         allBtn.isAllBtnSelected = Object.keys(classes).length === _.filter(selClasses).length;
     };
 
@@ -32,6 +32,32 @@ angular.module('afterclass.services').factory('TeacherWizard', ($rootScope, $log
     };
 
     // SUBJECTS
+
+    TeacherWizard.ifEditSelectChosenSubjects = (selSubjects) => {
+        if ($rootScope.user.target_institutes) {
+            Object.keys($rootScope.user.target_institutes).forEach(inst => {
+                Object.keys($rootScope.user.target_institutes[inst]).forEach(subject => {
+                    if ($rootScope.user.target_institutes[inst][subject].length) {
+                        selSubjects[inst + '|||' + subject] = true;
+                    }
+                });
+            });
+        }
+    };
+
+    TeacherWizard.selectAllSubjects = (subjects, selSubjects, isAllBtnSelected) => {
+        Object.keys(subjects).forEach(grade => {
+            subjects[grade].forEach(subject => {
+                selSubjects[grade + '|||' + subject.name] = isAllBtnSelected
+            });
+        });
+    };
+
+    TeacherWizard.updateSelectAllSubjectsBtnState = (subjects, selSubjects, allBtn) => {
+        let count = 0;
+        Object.keys(subjects).forEach(item => count += subjects[item].length);
+        allBtn.isAllBtnSelected = count === _.filter(selSubjects).length;
+    };
 
     TeacherWizard.getSubjectsBySelectedClasses = (selClasses, classes) => {
         let data = {};

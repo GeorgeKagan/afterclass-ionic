@@ -81,7 +81,7 @@ angular.module('afterclass', [
             .state('userWizard_chooseType', {
                 url: '/chooseType',
                 templateUrl: 'templates/userWizard/choose-type.html',
-                controller: 'userWizardChooseTypeCtrl',
+                controller: 'UserWizardChooseTypeCtrl',
                 resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('userWizard_teacherStep1', {
