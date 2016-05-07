@@ -51,6 +51,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
                     if (error) {
                         $log.log('Firebase login failed!', error);
                     } else {
+                        delete authData.auth.token;
                         User.saveToFirebase(authData).then(user => {
                             Auth.postLoginOps(user, authData);
                             Auth.doRedirect(user);
