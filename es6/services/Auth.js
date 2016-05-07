@@ -8,6 +8,7 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
     Auth.autoLoginIfGotSession = () => {
         let authData = Auth.ref.getAuth();
         if (authData) {
+            delete authData.auth.token;
             User.getFromUsersCollection().then(user => {
                 Auth.postLoginOps(user, authData);
                 Auth.doRedirect(user);
