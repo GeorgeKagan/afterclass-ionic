@@ -21,36 +21,24 @@ angular.module('afterclass.controllers').
         $scope.teacher = () => $state.go('userWizard_teacherStep1');
     }).
 
-    controller('UserWizardTeacherStep1Ctrl', ($rootScope, $scope, $state, $http, TeacherWizard, AppConfig) => {
+    controller('UserWizardTeacherStep1Ctrl', ($rootScope, $scope, $state, TeacherWizard, AppConfig) => {
+        $scope.classes    = {};
         $scope.selClasses = {};
+        $scope.choice     = {isAllBtnSelected: false};
 
-        // If edit mode - mark chosen classes as selected
-        if ($rootScope.user.target_institutes) {
-            Object.keys($rootScope.user.target_institutes).forEach(inst => {
-                if (Object.keys($rootScope.user.target_institutes[inst]).length) {
-                    $scope.selClasses[inst] = true;
-                }
-            });
-        }
-
-        let populateScopeWithClasses = () => {
-            AppConfig.loadConfig().then(() => {
-                $scope.classes = angular.copy(AppConfig.getConfig().gradesSubjects);
-                $scope.updateAllSelectedBtn();
-            });
-        };
-        $scope.$on('configUpdated', populateScopeWithClasses);
-        populateScopeWithClasses();
+        AppConfig.loadConfig().then(() => {
+            $scope.classes = angular.copy(AppConfig.getConfig().gradesSubjects);
+            $scope.updateAllSelectedBtn();
+        });
+        TeacherWizard.ifEditSelectChosenClasses($scope.selClasses);
+        $scope.$on('configUpdated', () => TeacherWizard.loadClassesList($scope.classes, $scope.selClasses, $scope.choice));
 
         // Select All
-        $scope.choice = {allSelected: false};
-        $scope.$watch('selClasses', () => $scope.updateAllSelectedBtn(), true);
-        $scope.selectAll = () => {
-            Object.keys($scope.classes).forEach(inst => $scope.selClasses[inst] = $scope.choice.allSelected);
-        };
-        $scope.updateAllSelectedBtn = () => {
-            $scope.choice.allSelected = Object.keys($scope.classes).length === _.filter($scope.selClasses).length;
-        };
+        $scope.$watch('selClasses',   () => $scope.updateAllSelectedBtn(), true);
+        $scope.selectAll            = () => TeacherWizard.selectAllClasses($scope.classes, $scope.selClasses, $scope.choice.isAllBtnSelected);
+        $scope.updateAllSelectedBtn = () => TeacherWizard.updateSelectAllBtnState($scope.classes, $scope.selClasses, $scope.choice);
+
+        $scope.canSubmit = () => _.filter($scope.selClasses).length > 0;
 
         $scope.submitTeacherStep1 = () => {
             let subjects = TeacherWizard.getSubjectsBySelectedClasses($scope.selClasses, $scope.classes);
@@ -58,13 +46,13 @@ angular.module('afterclass.controllers').
             TeacherWizard.setSubjects(subjects);
             $state.go('userWizard_teacherStep2', {isEdit: $state.params.isEdit});
         };
-
-        $scope.canSubmit = () => _.filter($scope.selClasses).length > 0;
     }).
 
     controller('UserWizardTeacherStep2Ctrl', ($rootScope, $scope, $state, $ionicHistory, TeacherWizard) => {
         $scope.selSubjects = {};
         $scope.subjects    = TeacherWizard.getSubjects();
+
+        //todo: stopped here - refactor out to service...
 
         // If edit mode - mark chosen subjects as selected
         if ($rootScope.user.target_institutes) {
@@ -78,21 +66,21 @@ angular.module('afterclass.controllers').
         }
 
         // Select All
-        $scope.choice = {allSelected: false};
+        $scope.choice = {isAllBtnSelected: false};
         $scope.$watch('selSubjects', () => {
             $scope.updateAllSelectedBtn();
         }, true);
         $scope.selectAll = () => {
             Object.keys($scope.subjects).forEach(grade => {
                 $scope.subjects[grade].forEach(subject => {
-                    $scope.selSubjects[grade + '|||' + subject.name] = $scope.choice.allSelected
+                    $scope.selSubjects[grade + '|||' + subject.name] = $scope.choice.isAllBtnSelected
                 });
             });
         };
         $scope.updateAllSelectedBtn = () => {
             let count = 0;
             Object.keys($scope.subjects).forEach(item => count += $scope.subjects[item].length);
-            $scope.choice.allSelected = count === _.filter($scope.selSubjects).length;
+            $scope.choice.isAllBtnSelected = count === _.filter($scope.selSubjects).length;
         };
 
         $scope.submitTeacherStep2 = () => {

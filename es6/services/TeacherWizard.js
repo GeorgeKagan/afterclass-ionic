@@ -1,5 +1,25 @@
-angular.module('afterclass.services').factory('TeacherWizard', ($log, User) => {
+angular.module('afterclass.services').factory('TeacherWizard', ($rootScope, $log, User) => {
     let TeacherWizard = {}, subjects, payload = {};
+
+    // CLASSES
+
+    TeacherWizard.ifEditSelectChosenClasses = selClasses => {
+        if ($rootScope.user.target_institutes) {
+            Object.keys($rootScope.user.target_institutes).forEach(inst => {
+                if (Object.keys($rootScope.user.target_institutes[inst]).length) {
+                    selClasses[inst] = true;
+                }
+            });
+        }
+    };
+
+    TeacherWizard.selectAllClasses = (classes, selClasses, isAllBtnSelected) => {
+        Object.keys(classes).forEach(inst => selClasses[inst] = isAllBtnSelected);
+    };
+
+    TeacherWizard.updateSelectAllBtnState = (classes, selClasses, allBtn) => {
+        allBtn.isAllBtnSelected = Object.keys(classes).length === _.filter(selClasses).length;
+    };
 
     TeacherWizard.setPayloadClasses = classes => {
         let hash = {};
@@ -11,16 +31,7 @@ angular.module('afterclass.services').factory('TeacherWizard', ($log, User) => {
         payload.classes = hash;
     };
 
-    TeacherWizard.setPayloadSubjects = (subjects, dummy3rdLevel = false) => {
-        angular.forEach(subjects, (isSelected, subject) => {
-            if (!isSelected) { return; }
-            let classLabel   = subject.split('|||')[0],
-                subjectName = subject.split('|||')[1];
-            if (payload.classes[classLabel]) {
-                payload.classes[classLabel][subjectName] = dummy3rdLevel ? ['dummy'] : [];
-            }
-        });
-    };
+    // SUBJECTS
 
     TeacherWizard.getSubjectsBySelectedClasses = (selClasses, classes) => {
         let data = {};
@@ -35,6 +46,23 @@ angular.module('afterclass.services').factory('TeacherWizard', ($log, User) => {
         return data;
     };
 
+    TeacherWizard.setPayloadSubjects = (subjects, dummy3rdLevel = false) => {
+        angular.forEach(subjects, (isSelected, subject) => {
+            if (!isSelected) { return; }
+            let classLabel   = subject.split('|||')[0],
+                subjectName = subject.split('|||')[1];
+            if (payload.classes[classLabel]) {
+                payload.classes[classLabel][subjectName] = dummy3rdLevel ? ['dummy'] : [];
+            }
+        });
+    };
+
+    TeacherWizard.setSubjects = _subjects => subjects = _subjects;
+
+    TeacherWizard.getSubjects = () => subjects;
+
+    // COMMON
+
     TeacherWizard.saveSelectedData = () => {
         $log.log('Save teacher details payload', payload);
         User.updateUser({
@@ -45,10 +73,6 @@ angular.module('afterclass.services').factory('TeacherWizard', ($log, User) => {
             target_institutes      : payload.classes
         });
     };
-
-    TeacherWizard.setSubjects = _subjects => subjects = _subjects;
-
-    TeacherWizard.getSubjects = () => subjects;
 
     return TeacherWizard;
 });

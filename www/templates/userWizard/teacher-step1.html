@@ -12,7 +12,7 @@
     <ion-content class="has-header padding" has-bouncing="false">
         <h4 class="m-15 text-center">{{'USER_DETAILS.TEACHER.STEP1_TITLE'|translate}}</h4>
         <form>
-            <ion-checkbox ng-model="choice.allSelected" ng-click="selectAll()">{{'SELECT_ALL'|translate}}</ion-checkbox>
+            <ion-checkbox ng-model="choice.isAllBtnSelected" ng-click="selectAll()">{{'SELECT_ALL'|translate}}</ion-checkbox>
             <ion-checkbox ng-model="selClasses[name]" ng-repeat="(name, classLabel) in classes">{{"GRADES." + name|translate}}</ion-checkbox>
         </form>
     </ion-content>
