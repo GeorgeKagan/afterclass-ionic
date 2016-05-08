@@ -180,7 +180,7 @@ angular.module('afterclass', [
             $log.error('Exception: ' , exception);
             $log.error('Cause: ', cause);
             if (env !== 'dev') {
-                // Notify some error logging service...
+                Rollbar.critical('Error by exceptionHandler', { exception: exception, cause: cause });
             }
         };
     })

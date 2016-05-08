@@ -59,12 +59,13 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
             // data.additionalData
             //This is the actual push notification. Its format depends on the data model from the push server
             $log.log('message', data);
-            foregroundPopup && foregroundPopup.close();
-            foregroundPopup = $ionicPopup.alert({
-                title   : data.title,
-                template: data.message,
-                okText  : $translate.instant('OK')
-            });
+            // todo: enable when algorithm doesn't send notifications to the asking student (makes no sense)
+            // foregroundPopup && foregroundPopup.close();
+            // foregroundPopup = $ionicPopup.alert({
+            //     title   : data.title,
+            //     template: data.message,
+            //     okText  : $translate.instant('OK')
+            // });
         });
 
         push.on('error', function(e) {
@@ -82,7 +83,8 @@ angular.module('afterclass.services').factory('AmazonSNS', ($rootScope, $cordova
      * @param msg
      */
     Amazon.publish = (endpoint_arn, title, msg = '') => {
-        msg = msg.length > 20 ? msg.substr(0, 20) + '...' : msg;
+        let limit = 40;
+        msg = msg.length > limit ? msg.substr(0, limit) + '...' : msg;
         // PUBLISH TO ENDPOINT
         let params = {
             MessageStructure: 'json',
