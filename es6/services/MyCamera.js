@@ -9,8 +9,8 @@ angular.module('afterclass.services').factory('MyCamera', ($q, $window) => {
                 mediaType           : Camera.MediaType.PICTURE,
                 encodingType        : Camera.EncodingType.PNG,
                 correctOrientation  : true,
-                targetWidth         : 2000,
-                targetHeight        : 2000,
+                targetWidth         : 1500,
+                targetHeight        : 1500,
                 allowEdit           : false
             }, options);
 

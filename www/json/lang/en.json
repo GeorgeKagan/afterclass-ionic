@@ -156,7 +156,8 @@
         "ONE_TIME_PRICE": "NIS {{price}}"
     },
     "RATING": {
-        "SATISFACTION_RATE": "How much are you satisfied with the answer?"
+        "SATISFACTION_RATE": "How much are you satisfied with the answer?",
+        "RATING_TOO_LOW": "You chose a very low rating, we would appreciate your feedback, so we can get better!"
     },
     "LABELING": {
         "TITLE": "Labels",
