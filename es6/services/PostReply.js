@@ -1,5 +1,6 @@
 angular.module('afterclass.services').factory('PostReply', (
-    $rootScope, $firebaseObject, $firebaseArray, $ionicLoading, $ionicTabsDelegate, $ionicScrollDelegate, $ionicPopup, $state, $timeout, $log, $translate, $cordovaNetwork, MyFirebase, StudentCredit, CloudinaryUpload, AmazonSNS, Utils) => {
+    $rootScope, $firebaseObject, $firebaseArray, $ionicLoading, $ionicTabsDelegate, $ionicScrollDelegate, $ionicPopup, $state, $timeout, $log, $translate, $cordovaNetwork, $ionicActionSheet,
+    MyFirebase, StudentCredit, CloudinaryUpload, AmazonSNS, Utils, MyCamera) => {
     
     let PostReply = {};
 
@@ -96,6 +97,52 @@ angular.module('afterclass.services').factory('PostReply', (
             });
         }, error => {
             $log.log('Error: ', error);
+        });
+    };
+
+    PostReply.imageUpload = replyState => {
+        $ionicActionSheet.show({
+            buttons         : [{text: $translate.instant('CAMERA')}, {text: $translate.instant('DOCUMENTS')}],
+            destructiveText : replyState.addImgPreview ? $translate.instant('REMOVE') : '',
+            titleText       : $translate.instant('SEL_SOURCE'),
+            cancelText      : $translate.instant('CANCEL'),
+            destructiveButtonClicked: () => {
+                replyState.addImgPreview = false;
+                replyState.addImgUrl     = null;
+                return true;
+            },
+            buttonClicked: index => {
+                if (!window.cordova) {
+                    return alert('Only works on a real device!');
+                }
+                if (index === 0) {
+                    // Camera
+                    MyCamera.getPicture({sourceType: Camera.PictureSourceType.CAMERA}).then(result => {
+                        replyState.addImgUrl = result.imageURI;
+                        angular.element('.img-preview')
+                            .error(() => reportError('Failed to load user image on view question: ' + result.imageURI))
+                            .attr('src', result.imageURI);
+                        replyState.addImgPreview = true;
+                    }, () => replyState.addImgPreview = false);
+                } else {
+                    // Gallery
+                    MyCamera.getPicture({sourceType: Camera.PictureSourceType.PHOTOLIBRARY}).then(result => {
+                        if (!result.is_image) {
+                            return $ionicPopup.alert({
+                                title   : $translate.instant('ERROR'),
+                                template: $translate.instant('FORM.ONLY_IMG'),
+                                okText  : $translate.instant('OK')
+                            });
+                        }
+                        replyState.addImgUrl = result.imageURI;
+                        angular.element('.img-preview')
+                            .error(() => reportError('Failed to load user image on view question: ' + result.imageURI))
+                            .attr('src', result.imageURI);
+                        replyState.addImgPreview = true;
+                    }, () => replyState.addImgPreview = false);
+                }
+                return true;
+            }
         });
     };
 

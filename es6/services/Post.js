@@ -1,5 +1,6 @@
 angular.module('afterclass.services').factory('Post', (
-    $rootScope, $firebaseObject, $firebaseArray, $ionicLoading, $ionicTabsDelegate, $ionicPopup, $state, $timeout, $log, $translate, MyFirebase, StudentCredit, Utils) => {
+    $rootScope, $firebaseObject, $firebaseArray, $ionicLoading, $ionicTabsDelegate, $ionicPopup, $state, $timeout, $log, $translate, $cordovaNetwork,
+    MyFirebase, StudentCredit, Utils) => {
     
     let Post = {};
 
@@ -104,6 +105,55 @@ angular.module('afterclass.services').factory('Post', (
                 $log.log('Error: teacher [' + user_id + '] was not found is potential teachers array');
                 $log.log('potentialTeachers', potentialTeachers);
             }
+        });
+    };
+
+    Post.reportConversation = (post, report, ref, customMessage) => {
+        if (window.cordova && !$cordovaNetwork.isOnline()) {
+            return alert($translate.instant('CHECK_INTERNET'));
+        }
+        let scope = $rootScope.$new();
+        report.customMessage = typeof customMessage !== 'undefined' ? customMessage : '';
+        scope.report = report;
+
+        $ionicPopup.show({
+            templateUrl : 'templates/partials/conversation-report-popup.html',
+            scope       : scope,
+            title       : $translate.instant('REPORT_QUESTION'),
+            buttons     : [{
+                text: '<span>' + $translate.instant('CANCEL') + '</span>',
+                type: 'button-default button-block'
+            }, {
+                text: '<span>' + $translate.instant('SEND') + '</span>',
+                type: 'button-positive button-block',
+                onTap: () => {
+                    if (!report.content.trim()) {
+                        return;
+                    }
+                    post.$loaded().then(() => {
+                        let complaints = $firebaseArray(ref.child('complaints'));
+                        complaints.$loaded().then(post => {
+                            complaints.$add({
+                                user                : $rootScope.user.name,
+                                body                : report.content,
+                                create_date         : Firebase.ServerValue.TIMESTAMP,
+                                create_date_human   : moment().format('D/M/YY H:mm:ss'),
+                                is_teacher          : $rootScope.user.is_teacher
+                            });
+                            report.content = '';
+                            post.$save();
+                            $timeout(() => {
+                                $ionicPopup.alert({
+                                    title   : $translate.instant('SUCCESS'),
+                                    template: $translate.instant('REPORT_SENT'),
+                                    okText  : $translate.instant('OK')
+                                });
+                            }, 0);
+                        });
+                    });
+                }
+            }
+            ]
         });
     };
 
