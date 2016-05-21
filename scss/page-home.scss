@@ -13,6 +13,9 @@
       background: $header_blue;
     }
   }
+  #homeMessageBox {
+    margin-top: 50px;
+  }
 }
 // iOS student & teacher view (fix bottom scrolling cut)
 body.platform-ios {

@@ -50,7 +50,9 @@
         },
         "TEACHER": {
             "NOUNANSWERED": "You currently don't have questions awaiting you",
-            "NOANSWERED": "No questions were answered by you yet"
+            "NOANSWERED": "No questions were answered by you yet",
+            "MISSING_QUESTIONS_TITLE": "Got a notification but see <br /> no new question?",
+            "MISSING_QUESTIONS": "It's because another teacher got the questions first. Don't worry - more questions are on the way!"
         },
         "FULLRESOLUTION": "Full resolution view",
         "ASKQUESTION": "Ask question",
