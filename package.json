@@ -23,6 +23,9 @@
     "node-gyp": "^3.2.0",
     "shelljs": "^0.3.0"
   },
+  "scripts": {
+    "postinstall": "ionic plugin add phonegap-plugin-push --variable SENDER_ID=\"580333274108\";ionic plugin add https://github.com/Telerik-Verified-Plugins/Facebook.git --variable APP_ID=\"776966842380887\" --variable APP_NAME=\"AfterClass\";ionic plugin add cordova-plugin-whitelist;ionic plugin add cordova-plugin-camera;ionic plugin add cordova-plugin-file;ionic plugin add cordova-plugin-file-transfer;ionic plugin add cordova-plugin-inappbrowser;ionic plugin add cordova-plugin-splashscreen;ionic plugin add https://github.com/apache/cordova-plugin-network-information.git;ionic plugin add cordova-plugin-statusbar;ionic plugin add ionic-plugin-keyboard;"
+  },
   "cordovaPlugins": [
     {
       "variables": {
