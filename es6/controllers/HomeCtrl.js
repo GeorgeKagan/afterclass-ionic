@@ -43,10 +43,19 @@ angular.module('afterclass.controllers').controller('HomeCtrl', (
         Post.toggleAcceptance(firebase_id, $rootScope.user.uid);
     };
 
+    $scope.showMessageBox = () => {
+        if(typeof $rootScope.user !== 'undefined' && typeof $rootScope.user.create_date !== 'undefined') {
+            var now = new Date();
+            return $rootScope.user.create_date < now.setDate(now.getDate() - 1);
+        } else {
+            return false;
+        }
+    };
+
     $scope.homepageScrolled = Dom.homepageTabs.gotScrolled;
     $scope.scrollToTop      = Dom.homepageTabs.scrollToTop;
 
     $scope.$on('$ionicView.enter', () => {
         Dom.homepageTabs.gotScrolled();
-    })
+    });
 });
