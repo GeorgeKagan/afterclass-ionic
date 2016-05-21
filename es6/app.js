@@ -132,7 +132,7 @@ angular.module('afterclass', [
                 resolve: { user: User => User.getFromUsersCollection() }
             })
             .state('fullImage', {
-                url: '/fullImage/:img_id',
+                url: '/fullImage/:post_id/:img_id',
                 templateUrl: 'templates/full-image.html',
                 controller: 'FullImageCtrl',
                 resolve: { user: User => User.getFromUsersCollection() }

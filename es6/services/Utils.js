@@ -13,13 +13,6 @@ angular.module('afterclass.services').factory('Utils', ($rootScope, $window, $io
         });
     };
 
-    Utils.myGoBack = () => {
-        let wentBack = $ionicHistory.goBack();
-        if (!wentBack) {
-            $window.history.back()
-        }
-    };
-
     Utils.getPopoverHeight = () => {
         let itemCount = angular.element('ion-popover-view .list a').length + 1;
         return `popover-${itemCount}-items`;

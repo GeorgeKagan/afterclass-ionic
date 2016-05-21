@@ -78,7 +78,7 @@ angular.module('afterclass.controllers').controller('ViewQuestionCtrl', (
         $scope.showReplyForm      = true;
         $scope.showAcceptQuestion = false;
     };
-    $scope.viewFullImage      = imgId => $state.go('fullImage', {img_id: imgId});
+    $scope.viewFullImage      = (postId, imgId) => $state.go('fullImage', {post_id: postId, img_id: imgId});
     $scope.addImage           = () => PostReply.showStudentAgreement(() => PostReply.imageUpload($scope.replyState), replies, $scope.replyState);
     $scope.addReply           = () => PostReply.addReply(replies, $scope.replyState, $scope.post);
     $scope.reportConversation = () => Post.reportConversation($scope.post, $scope.report, post, $translate.instant('RATING.RATING_TOO_LOW'));

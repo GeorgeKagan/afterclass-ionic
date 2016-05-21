@@ -14,7 +14,7 @@
         <div class="post-img-wrapper" ng-if="post.img_id">
             <img image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_thumb,h_200/{{post.img_id}}.jpg"
                  image-lazy-loader="crescent"
-                 ng-click="viewFullImage(post.img_id)">
+                 ng-click="viewFullImage($root.$state.params.firebase_id, post.img_id)">
         </div>
 
         <div ng-repeat="reply in post.replies" class="post-comment-main">
@@ -25,7 +25,7 @@
             <div class="post-comment item-body">
                 <p dir="auto" ng-bind-html="reply.body | nl2br"></p>
                 <div class="pci-wrapper clearfix" dir="auto" ng-class="{'text-right': $root.uiLang==='he'}"
-                     ng-click="viewFullImage(reply.img_id)" ng-if="reply.img_id">
+                     ng-click="viewFullImage($root.$state.params.firebase_id, reply.img_id)" ng-if="reply.img_id">
                     <img class="post-img"
                          image-lazy-src="http://res.cloudinary.com/daayssulc/image/upload/c_thumb,h_100,w_100/{{reply.img_id}}.jpg"
                          width="50" height="50">

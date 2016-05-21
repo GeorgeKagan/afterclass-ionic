@@ -14,9 +14,6 @@ angular.module('afterclass.controllers', []).controller('AppCtrl', ($scope, $roo
         DevUser.addDevActionsIfDevUser();
     });
 
-    // In app back btn
-    $scope.myGoBack = Utils.myGoBack;
-
     // Header bar popover
     $ionicPopover.fromTemplateUrl('templates/partials/popover.html', {scope: $scope})
         .then(popover => $scope.popover = popover);
