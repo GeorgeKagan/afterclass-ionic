@@ -106,6 +106,12 @@ body.platform-ios {
 .posts {
   top: 15px;
 }
+body.platform-ios {
+	.posts {
+	  top: 35px;
+	}	
+}
+
 .card {
   margin: 15px;
   padding: 0;
