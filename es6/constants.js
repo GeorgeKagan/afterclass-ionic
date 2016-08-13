@@ -22,83 +22,44 @@ angular.module('afterclass.constants', []).constant('defaultConfig', {
         "כיתה יב"
     ],
     subjects: [
-        "מתמטיקה",
-        "אנגלית",
-        "לשון",
-        "מחשבים"
+        "מתמטיקה"
     ],
     gradesSubjects: {
         "כיתה א": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון", "subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ב": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ג": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ד": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ה": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ו": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ז": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ח": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה ט": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה י": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה יא": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ],
         "כיתה יב": [
-            {"name": "מתמטיקה", "subjects": []},
-            {"name": "אנגלית","subjects": []},
-            {"name": "לשון","subjects": []},
-            {"name": "מחשבים", "subjects": []}
+            {"name": "מתמטיקה", "subjects": []}
         ]
     }
 });
