@@ -18,19 +18,16 @@
 		border-bottom: 0;
 	}
 	select {
-		width: 100%;
-		border: 0;
-		margin: 0;
+		margin: 10px 0;
+		text-align-last: center;
 		display: block;
-		background: transparent;
-		-webkit-appearance: none;
-		position: relative;
-		left: -4px;
-		padding: 0 0 15px 0;
+		border-radius: 3px;
+		padding: 3px;
 	}
 	textarea {
 		resize: none;
 		line-height: 20px;
+		margin: 10px 0;
 	}
 	.aq-delete {
 		background: url(../img/close.png) no-repeat;
