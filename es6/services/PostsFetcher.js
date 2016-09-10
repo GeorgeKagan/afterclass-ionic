@@ -13,7 +13,7 @@ angular.module('afterclass.services').factory('PostsFetcher', ($rootScope, $fire
             scope.posts_teacher_unanswered = $firebaseArray(ref);
 
             // Answered posts by teacher (last_tutor_id = this teacher's id)
-            sync                = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
+            sync                 = ref.orderByChild('last_tutor_id').equalTo($rootScope.user.uid);
             postsTeacherAnswered = $firebaseArray(sync);
             postsTeacherAnswered.$loaded().then(() => scope.posts_teacher_answered = postsTeacherAnswered);
         },
