@@ -10,7 +10,7 @@
 
             <!-- LOGIN -->
             <h4 class="text-center m-20">{{'FORM.ALREADY_REGGED'|translate}}</h4>
-            <button class="fade button button-block button-outline button-calm" ng-click="showLogin()" ng-if="show==='register'">
+            <button class="fade button button-block  button-calm" ng-click="showLogin()" ng-if="show==='register'">
                 {{'LOGIN'|translate}}
             </button>
             <div class="fade" ng-if="show==='login'">
@@ -31,7 +31,7 @@
                 <div class="text-center" ng-if="!resetEmailSent" ng-click="sendResetEmail()">
                     {{'FORM.FORGOT_PW'|translate}}
                 </div>
-                <button class="button button-block button-outline button-calm" ng-click="login()" ng-disabled="!canLogin()">
+                <button class="button button-block button-calm" ng-click="login()" ng-disabled="!canLogin()">
                     {{'LOGIN'|translate}}
                 </button>
             </div>
@@ -39,7 +39,7 @@
             <br>
             <!-- REGISTRATION -->
             <h4 class="text-center m-20">{{'FORM.NEW_USER'|translate}}</h4>
-            <button class="fade button button-block button-outline button-calm" ng-click="showRegister()" ng-if="show==='login'">
+            <button class="fade button button-block button-calm" ng-click="showRegister()" ng-if="show==='login'">
                 {{'FORM.CREATE_NEW_USER'|translate}}
             </button>
             <div class="fade" ng-if="show==='register'">
@@ -81,7 +81,7 @@
                 <div class="assertive m-20 fade" ng-if="!isPasswordsSame()">
                     {{'FORM.PW_DONT_MATCH'|translate}}
                 </div>
-                <button class="button button-block button-outline button-calm" ng-click="register()" ng-disabled="!canRegister()">
+                <button class="button button-block button-calm" ng-click="register()" ng-disabled="!canRegister()">
                     {{'FORM.REG'|translate}}
                 </button>
             </div>

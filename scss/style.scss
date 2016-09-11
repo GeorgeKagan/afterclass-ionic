@@ -58,10 +58,11 @@
 .popup-body {
   overflow: visible;
   select {
-    width: 100%;
-    margin: 10px 0;
-    border: 0;
+    margin: 10px auto;
     text-align-last: center;
+    display: block;
+    border-radius: 3px;
+    padding: 3px;
   }
 }
 .popup-buttons {
@@ -99,13 +100,12 @@ textarea {
 }
 
 select, textarea, input[type="text"] {
-  font-size: 14px;
+  font-size: 16px;
   color: $gray2 !important;
   font-weight: normal;
 }
 select {
   background: transparent;
-  -webkit-appearance: none;
   color: inherit;
 }
 
