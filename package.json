@@ -4,9 +4,10 @@
   "description": "AfterClass - Get answers to your questions",
   "repository": {
     "type": "git",
-    "url": "https://LeoLiber@bitbucket.org/timenomad/afterclass-ionic.git"
+    "url": "https://LeoLiber@bitbucket.org/timenomad/afterclass-app.git"
   },
-  "license": "SEE LICENSE IN <filename>",
+  "license": "proprietary",
+  "private": true,
   "dependencies": {
     "gulp": "^3.9.0",
     "gulp-clean-css": "^2.0.6",
