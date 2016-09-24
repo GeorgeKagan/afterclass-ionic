@@ -1,0 +1,21 @@
+<div ng-if="!$root.user.is_teacher" class="posts content">
+
+    <div ng-if="!posts" class="spinner-wrapper">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <!-- If no answered questions for student -->
+    <div ng-if="(posts | filter: {status: 'answered'}:true).length===0" class="padding-left text-center">
+        {{'POST.STUDENT.NOANSWERED'|translate}}
+    </div>
+
+    <!-- Show answered questions -->
+    <div ng-repeat="post in posts | filter: {status: 'answered'}:true | filter:{body: ''} | orderBy: '-create_date' track by post.$id" class="list card">
+        <question post="post"
+                  view-post="viewPost"
+                  delete-post="deletePost"
+                  post-reply="postReply"
+                  header-bg="balanced-bg">
+        </question>
+    </div>
+</div>

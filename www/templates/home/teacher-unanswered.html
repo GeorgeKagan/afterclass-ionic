@@ -1,0 +1,29 @@
+<div ng-if="$root.user.is_teacher" class="posts content">
+
+    <div ng-if="!posts_teacher_unanswered" class="spinner-wrapper">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <!-- If no unanswered questions for teacher -->
+    <div ng-if="(posts_teacher_unanswered | filter:ifPotentialTeacher:true).length===0" class="padding-left text-center">
+        {{'POST.TEACHER.NOUNANSWERED'|translate}}
+
+        <div class="card" id="homeMessageBox" ng-show="showMessageBox()">
+            <div class="item item-divider" ng-bind-html="'POST.TEACHER.MISSING_QUESTIONS_TITLE'|translate"></div>
+            <div class="item item-text-wrap">
+                {{'POST.TEACHER.MISSING_QUESTIONS'|translate}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Show unanswered questions -->
+    <div ng-repeat="post in posts_teacher_unanswered | filter:ifPotentialTeacher:true | filter:{body: ''} | orderBy: '-create_date' track by post.$id" class="list card">
+        <question post="post"
+                  toggle-acceptance="toggleAcceptance"
+                  view-post="viewPost"
+                  delete-post="deletePost"
+                  post-reply="postReply"
+                  header-bg="calm-bg">
+        </question>
+    </div>
+</div>

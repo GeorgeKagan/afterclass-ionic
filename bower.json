@@ -18,6 +18,7 @@
     "ngCordova": "^0.1.27-alpha"
   },
   "resolutions": {
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "firebase": "^2.4.2"
   }
 }

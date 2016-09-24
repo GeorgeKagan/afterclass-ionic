@@ -191,7 +191,7 @@
     "ASK_A_TEACHER": "Send question",
     "GET_POINTS": "Buy membership",
     "GET_PAYMENT": "Get payment",
-    "GET_PAYMENT_SUBTITLE": "So far you've earned &#36;{{sum}}",
+    "GET_PAYMENT_SUBTITLE": "So far you've earned &#8362;{{sum}}",
     "NEXT": "Next",
     "REPORT_QUESTION": "Report this conversation",
     "REPORT_PLACEHOLDER": "What is the problem?",
