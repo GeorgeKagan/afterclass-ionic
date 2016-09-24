@@ -1,6 +1,5 @@
 {
-  "name": "afterclass",
-  "version": "1.0.0",
+  "name": "AfterClass",
   "description": "AfterClass - Get answers to your questions",
   "repository": {
     "type": "git",
@@ -8,19 +7,17 @@
   },
   "license": "proprietary",
   "private": true,
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-clean-css": "^2.0.6",
     "gulp-concat": "^2.2.0",
     "gulp-rename": "^1.2.0",
-    "gulp-sass": "^2.1.0"
-  },
-  "devDependencies": {
-    "babel-preset-es2015": "^6.3.13",
-    "bower": "^1.3.3",
+    "gulp-sass": "^2.1.0",
     "gulp-babel": "^6.1.1",
     "gulp-plumber": "^1.0.1",
     "gulp-util": "^2.2.14",
+    "babel-preset-es2015": "^6.3.13",
+    "bower": "^1.3.3",
     "node-gyp": "^3.2.0",
     "shelljs": "^0.3.0"
   },
