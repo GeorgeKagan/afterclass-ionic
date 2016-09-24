@@ -3,16 +3,30 @@ angular.module('afterclass.services', [])
     .factory('MyFirebase', ($log) => {
         let env = localStorage.getItem('env'),
             obj = {},
+            config = {},
             ref = null;
 
         if (env && env === 'dev') {
-            ref = new Firebase('https://spankin-butts.firebaseio.com/');
+            config = {
+                apiKey: "AIzaSyCvSWGEAaHPLteW08UbHdBzwAQggrM40SY",
+                authDomain: "spankin-butts.firebaseapp.com",
+                databaseURL: "https://spankin-butts.firebaseio.com",
+                storageBucket: "spankin-butts.appspot.com",
+                messagingSenderId: "322774520226"
+            };
             $log.info('Firebase env: DEV');
         } else {
-            ref = new Firebase('https://torrid-torch-3186.firebaseio.com/');
-            $log.warn('Firebase env: PROD');
+            // Prod
+            // config = {
+            //     apiKey: "AIzaSyCvSWGEAaHPLteW08UbHdBzwAQggrM40SY",
+            //     authDomain: "spankin-butts.firebaseapp.com",
+            //     databaseURL: "https://spankin-butts.firebaseio.com"
+            // };
+            // $log.warn('Firebase env: PROD');
         }
-        obj.getRef = () => ref;
+        firebase.initializeApp(config);
+        obj.getRef = () => firebase.database().ref();
+        obj.getFb = () => firebase;
         return obj;
     })
 

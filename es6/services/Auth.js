@@ -3,11 +3,11 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
     
     let Auth = {};
 
-    Auth.ref = MyFirebase.getRef();
+    Auth.ref = MyFirebase.getFb();
 
     Auth.autoLoginIfGotSession = () => {
-        let authData = Auth.ref.getAuth();
-        if (authData) {
+        let authData = Auth.ref.auth();
+        if (authData.currentUser) {
             delete authData.auth.token;
             User.getFromUsersCollection().then(user => {
                 Auth.postLoginOps(user, authData);
@@ -48,17 +48,23 @@ angular.module('afterclass.services').factory('Auth', ($rootScope, $ionicHistory
             $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'});
             window.facebookConnectPlugin.getAccessToken(token => {
                 // Authenticate with Facebook using an existing OAuth 2.0 access token
-                Auth.ref.authWithOAuthToken('facebook', token, (error, authData) => {
-                    if (error) {
-                        $log.log('Firebase login failed!', error);
-                    } else {
-                        delete authData.auth.token;
-                        User.saveToFirebase(authData).then(user => {
-                            Auth.postLoginOps(user, authData);
+
+                let provider = new Auth.ref.auth.FacebookAuthProvider();
+                Auth.ref.auth().signInWithRedirect(provider);
+
+                firebase.auth().getRedirectResult().then(function(result) {
+                    if (result.credential) {
+                        // let token = result.credential.accessToken;
+                        // let user = result.user;
+                        User.saveToFirebase(result.credential).then(user => {
+                            Auth.postLoginOps(user, result.credential);
                             Auth.doRedirect(user);
                         });
-                        $log.log('Authenticated successfully with payload:', authData);
+                    } else {
+                        $log.log('Firebase login failed!', result);
                     }
+                }).catch(function(error) {
+                    $log.log('Firebase login failed!', error);
                 });
             }, error => {
                 $log.log('Could not get access token', error);
